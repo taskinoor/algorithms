@@ -2,7 +2,7 @@
 
 #include "subarray.h"
 
-int max_subarray(int *a, int n) {
+int max_subarray(int *a, size_t n) {
     if (!n) {
         return 0;
     }

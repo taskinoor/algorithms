@@ -5,31 +5,31 @@
 TEST(MaxSubarrayTest, EmptyArray) {
     int a[] = {};
 
-    ASSERT_EQ(0, max_subarray(a, 0));
+    ASSERT_EQ(0, max_subarray<int>(a, 0));
 }
 
 TEST(MaxSubarrayTest, AllPositive) {
-    int a[] = {2, 3, 5, 7};
+    double a[] = {2.2, 3.3, 5.5, 7.7};
 
-    ASSERT_EQ(17, max_subarray(a, 4));
+    ASSERT_EQ(18.7, max_subarray<double>(a, 4));
 }
 
 TEST(MaxSubarrayTest, AllNegative) {
     int a[] = {-2, -3, -5, -7};
 
-    ASSERT_EQ(0, max_subarray(a, 4));
+    ASSERT_EQ(0, max_subarray<int>(a, 4));
 }
 
 TEST(MaxSubarrayTest, AllZero) {
     int a[] = {0, 0, 0};
 
-    ASSERT_EQ(0, max_subarray(a, 3));
+    ASSERT_EQ(0, max_subarray<int>(a, 3));
 }
 
 TEST(MaxSubarrayTest, PositiveAndNegative) {
     int a[] = {-2, -4, 3, -1, 5, 6, -7, -2, 4, -3, 2};
 
-    ASSERT_EQ(13, max_subarray(a, 11));
+    ASSERT_EQ(13, max_subarray<int>(a, 11));
 }
 
 int main(int argc, char **argv) {

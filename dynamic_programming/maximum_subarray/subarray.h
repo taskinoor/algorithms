@@ -3,6 +3,9 @@
 
 #include <stddef.h>
 
-int max_subarray(int *, size_t);
+template <class T>
+T max_subarray(T *, size_t);
+
+#include "subarray.tpp"
 
 #endif

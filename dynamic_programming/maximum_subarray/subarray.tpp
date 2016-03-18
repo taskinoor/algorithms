@@ -1,5 +1,3 @@
-#include "subarray.h"
-
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 template <class T>

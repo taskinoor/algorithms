@@ -1,5 +1,3 @@
-# include "stack.h"
-
 template <class T>
 Stack<T>::Stack(size_t n) {
     size = n;

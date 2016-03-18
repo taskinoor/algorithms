@@ -1,5 +1,3 @@
-#include "queue.h"
-
 template <class T>
 Queue<T>::Queue(size_t n) {
     size = n + 1;

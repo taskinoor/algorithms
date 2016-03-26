@@ -3,8 +3,10 @@
 
 #include <stddef.h>
 
-template <class T>
-class LinkedList;
+#include "iterator.h"
+
+template <class T> class LinkedList;
+template <class T> class ListIterator;
 
 template <class T>
 class Node {
@@ -37,8 +39,41 @@ public:
     void insert_before(Node<T> *, T);
     void insert_first(T);
     void insert_last(T);
+
+    ListIterator<T> *create_iterator(bool forward=true);
+    void destroy_iterator(ListIterator<T> *);
+};
+
+template <class T>
+class ListIterator : public Iterator<T> {
+protected:
+    LinkedList<T> *list;
+    Node<T> *current;
+public:
+    ListIterator(LinkedList<T> *);
+
+    virtual bool is_done() const;
+    virtual T current_item() const;
+};
+
+template <class T>
+class ForwardListIterator : public ListIterator<T> {
+public:
+    ForwardListIterator(LinkedList<T> *list) : ListIterator<T>(list) {}
+
+    virtual void first();
+    virtual void next();
+};
+
+template <class T>
+class BackwordListIterator : public ListIterator<T> {
+public:
+    BackwordListIterator(LinkedList<T> *list) : ListIterator<T>(list) {}
+
+    virtual void first();
+    virtual void next();
 };
 
 #include "list.tpp"
 
-#endif /* LIST_H_ */
+#endif

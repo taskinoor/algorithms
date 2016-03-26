@@ -90,3 +90,53 @@ template <class T>
 void LinkedList<T>::insert_last(T element) {
     insert_before(tail, element);
 }
+
+template <class T>
+ListIterator<T> *LinkedList<T>::create_iterator(bool forward) {
+    if (forward) {
+        return new ForwardListIterator<T>(this);
+    } else {
+        return new BackwordListIterator<T>(this);
+    }
+}
+
+template <class T>
+void LinkedList<T>::destroy_iterator(ListIterator<T> *iter) {
+    delete iter;
+}
+
+template <class T>
+ListIterator<T>::ListIterator(LinkedList<T> *list) {
+    this->list = list;
+    current = NULL;
+}
+
+template <class T>
+bool ListIterator<T>::is_done() const {
+    return current == NULL;
+}
+
+template <class T>
+T ListIterator<T>::current_item() const {
+    return current->get_element();
+}
+
+template <class T>
+void ForwardListIterator<T>::first() {
+    this->current = this->list->first();
+}
+
+template <class T>
+void ForwardListIterator<T>::next() {
+    this->current = this->list->after(this->current);
+}
+
+template <class T>
+void BackwordListIterator<T>::first() {
+    this->current = this->list->last();
+}
+
+template <class T>
+void BackwordListIterator<T>::next() {
+    this->current = this->list->before(this->current);
+}

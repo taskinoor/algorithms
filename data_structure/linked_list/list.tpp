@@ -106,6 +106,14 @@ Node<T> *LinkedList<T>::search(T element) {
 }
 
 template <class T>
+void LinkedList<T>::remove(Node<T> *p) {
+    p->prev->next = p->next;
+    p->next->prev = p->prev;
+
+    delete p;
+}
+
+template <class T>
 ListIterator<T> *LinkedList<T>::create_iterator(bool forward) {
     if (forward) {
         return new ForwardListIterator<T>(this);

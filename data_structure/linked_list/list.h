@@ -41,6 +41,7 @@ public:
     void insert_last(T);
 
     Node<T> *search(T);
+    void remove(Node<T> *);
 
     ListIterator<T> *create_iterator(bool forward=true);
     void destroy_iterator(ListIterator<T> *);

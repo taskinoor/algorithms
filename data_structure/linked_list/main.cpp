@@ -87,6 +87,35 @@ TEST(LinkedListTest, Search) {
     ASSERT_EQ(NULL, list.after(list.search(5)));
 }
 
+TEST(LinkedListTest, Remove) {
+    LinkedList<int> list;
+    int a[] = {2, 3, 5, 7, 11, 13, 17};
+    int i;
+
+    for (i = 0; i < 7; i++) {
+        list.insert_first(a[i]);
+    }
+
+    list.remove(list.search(2));
+    list.remove(list.search(17));
+    list.remove(list.search(7));
+
+    int expected[] = {3, 5, 11, 13};
+
+    ForwardListIterator<int> *iter_forward = (ForwardListIterator<int> *)list.create_iterator();
+    BackwordListIterator<int> *iter_backword = (BackwordListIterator<int> *)list.create_iterator(false);
+
+    for (i = 3, iter_forward->first(); !iter_forward->is_done(); iter_forward->next(), i--) {
+        ASSERT_EQ(expected[i], iter_forward->current_item());
+    }
+    for (i = 0, iter_backword->first(); !iter_backword->is_done(); iter_backword->next(), i++) {
+        ASSERT_EQ(expected[i], iter_backword->current_item());
+    }
+
+    list.destroy_iterator(iter_forward);
+    list.destroy_iterator(iter_backword);
+}
+
 TEST(ListIteratorTest, InsertFirst) {
     LinkedList<int> list;
     int a[] = {2, 3, 5, 7, 11, 13, 17};

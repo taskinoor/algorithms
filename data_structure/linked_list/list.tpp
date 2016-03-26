@@ -92,6 +92,20 @@ void LinkedList<T>::insert_last(T element) {
 }
 
 template <class T>
+Node<T> *LinkedList<T>::search(T element) {
+    Node<T> *current = head->next;
+
+    while (current != tail) {
+        if (current->get_element() == element) {
+            return current;
+        }
+        current = current->next;
+    }
+
+    return NULL;
+}
+
+template <class T>
 ListIterator<T> *LinkedList<T>::create_iterator(bool forward) {
     if (forward) {
         return new ForwardListIterator<T>(this);

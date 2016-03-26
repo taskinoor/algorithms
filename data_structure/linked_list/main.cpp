@@ -63,6 +63,30 @@ TEST(LinkedListTest, InsertBefore) {
     ASSERT_EQ(5, list.first()->get_element());
 }
 
+TEST(LinkedListTest, Search) {
+    LinkedList<int> list;
+
+    ASSERT_EQ(NULL, list.search(2));
+
+    list.insert_last(2);
+    list.insert_last(3);
+    list.insert_last(5);
+
+    ASSERT_EQ(NULL, list.search(7));
+
+    ASSERT_EQ(2, list.search(2)->get_element());
+    ASSERT_EQ(NULL, list.before(list.search(2)));
+    ASSERT_EQ(list.search(3), list.after(list.search(2)));
+
+    ASSERT_EQ(3, list.search(3)->get_element());
+    ASSERT_EQ(list.search(2), list.before(list.search(3)));
+    ASSERT_EQ(list.search(5), list.after(list.search(3)));
+
+    ASSERT_EQ(5, list.search(5)->get_element());
+    ASSERT_EQ(list.search(3), list.before(list.search(5)));
+    ASSERT_EQ(NULL, list.after(list.search(5)));
+}
+
 TEST(ListIteratorTest, InsertFirst) {
     LinkedList<int> list;
     int a[] = {2, 3, 5, 7, 11, 13, 17};

@@ -63,6 +63,69 @@ TEST(LinkedListTest, InsertBefore) {
     ASSERT_EQ(5, list.first()->get_element());
 }
 
+TEST(ListIteratorTest, InsertFirst) {
+    LinkedList<int> list;
+    int a[] = {2, 3, 5, 7, 11, 13, 17};
+    int i;
+
+    for (i = 0; i < 7; i++) {
+        list.insert_first(a[i]);
+    }
+
+    ForwardListIterator<int> *iter_forward = (ForwardListIterator<int> *)list.create_iterator();
+    BackwordListIterator<int> *iter_backword = (BackwordListIterator<int> *)list.create_iterator(false);
+
+    for (i = 6, iter_forward->first(); !iter_forward->is_done(); iter_forward->next(), i--) {
+        ASSERT_EQ(a[i], iter_forward->current_item());
+    }
+    for (i = 0, iter_backword->first(); !iter_backword->is_done(); iter_backword->next(), i++) {
+        ASSERT_EQ(a[i], iter_backword->current_item());
+    }
+
+    list.destroy_iterator(iter_forward);
+    list.destroy_iterator(iter_backword);
+}
+
+TEST(ListIteratorTest, InsertLast) {
+    LinkedList<int> list;
+    int a[] = {2, 3, 5, 7, 11, 13, 17};
+    int i;
+
+    for (i = 0; i < 7; i++) {
+        list.insert_last(a[i]);
+    }
+
+    ForwardListIterator<int> *iter_forward = (ForwardListIterator<int> *)list.create_iterator();
+    BackwordListIterator<int> *iter_backword = (BackwordListIterator<int> *)list.create_iterator(false);
+
+    for (i = 0, iter_forward->first(); !iter_forward->is_done(); iter_forward->next(), i++) {
+        ASSERT_EQ(a[i], iter_forward->current_item());
+    }
+    for (i = 6, iter_backword->first(); !iter_backword->is_done(); iter_backword->next(), i--) {
+        ASSERT_EQ(a[i], iter_backword->current_item());
+    }
+
+    list.destroy_iterator(iter_forward);
+    list.destroy_iterator(iter_backword);
+}
+
+TEST(ListIteratorTest, EmptyList) {
+    LinkedList<int> list;
+
+    ForwardListIterator<int> *iter_forward = (ForwardListIterator<int> *)list.create_iterator();
+    BackwordListIterator<int> *iter_backword = (BackwordListIterator<int> *)list.create_iterator(false);
+
+    for (iter_forward->first(); !iter_forward->is_done(); iter_forward->next()) {
+        FAIL();
+    }
+    for (iter_backword->first(); !iter_backword->is_done(); iter_backword->next()) {
+        FAIL();
+    }
+
+    list.destroy_iterator(iter_forward);
+    list.destroy_iterator(iter_backword);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

@@ -2,12 +2,11 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 
 * Data Structure
 	* Extendable Array
-	* Linked List (Doubly)
-		* Get operations (first node, last node, before a node, after a node)
-		* Update operations (insert at head, tail, after a node and before a node)
-		* Search
-		* Remove node
-		* Iterations (forward and backward direction)
+	* Linked List
+		* Doubly Linked List
+		* Travsersal
+			* Forward Iterator
+			* Backward Iterator
 	* Queue (Fixed size)
 	* Stack (Fixed size)
 * Dynamic Programming

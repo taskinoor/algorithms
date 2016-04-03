@@ -11,8 +11,8 @@ template <class T> class ListIterator;
 template <class T>
 class Node {
 private:
-    Node *next;
-    Node *prev;
+    Node<T> *next;
+    Node<T> *prev;
     T element;
 
     friend class LinkedList<T>;

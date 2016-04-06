@@ -32,6 +32,8 @@ public:
     Node<T> *get_parent(Node<T> *);
     Node<T> *get_child(Node<T> *, bool);
     void set_child(Node<T> *, Node<T> *, bool);
+
+    int depth(Node<T> *);
 };
 
 #include "binary_tree.tpp"

@@ -54,6 +54,14 @@ TEST_F(BinaryTreeTest, AccessorMethods) {
     }
 }
 
+TEST_F(BinaryTreeTest, Depth) {
+    int expected[6] = {0, 1, 1, 2, 2, 3};
+
+    for (int i = 0; i < 6; i++) {
+        ASSERT_EQ(expected[i], tree->depth(node[i]));
+    }
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

@@ -53,3 +53,15 @@ void BinaryTree<T>::set_child(Node<T> *p, Node<T> *child, bool is_right) {
         p->left = child;
     }
 }
+
+template <class T>
+int BinaryTree<T>::depth(Node<T> *p) {
+    int d = 0;
+
+    while (p->parent != NULL) {
+        p = p->parent;
+        d++;
+    }
+
+    return d;
+}

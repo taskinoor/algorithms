@@ -1,4 +1,4 @@
 # Simple makefile.
 
 all:
-	g++ main.cpp -lgtest -lpthread
+	g++ -I/mnt/algorithms/common main.cpp -lgtest -lpthread

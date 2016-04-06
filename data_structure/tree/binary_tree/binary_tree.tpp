@@ -65,3 +65,17 @@ int BinaryTree<T>::depth(Node<T> *p) {
 
     return d;
 }
+
+template <class T>
+int BinaryTree<T>::height() {
+    return height(root);
+}
+
+template <class T>
+int BinaryTree<T>::height(Node<T> *p) {
+    if (!p) {
+        return -1;
+    }
+
+    return 1 + MAX(height(p->left), height(p->right));
+}

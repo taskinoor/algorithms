@@ -62,6 +62,16 @@ TEST_F(BinaryTreeTest, Depth) {
     }
 }
 
+TEST_F(BinaryTreeTest, Height) {
+    int expected[6] = {3, 2, 0, 0, 1, 0};
+
+    for (int i = 0; i < 6; i++) {
+        ASSERT_EQ(expected[i], tree->height(node[i]));
+    }
+
+    ASSERT_EQ(3, tree->height());
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

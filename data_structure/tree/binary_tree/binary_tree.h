@@ -1,6 +1,8 @@
 #ifndef BINARY_TREE_H_
 #define BINARY_TREE_H_
 
+#include "utils.h"
+
 template <class T> class BinaryTree;
 
 template <class T>
@@ -34,6 +36,8 @@ public:
     void set_child(Node<T> *, Node<T> *, bool);
 
     int depth(Node<T> *);
+    int height();
+    int height(Node<T> *);
 };
 
 #include "binary_tree.tpp"

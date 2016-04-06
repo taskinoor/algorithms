@@ -1,5 +1,3 @@
-#define MAX(a,b) (((a)>(b))?(a):(b))
-
 template <class T>
 T max_subarray(T *a, size_t n) {
     if (!n) {

@@ -31,3 +31,8 @@ T Stack<T>::pop() {
 
     return element;
 }
+
+template <class T>
+size_t Stack<T>::count() {
+    return top + 1;
+}

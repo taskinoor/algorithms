@@ -24,8 +24,10 @@ private:
 public:
     Stack(size_t);
     ~Stack();
+
     void push(T);
     T pop();
+    size_t count();
 };
 
 #include "stack.tpp"

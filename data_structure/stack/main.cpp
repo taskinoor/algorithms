@@ -29,6 +29,33 @@ TEST(StackTest, PushPop) {
     }
 }
 
+TEST(StackTest, Count) {
+    size_t n = 17, d1 = 13, d2 = 7;
+    Stack<int> s(n);
+
+    ASSERT_EQ(0, s.count());
+
+    for (int i = 0; i < n; i++) {
+        s.push(i);
+    }
+    ASSERT_EQ(n, s.count());
+
+    for (int i = 0; i < d1; i++) {
+        s.pop();
+    }
+    ASSERT_EQ(n - d1, s.count());
+
+    for (int i = 0; i < d2; i++) {
+        s.push(i);
+    }
+    ASSERT_EQ(n - d1 + d2, s.count());
+
+    for (int i = 0; i < n - d1 + d2; i++) {
+        s.pop();
+    }
+    ASSERT_EQ(0, s.count());
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

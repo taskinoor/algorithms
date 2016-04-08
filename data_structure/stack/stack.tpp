@@ -1,7 +1,7 @@
 template <class T>
 Stack<T>::Stack(size_t n) {
     size = n;
-    top = -1;
+    _top = -1;
     buffer = new T[n];
 }
 
@@ -12,27 +12,36 @@ Stack<T>::~Stack() {
 
 template <class T>
 void Stack<T>::push(T element) {
-    if (top == size - 1) {
+    if (_top == size - 1) {
         throw StackFullError();
     }
 
-    top += 1;
-    buffer[top] = element;
+    _top += 1;
+    buffer[_top] = element;
 }
 
 template <class T>
 T Stack<T>::pop() {
-    if (top == -1) {
+    if (_top == -1) {
         throw StackEmptyError();
     }
 
-    T element = buffer[top];
-    top -= 1;
+    T element = buffer[_top];
+    _top -= 1;
 
     return element;
 }
 
 template <class T>
+T Stack<T>::top() {
+    if (_top == -1) {
+        throw StackEmptyError();
+    }
+
+    return buffer[_top];
+}
+
+template <class T>
 size_t Stack<T>::count() {
-    return top + 1;
+    return _top + 1;
 }

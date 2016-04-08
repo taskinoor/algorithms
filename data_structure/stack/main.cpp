@@ -29,6 +29,15 @@ TEST(StackTest, PushPop) {
     }
 }
 
+TEST(StackTest, Top) {
+    Stack<int> s(2);
+
+    ASSERT_THROW(s.top(), StackEmptyError);
+    s.push(2);
+    ASSERT_EQ(2, s.top());
+    ASSERT_EQ(2, s.top());
+}
+
 TEST(StackTest, Count) {
     size_t n = 17, d1 = 13, d2 = 7;
     Stack<int> s(n);

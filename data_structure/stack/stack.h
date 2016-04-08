@@ -19,7 +19,7 @@ template <class T>
 class Stack {
 private:
     T *buffer;
-    int top;
+    int _top;
     size_t size;
 public:
     Stack(size_t);
@@ -27,6 +27,7 @@ public:
 
     void push(T);
     T pop();
+    T top();
     size_t count();
 };
 

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "preorder.h"
+#include "postorder.h"
 
 class TreeIteratorTest : public ::testing::Test {
 private:
@@ -55,6 +56,7 @@ TEST_F(TreeIteratorTest, PreOrder) {
     for (it->first(); !it->is_done(); it->next(), i++) {
         ASSERT_EQ(expected[i], it->current_item());
     }
+    ASSERT_EQ(9, i);
 
     delete it;
 }
@@ -65,10 +67,33 @@ TEST_F(TreeIteratorTest, PreOrderOnlyRoot) {
 
     for (it->first(); !it->is_done(); it->next(), i++) {
         ASSERT_EQ('A', it->current_item());
-        if (i > 0) {
-            FAIL();
-        }
     }
+    ASSERT_EQ(1, i);
+
+    delete it;
+}
+
+TEST_F(TreeIteratorTest, PostOrder) {
+    PostOrderIterator<char> *it = new PostOrderIterator<char>(tree);
+    char expected[9] = {'A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'};
+    int i = 0;
+
+    for (it->first(); !it->is_done(); it->next(), i++) {
+        ASSERT_EQ(expected[i], it->current_item());
+    }
+    ASSERT_EQ(9, i);
+
+    delete it;
+}
+
+TEST_F(TreeIteratorTest, PostOrderOnlyRoot) {
+    PostOrderIterator<char> *it = new PostOrderIterator<char>(tree_only_root);
+    int i = 0;
+
+    for (it->first(); !it->is_done(); it->next(), i++) {
+        ASSERT_EQ('A', it->current_item());
+    }
+    ASSERT_EQ(1, i);
 
     delete it;
 }

@@ -25,15 +25,18 @@ public:
 template <class T>
 class BinaryTree {
 private:
-    Node<T> *root;
+    Node<T> *_root;
 public:
     BinaryTree(Node<T> *);
     ~BinaryTree();
 
-    Node<T> *get_root();
-    Node<T> *get_parent(Node<T> *);
-    Node<T> *get_child(Node<T> *, bool);
-    void set_child(Node<T> *, Node<T> *, bool);
+    Node<T> *root();
+    Node<T> *parent(Node<T> *);
+    Node<T> *left(Node<T> *);
+    Node<T> *right(Node<T> *);
+
+    void set_left(Node<T> *, Node<T> *);
+    void set_right(Node<T> *, Node<T> *);
 
     int depth(Node<T> *);
     int height();

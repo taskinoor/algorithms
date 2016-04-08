@@ -30,10 +30,11 @@ protected:
         };
 
         for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 2; j++) {
-                if (child_map[i][j] != -1) {
-                    tree->set_child(node[i], node[index(child_map[i][j])], j);
-                }
+            if (child_map[i][0] != -1) {
+                tree->set_left(node[i], node[index(child_map[i][0])]);
+            }
+            if (child_map[i][1] != -1) {
+                tree->set_right(node[i], node[index(child_map[i][1])]);
             }
         }
 

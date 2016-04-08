@@ -20,38 +20,44 @@ T Node<T>::get_element() {
 
 template <class T>
 BinaryTree<T>::BinaryTree(Node<T> *root) {
-    this->root = root;
+   _root = root;
 }
 
 template <class T>
 BinaryTree<T>::~BinaryTree() {
-    delete root;
+    delete _root;
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::get_root() {
-    return root;
+Node<T> *BinaryTree<T>::root() {
+    return _root;
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::get_parent(Node<T> *p) {
+Node<T> *BinaryTree<T>::parent(Node<T> *p) {
     return p->parent;
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::get_child(Node<T> *p, bool is_right) {
-    return is_right ? p->right : p->left;
+Node<T> *BinaryTree<T>::left(Node<T> *p) {
+    return p->left;
 }
 
 template <class T>
-void BinaryTree<T>::set_child(Node<T> *p, Node<T> *child, bool is_right) {
-    child->parent = p;
+Node<T> *BinaryTree<T>::right(Node<T> *p) {
+    return p->right;
+}
 
-    if (is_right) {
-        p->right = child;
-    } else {
-        p->left = child;
-    }
+template <class T>
+void BinaryTree<T>::set_left(Node<T> *p, Node<T> *child) {
+    child->parent = p;
+    p->left = child;
+}
+
+template <class T>
+void BinaryTree<T>::set_right(Node<T> *p, Node<T> *child) {
+    child->parent = p;
+    p->right = child;
 }
 
 template <class T>
@@ -68,7 +74,7 @@ int BinaryTree<T>::depth(Node<T> *p) {
 
 template <class T>
 int BinaryTree<T>::height() {
-    return height(root);
+    return height(_root);
 }
 
 template <class T>

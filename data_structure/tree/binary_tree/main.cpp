@@ -25,11 +25,11 @@ protected:
         }
         tree = new BinaryTree<int>(node[0]);
 
-        tree->set_child(node[0], node[1], false);
-        tree->set_child(node[0], node[2], true);
-        tree->set_child(node[1], node[3], false);
-        tree->set_child(node[1], node[4], true);
-        tree->set_child(node[4], node[5], true);
+        tree->set_left(node[0], node[1]);
+        tree->set_right(node[0], node[2]);
+        tree->set_left(node[1], node[3]);
+        tree->set_right(node[1], node[4]);
+        tree->set_right(node[4], node[5]);
     }
 
     virtual void TearDown() {
@@ -48,9 +48,9 @@ TEST_F(BinaryTreeTest, AccessorMethods) {
     };
 
     for (int i = 0; i < 6; i++) {
-        ASSERT_EQ(expected[i][0], tree->get_parent(node[i]));
-        ASSERT_EQ(expected[i][1], tree->get_child(node[i], false));
-        ASSERT_EQ(expected[i][2], tree->get_child(node[i], true));
+        ASSERT_EQ(expected[i][0], tree->parent(node[i]));
+        ASSERT_EQ(expected[i][1], tree->left(node[i]));
+        ASSERT_EQ(expected[i][2], tree->right(node[i]));
     }
 }
 

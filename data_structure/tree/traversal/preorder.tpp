@@ -11,14 +11,14 @@ PreOrderIterator<T>::~PreOrderIterator() {
 
 template <class T>
 void PreOrderIterator<T>::first() {
-    stack->push(tree->get_root());
+    stack->push(tree->root());
 }
 
 template <class T>
 void PreOrderIterator<T>::next() {
     Node<T> *current = stack->pop();
-    Node<T> *left = tree->get_child(current, false);
-    Node<T> *right = tree->get_child(current, true);
+    Node<T> *left = tree->left(current);
+    Node<T> *right = tree->right(current);
 
     if (right) {
         stack->push(right);

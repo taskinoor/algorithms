@@ -2,6 +2,7 @@
 
 #include "preorder.h"
 #include "postorder.h"
+#include "inorder.h"
 
 class TreeIteratorTest : public ::testing::Test {
 private:
@@ -88,6 +89,31 @@ TEST_F(TreeIteratorTest, PostOrder) {
 
 TEST_F(TreeIteratorTest, PostOrderOnlyRoot) {
     PostOrderIterator<char> *it = new PostOrderIterator<char>(tree_only_root);
+    int i = 0;
+
+    for (it->first(); !it->is_done(); it->next(), i++) {
+        ASSERT_EQ('A', it->current_item());
+    }
+    ASSERT_EQ(1, i);
+
+    delete it;
+}
+
+TEST_F(TreeIteratorTest, InOrder) {
+    InOrderIterator<char> *it = new InOrderIterator<char>(tree);
+    char expected[9] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
+    int i = 0;
+
+    for (it->first(); !it->is_done(); it->next(), i++) {
+        ASSERT_EQ(expected[i], it->current_item());
+    }
+    ASSERT_EQ(9, i);
+
+    delete it;
+}
+
+TEST_F(TreeIteratorTest, InOrderOnlyRoot) {
+    InOrderIterator<char> *it = new InOrderIterator<char>(tree_only_root);
     int i = 0;
 
     for (it->first(); !it->is_done(); it->next(), i++) {

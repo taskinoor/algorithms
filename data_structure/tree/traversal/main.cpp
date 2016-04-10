@@ -3,8 +3,9 @@
 #include "preorder.h"
 #include "postorder.h"
 #include "inorder.h"
+#include "euler_tour.h"
 
-class TreeIteratorTest : public ::testing::Test {
+class TreeTraversalTest : public ::testing::Test {
 private:
     int index(char ch) {
         return ch - 'A';
@@ -49,7 +50,7 @@ protected:
     }
 };
 
-TEST_F(TreeIteratorTest, PreOrder) {
+TEST_F(TreeTraversalTest, PreOrder) {
     PreOrderIterator<char> *it = new PreOrderIterator<char>(tree);
     char expected[9] = {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
     int i = 0;
@@ -62,7 +63,7 @@ TEST_F(TreeIteratorTest, PreOrder) {
     delete it;
 }
 
-TEST_F(TreeIteratorTest, PreOrderOnlyRoot) {
+TEST_F(TreeTraversalTest, PreOrderOnlyRoot) {
     PreOrderIterator<char> *it = new PreOrderIterator<char>(tree_only_root);
     int i = 0;
 
@@ -74,7 +75,7 @@ TEST_F(TreeIteratorTest, PreOrderOnlyRoot) {
     delete it;
 }
 
-TEST_F(TreeIteratorTest, PostOrder) {
+TEST_F(TreeTraversalTest, PostOrder) {
     PostOrderIterator<char> *it = new PostOrderIterator<char>(tree);
     char expected[9] = {'A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'};
     int i = 0;
@@ -87,7 +88,7 @@ TEST_F(TreeIteratorTest, PostOrder) {
     delete it;
 }
 
-TEST_F(TreeIteratorTest, PostOrderOnlyRoot) {
+TEST_F(TreeTraversalTest, PostOrderOnlyRoot) {
     PostOrderIterator<char> *it = new PostOrderIterator<char>(tree_only_root);
     int i = 0;
 
@@ -99,7 +100,7 @@ TEST_F(TreeIteratorTest, PostOrderOnlyRoot) {
     delete it;
 }
 
-TEST_F(TreeIteratorTest, InOrder) {
+TEST_F(TreeTraversalTest, InOrder) {
     InOrderIterator<char> *it = new InOrderIterator<char>(tree);
     char expected[9] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
     int i = 0;
@@ -112,7 +113,7 @@ TEST_F(TreeIteratorTest, InOrder) {
     delete it;
 }
 
-TEST_F(TreeIteratorTest, InOrderOnlyRoot) {
+TEST_F(TreeTraversalTest, InOrderOnlyRoot) {
     InOrderIterator<char> *it = new InOrderIterator<char>(tree_only_root);
     int i = 0;
 
@@ -122,6 +123,22 @@ TEST_F(TreeIteratorTest, InOrderOnlyRoot) {
     ASSERT_EQ(1, i);
 
     delete it;
+}
+
+TEST_F(TreeTraversalTest, EulerTour) {
+    testing::internal::CaptureStdout();
+
+    euler_tour(tree);
+
+    ASSERT_STREQ("FBAAABDCCCDEEEDBFGGIHHHIIGF", testing::internal::GetCapturedStdout().c_str());
+}
+
+TEST_F(TreeTraversalTest, EulerTourOnlyRoot) {
+    testing::internal::CaptureStdout();
+
+    euler_tour(tree_only_root);
+
+    ASSERT_STREQ("AAA", testing::internal::GetCapturedStdout().c_str());
 }
 
 int main(int argc, char **argv) {

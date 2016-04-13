@@ -4,7 +4,7 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 	* Extendable Array
 	* Linked List
 		* Doubly Linked List
-		* Travsersal
+		* Traversal
 			* Forward Iterator
 			* Backward Iterator
 	* Queue (Fixed size)

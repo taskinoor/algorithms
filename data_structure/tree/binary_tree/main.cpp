@@ -72,6 +72,14 @@ TEST_F(BinaryTreeTest, Height) {
     ASSERT_EQ(3, tree->height());
 }
 
+TEST_F(BinaryTreeTest, CountDescendants) {
+    int expected[6] = {6, 4, 1, 1, 2, 1};
+
+    for (int i = 0; i < 6; i++) {
+        ASSERT_EQ(expected[i], tree->count_descendants(node[i]));
+    }
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

@@ -85,3 +85,12 @@ int BinaryTree<T>::height(Node<T> *p) {
 
     return 1 + MAX(height(p->left), height(p->right));
 }
+
+template <class T>
+int BinaryTree<T>::count_descendants(Node<T> *p) {
+    if (!p) {
+        return 0;
+    }
+
+    return 1 + count_descendants(p->left) + count_descendants(p->right);
+}

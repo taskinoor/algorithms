@@ -41,6 +41,7 @@ public:
     int depth(Node<T> *);
     int height();
     int height(Node<T> *);
+    int count_descendants(Node<T> *);
 };
 
 #include "binary_tree.tpp"

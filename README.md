@@ -9,5 +9,16 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 			* Backward Iterator
 	* Queue (Fixed size)
 	* Stack (Fixed size)
+	* Tree
+		* Binary Tree
+		* Traversal (Binary)
+			* Preorder (non-recursive iterator using stack)
+			* Postorder (non-recursive iterator using stack)
+			* Inorder (non-recursive iterator using stack)
+			* Euler Tour (recursive)
+		* Common operations (Binary)
+			* Depth
+			* Height
+			* Descendants count
 * Dynamic Programming
 	* Maximum Subarray

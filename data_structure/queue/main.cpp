@@ -21,22 +21,24 @@ TEST(QueueTest, EnqueueDequeue) {
     int n = 10;
     Queue<int> q(n - 2);
 
+    ASSERT_EQ(0, q.count());
     for (int i = 0; i < n / 2; i++) {
         q.enqueue(a[i]);
     }
+    ASSERT_EQ(n / 2, q.count());
     for (int i = 0; i < n / 5; i++) {
         ASSERT_EQ(a[i], q.dequeue());
     }
+    ASSERT_EQ(n / 2 - n / 5, q.count());
     for (int i = n / 2; i < n; i++) {
         q.enqueue(a[i]);
     }
-
+    ASSERT_EQ(n - 2, q.count());
     ASSERT_THROW(q.enqueue(31), QueueFullError);
-
     for (int i = n / 5; i < n; i++) {
         ASSERT_EQ(a[i], q.dequeue());
     }
-
+    ASSERT_EQ(0, q.count());
     ASSERT_THROW(q.dequeue(), QueueEmptyError);
 }
 

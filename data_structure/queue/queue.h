@@ -24,8 +24,10 @@ private:
 public:
     Queue(size_t);
     ~Queue();
+
     void enqueue(T);
     T dequeue();
+    size_t count();
 };
 
 #include "queue.tpp"

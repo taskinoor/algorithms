@@ -31,3 +31,8 @@ T Queue<T>::dequeue() {
 
     return element;
 }
+
+template <class T>
+size_t Queue<T>::count() {
+    return (rear - front + size) % size;
+}

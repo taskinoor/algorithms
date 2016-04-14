@@ -23,3 +23,5 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 			* Descendants count
 * Dynamic Programming
 	* Maximum Subarray
+* Miscellaneous
+	* Josephus problem (using queue)

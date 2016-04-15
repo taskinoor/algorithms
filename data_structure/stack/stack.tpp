@@ -16,7 +16,7 @@ void Stack<T>::push(T element) {
         throw StackFullError();
     }
 
-    _top += 1;
+    _top++;
     buffer[_top] = element;
 }
 
@@ -26,10 +26,8 @@ T Stack<T>::pop() {
         throw StackEmptyError();
     }
 
-    T element = buffer[_top];
-    _top -= 1;
-
-    return element;
+    _top--;
+    return buffer[_top + 1];
 }
 
 template <class T>

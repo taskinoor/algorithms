@@ -1,6 +1,9 @@
 #ifndef BINARY_TREE_H_
 #define BINARY_TREE_H_
 
+#include <iostream>
+#include <string>
+
 #include "utils.h"
 
 template <class T> class BinaryTree;
@@ -42,6 +45,9 @@ public:
     int height();
     int height(Node<T> *);
     int count_descendants(Node<T> *);
+
+    void print();
+    void print(Node<T> *);
 };
 
 #include "binary_tree.tpp"

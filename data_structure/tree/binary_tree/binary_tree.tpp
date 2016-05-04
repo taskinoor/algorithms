@@ -94,3 +94,36 @@ int BinaryTree<T>::count_descendants(Node<T> *p) {
 
     return 1 + count_descendants(p->left) + count_descendants(p->right);
 }
+
+template <class T>
+void BinaryTree<T>::print() {
+    print(_root);
+}
+
+template <class T>
+void BinaryTree<T>::print(Node<T> *p) {
+    if (!p) {
+        return;
+    }
+
+    std::cout << "node: " << p->element;
+    if (p->left) {
+        std::cout << ", left: " << p->left->element;
+    } else {
+        std::cout << ", left: null";
+    }
+    if (p->right) {
+        std::cout << ", right: " << p->right->element;
+    } else {
+        std::cout << ", right: null";
+    }
+    if (p->parent) {
+        std::cout << ", parent: " << p->parent->element;
+    } else {
+        std::cout << ", parent: null";
+    }
+    std::cout << std::endl;
+
+    print(p->left);
+    print(p->right);
+}

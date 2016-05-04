@@ -80,6 +80,14 @@ TEST_F(BinaryTreeTest, CountDescendants) {
     }
 }
 
+TEST_F(BinaryTreeTest, Print) {
+    testing::internal::CaptureStdout();
+
+    tree->print();
+
+    ASSERT_STREQ("node: 0, left: 1, right: 2, parent: null\nnode: 1, left: 3, right: 4, parent: 0\nnode: 3, left: null, right: null, parent: 1\nnode: 4, left: null, right: 5, parent: 1\nnode: 5, left: null, right: null, parent: 4\nnode: 2, left: null, right: null, parent: 0\n", testing::internal::GetCapturedStdout().c_str());
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

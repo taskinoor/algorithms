@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "bst.h"
+#include "inorder.h"
 
 class BSTTest : public ::testing::Test {
 protected:
@@ -28,6 +29,19 @@ TEST_F(BSTTest, Insert) {
     bst->print();
 
     ASSERT_STREQ(expected, testing::internal::GetCapturedStdout().c_str());
+}
+
+TEST_F(BSTTest, InOrderTraversal) {
+    InOrderIterator<int> *it = new InOrderIterator<int>(bst);
+    int expected[10] = {2, 2, 5, 9, 12, 13, 15, 17, 18, 19};
+    int i = 0;
+
+    for (it->first(); !it->is_done(); it->next(), i++) {
+        ASSERT_EQ(expected[i], it->current_item());
+    }
+    ASSERT_EQ(10, i);
+
+    delete it;
 }
 
 int main(int argc, char **argv) {

@@ -68,3 +68,35 @@ template <class T>
 Node<T> *BST<T>::max() {
     return max(this->_root);
 }
+
+template <class T>
+Node<T> *BST<T>::successor(Node<T> *node) {
+    if (right(node)) {
+        return min(right(node));
+    }
+
+    Node<T> *p = parent(node);
+
+    while (p && right(p) == node) {
+        node = p;
+        p = parent(p);
+    }
+
+    return p;
+}
+
+template <class T>
+Node<T> *BST<T>::predecessor(Node<T> *node) {
+    if (left(node)) {
+        return max(left(node));
+    }
+
+    Node<T> *p = parent(node);
+
+    while (p && left(p) == node) {
+        node = p;
+        p = parent(p);
+    }
+
+    return p;
+}

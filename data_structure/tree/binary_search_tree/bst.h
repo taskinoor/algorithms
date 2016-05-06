@@ -18,6 +18,9 @@ public:
 
     Node<T> *max(Node<T> *);
     Node<T> *max();
+
+    Node<T> *successor(Node<T> *);
+    Node<T> *predecessor(Node<T> *);
 };
 
 #include "bst.tpp"

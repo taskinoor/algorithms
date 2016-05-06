@@ -83,6 +83,29 @@ TEST_F(BSTTest, Max) {
     ASSERT_EQ(19, bst->max()->get_element());
 }
 
+TEST_F(BSTTest, Successor) {
+    int data[] = {5, 9, 12, 13, 15, 17, 18, 19};
+    int n = 8;
+
+    ASSERT_EQ(2, bst->successor(bst->search(2))->get_element());
+    ASSERT_EQ(NULL, bst->successor(bst->search(data[n - 1])));
+
+    for (int i = 0; i < n - 1; i++) {
+        ASSERT_EQ(data[i + 1], bst->successor(bst->search(data[i]))->get_element());
+    }
+}
+
+TEST_F(BSTTest, Predecessor) {
+    int data[] = {2, 5, 9, 12, 13, 15, 17, 18, 19};
+    int n = 9;
+
+    for (int i = n - 1; i > 0; i--) {
+        ASSERT_EQ(data[i - 1], bst->predecessor(bst->search(data[i]))->get_element());
+    }
+
+    ASSERT_EQ(NULL, bst->predecessor(bst->search(2)));
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

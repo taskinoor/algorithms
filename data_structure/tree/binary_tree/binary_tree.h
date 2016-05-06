@@ -27,7 +27,7 @@ public:
 
 template <class T>
 class BinaryTree {
-private:
+protected:
     Node<T> *_root;
 public:
     BinaryTree(Node<T> *);

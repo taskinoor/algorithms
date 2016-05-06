@@ -12,6 +12,12 @@ public:
 
     Node<T> *search(Node<T> *, T);
     Node<T> *search(T);
+
+    Node<T> *min(Node<T> *);
+    Node<T> *min();
+
+    Node<T> *max(Node<T> *);
+    Node<T> *max();
 };
 
 #include "bst.tpp"

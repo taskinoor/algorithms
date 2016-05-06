@@ -75,6 +75,14 @@ TEST_F(BSTTest, SearchMissingKey) {
     ASSERT_EQ(NULL, bst->search(31));
 }
 
+TEST_F(BSTTest, Min) {
+    ASSERT_EQ(2, bst->min()->get_element());
+}
+
+TEST_F(BSTTest, Max) {
+    ASSERT_EQ(19, bst->max()->get_element());
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

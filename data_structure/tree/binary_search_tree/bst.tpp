@@ -40,3 +40,31 @@ template <class T>
 Node<T> *BST<T>::search(T key) {
     return search(this->_root, key);
 }
+
+template <class T>
+Node<T> *BST<T>::min(Node<T> *node) {
+    while (node && left(node)) {
+        node = left(node);
+    }
+
+    return node;
+}
+
+template <class T>
+Node<T> *BST<T>::min() {
+    return min(this->_root);
+}
+
+template <class T>
+Node<T> *BST<T>::max(Node<T> *node) {
+    while (node && right(node)) {
+        node = right(node);
+    }
+
+    return node;
+}
+
+template <class T>
+Node<T> *BST<T>::max() {
+    return max(this->_root);
+}

@@ -9,6 +9,9 @@ public:
     BST() : BinaryTree<T>(NULL) {}
 
     void insert(T);
+
+    Node<T> *search(Node<T> *, T);
+    Node<T> *search(T);
 };
 
 #include "bst.tpp"

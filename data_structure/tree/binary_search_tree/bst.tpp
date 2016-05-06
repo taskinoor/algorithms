@@ -22,3 +22,21 @@ void BST<T>::insert(T element) {
         set_right(last, node);
     }
 }
+
+template <class T>
+Node<T> *BST<T>::search(Node<T> *node, T key) {
+    while (node && node->get_element() != key) {
+        if (key < node->get_element()) {
+             node = left(node);
+        } else {
+            node = right(node);
+        }
+    }
+
+    return node;
+}
+
+template <class T>
+Node<T> *BST<T>::search(T key) {
+    return search(this->_root, key);
+}

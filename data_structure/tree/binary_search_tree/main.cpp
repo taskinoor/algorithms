@@ -44,6 +44,37 @@ TEST_F(BSTTest, InOrderTraversal) {
     delete it;
 }
 
+TEST_F(BSTTest, Search) {
+    int n = 9;
+    int data[9][4] = {
+        12, 5, 18, 0,
+        5, 2, 9, 12,
+        18, 15, 19, 12,
+        2, 0, 2, 5,
+        9, 0, 0, 5,
+        15, 13, 17, 18,
+        19, 0, 0, 18,
+        13, 0, 0, 15,
+        17, 0, 0, 15
+    };
+
+    for (int i = 0; i < n; i++) {
+        Node<int> *result = bst->search(data[i][0]);
+        Node<int> *left = bst->left(result);
+        Node<int> *right = bst->right(result);
+        Node<int> *parent = bst->parent(result);
+
+        ASSERT_EQ(data[i][0], result->get_element());
+        ASSERT_EQ(data[i][1], left ? left->get_element() : 0);
+        ASSERT_EQ(data[i][2], right ? right->get_element() : 0);
+        ASSERT_EQ(data[i][3], parent ? parent->get_element() : 0);
+    }
+}
+
+TEST_F(BSTTest, SearchMissingKey) {
+    ASSERT_EQ(NULL, bst->search(31));
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

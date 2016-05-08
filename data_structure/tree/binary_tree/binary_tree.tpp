@@ -50,13 +50,17 @@ Node<T> *BinaryTree<T>::right(Node<T> *p) {
 
 template <class T>
 void BinaryTree<T>::set_left(Node<T> *p, Node<T> *child) {
-    child->parent = p;
+    if (child) {
+        child->parent = p;
+    }
     p->left = child;
 }
 
 template <class T>
 void BinaryTree<T>::set_right(Node<T> *p, Node<T> *child) {
-    child->parent = p;
+    if (child) {
+        child->parent = p;
+    }
     p->right = child;
 }
 

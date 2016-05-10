@@ -27,7 +27,7 @@ public:
 
 template <class T>
 class BinaryTree {
-protected:
+private:
     Node<T> *_root;
 public:
     BinaryTree(Node<T> *);
@@ -38,6 +38,7 @@ public:
     Node<T> *left(Node<T> *);
     Node<T> *right(Node<T> *);
 
+    void set_root(Node<T> *);
     void set_left(Node<T> *, Node<T> *);
     void set_right(Node<T> *, Node<T> *);
 

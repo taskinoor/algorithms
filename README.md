@@ -12,6 +12,7 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 	* Stack (Fixed size)
 	* Tree
 		* Binary Tree
+		* Binary Search Tree
 		* Traversal (Binary)
 			* Preorder (non-recursive iterator using stack)
 			* Postorder (non-recursive iterator using stack)

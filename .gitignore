@@ -1,4 +1,6 @@
 .cproject
 .project
-a.out
 .settings/
+*.out
+*.o
+*.d

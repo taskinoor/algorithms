@@ -1,4 +1,29 @@
-# Simple makefile.
+all: runner.out
 
-all:
-	g++ -I/mnt/algorithms/common -I/mnt/algorithms/data_structure/stack -I/mnt/algorithms/data_structure/tree/binary_tree main.cpp -lgtest -lpthread
+CPP = g++
+
+CPPFLAGS = -MMD
+
+INCLUDE = \
+	-I../../../common \
+	-I../../stack \
+	-I../binary_tree
+
+LIBS = \
+	-lgtest \
+	-lpthread
+
+OBJS = main.o
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) $(INCLUDE) -c -o $@ $<
+
+runner.out: $(OBJS)
+	$(CPP) $(OBJS) -o runner.out $(LIBS)
+
+clean:
+	rm runner.out
+	rm $(OBJS)
+	rm *.d
+
+-include $(OBJS:.o=.d)

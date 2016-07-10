@@ -1,4 +1,29 @@
-# Simple makefile.
+all: runner.out
 
-all:
-	g++ -I/mnt/algorithms/data_structure/queue josephus.cpp main.cpp -lgtest -lpthread
+CPP = g++
+
+CPPFLAGS = -MMD
+
+INCLUDE = \
+	-I../../data_structure/queue
+
+LIBS = \
+	-lgtest \
+	-lpthread
+
+OBJS = \
+	main.o \
+	josephus.o
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) $(INCLUDE) -c -o $@ $<
+
+runner.out: $(OBJS)
+	$(CPP) $(OBJS) -o runner.out $(LIBS)
+
+clean:
+	rm runner.out
+	rm $(OBJS)
+	rm *.d
+
+-include $(OBJS:.o=.d)

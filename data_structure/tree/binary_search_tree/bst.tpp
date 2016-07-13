@@ -8,18 +8,18 @@ void BST<T>::insert(T element) {
         last = current;
 
         if (element < current->get_element()) {
-            current = left(current);
+            current = this->left(current);
         } else {
-            current = right(current);
+            current = this->right(current);
         }
     }
 
     if (!last) {
-        set_root(node);
+        this->set_root(node);
     } else if (element < last->get_element()) {
-        set_left(last, node);
+        this->set_left(last, node);
     } else {
-        set_right(last, node);
+        this->set_right(last, node);
     }
 }
 
@@ -27,9 +27,9 @@ template <class T>
 Node<T> *BST<T>::search(Node<T> *node, T key) {
     while (node && node->get_element() != key) {
         if (key < node->get_element()) {
-             node = left(node);
+             node = this->left(node);
         } else {
-            node = right(node);
+            node = this->right(node);
         }
     }
 
@@ -43,8 +43,8 @@ Node<T> *BST<T>::search(T key) {
 
 template <class T>
 Node<T> *BST<T>::min(Node<T> *node) {
-    while (node && left(node)) {
-        node = left(node);
+    while (node && this->left(node)) {
+        node = this->left(node);
     }
 
     return node;
@@ -57,8 +57,8 @@ Node<T> *BST<T>::min() {
 
 template <class T>
 Node<T> *BST<T>::max(Node<T> *node) {
-    while (node && right(node)) {
-        node = right(node);
+    while (node && this->right(node)) {
+        node = this->right(node);
     }
 
     return node;
@@ -71,15 +71,15 @@ Node<T> *BST<T>::max() {
 
 template <class T>
 Node<T> *BST<T>::successor(Node<T> *node) {
-    if (right(node)) {
-        return min(right(node));
+    if (this->right(node)) {
+        return min(this->right(node));
     }
 
-    Node<T> *p = parent(node);
+    Node<T> *p = this->parent(node);
 
-    while (p && right(p) == node) {
+    while (p && this->right(p) == node) {
         node = p;
-        p = parent(p);
+        p = this->parent(p);
     }
 
     return p;
@@ -87,15 +87,15 @@ Node<T> *BST<T>::successor(Node<T> *node) {
 
 template <class T>
 Node<T> *BST<T>::predecessor(Node<T> *node) {
-    if (left(node)) {
-        return max(left(node));
+    if (this->left(node)) {
+        return max(this->left(node));
     }
 
-    Node<T> *p = parent(node);
+    Node<T> *p = this->parent(node);
 
-    while (p && left(p) == node) {
+    while (p && this->left(p) == node) {
         node = p;
-        p = parent(p);
+        p = this->parent(p);
     }
 
     return p;
@@ -103,38 +103,39 @@ Node<T> *BST<T>::predecessor(Node<T> *node) {
 
 template <class T>
 void BST<T>::transplant(Node<T> *u, Node<T> *v) {
-    Node<T> *p = parent(u);
+    Node<T> *p = this->parent(u);
 
     if (!p) {
-        set_root(v);
+        this->set_root(v);
     } else {
-        if (left(p) == u) {
-            set_left(p, v);
+        if (this->left(p) == u) {
+            this->set_left(p, v);
         } else {
-            set_right(p, v);
+            this->set_right(p, v);
         }
     }
 }
 
 template <class T>
 void BST<T>::remove(Node<T> *z) {
-    if (!left(z)) {
-        transplant(z, right(z));
-    } else if (!right(z)) {
-        transplant(z, left(z));
+    if (!this->left(z)) {
+        transplant(z, this->right(z));
+    } else if (!this->right(z)) {
+        transplant(z, this->left(z));
     } else {
-        Node<T> *y = min(right(z));
+        Node<T> *y = min(this->right(z));
 
-        if (parent(y) != z) {
-            transplant(y, right(y));
-            set_right(y, right(z));
+        if (this->parent(y) != z) {
+            transplant(y, this->right(y));
+            this->set_right(y, this->right(z));
         }
 
         transplant(z, y);
-        set_left(y, left(z));
+        this->set_left(y, this->left(z));
     }
 
-    set_left(z, NULL);
-    set_right(z, NULL);
+    this->set_left(z, NULL);
+    this->set_right(z, NULL);
+
     delete z;
 }

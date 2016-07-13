@@ -28,3 +28,4 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 	* Josephus problem (using queue)
 * Searching
 	* Binary Search
+	* Range Queries (on BST)

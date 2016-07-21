@@ -10,17 +10,18 @@ template <class T> class BinaryTree;
 
 template <class T>
 class Node {
-private:
+    friend class BinaryTree<T>;
+
+protected:
     Node<T> *parent;
     Node<T> *left;
     Node<T> *right;
 
     T element;
 
-    friend class BinaryTree<T>;
 public:
     Node(T element = T());
-    ~Node();
+    virtual ~Node();
 
     T get_element();
 };
@@ -29,9 +30,10 @@ template <class T>
 class BinaryTree {
 private:
     Node<T> *_root;
+
 public:
     BinaryTree(Node<T> *);
-    ~BinaryTree();
+    virtual ~BinaryTree();
 
     Node<T> *root();
     Node<T> *parent(Node<T> *);

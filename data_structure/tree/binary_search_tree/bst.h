@@ -5,13 +5,14 @@
 
 template <class T>
 class BST : public BinaryTree<T> {
-private:
+protected:
     void transplant(Node<T> *, Node<T> *);
+
 public:
     BST() : BinaryTree<T>(NULL) {}
 
-    void insert(T);
-    void remove(Node<T> *);
+    virtual void insert(T);
+    virtual void remove(Node<T> *);
 
     Node<T> *search(Node<T> *, T);
     Node<T> *search(T);

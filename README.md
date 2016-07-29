@@ -26,7 +26,9 @@ Implementation of some common data structures and algorithms. [Google Test Frame
 * Dynamic Programming
 	* Maximum Subarray
 * Miscellaneous
-	* Josephus problem (using queue)
+	* Josephus problem
+		* Using Queue
+		* Using Order Statistic Tree
 * Searching
 	* Binary Search
 	* Range Queries (on BST)

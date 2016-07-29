@@ -1,11 +1,15 @@
 all: runner.out
 
-CPP = g++
+CPP = g++ -std=c++11
 
 CPPFLAGS = -MMD
 
 INCLUDE = \
-	-I../../data_structure/queue
+	-I../../data_structure/queue \
+	-I../../data_structure/tree/order_statistic_tree \
+	-I../../data_structure/tree/binary_search_tree \
+	-I../../data_structure/tree/binary_tree \
+	-I../../common
 
 LIBS = \
 	-lgtest \

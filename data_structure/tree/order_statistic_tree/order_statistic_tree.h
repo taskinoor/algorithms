@@ -30,6 +30,9 @@ public:
     T select(int i);
     T select(int i, OSTNode<T> *v);
 
+    Node<T> *select_node(int i);
+    Node<T> *select_node(int i, OSTNode<T> *v);
+
     int rank(T element);
 };
 

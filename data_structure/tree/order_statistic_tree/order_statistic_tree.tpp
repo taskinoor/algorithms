@@ -79,15 +79,25 @@ T OrderStatisticTree<T>::select(int i) {
 
 template <class T>
 T OrderStatisticTree<T>::select(int i, OSTNode<T> *v) {
+    return select_node(i, v)->get_element();
+}
+
+template <class T>
+Node<T> *OrderStatisticTree<T>::select_node(int i) {
+    return select_node(i, (OSTNode<T> *)this->root());
+}
+
+template <class T>
+Node<T> *OrderStatisticTree<T>::select_node(int i, OSTNode<T> *v) {
     OSTNode<T> *left = (OSTNode<T> *)this->left(v);
     int count = left ? left->count : 0;
 
     if (i == count) {
-        return v->get_element();
+        return v;
     } else if (i < count) {
-        return select(i, left);
+        return select_node(i, left);
     } else {
-        return select(i - count - 1, (OSTNode<T> *)this->right(v));
+        return select_node(i - count - 1, (OSTNode<T> *)this->right(v));
     }
 }
 

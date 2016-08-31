@@ -1,17 +1,19 @@
-#ifndef INORDER_H_
-#define INORDER_H_
+#ifndef ALG_INORDER_H_
+#define ALG_INORDER_H_
 
 #include "iterator.h"
 #include "stack.h"
 #include "binary_tree.h"
 
+namespace alg {
+
 template <class T>
 class InOrderIterator : public Iterator<T> {
 private:
     BinaryTree<T> *tree;
-    Stack<Node<T> *> *stack;
+    Stack<TreeNode<T> *> *stack;
 
-    void push_left_nodes(Node<T> *);
+    void push_left_nodes(TreeNode<T> *);
 public:
     InOrderIterator(BinaryTree<T> *);
     ~InOrderIterator();
@@ -21,6 +23,8 @@ public:
     virtual bool is_done() const;
     virtual T current_item() const;
 };
+
+}
 
 #include "inorder.tpp"
 

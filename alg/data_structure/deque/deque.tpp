@@ -1,3 +1,5 @@
+namespace alg {
+
 template <class T>
 Deque<T>::Deque() {
     list = new LinkedList<T>();
@@ -22,8 +24,8 @@ void Deque<T>::push_front(T element) {
 }
 
 template <class T>
-Node<T> *Deque<T>::get_back_node() {
-    Node<T> *node = list->last();
+ListNode<T> *Deque<T>::get_back_node() {
+    ListNode<T> *node = list->last();
 
     if (!node) {
         throw DequeEmptyError();
@@ -33,8 +35,8 @@ Node<T> *Deque<T>::get_back_node() {
 }
 
 template <class T>
-Node<T> *Deque<T>::get_front_node() {
-    Node<T> *node = list->first();
+ListNode<T> *Deque<T>::get_front_node() {
+    ListNode<T> *node = list->first();
 
     if (!node) {
         throw DequeEmptyError();
@@ -45,7 +47,7 @@ Node<T> *Deque<T>::get_front_node() {
 
 template <class T>
 T Deque<T>::pop_back() {
-    Node<T> *node = get_back_node();
+    ListNode<T> *node = get_back_node();
     T element = node->get_element();
     list->remove(node);
     _count--;
@@ -55,7 +57,7 @@ T Deque<T>::pop_back() {
 
 template <class T>
 T Deque<T>::pop_front() {
-    Node<T> *node = get_front_node();
+    ListNode<T> *node = get_front_node();
     T element = node->get_element();
     list->remove(node);
     _count--;
@@ -76,4 +78,6 @@ T Deque<T>::front() {
 template <class T>
 size_t Deque<T>::count() {
     return _count;
+}
+
 }

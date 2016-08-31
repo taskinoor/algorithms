@@ -1,8 +1,10 @@
+namespace alg {
+
 template <class T>
 void BST<T>::insert(T element) {
-    Node<T> *last = NULL;
-    Node<T> *current = this->root();
-    Node<T> *node = new Node<T>(element);
+    TreeNode<T> *last = NULL;
+    TreeNode<T> *current = this->root();
+    TreeNode<T> *node = new TreeNode<T>(element);
 
     while (current) {
         last = current;
@@ -24,7 +26,7 @@ void BST<T>::insert(T element) {
 }
 
 template <class T>
-Node<T> *BST<T>::search(Node<T> *node, T key) {
+TreeNode<T> *BST<T>::search(TreeNode<T> *node, T key) {
     while (node && node->get_element() != key) {
         if (key < node->get_element()) {
              node = this->left(node);
@@ -37,12 +39,12 @@ Node<T> *BST<T>::search(Node<T> *node, T key) {
 }
 
 template <class T>
-Node<T> *BST<T>::search(T key) {
+TreeNode<T> *BST<T>::search(T key) {
     return search(this->root(), key);
 }
 
 template <class T>
-Node<T> *BST<T>::min(Node<T> *node) {
+TreeNode<T> *BST<T>::min(TreeNode<T> *node) {
     while (node && this->left(node)) {
         node = this->left(node);
     }
@@ -51,12 +53,12 @@ Node<T> *BST<T>::min(Node<T> *node) {
 }
 
 template <class T>
-Node<T> *BST<T>::min() {
+TreeNode<T> *BST<T>::min() {
     return min(this->root());
 }
 
 template <class T>
-Node<T> *BST<T>::max(Node<T> *node) {
+TreeNode<T> *BST<T>::max(TreeNode<T> *node) {
     while (node && this->right(node)) {
         node = this->right(node);
     }
@@ -65,17 +67,17 @@ Node<T> *BST<T>::max(Node<T> *node) {
 }
 
 template <class T>
-Node<T> *BST<T>::max() {
+TreeNode<T> *BST<T>::max() {
     return max(this->root());
 }
 
 template <class T>
-Node<T> *BST<T>::successor(Node<T> *node) {
+TreeNode<T> *BST<T>::successor(TreeNode<T> *node) {
     if (this->right(node)) {
         return min(this->right(node));
     }
 
-    Node<T> *p = this->parent(node);
+    TreeNode<T> *p = this->parent(node);
 
     while (p && this->right(p) == node) {
         node = p;
@@ -86,12 +88,12 @@ Node<T> *BST<T>::successor(Node<T> *node) {
 }
 
 template <class T>
-Node<T> *BST<T>::predecessor(Node<T> *node) {
+TreeNode<T> *BST<T>::predecessor(TreeNode<T> *node) {
     if (this->left(node)) {
         return max(this->left(node));
     }
 
-    Node<T> *p = this->parent(node);
+    TreeNode<T> *p = this->parent(node);
 
     while (p && this->left(p) == node) {
         node = p;
@@ -102,8 +104,8 @@ Node<T> *BST<T>::predecessor(Node<T> *node) {
 }
 
 template <class T>
-void BST<T>::transplant(Node<T> *u, Node<T> *v) {
-    Node<T> *p = this->parent(u);
+void BST<T>::transplant(TreeNode<T> *u, TreeNode<T> *v) {
+    TreeNode<T> *p = this->parent(u);
 
     if (!p) {
         this->set_root(v);
@@ -117,13 +119,13 @@ void BST<T>::transplant(Node<T> *u, Node<T> *v) {
 }
 
 template <class T>
-void BST<T>::remove(Node<T> *z) {
+void BST<T>::remove(TreeNode<T> *z) {
     if (!this->left(z)) {
         transplant(z, this->right(z));
     } else if (!this->right(z)) {
         transplant(z, this->left(z));
     } else {
-        Node<T> *y = min(this->right(z));
+        TreeNode<T> *y = min(this->right(z));
 
         if (this->parent(y) != z) {
             transplant(y, this->right(y));
@@ -138,4 +140,6 @@ void BST<T>::remove(Node<T> *z) {
     this->set_right(z, NULL);
 
     delete z;
+}
+
 }

@@ -1,47 +1,49 @@
-#ifndef LIST_H_
-#define LIST_H_
+#ifndef ALG_LIST_H_
+#define ALG_LIST_H_
 
 #include <stddef.h>
 
 #include "iterator.h"
 
+namespace alg {
+
 template <class T> class LinkedList;
 template <class T> class ListIterator;
 
 template <class T>
-class Node {
+class ListNode {
 private:
-    Node<T> *next;
-    Node<T> *prev;
+    ListNode<T> *next;
+    ListNode<T> *prev;
     T element;
 
     friend class LinkedList<T>;
 public:
-    Node(T element = T());
+    ListNode(T element = T());
     T get_element();
 };
 
 template <class T>
 class LinkedList {
 private:
-    Node<T> *head;
-    Node<T> *tail;
+    ListNode<T> *head;
+    ListNode<T> *tail;
 public:
     LinkedList();
     ~LinkedList();
 
-    Node<T> *first();
-    Node<T> *last();
-    Node<T> *after(Node<T> *);
-    Node<T> *before(Node<T> *);
+    ListNode<T> *first();
+    ListNode<T> *last();
+    ListNode<T> *after(ListNode<T> *);
+    ListNode<T> *before(ListNode<T> *);
 
-    void insert_after(Node<T> *, T);
-    void insert_before(Node<T> *, T);
+    void insert_after(ListNode<T> *, T);
+    void insert_before(ListNode<T> *, T);
     void insert_first(T);
     void insert_last(T);
 
-    Node<T> *search(T);
-    void remove(Node<T> *);
+    ListNode<T> *search(T);
+    void remove(ListNode<T> *);
 
     ListIterator<T> *create_iterator(bool forward=true);
     void destroy_iterator(ListIterator<T> *);
@@ -51,7 +53,7 @@ template <class T>
 class ListIterator : public Iterator<T> {
 protected:
     LinkedList<T> *list;
-    Node<T> *current;
+    ListNode<T> *current;
 public:
     ListIterator(LinkedList<T> *);
 
@@ -76,6 +78,8 @@ public:
     virtual void first();
     virtual void next();
 };
+
+}
 
 #include "list.tpp"
 

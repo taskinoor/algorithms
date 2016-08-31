@@ -1,5 +1,7 @@
-#ifndef ITERATOR_H_
-#define ITERATOR_H_
+#ifndef ALG_ITERATOR_H_
+#define ALG_ITERATOR_H_
+
+namespace alg {
 
 template <class T>
 class Iterator {
@@ -9,5 +11,7 @@ public:
     virtual bool is_done() const = 0;
     virtual T current_item() const = 0;
 };
+
+}
 
 #endif

@@ -1,3 +1,5 @@
+namespace alg {
+
 template <class T>
 ExtendableArray<T>::ExtendableArray(size_t capacity) {
     this->capacity = capacity;
@@ -77,4 +79,6 @@ T ExtendableArray<T>::get(int index) {
     }
 
     return buffer[index];
+}
+
 }

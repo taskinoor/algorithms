@@ -1,7 +1,9 @@
+namespace alg {
+
 template <class T>
 PostOrderIterator<T>::PostOrderIterator(BinaryTree<T> *tree) {
     this->tree = tree;
-    stack = new Stack<Node<T> *>(256);
+    stack = new Stack<TreeNode<T> *>(256);
 }
 
 template <class T>
@@ -23,7 +25,7 @@ void PostOrderIterator<T>::next() {
         return;
     }
 
-    Node<T> *node = stack->top();
+    TreeNode<T> *node = stack->top();
 
     while (true) {
         if (tree->right(node) == last_visited && last_visited) {
@@ -56,4 +58,6 @@ bool PostOrderIterator<T>::is_done() const {
 template <class T>
 T PostOrderIterator<T>::current_item() const {
     return last_visited->get_element();
+}
+
 }

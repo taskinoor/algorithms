@@ -1,9 +1,11 @@
-#ifndef ARRAY_H_
-#define ARRAY_H_
+#ifndef ALG_ARRAY_H_
+#define ALG_ARRAY_H_
 
 #include <stddef.h>
 
 #include <stdexcept>
+
+namespace alg {
 
 class InvalidIndexError : public std::runtime_error {
 public:
@@ -30,6 +32,8 @@ public:
     void set(int, T);
     T get(int);
 };
+
+}
 
 #include "array.tpp"
 

@@ -1,31 +1,35 @@
-#ifndef BST_H_
-#define BST_H_
+#ifndef ALG_BST_H_
+#define ALG_BST_H_
 
 #include "binary_tree.h"
+
+namespace alg {
 
 template <class T>
 class BST : public BinaryTree<T> {
 protected:
-    void transplant(Node<T> *, Node<T> *);
+    void transplant(TreeNode<T> *, TreeNode<T> *);
 
 public:
     BST() : BinaryTree<T>(NULL) {}
 
     virtual void insert(T);
-    virtual void remove(Node<T> *);
+    virtual void remove(TreeNode<T> *);
 
-    Node<T> *search(Node<T> *, T);
-    Node<T> *search(T);
+    TreeNode<T> *search(TreeNode<T> *, T);
+    TreeNode<T> *search(T);
 
-    Node<T> *min(Node<T> *);
-    Node<T> *min();
+    TreeNode<T> *min(TreeNode<T> *);
+    TreeNode<T> *min();
 
-    Node<T> *max(Node<T> *);
-    Node<T> *max();
+    TreeNode<T> *max(TreeNode<T> *);
+    TreeNode<T> *max();
 
-    Node<T> *successor(Node<T> *);
-    Node<T> *predecessor(Node<T> *);
+    TreeNode<T> *successor(TreeNode<T> *);
+    TreeNode<T> *predecessor(TreeNode<T> *);
 };
+
+}
 
 #include "bst.tpp"
 

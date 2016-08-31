@@ -1,5 +1,7 @@
+namespace alg {
+
 template <class T>
-void visit(Node<T> *v) {
+void visit(TreeNode<T> *v) {
     std::cout << v->get_element();
 }
 
@@ -9,7 +11,7 @@ void euler_tour(BinaryTree<T> *tree) {
 }
 
 template <class T>
-void euler_tour(BinaryTree<T> *tree, Node<T> *v) {
+void euler_tour(BinaryTree<T> *tree, TreeNode<T> *v) {
     if (!v) {
         return;
     }
@@ -19,4 +21,6 @@ void euler_tour(BinaryTree<T> *tree, Node<T> *v) {
     visit(v);
     euler_tour(tree, tree->right(v));
     visit(v);
+}
+
 }

@@ -1,5 +1,7 @@
+namespace alg {
+
 template <class T>
-OSTNode<T>::OSTNode(T element) : Node<T>(element) {
+OSTNode<T>::OSTNode(T element) : TreeNode<T>(element) {
     count = 1;
 }
 
@@ -35,13 +37,13 @@ void OrderStatisticTree<T>::insert(T element) {
 }
 
 template <class T>
-void OrderStatisticTree<T>::remove(Node<T> *z) {
+void OrderStatisticTree<T>::remove(TreeNode<T> *z) {
     if (!this->left(z)) {
         this->transplant(z, this->right(z));
     } else if (!this->right(z)) {
         this->transplant(z, this->left(z));
     } else {
-        Node<T> *y = this->min(this->right(z));
+        TreeNode<T> *y = this->min(this->right(z));
 
         if (this->parent(y) != z) {
             this->transplant(y, this->right(y));
@@ -83,12 +85,12 @@ T OrderStatisticTree<T>::select(int i, OSTNode<T> *v) {
 }
 
 template <class T>
-Node<T> *OrderStatisticTree<T>::select_node(int i) {
+TreeNode<T> *OrderStatisticTree<T>::select_node(int i) {
     return select_node(i, (OSTNode<T> *)this->root());
 }
 
 template <class T>
-Node<T> *OrderStatisticTree<T>::select_node(int i, OSTNode<T> *v) {
+TreeNode<T> *OrderStatisticTree<T>::select_node(int i, OSTNode<T> *v) {
     OSTNode<T> *left = (OSTNode<T> *)this->left(v);
     int count = left ? left->count : 0;
 
@@ -103,19 +105,19 @@ Node<T> *OrderStatisticTree<T>::select_node(int i, OSTNode<T> *v) {
 
 template <class T>
 int OrderStatisticTree<T>::rank(T element) {
-    Node<T> *node = this->search(element);
+    TreeNode<T> *node = this->search(element);
 
     if (!node) {
         return -1;
     }
 
     OSTNode<T> *left = (OSTNode<T> *)this->left(node);
-    Node<T> *root = this->root();
+    TreeNode<T> *root = this->root();
 
     int r = left ? left->get_count() : 0;
 
     while (node != root) {
-        Node<T> *parent = this->parent(node);
+        TreeNode<T> *parent = this->parent(node);
 
         if (node == this->right(parent)) {
             left = (OSTNode<T> *)this->left(parent);
@@ -126,4 +128,6 @@ int OrderStatisticTree<T>::rank(T element) {
     }
 
     return r;
+}
+
 }

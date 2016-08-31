@@ -1,7 +1,9 @@
+namespace alg {
+
 template <class T>
 PreOrderIterator<T>::PreOrderIterator(BinaryTree<T> *tree) {
     this->tree = tree;
-    stack = new Stack<Node<T> *>(256);
+    stack = new Stack<TreeNode<T> *>(256);
 }
 
 template <class T>
@@ -16,9 +18,9 @@ void PreOrderIterator<T>::first() {
 
 template <class T>
 void PreOrderIterator<T>::next() {
-    Node<T> *current = stack->pop();
-    Node<T> *left = tree->left(current);
-    Node<T> *right = tree->right(current);
+    TreeNode<T> *current = stack->pop();
+    TreeNode<T> *left = tree->left(current);
+    TreeNode<T> *right = tree->right(current);
 
     if (right) {
         stack->push(right);
@@ -36,4 +38,6 @@ bool PreOrderIterator<T>::is_done() const {
 template <class T>
 T PreOrderIterator<T>::current_item() const {
     return stack->top()->get_element();
+}
+
 }

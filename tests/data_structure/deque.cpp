@@ -3,13 +3,13 @@
 #include "deque.h"
 
 TEST(DequeTest, Operations) {
-    Deque<int> d;
+    alg::Deque<int> d;
 
     ASSERT_EQ(0, d.count());
-    ASSERT_THROW(d.back(), DequeEmptyError);
-    ASSERT_THROW(d.front(), DequeEmptyError);
-    ASSERT_THROW(d.pop_back(), DequeEmptyError);
-    ASSERT_THROW(d.pop_front(), DequeEmptyError);
+    ASSERT_THROW(d.back(), alg::DequeEmptyError);
+    ASSERT_THROW(d.front(), alg::DequeEmptyError);
+    ASSERT_THROW(d.pop_back(), alg::DequeEmptyError);
+    ASSERT_THROW(d.pop_front(), alg::DequeEmptyError);
 
     for (int i = 9; i >= 0; i--) {
         d.push_front(i);
@@ -41,20 +41,15 @@ TEST(DequeTest, Operations) {
             ASSERT_EQ(15, d.front());
             ASSERT_EQ(19 - (i + 1), d.back());
         } else {
-            ASSERT_THROW(d.front(), DequeEmptyError);
-            ASSERT_THROW(d.back(), DequeEmptyError);
+            ASSERT_THROW(d.front(), alg::DequeEmptyError);
+            ASSERT_THROW(d.back(), alg::DequeEmptyError);
         }
     }
 
     ASSERT_EQ(0, d.count());
-    ASSERT_THROW(d.back(), DequeEmptyError);
-    ASSERT_THROW(d.front(), DequeEmptyError);
-    ASSERT_THROW(d.pop_back(), DequeEmptyError);
-    ASSERT_THROW(d.pop_front(), DequeEmptyError);
-}
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-
-    return RUN_ALL_TESTS();
+    ASSERT_THROW(d.back(), alg::DequeEmptyError);
+    ASSERT_THROW(d.front(), alg::DequeEmptyError);
+    ASSERT_THROW(d.pop_back(), alg::DequeEmptyError);
+    ASSERT_THROW(d.pop_front(), alg::DequeEmptyError);
 }

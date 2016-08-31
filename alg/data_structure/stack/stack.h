@@ -1,9 +1,11 @@
-#ifndef STACK_H_
-#define STACK_H_
+#ifndef ALG_STACK_H_
+#define ALG_STACK_H_
 
 #include <stddef.h>
 
 #include <stdexcept>
+
+namespace alg {
 
 class StackFullError : public std::runtime_error {
 public:
@@ -30,6 +32,8 @@ public:
     T top();
     size_t count();
 };
+
+}
 
 #include "stack.tpp"
 

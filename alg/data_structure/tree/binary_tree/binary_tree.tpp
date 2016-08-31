@@ -1,5 +1,7 @@
+namespace alg {
+
 template <class T>
-Node<T>::Node(T element) {
+TreeNode<T>::TreeNode(T element) {
     this->element = element;
 
     parent = NULL;
@@ -8,18 +10,18 @@ Node<T>::Node(T element) {
 }
 
 template <class T>
-Node<T>::~Node() {
+TreeNode<T>::~TreeNode() {
     delete left;
     delete right;
 }
 
 template <class T>
-T Node<T>::get_element() {
+T TreeNode<T>::get_element() {
     return element;
 }
 
 template <class T>
-BinaryTree<T>::BinaryTree(Node<T> *root) {
+BinaryTree<T>::BinaryTree(TreeNode<T> *root) {
    _root = root;
 }
 
@@ -29,33 +31,33 @@ BinaryTree<T>::~BinaryTree() {
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::root() {
+TreeNode<T> *BinaryTree<T>::root() {
     return _root;
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::parent(Node<T> *p) {
+TreeNode<T> *BinaryTree<T>::parent(TreeNode<T> *p) {
     return p->parent;
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::left(Node<T> *p) {
+TreeNode<T> *BinaryTree<T>::left(TreeNode<T> *p) {
     return p->left;
 }
 
 template <class T>
-Node<T> *BinaryTree<T>::right(Node<T> *p) {
+TreeNode<T> *BinaryTree<T>::right(TreeNode<T> *p) {
     return p->right;
 }
 
 template <class T>
-void BinaryTree<T>::set_root(Node<T> *r) {
+void BinaryTree<T>::set_root(TreeNode<T> *r) {
     _root = r;
     r->parent = NULL;
 }
 
 template <class T>
-void BinaryTree<T>::set_left(Node<T> *p, Node<T> *child) {
+void BinaryTree<T>::set_left(TreeNode<T> *p, TreeNode<T> *child) {
     if (child) {
         child->parent = p;
     }
@@ -63,7 +65,7 @@ void BinaryTree<T>::set_left(Node<T> *p, Node<T> *child) {
 }
 
 template <class T>
-void BinaryTree<T>::set_right(Node<T> *p, Node<T> *child) {
+void BinaryTree<T>::set_right(TreeNode<T> *p, TreeNode<T> *child) {
     if (child) {
         child->parent = p;
     }
@@ -71,7 +73,7 @@ void BinaryTree<T>::set_right(Node<T> *p, Node<T> *child) {
 }
 
 template <class T>
-int BinaryTree<T>::depth(Node<T> *p) {
+int BinaryTree<T>::depth(TreeNode<T> *p) {
     int d = 0;
 
     while (p->parent != NULL) {
@@ -88,7 +90,7 @@ int BinaryTree<T>::height() {
 }
 
 template <class T>
-int BinaryTree<T>::height(Node<T> *p) {
+int BinaryTree<T>::height(TreeNode<T> *p) {
     if (!p) {
         return -1;
     }
@@ -97,7 +99,7 @@ int BinaryTree<T>::height(Node<T> *p) {
 }
 
 template <class T>
-int BinaryTree<T>::count_descendants(Node<T> *p) {
+int BinaryTree<T>::count_descendants(TreeNode<T> *p) {
     if (!p) {
         return 0;
     }
@@ -111,7 +113,7 @@ void BinaryTree<T>::print() {
 }
 
 template <class T>
-void BinaryTree<T>::print(Node<T> *p) {
+void BinaryTree<T>::print(TreeNode<T> *p) {
     if (!p) {
         return;
     }
@@ -136,4 +138,6 @@ void BinaryTree<T>::print(Node<T> *p) {
 
     print(p->left);
     print(p->right);
+}
+
 }

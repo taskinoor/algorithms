@@ -1,3 +1,5 @@
+namespace alg {
+
 template <class T>
 Stack<T>::Stack(size_t n) {
     size = n;
@@ -42,4 +44,6 @@ T Stack<T>::top() {
 template <class T>
 size_t Stack<T>::count() {
     return _top + 1;
+}
+
 }

@@ -1,3 +1,5 @@
+namespace alg {
+
 template <class T>
 int binary_search(T *a, T key, size_t n) {
     int low = 0;
@@ -16,4 +18,6 @@ int binary_search(T *a, T key, size_t n) {
     }
 
     return -1;
+}
+
 }

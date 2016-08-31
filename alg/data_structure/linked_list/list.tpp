@@ -1,19 +1,21 @@
+namespace alg {
+
 template <class T>
-Node<T>::Node(T element) {
+ListNode<T>::ListNode(T element) {
     prev = NULL;
     next = NULL;
     this->element = element;
 }
 
 template <class T>
-T Node<T>::get_element() {
+T ListNode<T>::get_element() {
     return element;
 }
 
 template <class T>
 LinkedList<T>::LinkedList() {
-    head = new Node<T>;
-    tail = new Node<T>;
+    head = new ListNode<T>;
+    tail = new ListNode<T>;
 
     head->next = tail;
     tail->prev = head;
@@ -21,10 +23,10 @@ LinkedList<T>::LinkedList() {
 
 template <class T>
 LinkedList<T>::~LinkedList() {
-    Node<T> *current = head->next;
+    ListNode<T> *current = head->next;
 
     while (current != tail) {
-        Node<T> *next = current->next;
+        ListNode<T> *next = current->next;
         delete current;
         current = next;
     }
@@ -34,17 +36,17 @@ LinkedList<T>::~LinkedList() {
 }
 
 template <class T>
-Node<T> *LinkedList<T>::first() {
+ListNode<T> *LinkedList<T>::first() {
     return after(head);
 }
 
 template <class T>
-Node<T> *LinkedList<T>::last() {
+ListNode<T> *LinkedList<T>::last() {
     return before(tail);
 }
 
 template <class T>
-Node<T> *LinkedList<T>::after(Node<T> *p) {
+ListNode<T> *LinkedList<T>::after(ListNode<T> *p) {
     if (p->next == tail) {
         return NULL;
     }
@@ -53,7 +55,7 @@ Node<T> *LinkedList<T>::after(Node<T> *p) {
 }
 
 template <class T>
-Node<T> *LinkedList<T>::before(Node<T> *p) {
+ListNode<T> *LinkedList<T>::before(ListNode<T> *p) {
     if (p->prev == head) {
         return NULL;
     }
@@ -62,8 +64,8 @@ Node<T> *LinkedList<T>::before(Node<T> *p) {
 }
 
 template <class T>
-void LinkedList<T>::insert_after(Node<T> *p, T element) {
-    Node<T> *node = new Node<T>(element);
+void LinkedList<T>::insert_after(ListNode<T> *p, T element) {
+    ListNode<T> *node = new ListNode<T>(element);
 
     node->next = p->next;
     node->prev = p;
@@ -72,8 +74,8 @@ void LinkedList<T>::insert_after(Node<T> *p, T element) {
 }
 
 template <class T>
-void LinkedList<T>::insert_before(Node<T> *p, T element) {
-    Node<T> *node = new Node<T>(element);
+void LinkedList<T>::insert_before(ListNode<T> *p, T element) {
+    ListNode<T> *node = new ListNode<T>(element);
 
     node->next = p;
     node->prev = p->prev;
@@ -92,8 +94,8 @@ void LinkedList<T>::insert_last(T element) {
 }
 
 template <class T>
-Node<T> *LinkedList<T>::search(T element) {
-    Node<T> *current = head->next;
+ListNode<T> *LinkedList<T>::search(T element) {
+    ListNode<T> *current = head->next;
 
     while (current != tail) {
         if (current->get_element() == element) {
@@ -106,7 +108,7 @@ Node<T> *LinkedList<T>::search(T element) {
 }
 
 template <class T>
-void LinkedList<T>::remove(Node<T> *p) {
+void LinkedList<T>::remove(ListNode<T> *p) {
     p->prev->next = p->next;
     p->next->prev = p->prev;
 
@@ -161,4 +163,6 @@ void BackwordListIterator<T>::first() {
 template <class T>
 void BackwordListIterator<T>::next() {
     this->current = this->list->before(this->current);
+}
+
 }

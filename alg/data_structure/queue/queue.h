@@ -1,9 +1,11 @@
-#ifndef QUEUE_H_
-#define QUEUE_H_
+#ifndef ALG_QUEUE_H_
+#define ALG_QUEUE_H_
 
 #include <stddef.h>
 
 #include <stdexcept>
+
+namespace alg {
 
 class QueueFullError : public std::runtime_error {
 public:
@@ -29,6 +31,8 @@ public:
     T dequeue();
     size_t count();
 };
+
+}
 
 #include "queue.tpp"
 

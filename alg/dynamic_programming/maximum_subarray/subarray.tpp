@@ -1,3 +1,5 @@
+namespace alg {
+
 template <class T>
 T max_subarray(T *a, size_t n) {
     if (!n) {
@@ -21,4 +23,6 @@ T max_subarray(T *a, size_t n) {
     delete[] suffix_sum;
 
     return max;
+}
+
 }

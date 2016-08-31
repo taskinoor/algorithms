@@ -1,6 +1,8 @@
 #include "josephus.h"
 #include "queue.h"
 
+namespace alg {
+
 int josephus_queue(int n, int k) {
     Queue<int> q(256);
 
@@ -57,4 +59,6 @@ OrderStatisticTree<int> *_get_randomized_ost(int n) {
     delete data;
 
     return ost;
+}
+
 }

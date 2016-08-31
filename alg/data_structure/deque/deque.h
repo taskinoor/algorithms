@@ -1,9 +1,12 @@
-#ifndef DEQUE_H_
-#define DEQUE_H_
+#ifndef ALG_DEQUE_H_
+#define ALG_DEQUE_H_
 
 #include <stddef.h>
 #include <stdexcept>
+
 #include "list.h"
+
+namespace alg {
 
 class DequeEmptyError : public std::runtime_error {
 public:
@@ -16,8 +19,8 @@ private:
     LinkedList<T> *list;
     size_t _count;
 
-    Node<T> *get_back_node();
-    Node<T> *get_front_node();
+    ListNode<T> *get_back_node();
+    ListNode<T> *get_front_node();
 public:
     Deque();
     ~Deque();
@@ -30,6 +33,8 @@ public:
     T front();
     size_t count();
 };
+
+}
 
 #include "deque.tpp"
 

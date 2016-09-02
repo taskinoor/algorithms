@@ -1,8 +1,7 @@
 #ifndef ALG_ARRAY_H_
 #define ALG_ARRAY_H_
 
-#include <stddef.h>
-
+#include <cstddef>
 #include <stdexcept>
 
 namespace alg {
@@ -16,21 +15,22 @@ template <class T>
 class ExtendableArray {
 private:
     T *buffer;
-    size_t capacity;
+    std::size_t capacity;
     int n;
 
     void grow();
+
 public:
-    ExtendableArray(size_t capacity = 1);
-    ~ExtendableArray();
+    ExtendableArray(std::size_t capacity = 1);
+    virtual ~ExtendableArray();
 
-    size_t count();
+    std::size_t count();
 
-    void add(int, T);
-    T remove(int);
+    void add(int index, T element);
+    T remove(int index);
 
-    void set(int, T);
-    T get(int);
+    void set(int index, T element);
+    T get(int index);
 };
 
 }

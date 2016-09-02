@@ -1,7 +1,7 @@
 namespace alg {
 
 template <class T>
-ExtendableArray<T>::ExtendableArray(size_t capacity) {
+ExtendableArray<T>::ExtendableArray(std::size_t capacity) {
     this->capacity = capacity;
     buffer = new T[capacity];
     n = 0;
@@ -26,7 +26,7 @@ void ExtendableArray<T>::grow() {
 }
 
 template <class T>
-size_t ExtendableArray<T>::count() {
+std::size_t ExtendableArray<T>::count() {
     return n;
 }
 
@@ -43,6 +43,7 @@ void ExtendableArray<T>::add(int index, T element) {
     for (int i = n - 1; i >= index; i--) {
         buffer[i + 1] = buffer[i];
     }
+
     buffer[index] = element;
     n++;
 }
@@ -58,6 +59,7 @@ T ExtendableArray<T>::remove(int index) {
     for (int i = index + 1; i < n; i++) {
         buffer[i - 1] = buffer[i];
     }
+
     n--;
 
     return element;
@@ -65,7 +67,7 @@ T ExtendableArray<T>::remove(int index) {
 
 template <class T>
 void ExtendableArray<T>::set(int index, T element) {
-    if (index < 0 || index > n - 1) {
+    if (index < 0 || index >= n) {
         throw InvalidIndexError();
     }
 
@@ -74,7 +76,7 @@ void ExtendableArray<T>::set(int index, T element) {
 
 template <class T>
 T ExtendableArray<T>::get(int index) {
-    if (index < 0 || index > n - 1) {
+    if (index < 0 || index >= n) {
         throw InvalidIndexError();
     }
 

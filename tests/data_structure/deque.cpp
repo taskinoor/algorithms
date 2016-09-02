@@ -1,55 +1,63 @@
 #include <gtest/gtest.h>
-
 #include "deque.h"
 
-TEST(DequeTest, Operations) {
-    alg::Deque<int> d;
+namespace algtest {
 
-    ASSERT_EQ(0, d.count());
-    ASSERT_THROW(d.back(), alg::DequeEmptyError);
-    ASSERT_THROW(d.front(), alg::DequeEmptyError);
-    ASSERT_THROW(d.pop_back(), alg::DequeEmptyError);
-    ASSERT_THROW(d.pop_front(), alg::DequeEmptyError);
+class Deque : public ::testing::Test {
+protected:
+    template <class T>
+    void assert_empty(alg::Deque<T>& deq) {
+        ASSERT_EQ(0, deq.count());
+
+        ASSERT_THROW(deq.back(), alg::DequeEmptyError);
+        ASSERT_THROW(deq.front(), alg::DequeEmptyError);
+        ASSERT_THROW(deq.pop_back(), alg::DequeEmptyError);
+        ASSERT_THROW(deq.pop_front(), alg::DequeEmptyError);
+    }
+};
+
+TEST_F(Deque, Operations) {
+    alg::Deque<int> deq;
+
+    assert_empty(deq);
 
     for (int i = 9; i >= 0; i--) {
-        d.push_front(i);
+        deq.push_front(i);
 
-        ASSERT_EQ(9, d.back());
-        ASSERT_EQ(i, d.front());
-        ASSERT_EQ(10 - i, d.count());
+        ASSERT_EQ(9, deq.back());
+        ASSERT_EQ(i, deq.front());
+        ASSERT_EQ(10 - i, deq.count());
     }
 
     for (int i = 10; i < 20; i++) {
-        d.push_back(i);
+        deq.push_back(i);
 
-        ASSERT_EQ(i, d.back());
-        ASSERT_EQ(0, d.front());
-        ASSERT_EQ(i + 1, d.count());
+        ASSERT_EQ(i, deq.back());
+        ASSERT_EQ(0, deq.front());
+        ASSERT_EQ(i + 1, deq.count());
     }
 
     for (int i = 0; i < 15; i++) {
-        ASSERT_EQ(i, d.pop_front());
-        ASSERT_EQ(20 - (i + 1), d.count());
-        ASSERT_EQ(i + 1, d.front());
-        ASSERT_EQ(19, d.back());
+        ASSERT_EQ(i, deq.pop_front());
+        ASSERT_EQ(20 - (i + 1), deq.count());
+        ASSERT_EQ(i + 1, deq.front());
+        ASSERT_EQ(19, deq.back());
     }
+
     for (int i = 0; i < 5; i++) {
-        ASSERT_EQ(19 - i, d.pop_back());
-        ASSERT_EQ(5 - (i + 1), d.count());
+        ASSERT_EQ(19 - i, deq.pop_back());
+        ASSERT_EQ(5 - (i + 1), deq.count());
 
         if (i < 4) {
-            ASSERT_EQ(15, d.front());
-            ASSERT_EQ(19 - (i + 1), d.back());
+            ASSERT_EQ(15, deq.front());
+            ASSERT_EQ(19 - (i + 1), deq.back());
         } else {
-            ASSERT_THROW(d.front(), alg::DequeEmptyError);
-            ASSERT_THROW(d.back(), alg::DequeEmptyError);
+            ASSERT_THROW(deq.front(), alg::DequeEmptyError);
+            ASSERT_THROW(deq.back(), alg::DequeEmptyError);
         }
     }
 
-    ASSERT_EQ(0, d.count());
+    assert_empty(deq);
+}
 
-    ASSERT_THROW(d.back(), alg::DequeEmptyError);
-    ASSERT_THROW(d.front(), alg::DequeEmptyError);
-    ASSERT_THROW(d.pop_back(), alg::DequeEmptyError);
-    ASSERT_THROW(d.pop_front(), alg::DequeEmptyError);
 }

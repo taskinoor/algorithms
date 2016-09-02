@@ -1,9 +1,8 @@
 #ifndef ALG_DEQUE_H_
 #define ALG_DEQUE_H_
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdexcept>
-
 #include "list.h"
 
 namespace alg {
@@ -17,21 +16,25 @@ template <class T>
 class Deque {
 private:
     LinkedList<T> *list;
-    size_t _count;
+    std::size_t count_;
 
-    ListNode<T> *get_back_node();
-    ListNode<T> *get_front_node();
+    ListNode<T> *back_node();
+    ListNode<T> *front_node();
+
 public:
     Deque();
-    ~Deque();
+    virtual ~Deque();
 
-    void push_back(T);
-    void push_front(T);
+    void push_back(T element);
+    void push_front(T element);
+
     T pop_back();
     T pop_front();
+
     T back();
     T front();
-    size_t count();
+
+    std::size_t count();
 };
 
 }

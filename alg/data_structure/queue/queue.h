@@ -1,8 +1,7 @@
 #ifndef ALG_QUEUE_H_
 #define ALG_QUEUE_H_
 
-#include <stddef.h>
-
+#include <cstddef>
 #include <stdexcept>
 
 namespace alg {
@@ -21,15 +20,17 @@ template <class T>
 class Queue {
 private:
     T *buffer;
-    int front, rear;
-    size_t size;
-public:
-    Queue(size_t);
-    ~Queue();
+    int front;
+    int rear;
+    std::size_t size;
 
-    void enqueue(T);
+public:
+    Queue(std::size_t n);
+    virtual ~Queue();
+
+    void enqueue(T element);
     T dequeue();
-    size_t count();
+    std::size_t count();
 };
 
 }

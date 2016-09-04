@@ -1,10 +1,11 @@
 namespace alg {
 
 template <class T>
-Queue<T>::Queue(size_t n) {
+Queue<T>::Queue(std::size_t n) {
     size = n + 1;
     buffer = new T[size];
-    front = rear = 0;
+    front = 0;
+    rear = 0;
 }
 
 template <class T>
@@ -35,7 +36,7 @@ T Queue<T>::dequeue() {
 }
 
 template <class T>
-size_t Queue<T>::count() {
+std::size_t Queue<T>::count() {
     return (rear - front + size) % size;
 }
 

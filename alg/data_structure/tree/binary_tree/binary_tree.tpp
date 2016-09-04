@@ -109,40 +109,47 @@ int BinaryTree<T>::count_descendants(TreeNode<T> *p) {
 }
 
 template <class T>
-void BinaryTree<T>::print() {
-    print(root_);
+std::string BinaryTree<T>::to_string() {
+    std::string out = "";
+    to_string(root_, out);
+
+    return out;
 }
 
 template <class T>
-void BinaryTree<T>::print(TreeNode<T> *p) {
+void BinaryTree<T>::to_string(TreeNode<T> *p, std::string& out) {
     if (!p) {
         return;
     }
 
-    std::cout << "node: " << p->element();
+    std::ostringstream buf;
+
+    buf << "node: " << p->element();
 
     if (p->left) {
-        std::cout << ", left: " << p->left->element();
+        buf << ", left: " << p->left->element();
     } else {
-        std::cout << ", left: null";
+        buf << ", left: null";
     }
 
     if (p->right) {
-        std::cout << ", right: " << p->right->element();
+        buf << ", right: " << p->right->element();
     } else {
-        std::cout << ", right: null";
+        buf << ", right: null";
     }
 
     if (p->parent) {
-        std::cout << ", parent: " << p->parent->element();
+        buf << ", parent: " << p->parent->element();
     } else {
-        std::cout << ", parent: null";
+        buf << ", parent: null";
     }
 
-    std::cout << std::endl;
+    buf << std::endl;
 
-    print(p->left);
-    print(p->right);
+    out += buf.str();
+
+    to_string(p->left, out);
+    to_string(p->right, out);
 }
 
 }

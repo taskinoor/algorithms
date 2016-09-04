@@ -1,7 +1,7 @@
 #ifndef ALG_BINARY_TREE_H_
 #define ALG_BINARY_TREE_H_
 
-#include <iostream>
+#include <sstream>
 #include <string>
 #include "utils.h"
 
@@ -32,6 +32,8 @@ class BinaryTree {
 private:
     TreeNode<T> *root_;
 
+    void to_string(TreeNode<T> *p, std::string& out);
+
 public:
     BinaryTree(TreeNode<T> *root);
     virtual ~BinaryTree();
@@ -50,8 +52,7 @@ public:
     int height(TreeNode<T> *p);
     int count_descendants(TreeNode<T> *p);
 
-    void print();
-    void print(TreeNode<T> *p);
+    std::string to_string();
 };
 
 }

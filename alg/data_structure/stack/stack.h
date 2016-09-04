@@ -1,8 +1,7 @@
 #ifndef ALG_STACK_H_
 #define ALG_STACK_H_
 
-#include <stddef.h>
-
+#include <cstddef>
 #include <stdexcept>
 
 namespace alg {
@@ -21,16 +20,17 @@ template <class T>
 class Stack {
 private:
     T *buffer;
-    int _top;
-    size_t size;
-public:
-    Stack(size_t);
-    ~Stack();
+    int top_;
+    std::size_t size;
 
-    void push(T);
+public:
+    Stack(std::size_t n);
+    virtual ~Stack();
+
+    void push(T element);
     T pop();
     T top();
-    size_t count();
+    std::size_t count();
 };
 
 }

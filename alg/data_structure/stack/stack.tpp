@@ -1,9 +1,9 @@
 namespace alg {
 
 template <class T>
-Stack<T>::Stack(size_t n) {
+Stack<T>::Stack(std::size_t n) {
     size = n;
-    _top = -1;
+    top_ = -1;
     buffer = new T[n];
 }
 
@@ -14,36 +14,36 @@ Stack<T>::~Stack() {
 
 template <class T>
 void Stack<T>::push(T element) {
-    if (_top == size - 1) {
+    if (top_ == size - 1) {
         throw StackFullError();
     }
 
-    _top++;
-    buffer[_top] = element;
+    top_++;
+    buffer[top_] = element;
 }
 
 template <class T>
 T Stack<T>::pop() {
-    if (_top == -1) {
+    if (top_ == -1) {
         throw StackEmptyError();
     }
 
-    _top--;
-    return buffer[_top + 1];
+    top_--;
+    return buffer[top_ + 1];
 }
 
 template <class T>
 T Stack<T>::top() {
-    if (_top == -1) {
+    if (top_ == -1) {
         throw StackEmptyError();
     }
 
-    return buffer[_top];
+    return buffer[top_];
 }
 
 template <class T>
-size_t Stack<T>::count() {
-    return _top + 1;
+std::size_t Stack<T>::count() {
+    return top_ + 1;
 }
 
 }

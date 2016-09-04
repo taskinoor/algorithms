@@ -2,14 +2,14 @@ namespace alg {
 
 template <class T>
 ListNode<T>::ListNode(T element) {
-    prev = NULL;
-    next = NULL;
-    this->element = element;
+    prev = nullptr;
+    next = nullptr;
+    element_ = element;
 }
 
 template <class T>
-T ListNode<T>::get_element() {
-    return element;
+T ListNode<T>::element() {
+    return element_;
 }
 
 template <class T>
@@ -48,7 +48,7 @@ ListNode<T> *LinkedList<T>::last() {
 template <class T>
 ListNode<T> *LinkedList<T>::after(ListNode<T> *p) {
     if (p->next == tail) {
-        return NULL;
+        return nullptr;
     }
 
     return p->next;
@@ -57,7 +57,7 @@ ListNode<T> *LinkedList<T>::after(ListNode<T> *p) {
 template <class T>
 ListNode<T> *LinkedList<T>::before(ListNode<T> *p) {
     if (p->prev == head) {
-        return NULL;
+        return nullptr;
     }
 
     return p->prev;
@@ -98,13 +98,13 @@ ListNode<T> *LinkedList<T>::search(T element) {
     ListNode<T> *current = head->next;
 
     while (current != tail) {
-        if (current->get_element() == element) {
+        if (current->element() == element) {
             return current;
         }
         current = current->next;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 template <class T>
@@ -117,11 +117,17 @@ void LinkedList<T>::remove(ListNode<T> *p) {
 
 template <class T>
 ListIterator<T> *LinkedList<T>::create_iterator(bool forward) {
+    ListIterator<T> *iter;
+
     if (forward) {
-        return new ForwardListIterator<T>(this);
+        iter = new ForwardListIterator<T>(this);
     } else {
-        return new BackwordListIterator<T>(this);
+        iter = new BackwardListIterator<T>(this);
     }
+
+    iter->first();
+
+    return iter;
 }
 
 template <class T>
@@ -132,17 +138,17 @@ void LinkedList<T>::destroy_iterator(ListIterator<T> *iter) {
 template <class T>
 ListIterator<T>::ListIterator(LinkedList<T> *list) {
     this->list = list;
-    current = NULL;
+    current = nullptr;
 }
 
 template <class T>
 bool ListIterator<T>::is_done() const {
-    return current == NULL;
+    return !current;
 }
 
 template <class T>
 T ListIterator<T>::current_item() const {
-    return current->get_element();
+    return current->element();
 }
 
 template <class T>
@@ -156,12 +162,12 @@ void ForwardListIterator<T>::next() {
 }
 
 template <class T>
-void BackwordListIterator<T>::first() {
+void BackwardListIterator<T>::first() {
     this->current = this->list->last();
 }
 
 template <class T>
-void BackwordListIterator<T>::next() {
+void BackwardListIterator<T>::next() {
     this->current = this->list->before(this->current);
 }
 

@@ -48,7 +48,7 @@ ListNode<T> *Deque<T>::front_node() {
 template <class T>
 T Deque<T>::pop_back() {
     ListNode<T> *node = back_node();
-    T element = node->get_element();
+    T element = node->element();
 
     list->remove(node);
     count_--;
@@ -59,7 +59,7 @@ T Deque<T>::pop_back() {
 template <class T>
 T Deque<T>::pop_front() {
     ListNode<T> *node = front_node();
-    T element = node->get_element();
+    T element = node->element();
 
     list->remove(node);
     count_--;
@@ -69,12 +69,12 @@ T Deque<T>::pop_front() {
 
 template <class T>
 T Deque<T>::back() {
-    return back_node()->get_element();
+    return back_node()->element();
 }
 
 template <class T>
 T Deque<T>::front() {
-    return front_node()->get_element();
+    return front_node()->element();
 }
 
 template <class T>

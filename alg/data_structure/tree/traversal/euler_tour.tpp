@@ -2,7 +2,7 @@ namespace alg {
 
 template <class T>
 void visit(TreeNode<T> *v) {
-    std::cout << v->get_element();
+    std::cout << v->element();
 }
 
 template <class T>

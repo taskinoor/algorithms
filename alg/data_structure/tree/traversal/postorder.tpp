@@ -14,14 +14,15 @@ PostOrderIterator<T>::~PostOrderIterator() {
 template <class T>
 void PostOrderIterator<T>::first() {
     stack->push(tree->root());
-    last_visited = NULL;
+    last_visited = nullptr;
+
     next();
 }
 
 template <class T>
 void PostOrderIterator<T>::next() {
     if (!stack->count()) {
-        last_visited = NULL;
+        last_visited = nullptr;
         return;
     }
 
@@ -31,17 +32,21 @@ void PostOrderIterator<T>::next() {
         if (tree->right(node) == last_visited && last_visited) {
             break;
         }
+
         if (tree->left(node) == last_visited && !tree->right(node)) {
             break;
         }
+
         while (tree->left(node) && tree->left(node) != last_visited) {
             node = tree->left(node);
             stack->push(node);
         }
+
         if (tree->right(node)) {
             node = tree->right(node);
             stack->push(node);
         }
+
         if (!tree->left(node) && !tree->right(node)) {
             break;
         }
@@ -57,7 +62,7 @@ bool PostOrderIterator<T>::is_done() const {
 
 template <class T>
 T PostOrderIterator<T>::current_item() const {
-    return last_visited->get_element();
+    return last_visited->element();
 }
 
 }

@@ -37,7 +37,7 @@ bool PreOrderIterator<T>::is_done() const {
 
 template <class T>
 T PreOrderIterator<T>::current_item() const {
-    return stack->top()->get_element();
+    return stack->top()->element();
 }
 
 }

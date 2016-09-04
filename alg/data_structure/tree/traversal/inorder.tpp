@@ -37,7 +37,7 @@ bool InOrderIterator<T>::is_done() const {
 
 template <class T>
 T InOrderIterator<T>::current_item() const {
-    return stack->top()->get_element();
+    return stack->top()->element();
 }
 
 }

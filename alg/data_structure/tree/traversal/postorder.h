@@ -1,9 +1,9 @@
 #ifndef ALG_POSTORDER_H_
 #define ALG_POSTORDER_H_
 
+#include "binary_tree.h"
 #include "iterator.h"
 #include "stack.h"
-#include "binary_tree.h"
 
 namespace alg {
 
@@ -13,14 +13,15 @@ private:
     BinaryTree<T> *tree;
     Stack<TreeNode<T> *> *stack;
     TreeNode<T> *last_visited;
-public:
-    PostOrderIterator(BinaryTree<T> *);
-    ~PostOrderIterator();
 
-    virtual void first();
-    virtual void next();
-    virtual bool is_done() const;
-    virtual T current_item() const;
+public:
+    PostOrderIterator(BinaryTree<T> *tree);
+    virtual ~PostOrderIterator();
+
+    void first();
+    void next();
+    bool is_done() const;
+    T current_item() const;
 };
 
 }

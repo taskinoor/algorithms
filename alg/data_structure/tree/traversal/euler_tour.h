@@ -2,19 +2,18 @@
 #define ALG_EULER_TOUR_H_
 
 #include <iostream>
-
 #include "binary_tree.h"
 
 namespace alg {
 
 template <class T>
-void visit(TreeNode<T> *);
+void visit(TreeNode<T> *v);
 
 template <class T>
-void euler_tour(BinaryTree<T> *);
+void euler_tour(BinaryTree<T> *tree);
 
 template <class T>
-void euler_tour(BinaryTree<T> *, TreeNode<T> *);
+void euler_tour(BinaryTree<T> *tree, TreeNode<T> *v);
 
 }
 

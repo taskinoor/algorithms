@@ -2,11 +2,10 @@ namespace alg {
 
 template <class T>
 TreeNode<T>::TreeNode(T element) {
-    this->element = element;
-
-    parent = NULL;
-    left = NULL;
-    right = NULL;
+    element_ = element;
+    parent = nullptr;
+    left = nullptr;
+    right = nullptr;
 }
 
 template <class T>
@@ -16,23 +15,23 @@ TreeNode<T>::~TreeNode() {
 }
 
 template <class T>
-T TreeNode<T>::get_element() {
-    return element;
+T TreeNode<T>::element() {
+    return element_;
 }
 
 template <class T>
 BinaryTree<T>::BinaryTree(TreeNode<T> *root) {
-   _root = root;
+   root_ = root;
 }
 
 template <class T>
 BinaryTree<T>::~BinaryTree() {
-    delete _root;
+    delete root_;
 }
 
 template <class T>
 TreeNode<T> *BinaryTree<T>::root() {
-    return _root;
+    return root_;
 }
 
 template <class T>
@@ -52,8 +51,8 @@ TreeNode<T> *BinaryTree<T>::right(TreeNode<T> *p) {
 
 template <class T>
 void BinaryTree<T>::set_root(TreeNode<T> *r) {
-    _root = r;
-    r->parent = NULL;
+    root_ = r;
+    r->parent = nullptr;
 }
 
 template <class T>
@@ -61,6 +60,7 @@ void BinaryTree<T>::set_left(TreeNode<T> *p, TreeNode<T> *child) {
     if (child) {
         child->parent = p;
     }
+
     p->left = child;
 }
 
@@ -69,6 +69,7 @@ void BinaryTree<T>::set_right(TreeNode<T> *p, TreeNode<T> *child) {
     if (child) {
         child->parent = p;
     }
+
     p->right = child;
 }
 
@@ -76,7 +77,7 @@ template <class T>
 int BinaryTree<T>::depth(TreeNode<T> *p) {
     int d = 0;
 
-    while (p->parent != NULL) {
+    while (p->parent) {
         p = p->parent;
         d++;
     }
@@ -86,7 +87,7 @@ int BinaryTree<T>::depth(TreeNode<T> *p) {
 
 template <class T>
 int BinaryTree<T>::height() {
-    return height(_root);
+    return height(root_);
 }
 
 template <class T>
@@ -109,7 +110,7 @@ int BinaryTree<T>::count_descendants(TreeNode<T> *p) {
 
 template <class T>
 void BinaryTree<T>::print() {
-    print(_root);
+    print(root_);
 }
 
 template <class T>
@@ -118,22 +119,26 @@ void BinaryTree<T>::print(TreeNode<T> *p) {
         return;
     }
 
-    std::cout << "node: " << p->element;
+    std::cout << "node: " << p->element();
+
     if (p->left) {
-        std::cout << ", left: " << p->left->element;
+        std::cout << ", left: " << p->left->element();
     } else {
         std::cout << ", left: null";
     }
+
     if (p->right) {
-        std::cout << ", right: " << p->right->element;
+        std::cout << ", right: " << p->right->element();
     } else {
         std::cout << ", right: null";
     }
+
     if (p->parent) {
-        std::cout << ", parent: " << p->parent->element;
+        std::cout << ", parent: " << p->parent->element();
     } else {
         std::cout << ", parent: null";
     }
+
     std::cout << std::endl;
 
     print(p->left);

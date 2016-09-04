@@ -20,7 +20,7 @@ void OrderStatisticTree<T>::insert(T element) {
         last = current;
         last->count++;
 
-        if (element < current->get_element()) {
+        if (element < current->element()) {
             current = (OSTNode<T> *)this->left(current);
         } else {
             current = (OSTNode<T> *)this->right(current);
@@ -29,7 +29,7 @@ void OrderStatisticTree<T>::insert(T element) {
 
     if (!last) {
         this->set_root(node);
-    } else if (element < last->get_element()) {
+    } else if (element < last->element()) {
         this->set_left(last, node);
     } else {
         this->set_right(last, node);

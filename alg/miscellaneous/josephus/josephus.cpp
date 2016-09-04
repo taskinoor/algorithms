@@ -33,7 +33,7 @@ int josephus_ost(int n, int k) {
         next = (next + k - 1) % left;
     }
 
-    int survivor = ost->root()->get_element();
+    int survivor = ost->root()->element();
     delete ost;
 
     return survivor;

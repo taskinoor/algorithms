@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-
 #include "utils.h"
 
 namespace alg {
@@ -19,40 +18,40 @@ protected:
     TreeNode<T> *left;
     TreeNode<T> *right;
 
-    T element;
+    T element_;
 
 public:
     TreeNode(T element = T());
     virtual ~TreeNode();
 
-    T get_element();
+    T element();
 };
 
 template <class T>
 class BinaryTree {
 private:
-    TreeNode<T> *_root;
+    TreeNode<T> *root_;
 
 public:
-    BinaryTree(TreeNode<T> *);
+    BinaryTree(TreeNode<T> *root);
     virtual ~BinaryTree();
 
     TreeNode<T> *root();
-    TreeNode<T> *parent(TreeNode<T> *);
-    TreeNode<T> *left(TreeNode<T> *);
-    TreeNode<T> *right(TreeNode<T> *);
+    TreeNode<T> *parent(TreeNode<T> *p);
+    TreeNode<T> *left(TreeNode<T> *p);
+    TreeNode<T> *right(TreeNode<T> *p);
 
-    void set_root(TreeNode<T> *);
-    void set_left(TreeNode<T> *, TreeNode<T> *);
-    void set_right(TreeNode<T> *, TreeNode<T> *);
+    void set_root(TreeNode<T> *r);
+    void set_left(TreeNode<T> *p, TreeNode<T> *child);
+    void set_right(TreeNode<T> *p, TreeNode<T> *child);
 
-    int depth(TreeNode<T> *);
+    int depth(TreeNode<T> *p);
     int height();
-    int height(TreeNode<T> *);
-    int count_descendants(TreeNode<T> *);
+    int height(TreeNode<T> *p);
+    int count_descendants(TreeNode<T> *p);
 
     void print();
-    void print(TreeNode<T> *);
+    void print(TreeNode<T> *p);
 };
 
 }

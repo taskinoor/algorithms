@@ -9,7 +9,7 @@ void BST<T>::insert(T element) {
     while (current) {
         last = current;
 
-        if (element < current->get_element()) {
+        if (element < current->element()) {
             current = this->left(current);
         } else {
             current = this->right(current);
@@ -18,7 +18,7 @@ void BST<T>::insert(T element) {
 
     if (!last) {
         this->set_root(node);
-    } else if (element < last->get_element()) {
+    } else if (element < last->element()) {
         this->set_left(last, node);
     } else {
         this->set_right(last, node);

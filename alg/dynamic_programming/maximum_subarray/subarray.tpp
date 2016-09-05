@@ -1,7 +1,7 @@
 namespace alg {
 
 template <class T>
-T max_subarray(T *a, size_t n) {
+T max_subarray(T *a, std::size_t n) {
     if (!n) {
         return 0;
     }

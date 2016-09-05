@@ -1,12 +1,12 @@
 #ifndef ALG_BINARY_SEARCH_H_
 #define ALG_BINARY_SEARCH_H_
 
-#include <stddef.h>
+#include <cstddef>
 
 namespace alg {
 
 template <class T>
-int binary_search(T *, T, size_t);
+int binary_search(T *a, T key, std::size_t n);
 
 }
 

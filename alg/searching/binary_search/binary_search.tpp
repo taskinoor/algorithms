@@ -1,7 +1,7 @@
 namespace alg {
 
 template <class T>
-int binary_search(T *a, T key, size_t n) {
+int binary_search(T *a, T key, std::size_t n) {
     int low = 0;
     int high = n - 1;
 

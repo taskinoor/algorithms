@@ -2,7 +2,7 @@ namespace alg {
 
 template <class T>
 void BST<T>::insert(T element) {
-    TreeNode<T> *last = NULL;
+    TreeNode<T> *last = nullptr;
     TreeNode<T> *current = this->root();
     TreeNode<T> *node = new TreeNode<T>(element);
 
@@ -27,8 +27,8 @@ void BST<T>::insert(T element) {
 
 template <class T>
 TreeNode<T> *BST<T>::search(TreeNode<T> *node, T key) {
-    while (node && node->get_element() != key) {
-        if (key < node->get_element()) {
+    while (node && node->element() != key) {
+        if (key < node->element()) {
              node = this->left(node);
         } else {
             node = this->right(node);
@@ -136,8 +136,8 @@ void BST<T>::remove(TreeNode<T> *z) {
         this->set_left(y, this->left(z));
     }
 
-    this->set_left(z, NULL);
-    this->set_right(z, NULL);
+    this->set_left(z, nullptr);
+    this->set_right(z, nullptr);
 
     delete z;
 }

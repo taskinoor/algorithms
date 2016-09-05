@@ -8,25 +8,25 @@ namespace alg {
 template <class T>
 class BST : public BinaryTree<T> {
 protected:
-    void transplant(TreeNode<T> *, TreeNode<T> *);
+    void transplant(TreeNode<T> *u, TreeNode<T> *v);
 
 public:
-    BST() : BinaryTree<T>(NULL) {}
+    BST() : BinaryTree<T>(nullptr) {}
 
-    virtual void insert(T);
-    virtual void remove(TreeNode<T> *);
+    virtual void insert(T element);
+    virtual void remove(TreeNode<T> *z);
 
-    TreeNode<T> *search(TreeNode<T> *, T);
-    TreeNode<T> *search(T);
+    TreeNode<T> *search(TreeNode<T> *node, T key);
+    TreeNode<T> *search(T key);
 
-    TreeNode<T> *min(TreeNode<T> *);
+    TreeNode<T> *min(TreeNode<T> *node);
     TreeNode<T> *min();
 
-    TreeNode<T> *max(TreeNode<T> *);
+    TreeNode<T> *max(TreeNode<T> *node);
     TreeNode<T> *max();
 
-    TreeNode<T> *successor(TreeNode<T> *);
-    TreeNode<T> *predecessor(TreeNode<T> *);
+    TreeNode<T> *successor(TreeNode<T> *node);
+    TreeNode<T> *predecessor(TreeNode<T> *node);
 };
 
 }

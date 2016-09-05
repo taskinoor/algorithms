@@ -56,7 +56,7 @@ OrderStatisticTree<int> *randomized_ost(int n) {
         ost->insert(data[i]);
     }
 
-    delete data;
+    delete[] data;
 
     return ost;
 }

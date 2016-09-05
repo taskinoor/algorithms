@@ -9,15 +9,15 @@ template <class T> class OrderStatisticTree;
 
 template <class T>
 class OSTNode : public TreeNode<T> {
-    friend class OrderStatisticTree<T>;
-
 private:
-    int count;
+    int count_;
+
+    friend class OrderStatisticTree<T>;
 
 public:
     OSTNode(T element = T());
 
-    int get_count();
+    int count();
 };
 
 template <class T>

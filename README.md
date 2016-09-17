@@ -34,3 +34,5 @@ Here is the list of data structures and algorithms implemented so far:
 * Searching
 	* Binary Search
 	* Range Queries (on BST)
+* Sorting
+	* Insertion Sort

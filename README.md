@@ -33,6 +33,7 @@ Here is the list of data structures and algorithms implemented so far:
 		* Solved using Order Statistic Tree
 * Searching
 	* Binary Search
+	* Linear Search
 	* Range Queries (on BST)
 * Sorting
 	* Insertion Sort

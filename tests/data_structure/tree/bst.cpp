@@ -30,7 +30,7 @@ TEST_F(BST, Insert) {
 }
 
 TEST_F(BST, InOrderTraversal) {
-    const int n = 10;
+    constexpr int n = 10;
     alg::InOrderIterator<int> *it = new alg::InOrderIterator<int>(bst);
     std::array<int, n> expected = {2, 2, 5, 9, 12, 13, 15, 17, 18, 19};
     std::array<int, n> result;
@@ -86,7 +86,7 @@ TEST_F(BST, Max) {
 }
 
 TEST_F(BST, Successor) {
-    const int n = 8;
+    constexpr int n = 8;
     std::array<int, n> data = {5, 9, 12, 13, 15, 17, 18, 19};
 
     ASSERT_EQ(2, bst->successor(bst->search(2))->element());
@@ -98,7 +98,7 @@ TEST_F(BST, Successor) {
 }
 
 TEST_F(BST, Predecessor) {
-    const int n = 9;
+    constexpr int n = 9;
     std::array<int, n> data = {2, 5, 9, 12, 13, 15, 17, 18, 19};
 
     for (int i = n - 1; i > 0; i--) {

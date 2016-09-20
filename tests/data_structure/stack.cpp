@@ -19,7 +19,7 @@ TEST(Stack, Full) {
 }
 
 TEST(Stack, PushPop) {
-    const int n = 10;
+    constexpr int n = 10;
     std::array<int, n> data = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
     alg::Stack<int> s(n);
 

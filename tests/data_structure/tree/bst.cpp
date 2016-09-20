@@ -1,5 +1,8 @@
 #include <array>
+#include <string>
+
 #include <gtest/gtest.h>
+
 #include "bst.h"
 #include "inorder.h"
 
@@ -24,9 +27,9 @@ protected:
 };
 
 TEST_F(BST, Insert) {
-    const char *expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
 
-    ASSERT_STREQ(expected, bst->to_string().c_str());
+    ASSERT_EQ(expected, bst->to_string());
 }
 
 TEST_F(BST, InOrderTraversal) {
@@ -110,35 +113,35 @@ TEST_F(BST, Predecessor) {
 }
 
 TEST_F(BST, RemoveRoot) {
-    const char *expected = "node: 13, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 13\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 13\nnode: 15, left: null, right: 17, parent: 18\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "node: 13, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 13\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 13\nnode: 15, left: null, right: 17, parent: 18\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
 
     bst->remove(bst->root());
 
-    ASSERT_STREQ(expected, bst->to_string().c_str());
+    ASSERT_EQ(expected, bst->to_string());
 }
 
 TEST_F(BST, RemoveLeaf) {
-    const char *expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: null, right: 17, parent: 18\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: null, right: 17, parent: 18\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
 
     bst->remove(bst->search(13));
 
-    ASSERT_STREQ(expected, bst->to_string().c_str());
+    ASSERT_EQ(expected, bst->to_string());
 }
 
 TEST_F(BST, RemoveNodeWithOneChild) {
-    const char *expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: null, parent: 5\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: null, parent: 5\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
 
     bst->remove(bst->search(2));
 
-    ASSERT_STREQ(expected, bst->to_string().c_str());
+    ASSERT_EQ(expected, bst->to_string());
 }
 
 TEST_F(BST, RemoveNodeWithSuccessorImmediateRight) {
-    const char *expected = "node: 12, left: 5, right: 19, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 19, left: 15, right: null, parent: 12\nnode: 15, left: 13, right: 17, parent: 19\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\n";
+    std::string expected = "node: 12, left: 5, right: 19, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 19, left: 15, right: null, parent: 12\nnode: 15, left: 13, right: 17, parent: 19\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\n";
 
     bst->remove(bst->search(18));
 
-    ASSERT_STREQ(expected, bst->to_string().c_str());
+    ASSERT_EQ(expected, bst->to_string());
 }
 
 }

@@ -1,3 +1,4 @@
+#include <string>
 #include <gtest/gtest.h>
 #include "binary_tree.h"
 
@@ -83,9 +84,9 @@ TEST_F(BinaryTree, DescendantsCount) {
 }
 
 TEST_F(BinaryTree, ToString) {
-    const char *expected = "node: 0, left: 1, right: 2, parent: null\nnode: 1, left: 3, right: 4, parent: 0\nnode: 3, left: null, right: null, parent: 1\nnode: 4, left: null, right: 5, parent: 1\nnode: 5, left: null, right: null, parent: 4\nnode: 2, left: null, right: null, parent: 0\n";
+    std::string expected = "node: 0, left: 1, right: 2, parent: null\nnode: 1, left: 3, right: 4, parent: 0\nnode: 3, left: null, right: null, parent: 1\nnode: 4, left: null, right: 5, parent: 1\nnode: 5, left: null, right: null, parent: 4\nnode: 2, left: null, right: null, parent: 0\n";
 
-    ASSERT_STREQ(expected, tree->to_string().c_str());
+    ASSERT_EQ(expected, tree->to_string());
 }
 
 }

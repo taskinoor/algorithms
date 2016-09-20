@@ -134,11 +134,11 @@ TEST_F(TreeTraversal, InOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, EulerTour) {
-    ASSERT_STREQ("FBAAABDCCCDEEEDBFGGIHHHIIGF", alg::euler_tour(tree).c_str());
+    ASSERT_EQ("FBAAABDCCCDEEEDBFGGIHHHIIGF", alg::euler_tour(tree));
 }
 
 TEST_F(TreeTraversal, EulerTourOnlyRoot) {
-    ASSERT_STREQ("AAA", alg::euler_tour(tree_only_root).c_str());
+    ASSERT_EQ("AAA", alg::euler_tour(tree_only_root));
 }
 
 }

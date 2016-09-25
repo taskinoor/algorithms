@@ -9,11 +9,7 @@ Here is the list of data structures and algorithms implemented so far:
 * Data Structure
 	* Deque
 	* Extendable Array
-	* Linked List
-		* Doubly Linked List
-		* Traversal
-			* Forward Iterator
-			* Backward Iterator
+	* Linked List (Doubly)
 	* Queue (Fixed size)
 	* Stack (Fixed size)
 	* Tree
@@ -37,3 +33,4 @@ Here is the list of data structures and algorithms implemented so far:
 	* Range Queries (on BST)
 * Sorting
 	* Insertion Sort
+	* Selection Sort

@@ -1,6 +1,13 @@
 #ifndef ALG_UTILS_H_
 #define ALG_UTILS_H_
 
-#define MAX(a,b) (((a)>(b))?(a):(b))
+namespace alg {
+
+template <class T>
+T max(const T& a, const T& b);
+
+}
+
+#include "utils.tpp"
 
 #endif

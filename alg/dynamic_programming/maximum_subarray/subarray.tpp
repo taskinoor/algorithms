@@ -7,22 +7,23 @@ T max_subarray(T *a, std::size_t n) {
     }
 
     T *suffix_sum = new T[n];
+    T zero = 0;
 
-    suffix_sum[0] = MAX(0, a[0]);
+    suffix_sum[0] = max(zero, a[0]);
 
     for (int i = 1; i < n; i++) {
-        suffix_sum[i] = MAX(0, suffix_sum[i - 1] + a[i]);
+        suffix_sum[i] = max(zero, suffix_sum[i - 1] + a[i]);
     }
 
-    T max = suffix_sum[0];
+    T max_sum = suffix_sum[0];
 
     for (int i = 1; i < n; i++) {
-        max = MAX(max, suffix_sum[i]);
+        max_sum = max(max_sum, suffix_sum[i]);
     }
 
     delete[] suffix_sum;
 
-    return max;
+    return max_sum;
 }
 
 }

@@ -24,13 +24,12 @@ Here is the list of data structures and algorithms implemented so far:
 * Dynamic Programming
 	* Maximum Subarray
 * Miscellaneous
-	* Josephus problem
-		* Solved using Queue
-		* Solved using Order Statistic Tree
+	* Josephus problem (1. Using Queue, 2. Using Order Statistic Tree)
 * Searching
 	* Binary Search
 	* Linear Search
 	* Range Queries (on BST)
 * Sorting
 	* Insertion Sort
+	* Merge Sort
 	* Selection Sort

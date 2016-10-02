@@ -1,7 +1,7 @@
 namespace alg {
 
 template <class T>
-void insertion_sort(T *a, std::size_t n) {
+void insertion_sort(T *a, int n) {
     for (int j = 1; j < n; j++) {
         T key = a[j];
         int i = j - 1;

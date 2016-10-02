@@ -1,11 +1,7 @@
 namespace alg {
 
 template <class T>
-void merge_sort(T *a, std::size_t n) {
-    if (!n) {
-        return;
-    }
-
+void merge_sort(T *a, int n) {
     merge_sort(a, 0, n - 1);
 }
 

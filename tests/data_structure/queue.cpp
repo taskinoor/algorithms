@@ -1,6 +1,7 @@
 #include <array>
 #include <gtest/gtest.h>
-#include "queue.h"
+
+#include "alg/data_structure/queue/queue.h"
 
 namespace algtest {
 

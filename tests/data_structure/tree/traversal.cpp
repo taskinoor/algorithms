@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 
-#include "euler_tour.h"
-#include "inorder.h"
-#include "postorder.h"
-#include "preorder.h"
+#include "alg/data_structure/tree/traversal/euler_tour.h"
+#include "alg/data_structure/tree/traversal/inorder.h"
+#include "alg/data_structure/tree/traversal/postorder.h"
+#include "alg/data_structure/tree/traversal/preorder.h"
 
 namespace algtest {
 

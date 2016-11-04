@@ -1,4 +1,4 @@
-#include "insertion_sort.h"
+#include "alg/sorting/insertion_sort/insertion_sort.h"
 #include "sorting.h"
 
 namespace algtest {

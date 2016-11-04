@@ -1,7 +1,7 @@
 #ifndef ALG_SELECTION_SORT_H_
 #define ALG_SELECTION_SORT_H_
 
-#include "utils.h"
+#include "alg/common/utils.h"
 
 namespace alg {
 

@@ -3,7 +3,8 @@
 
 #include <cstddef>
 #include <stdexcept>
-#include "list.h"
+
+#include "alg/data_structure/linked_list/list.h"
 
 namespace alg {
 

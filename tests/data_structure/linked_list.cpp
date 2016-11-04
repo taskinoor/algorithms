@@ -1,6 +1,7 @@
 #include <array>
 #include <gtest/gtest.h>
-#include "list.h"
+
+#include "alg/data_structure/linked_list/list.h"
 
 namespace algtest {
 

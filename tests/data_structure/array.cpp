@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include "array.h"
+
+#include "alg/data_structure/extendable_array/array.h"
 
 namespace algtest {
 

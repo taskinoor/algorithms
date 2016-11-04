@@ -3,7 +3,8 @@
 
 #include <algorithm>
 #include <random>
-#include "order_statistic_tree.h"
+
+#include "alg/data_structure/tree/order_statistic_tree/order_statistic_tree.h"
 
 namespace alg {
 

@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include "binary_search.h"
+
+#include "alg/searching/binary_search/binary_search.h"
 
 namespace algtest {
 

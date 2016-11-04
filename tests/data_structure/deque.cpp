@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include "deque.h"
+
+#include "alg/data_structure/deque/deque.h"
 
 namespace algtest {
 

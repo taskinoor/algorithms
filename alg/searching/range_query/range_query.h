@@ -2,7 +2,8 @@
 #define ALG_RANGE_QUERY_H_
 
 #include <unordered_set>
-#include "bst.h"
+
+#include "alg/data_structure/tree/binary_search_tree/bst.h"
 
 namespace alg {
 

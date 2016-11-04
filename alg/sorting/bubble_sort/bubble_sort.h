@@ -1,7 +1,7 @@
 #ifndef ALG_BUBBLE_SORT_H_
 #define ALG_BUBBLE_SORT_H_
 
-#include "utils.h"
+#include "alg/common/utils.h"
 
 namespace alg {
 

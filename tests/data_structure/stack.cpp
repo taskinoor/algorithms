@@ -1,6 +1,7 @@
 #include <array>
 #include <gtest/gtest.h>
-#include "stack.h"
+
+#include "alg/data_structure/stack/stack.h"
 
 namespace algtest {
 

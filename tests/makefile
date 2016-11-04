@@ -7,7 +7,7 @@ CFLAGS := \
 	-Wall \
 	-Wextra
 
-INCLUDE := $(shell find ../alg -type d | sed s/^/-I/)
+INCLUDE := -I..
 
 LIBS := \
 	-lgtest \

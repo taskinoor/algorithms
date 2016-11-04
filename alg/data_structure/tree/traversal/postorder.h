@@ -1,9 +1,9 @@
 #ifndef ALG_POSTORDER_H_
 #define ALG_POSTORDER_H_
 
-#include "binary_tree.h"
-#include "iterator.h"
-#include "stack.h"
+#include "alg/common/iterator.h"
+#include "alg/data_structure/stack/stack.h"
+#include "alg/data_structure/tree/binary_tree/binary_tree.h"
 
 namespace alg {
 

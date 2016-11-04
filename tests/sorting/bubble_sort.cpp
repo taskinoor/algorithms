@@ -1,4 +1,4 @@
-#include "bubble_sort.h"
+#include "alg/sorting/bubble_sort/bubble_sort.h"
 #include "sorting.h"
 
 namespace algtest {

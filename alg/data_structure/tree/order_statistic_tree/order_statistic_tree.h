@@ -1,7 +1,7 @@
 #ifndef ALG_ORDER_STATISTIC_TREE_H_
 #define ALG_ORDER_STATISTIC_TREE_H_
 
-#include "bst.h"
+#include "alg/data_structure/tree/binary_search_tree/bst.h"
 
 namespace alg {
 

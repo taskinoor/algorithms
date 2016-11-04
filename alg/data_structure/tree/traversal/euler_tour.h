@@ -2,7 +2,8 @@
 #define ALG_EULER_TOUR_H_
 
 #include <sstream>
-#include "binary_tree.h"
+
+#include "alg/data_structure/tree/binary_tree/binary_tree.h"
 
 namespace alg {
 

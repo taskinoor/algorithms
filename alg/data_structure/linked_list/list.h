@@ -1,7 +1,7 @@
 #ifndef ALG_LIST_H_
 #define ALG_LIST_H_
 
-#include "iterator.h"
+#include "alg/common/iterator.h"
 
 namespace alg {
 

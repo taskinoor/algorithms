@@ -2,7 +2,8 @@
 #define ALG_SUBARRAY_H_
 
 #include <cstddef>
-#include "utils.h"
+
+#include "alg/common/utils.h"
 
 namespace alg {
 

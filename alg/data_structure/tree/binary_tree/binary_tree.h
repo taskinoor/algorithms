@@ -22,8 +22,10 @@ protected:
     T element_;
 
 public:
-    TreeNode(T element = T());
-    virtual ~TreeNode();
+    TreeNode(T element = T(), TreeNode<T> *parent = nullptr,
+            TreeNode<T> *left = nullptr, TreeNode<T> *right = nullptr);
+
+    virtual ~TreeNode() {}
 
     T element();
 };
@@ -34,6 +36,10 @@ private:
     TreeNode<T> *root_;
 
     void to_string(TreeNode<T> *p, std::string& out);
+    void free(TreeNode<T> *node);
+
+protected:
+    TreeNode<T> *nil_;
 
 public:
     BinaryTree(TreeNode<T> *root);
@@ -54,6 +60,9 @@ public:
     int count_descendants(TreeNode<T> *p);
 
     std::string to_string();
+
+    TreeNode<T> *nil();
+    void set_nil(TreeNode<T> *nil_);
 };
 
 }

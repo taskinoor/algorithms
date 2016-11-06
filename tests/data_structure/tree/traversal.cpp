@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "alg/data_structure/tree/binary_search_tree/bst.h"
 #include "alg/data_structure/tree/traversal/euler_tour.h"
 #include "alg/data_structure/tree/traversal/inorder.h"
 #include "alg/data_structure/tree/traversal/postorder.h"
@@ -14,16 +15,20 @@ private:
     }
 
 protected:
-    alg::BinaryTree<char> *tree;
-    alg::BinaryTree<char> *tree_only_root;
+    alg::BST<char> *tree;
+    alg::BST<char> *tree_only_root;
     alg::TreeNode<char> *node[9];
 
     virtual void SetUp() {
+        tree = new alg::BST<char>();
+
         for (int i = 0; i < 9; i++) {
-            node[i] = new alg::TreeNode<char>('A' + i);
+            node[i] = new alg::TreeNode<char>('A' + i,
+                    tree->nil(), tree->nil(), tree->nil());
         }
 
-        tree = new alg::BinaryTree<char>(node[index('F')]);
+        tree->set_root(node[index('F')]);
+
         int child_map[9][2] = {
             -1, -1,
             'A', 'D',
@@ -46,7 +51,10 @@ protected:
             }
         }
 
-        tree_only_root = new alg::BinaryTree<char>(new alg::TreeNode<char>('A'));
+        tree_only_root = new alg::BST<char>();
+        tree_only_root->set_root(new alg::TreeNode<char>('A',
+                tree_only_root->nil(), tree_only_root->nil(),
+                tree_only_root->nil()));
     }
 
     virtual void TearDown() {

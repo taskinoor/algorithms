@@ -21,11 +21,12 @@ void PreOrderIterator<T>::next() {
     TreeNode<T> *current = stack->pop();
     TreeNode<T> *left = tree->left(current);
     TreeNode<T> *right = tree->right(current);
+    TreeNode<T> *nil_ = tree->nil();
 
-    if (right) {
+    if (right != nil_) {
         stack->push(right);
     }
-    if (left) {
+    if (left != nil_) {
         stack->push(left);
     }
 }

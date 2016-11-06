@@ -1,17 +1,14 @@
 namespace alg {
 
 template <class T>
-TreeNode<T>::TreeNode(T element) {
-    element_ = element;
-    parent = nullptr;
-    left = nullptr;
-    right = nullptr;
-}
+TreeNode<T>::TreeNode(T element, TreeNode<T> *parent, TreeNode<T> *left,
+        TreeNode<T> *right) {
 
-template <class T>
-TreeNode<T>::~TreeNode() {
-    delete left;
-    delete right;
+    element_ = element;
+
+    this->parent = parent;
+    this->left = left;
+    this->right = right;
 }
 
 template <class T>
@@ -22,11 +19,25 @@ T TreeNode<T>::element() {
 template <class T>
 BinaryTree<T>::BinaryTree(TreeNode<T> *root) {
    root_ = root;
+   nil_ = nullptr;
 }
 
 template <class T>
 BinaryTree<T>::~BinaryTree() {
-    delete root_;
+    free(root_);
+    delete nil_;
+}
+
+template <class T>
+void BinaryTree<T>::free(TreeNode<T> *node) {
+    if (node == nil_) {
+        return;
+    }
+
+    free(node->left);
+    free(node->right);
+
+    delete node;
 }
 
 template <class T>
@@ -52,12 +63,15 @@ TreeNode<T> *BinaryTree<T>::right(TreeNode<T> *p) {
 template <class T>
 void BinaryTree<T>::set_root(TreeNode<T> *r) {
     root_ = r;
-    r->parent = nullptr;
+
+    if (root_ != nil_) {
+        root_->parent = nil_;
+    }
 }
 
 template <class T>
 void BinaryTree<T>::set_left(TreeNode<T> *p, TreeNode<T> *child) {
-    if (child) {
+    if (child != nil_) {
         child->parent = p;
     }
 
@@ -66,7 +80,7 @@ void BinaryTree<T>::set_left(TreeNode<T> *p, TreeNode<T> *child) {
 
 template <class T>
 void BinaryTree<T>::set_right(TreeNode<T> *p, TreeNode<T> *child) {
-    if (child) {
+    if (child != nil_) {
         child->parent = p;
     }
 
@@ -77,7 +91,7 @@ template <class T>
 int BinaryTree<T>::depth(TreeNode<T> *p) {
     int d = 0;
 
-    while (p->parent) {
+    while (p->parent != nil_) {
         p = p->parent;
         d++;
     }
@@ -92,7 +106,7 @@ int BinaryTree<T>::height() {
 
 template <class T>
 int BinaryTree<T>::height(TreeNode<T> *p) {
-    if (!p) {
+    if (p == nil_) {
         return -1;
     }
 
@@ -101,7 +115,7 @@ int BinaryTree<T>::height(TreeNode<T> *p) {
 
 template <class T>
 int BinaryTree<T>::count_descendants(TreeNode<T> *p) {
-    if (!p) {
+    if (p == nil_) {
         return 0;
     }
 
@@ -118,7 +132,7 @@ std::string BinaryTree<T>::to_string() {
 
 template <class T>
 void BinaryTree<T>::to_string(TreeNode<T> *p, std::string& out) {
-    if (!p) {
+    if (p == nil_) {
         return;
     }
 
@@ -126,19 +140,19 @@ void BinaryTree<T>::to_string(TreeNode<T> *p, std::string& out) {
 
     buf << "node: " << p->element();
 
-    if (p->left) {
+    if (p->left != nil_) {
         buf << ", left: " << p->left->element();
     } else {
         buf << ", left: null";
     }
 
-    if (p->right) {
+    if (p->right != nil_) {
         buf << ", right: " << p->right->element();
     } else {
         buf << ", right: null";
     }
 
-    if (p->parent) {
+    if (p->parent != nil_) {
         buf << ", parent: " << p->parent->element();
     } else {
         buf << ", parent: null";
@@ -150,6 +164,16 @@ void BinaryTree<T>::to_string(TreeNode<T> *p, std::string& out) {
 
     to_string(p->left, out);
     to_string(p->right, out);
+}
+
+template <class T>
+TreeNode<T> *BinaryTree<T>::nil() {
+    return nil_;
+}
+
+template <class T>
+void BinaryTree<T>::set_nil(TreeNode<T> *nil_) {
+    this->nil_ = nil_;
 }
 
 }

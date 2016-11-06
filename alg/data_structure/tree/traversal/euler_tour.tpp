@@ -18,7 +18,7 @@ std::string euler_tour(BinaryTree<T> *tree) {
 
 template <class T>
 void euler_tour(BinaryTree<T> *tree, TreeNode<T> *v, std::string &out) {
-    if (!v) {
+    if (v == tree->nil()) {
         return;
     }
 

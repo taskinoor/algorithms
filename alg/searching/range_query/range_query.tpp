@@ -9,7 +9,7 @@ template <class T>
 void range_query(BST<T> *bst, TreeNode<T> *v, T k1, T k2,
         std::unordered_set<T>& result) {
 
-    if (!v) {
+    if (v == bst->nil()) {
         return;
     }
 

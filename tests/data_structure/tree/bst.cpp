@@ -26,6 +26,10 @@ protected:
     }
 };
 
+TEST_F(BST, SentinelNode) {
+    ASSERT_EQ(nullptr, bst->nil());
+}
+
 TEST_F(BST, Insert) {
     std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
 
@@ -77,7 +81,7 @@ TEST_F(BST, Search) {
 }
 
 TEST_F(BST, SearchMissingKey) {
-    ASSERT_EQ(nullptr, bst->search(31));
+    ASSERT_EQ(bst->nil(), bst->search(31));
 }
 
 TEST_F(BST, Min) {
@@ -93,7 +97,7 @@ TEST_F(BST, Successor) {
     std::array<int, n> data = {5, 9, 12, 13, 15, 17, 18, 19};
 
     ASSERT_EQ(2, bst->successor(bst->search(2))->element());
-    ASSERT_EQ(nullptr, bst->successor(bst->search(data[n - 1])));
+    ASSERT_EQ(bst->nil(), bst->successor(bst->search(data[n - 1])));
 
     for (int i = 0; i < n - 1; i++) {
         ASSERT_EQ(data[i + 1], bst->successor(bst->search(data[i]))->element());
@@ -109,7 +113,7 @@ TEST_F(BST, Predecessor) {
                 bst->predecessor(bst->search(data[i]))->element());
     }
 
-    ASSERT_EQ(nullptr, bst->predecessor(bst->search(2)));
+    ASSERT_EQ(bst->nil(), bst->predecessor(bst->search(2)));
 }
 
 TEST_F(BST, RemoveRoot) {

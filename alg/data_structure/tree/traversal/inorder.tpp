@@ -13,7 +13,7 @@ InOrderIterator<T>::~InOrderIterator() {
 
 template <class T>
 void InOrderIterator<T>::push_left_nodes(TreeNode<T> *p) {
-    while (p) {
+    while (p != tree->nil()) {
         stack->push(p);
         p = tree->left(p);
     }

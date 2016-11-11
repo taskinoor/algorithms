@@ -30,6 +30,8 @@ template <class T>
 class RedBlackTree : public BST<T> {
 public:
     RedBlackTree();
+
+    void rotate(TreeNode<T> *x, bool left);
 };
 
 }

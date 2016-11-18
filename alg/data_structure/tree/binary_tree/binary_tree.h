@@ -28,6 +28,7 @@ public:
     virtual ~TreeNode() {}
 
     T element();
+    virtual std::string to_string(TreeNode<T> *nil = nullptr);
 };
 
 template <class T>

@@ -17,6 +17,35 @@ T TreeNode<T>::element() {
 }
 
 template <class T>
+std::string TreeNode<T>::to_string(TreeNode<T> *nil) {
+    std::ostringstream buf;
+
+    buf << "E: " << element_;
+
+    if (left != nil) {
+        buf << ", L: " << left->element();
+    } else {
+        buf << ", L: nil";
+    }
+
+    if (right != nil) {
+        buf << ", R: " << right->element();
+    } else {
+        buf << ", R: nil";
+    }
+
+    if (parent != nil) {
+        buf << ", P: " << parent->element();
+    } else {
+        buf << ", P: nil";
+    }
+
+    buf << std::endl;
+
+    return buf.str();
+}
+
+template <class T>
 BinaryTree<T>::BinaryTree(TreeNode<T> *root) {
    root_ = root;
    nil_ = nullptr;
@@ -136,31 +165,7 @@ void BinaryTree<T>::to_string(TreeNode<T> *p, std::string& out) {
         return;
     }
 
-    std::ostringstream buf;
-
-    buf << "node: " << p->element();
-
-    if (p->left != nil_) {
-        buf << ", left: " << p->left->element();
-    } else {
-        buf << ", left: null";
-    }
-
-    if (p->right != nil_) {
-        buf << ", right: " << p->right->element();
-    } else {
-        buf << ", right: null";
-    }
-
-    if (p->parent != nil_) {
-        buf << ", parent: " << p->parent->element();
-    } else {
-        buf << ", parent: null";
-    }
-
-    buf << std::endl;
-
-    out += buf.str();
+    out += p->to_string(nil_);
 
     to_string(p->left, out);
     to_string(p->right, out);

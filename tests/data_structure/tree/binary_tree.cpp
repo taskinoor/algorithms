@@ -85,7 +85,7 @@ TEST_F(BinaryTree, DescendantsCount) {
 }
 
 TEST_F(BinaryTree, ToString) {
-    std::string expected = "node: 0, left: 1, right: 2, parent: null\nnode: 1, left: 3, right: 4, parent: 0\nnode: 3, left: null, right: null, parent: 1\nnode: 4, left: null, right: 5, parent: 1\nnode: 5, left: null, right: null, parent: 4\nnode: 2, left: null, right: null, parent: 0\n";
+    std::string expected = "E: 0, L: 1, R: 2, P: nil\nE: 1, L: 3, R: 4, P: 0\nE: 3, L: nil, R: nil, P: 1\nE: 4, L: nil, R: 5, P: 1\nE: 5, L: nil, R: nil, P: 4\nE: 2, L: nil, R: nil, P: 0\n";
 
     ASSERT_EQ(expected, tree->to_string());
 }

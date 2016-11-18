@@ -31,7 +31,7 @@ TEST_F(BST, SentinelNode) {
 }
 
 TEST_F(BST, Insert) {
-    std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "E: 12, L: 5, R: 18, P: nil\nE: 5, L: 2, R: 9, P: 12\nE: 2, L: nil, R: 2, P: 5\nE: 2, L: nil, R: nil, P: 2\nE: 9, L: nil, R: nil, P: 5\nE: 18, L: 15, R: 19, P: 12\nE: 15, L: 13, R: 17, P: 18\nE: 13, L: nil, R: nil, P: 15\nE: 17, L: nil, R: nil, P: 15\nE: 19, L: nil, R: nil, P: 18\n";
 
     ASSERT_EQ(expected, bst->to_string());
 }
@@ -117,7 +117,7 @@ TEST_F(BST, Predecessor) {
 }
 
 TEST_F(BST, RemoveRoot) {
-    std::string expected = "node: 13, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 13\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 13\nnode: 15, left: null, right: 17, parent: 18\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "E: 13, L: 5, R: 18, P: nil\nE: 5, L: 2, R: 9, P: 13\nE: 2, L: nil, R: 2, P: 5\nE: 2, L: nil, R: nil, P: 2\nE: 9, L: nil, R: nil, P: 5\nE: 18, L: 15, R: 19, P: 13\nE: 15, L: nil, R: 17, P: 18\nE: 17, L: nil, R: nil, P: 15\nE: 19, L: nil, R: nil, P: 18\n";
 
     bst->remove(bst->root());
 
@@ -125,7 +125,7 @@ TEST_F(BST, RemoveRoot) {
 }
 
 TEST_F(BST, RemoveLeaf) {
-    std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: null, right: 17, parent: 18\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "E: 12, L: 5, R: 18, P: nil\nE: 5, L: 2, R: 9, P: 12\nE: 2, L: nil, R: 2, P: 5\nE: 2, L: nil, R: nil, P: 2\nE: 9, L: nil, R: nil, P: 5\nE: 18, L: 15, R: 19, P: 12\nE: 15, L: nil, R: 17, P: 18\nE: 17, L: nil, R: nil, P: 15\nE: 19, L: nil, R: nil, P: 18\n";
 
     bst->remove(bst->search(13));
 
@@ -133,7 +133,7 @@ TEST_F(BST, RemoveLeaf) {
 }
 
 TEST_F(BST, RemoveNodeWithOneChild) {
-    std::string expected = "node: 12, left: 5, right: 18, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: null, parent: 5\nnode: 9, left: null, right: null, parent: 5\nnode: 18, left: 15, right: 19, parent: 12\nnode: 15, left: 13, right: 17, parent: 18\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\nnode: 19, left: null, right: null, parent: 18\n";
+    std::string expected = "E: 12, L: 5, R: 18, P: nil\nE: 5, L: 2, R: 9, P: 12\nE: 2, L: nil, R: nil, P: 5\nE: 9, L: nil, R: nil, P: 5\nE: 18, L: 15, R: 19, P: 12\nE: 15, L: 13, R: 17, P: 18\nE: 13, L: nil, R: nil, P: 15\nE: 17, L: nil, R: nil, P: 15\nE: 19, L: nil, R: nil, P: 18\n";
 
     bst->remove(bst->search(2));
 
@@ -141,7 +141,7 @@ TEST_F(BST, RemoveNodeWithOneChild) {
 }
 
 TEST_F(BST, RemoveNodeWithSuccessorImmediateRight) {
-    std::string expected = "node: 12, left: 5, right: 19, parent: null\nnode: 5, left: 2, right: 9, parent: 12\nnode: 2, left: null, right: 2, parent: 5\nnode: 2, left: null, right: null, parent: 2\nnode: 9, left: null, right: null, parent: 5\nnode: 19, left: 15, right: null, parent: 12\nnode: 15, left: 13, right: 17, parent: 19\nnode: 13, left: null, right: null, parent: 15\nnode: 17, left: null, right: null, parent: 15\n";
+    std::string expected = "E: 12, L: 5, R: 19, P: nil\nE: 5, L: 2, R: 9, P: 12\nE: 2, L: nil, R: 2, P: 5\nE: 2, L: nil, R: nil, P: 2\nE: 9, L: nil, R: nil, P: 5\nE: 19, L: 15, R: nil, P: 12\nE: 15, L: 13, R: 17, P: 19\nE: 13, L: nil, R: nil, P: 15\nE: 17, L: nil, R: nil, P: 15\n";
 
     bst->remove(bst->search(18));
 

@@ -1,15 +1,35 @@
+#include <cmath>
+#include <algorithm>
+#include <random>
+#include <vector>
+
 #include <gtest/gtest.h>
 
 #include "alg/data_structure/tree/red_black_tree/red_black_tree.h"
+#include "alg/data_structure/tree/traversal/inorder.h"
 
 namespace algtest {
 
 class RedBlackTree : public ::testing::Test {
 protected:
     alg::RedBlackTree<int> *tree;
+    std::vector<int> keys;
 
     virtual void SetUp() {
         tree = new alg::RedBlackTree<int>();
+        constexpr int n = 100000;
+
+        keys.clear();
+
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> key_dis(0, n * 100);
+
+        for (int i = 0; i < n; i++) {
+            int key = key_dis(gen);
+            keys.push_back(key);
+            tree->insert(key);
+        }
     }
 
     virtual void TearDown() {
@@ -27,6 +47,43 @@ TEST_F(RedBlackTree, LeafColor) {
     alg::RBNode<int> *nil = (alg::RBNode<int> *)tree->nil();
 
     ASSERT_EQ(alg::BLACK, nil->color());
+}
+
+TEST_F(RedBlackTree, Height) {
+    ASSERT_EQ(keys.size(), tree->count_descendants(tree->root()));
+    ASSERT_LE(tree->height(), 2 * std::log2(keys.size() + 1));
+}
+
+TEST_F(RedBlackTree, Search) {
+    for (const int& key : keys) {
+        alg::TreeNode<int> *node = tree->search(key);
+
+        ASSERT_NE(tree->nil(), node);
+        ASSERT_EQ(key, node->element());
+    }
+}
+
+TEST_F(RedBlackTree, MinMax) {
+    auto minmax = std::minmax_element(keys.begin(), keys.end());
+
+    ASSERT_EQ(*minmax.first, tree->min()->element());
+    ASSERT_EQ(*minmax.second, tree->max()->element());
+}
+
+TEST_F(RedBlackTree, Ordering) {
+    std::sort(keys.begin(), keys.end());
+
+    alg::InOrderIterator<int> *iter = new alg::InOrderIterator<int>(tree);
+    iter->first();
+    int i = 0;
+
+    for ( ; !iter->is_done(); iter->next(), i++) {
+        ASSERT_EQ(keys[i], iter->current_item());
+    }
+
+    ASSERT_EQ(keys.size(), i);
+
+    delete iter;
 }
 
 TEST_F(RedBlackTree, Rotation) {

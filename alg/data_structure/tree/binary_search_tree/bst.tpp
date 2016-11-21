@@ -2,15 +2,21 @@ namespace alg {
 
 template <class T>
 void BST<T>::insert(T element) {
-    TreeNode<T> *last = nullptr;
-    TreeNode<T> *current = this->root();
     TreeNode<T> *node = new TreeNode<T>(element,
             this->nil_, this->nil_, this->nil_);
+
+    insert_node(node);
+}
+
+template <class T>
+void BST<T>::insert_node(TreeNode<T> *node) {
+    TreeNode<T> *last = nullptr;
+    TreeNode<T> *current = this->root();
 
     while (current != this->nil_) {
         last = current;
 
-        if (element < current->element()) {
+        if (node->element() < current->element()) {
             current = this->left(current);
         } else {
             current = this->right(current);
@@ -19,7 +25,7 @@ void BST<T>::insert(T element) {
 
     if (!last) {
         this->set_root(node);
-    } else if (element < last->element()) {
+    } else if (node->element() < last->element()) {
         this->set_left(last, node);
     } else {
         this->set_right(last, node);

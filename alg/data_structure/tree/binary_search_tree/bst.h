@@ -14,6 +14,8 @@ public:
     BST() : BinaryTree<T>(nullptr) {}
 
     virtual void insert(T element);
+    virtual void insert_node(TreeNode<T> *node);
+
     virtual void remove(TreeNode<T> *z);
 
     TreeNode<T> *search(TreeNode<T> *node, T key);

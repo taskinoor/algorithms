@@ -59,9 +59,6 @@ void OrderStatisticTree<T>::remove(TreeNode<T> *z) {
         this->set_left(y, this->left(z));
     }
 
-    this->set_left(z, this->nil_);
-    this->set_right(z, this->nil_);
-
     decrement_count(z, this->nil_);
 
     delete z;

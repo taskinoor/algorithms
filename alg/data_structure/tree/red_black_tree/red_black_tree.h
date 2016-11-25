@@ -30,12 +30,14 @@ template <class T>
 class RedBlackTree : public BST<T> {
 private:
     void insert_fixup(RBNode<T> *node);
+    void remove_fixup(RBNode<T> *x);
 
 public:
     RedBlackTree();
 
     void rotate(TreeNode<T> *x, bool left);
     void insert(T element) override;
+    void remove(TreeNode<T> *z) override;
 };
 
 }

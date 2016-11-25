@@ -40,4 +40,9 @@ T InOrderIterator<T>::current_item() const {
     return stack->top()->element();
 }
 
+template <class T>
+TreeNode<T> *InOrderIterator<T>::current_node() const {
+    return stack->top();
+}
+
 }

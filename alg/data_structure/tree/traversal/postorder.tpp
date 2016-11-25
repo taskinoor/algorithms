@@ -67,4 +67,9 @@ T PostOrderIterator<T>::current_item() const {
     return last_visited->element();
 }
 
+template <class T>
+TreeNode<T> *PostOrderIterator<T>::current_node() const {
+    return last_visited;
+}
+
 }

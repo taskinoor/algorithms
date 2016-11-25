@@ -21,7 +21,9 @@ public:
     void first();
     void next();
     bool is_done() const;
+
     T current_item() const;
+    TreeNode<T> *current_node() const;
 };
 
 }

@@ -16,6 +16,11 @@ RBColor RBNode<T>::color() {
 template <class T>
 RedBlackTree<T>::RedBlackTree() {
     this->set_nil(new RBNode<T>(BLACK));
+
+    this->set_left(this->nil_, this->nil_);
+    this->set_right(this->nil_, this->nil_);
+    this->set_parent(this->nil_, this->nil_);
+
     this->set_root(this->nil_);
 }
 
@@ -87,6 +92,91 @@ void RedBlackTree<T>::insert_fixup(RBNode<T> *node) {
     }
 
     ((RBNode<T> *)this->root())->color_ = BLACK;
+}
+
+template <class T>
+void RedBlackTree<T>::remove(TreeNode<T> *z) {
+    RBNode<T> *x = nullptr;
+    RBNode<T> *y = (RBNode<T> *)z;
+    RBColor y_color = y->color_;
+
+    if (this->left(z) == this->nil_) {
+        x = (RBNode<T> *)this->right(z);
+        this->transplant(z, x);
+    } else if (this->right(z) == this->nil_) {
+        x = (RBNode<T> *)this->left(z);
+        this->transplant(z, x);
+    } else {
+        y = (RBNode<T> *)this->min(this->right(z));
+        x = (RBNode<T> *)this->right(y);
+        y_color = y->color_;
+
+        if (this->parent(y) == z) {
+            this->set_parent(y, x);
+        } else {
+            this->transplant(y, x);
+            this->set_right(y, this->right(z));
+        }
+
+        this->transplant(z, y);
+        this->set_left(y, this->left(z));
+        y->color_ = ((RBNode<T> *)z)->color_;
+    }
+
+    if (y_color == BLACK) {
+        remove_fixup(x);
+    }
+
+    delete z;
+}
+
+template <class T>
+void RedBlackTree<T>::remove_fixup(RBNode<T> *x) {
+    while (x != this->root() && x->color_ == BLACK) {
+        RBNode<T> *p = (RBNode<T> *)this->parent(x);
+        bool left = this->left(p) == x;
+
+        RBNode<T> *w = left ? (RBNode<T> *)this->right(p) :
+                (RBNode<T> *)this->left(p);
+
+        if (w->color_ == RED) {
+            w->color_ = BLACK;
+            p->color_ = RED;
+            rotate(p, left);
+            w = left ? (RBNode<T> *)this->right(p) : (RBNode<T> *)this->left(p);
+        }
+
+        RBNode<T> *w_left = (RBNode<T> *)this->left(w);
+        RBNode<T> *w_right = (RBNode<T> *)this->right(w);
+
+        if (w_left->color_ == BLACK && w_right->color_ == BLACK) {
+            w->color_ = RED;
+            x = p;
+        } else {
+            bool rotation_needed = left ? w_right->color_ == BLACK
+                    : w_left->color_ == BLACK;
+
+            if (rotation_needed) {
+                left ? w_left->color_ = BLACK : w_right->color_ = BLACK;
+                w->color_ = RED;
+                rotate(w, !left);
+                w = left ? (RBNode<T> *)this->right(p) :
+                        (RBNode<T> *)this->left(p);
+
+                w_left = (RBNode<T> *)this->left(w);
+                w_right = (RBNode<T> *)this->right(w);
+            }
+
+            w->color_ = p->color_;
+            p->color_ = BLACK;
+            left ? w_right->color_ = BLACK : w_left->color_ = BLACK;
+            rotate(p, left);
+
+            x = (RBNode<T> *)this->root();
+        }
+    }
+
+    x->color_ = BLACK;
 }
 
 }

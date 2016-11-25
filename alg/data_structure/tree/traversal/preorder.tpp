@@ -41,4 +41,9 @@ T PreOrderIterator<T>::current_item() const {
     return stack->top()->element();
 }
 
+template <class T>
+TreeNode<T> *PreOrderIterator<T>::current_node() const {
+    return stack->top();
+}
+
 }

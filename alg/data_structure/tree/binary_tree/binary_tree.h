@@ -54,6 +54,7 @@ public:
     void set_root(TreeNode<T> *r);
     void set_left(TreeNode<T> *p, TreeNode<T> *child);
     void set_right(TreeNode<T> *p, TreeNode<T> *child);
+    void set_parent(TreeNode<T> *p, TreeNode<T> *child);
 
     int depth(TreeNode<T> *p);
     int height();

@@ -93,14 +93,14 @@ template <class T>
 void BinaryTree<T>::set_root(TreeNode<T> *r) {
     root_ = r;
 
-    if (root_ != nil_) {
+    if (root_) {
         root_->parent = nil_;
     }
 }
 
 template <class T>
 void BinaryTree<T>::set_left(TreeNode<T> *p, TreeNode<T> *child) {
-    if (child != nil_) {
+    if (child) {
         child->parent = p;
     }
 
@@ -109,11 +109,18 @@ void BinaryTree<T>::set_left(TreeNode<T> *p, TreeNode<T> *child) {
 
 template <class T>
 void BinaryTree<T>::set_right(TreeNode<T> *p, TreeNode<T> *child) {
-    if (child != nil_) {
+    if (child) {
         child->parent = p;
     }
 
     p->right = child;
+}
+
+template <class T>
+void BinaryTree<T>::set_parent(TreeNode<T> *p, TreeNode<T> *child) {
+    if (child) {
+        child->parent = p;
+    }
 }
 
 template <class T>

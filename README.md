@@ -16,6 +16,7 @@ Here is the list of data structures and algorithms implemented so far:
 		* Binary Tree
 		* Binary Search Tree
 		* Order Statistic Tree
+		* Red Black Tree
 		* Traversal (Binary)
 			* Preorder (non-recursive iterator using stack)
 			* Postorder (non-recursive iterator using stack)

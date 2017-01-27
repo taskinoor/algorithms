@@ -1,5 +1,5 @@
-#ifndef ALG_SUBARRAY_H_
-#define ALG_SUBARRAY_H_
+#ifndef ALG_DP_SUBARRAY_H_
+#define ALG_DP_SUBARRAY_H_
 
 #include <cstddef>
 
@@ -8,7 +8,7 @@
 namespace alg {
 
 template <class T>
-T max_subarray(T *a, std::size_t n);
+T max_subarray_dp(T *a, std::size_t n);
 
 }
 

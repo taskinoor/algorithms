@@ -16,6 +16,10 @@ TEST(MaxSubarrayDP, AllPositive) {
     ASSERT_EQ(18.7, alg::max_subarray_dp(a, 4));
 }
 
+/*
+ * Behavior for this all negative case is different from
+ * divide and conquer implementation.
+ */
 TEST(MaxSubarrayDP, AllNegative) {
     int a[] = {-2, -3, -5, -7};
 

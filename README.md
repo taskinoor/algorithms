@@ -33,6 +33,8 @@ Here is the list of data structures and algorithms implemented so far:
 	* Binary Search
 	* Linear Search
 	* Range Queries (on BST)
+* Divide and Conquer
+	* Maximum Subarray
 * Dynamic Programming
 	* Maximum Subarray
 * Miscellaneous

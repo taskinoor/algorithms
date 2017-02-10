@@ -31,6 +31,7 @@ public:
     virtual ~Matrix();
 
     std::pair<std::size_t, std::size_t> dimension();
+    Matrix<T> transpose();
 
     class Proxy {
     private:

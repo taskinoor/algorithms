@@ -95,4 +95,30 @@ TEST(Matrix, MoveAssignmentOperator) {
     ASSERT_DOUBLE_EQ(2.3, B[0][0]);
 }
 
+TEST(Matrix, Transpose) {
+    constexpr std::size_t m = 2;
+    constexpr std::size_t n = 3;
+
+    alg::Matrix<int> A = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+    int expected[n][m] = {
+        {1, 4},
+        {2, 5},
+        {3, 6}
+    };
+    alg::Matrix<int> AT = A.transpose();
+    std::pair<std::size_t, std::size_t> d = AT.dimension();
+
+    ASSERT_EQ(n, d.first);
+    ASSERT_EQ(m, d.second);
+
+    for (std::size_t i = 0; i < n; i++) {
+        for (std::size_t j = 0; j < m; j++) {
+            ASSERT_EQ(expected[i][j], AT[i][j]);
+        }
+    }
+}
+
 }

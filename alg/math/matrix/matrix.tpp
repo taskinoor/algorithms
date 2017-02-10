@@ -48,6 +48,19 @@ std::pair<std::size_t, std::size_t> Matrix<T>::dimension() {
 }
 
 template <class T>
+Matrix<T> Matrix<T>::transpose() {
+    Matrix<T> M(n, m);
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            M[j][i] = (*this)[i][j];
+        }
+    }
+
+    return M;
+}
+
+template <class T>
 Matrix<T>::Proxy::Proxy(T *a) {
     this->a = a;
 }

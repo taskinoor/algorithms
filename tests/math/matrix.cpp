@@ -121,4 +121,79 @@ TEST(Matrix, Transpose) {
     }
 }
 
+TEST(Matrix, AdditionSubtraction) {
+    constexpr std::size_t m = 3;
+    constexpr std::size_t n = 4;
+
+    alg::Matrix<int> A = {
+        {2, 3, 5, 7},
+        {11, 13, 17, 19},
+        {23, 29, 31, 37}
+    };
+    alg::Matrix<int> B = {
+        {41, 43, 47, 53},
+        {59, 61, 67, 71},
+        {73, 79, 83, 89}
+    };
+    alg::Matrix<int> C = {
+        {97, 101, 103, 107},
+        {109, 113, 127, 131},
+        {137, 139, 149, 151}
+    };
+    alg::Matrix<int> D = {
+        {157, 163, 167, 173},
+        {179, 181, 191, 193},
+        {197, 199, 211, 223}
+    };
+    int expected[m][n] = {
+        {103, 108, 116, 126},
+        {140, 142, 148, 152},
+        {156, 168, 176, 198}
+    };
+
+    alg::Matrix<int> M = A + B - C + D;
+    std::pair<std::size_t, std::size_t> d = M.dimension();
+
+    ASSERT_EQ(m, d.first);
+    ASSERT_EQ(n, d.second);
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            ASSERT_EQ(expected[i][j], M[i][j]);
+        }
+    }
+}
+
+TEST(Matrix, Multiplication) {
+    alg::Matrix<double> A = {
+        {2.3, 5.7, 11.13},
+        {17.19, 23.29, 31.37}
+    };
+    alg::Matrix<double> B = {
+        {41.43, 47.53},
+        {59.61, 67.71},
+        {73.79, 83.89}
+    };
+    alg::Matrix<double> C = {
+        {97.101, 103.107},
+        {109.113, 127.131}
+    };
+    double expected[2][2] = {
+        {277911.0130908, 311203.6752936},
+        {977091.3716376, 1094161.5164292}
+    };
+
+    alg::Matrix<double> M = A * B * C;
+    std::pair<std::size_t, std::size_t> d = M.dimension();
+
+    ASSERT_EQ(2, d.first);
+    ASSERT_EQ(2, d.second);
+
+    for (std::size_t i = 0; i < d.first; i++) {
+        for (std::size_t j = 0; j < d.second; j++) {
+            ASSERT_DOUBLE_EQ(expected[i][j], M[i][j]);
+        }
+    }
+}
+
 }

@@ -30,8 +30,8 @@ public:
 
     virtual ~Matrix();
 
-    std::pair<std::size_t, std::size_t> dimension();
-    Matrix<T> transpose();
+    std::pair<std::size_t, std::size_t> dimension() const;
+    Matrix<T> transpose() const;
 
     class Proxy {
     private:
@@ -39,12 +39,17 @@ public:
 
     public:
         Proxy(T *a);
-        T& operator[](int index);
+        T& operator[](int index) const;
     };
 
-    Proxy operator[](int index);
+    Proxy operator[](int index) const;
+
     Matrix<T>& operator=(const Matrix<T>& that);
     Matrix<T>& operator=(Matrix<T>&& that) noexcept;
+
+    Matrix<T> operator+(const Matrix<T>& that) const;
+    Matrix<T> operator-(const Matrix<T>& that) const;
+    Matrix<T> operator*(const Matrix<T>& that) const;
 };
 
 }

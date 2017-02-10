@@ -43,12 +43,12 @@ Matrix<T>::~Matrix() {
 }
 
 template <class T>
-std::pair<std::size_t, std::size_t> Matrix<T>::dimension() {
+std::pair<std::size_t, std::size_t> Matrix<T>::dimension() const {
     return {m, n};
 }
 
 template <class T>
-Matrix<T> Matrix<T>::transpose() {
+Matrix<T> Matrix<T>::transpose() const {
     Matrix<T> M(n, m);
 
     for (std::size_t i = 0; i < m; i++) {
@@ -66,12 +66,12 @@ Matrix<T>::Proxy::Proxy(T *a) {
 }
 
 template <class T>
-T& Matrix<T>::Proxy::operator[](int index) {
+T& Matrix<T>::Proxy::operator[](int index) const {
     return a[index];
 }
 
 template <class T>
-typename Matrix<T>::Proxy Matrix<T>::operator[](int index) {
+typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
     return Proxy(&a[index * n]);
 }
 
@@ -90,6 +90,51 @@ Matrix<T>& Matrix<T>::operator=(Matrix<T>&& that) noexcept {
     that.a = nullptr;
 
     return *this;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::operator+(const Matrix<T>& that) const {
+    Matrix<T> M(m, n);
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            M[i][j] = (*this)[i][j] + that[i][j];
+        }
+    }
+
+    return M;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::operator-(const Matrix<T>& that) const {
+    Matrix<T> M(m, n);
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            M[i][j] = (*this)[i][j] - that[i][j];
+        }
+    }
+
+    return M;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::operator*(const Matrix<T>& that) const {
+    Matrix<T> M(m, that.n);
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < that.n; j++) {
+            T sum = T();
+
+            for (std::size_t k = 0; k < n; k++) {
+                sum += (*this)[i][k] * that[k][j];
+            }
+
+            M[i][j] = sum;
+        }
+    }
+
+    return M;
 }
 
 }

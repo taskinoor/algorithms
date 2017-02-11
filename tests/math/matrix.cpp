@@ -196,4 +196,28 @@ TEST(Matrix, Multiplication) {
     }
 }
 
+TEST(Matrix, ScalarMultiplication) {
+    constexpr std::size_t m = 2;
+    constexpr std::size_t n = 3;
+
+    alg::Matrix<int> A = {
+        {2, 3, 5},
+        {7, 11, 13}
+    };
+    int expected[m][n] = {
+        {4, 6, 10},
+        {14, 22, 26}
+    };
+
+    alg::Matrix<int> B = A * 2;
+    alg::Matrix<int> C = 2 * A;
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            ASSERT_EQ(expected[i][j], B[i][j]);
+            ASSERT_EQ(expected[i][j], C[i][j]);
+        }
+    }
+}
+
 }

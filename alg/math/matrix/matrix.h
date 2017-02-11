@@ -50,7 +50,11 @@ public:
     Matrix<T> operator+(const Matrix<T>& that) const;
     Matrix<T> operator-(const Matrix<T>& that) const;
     Matrix<T> operator*(const Matrix<T>& that) const;
+    Matrix<T> operator*(const T& lambda) const;
 };
+
+template <class T>
+Matrix<T> operator*(const T& lambda, const Matrix<T>& M);
 
 }
 

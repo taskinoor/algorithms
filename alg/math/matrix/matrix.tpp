@@ -137,4 +137,22 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& that) const {
     return M;
 }
 
+template <class T>
+Matrix<T> Matrix<T>::operator*(const T& lambda) const {
+    Matrix<T> M(m, n);
+
+    for (std::size_t i = 0; i < m; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            M[i][j] = (*this)[i][j] * lambda;
+        }
+    }
+
+    return M;
+}
+
+template <class T>
+Matrix<T> operator*(const T& lambda, const Matrix<T>& M) {
+    return M * lambda;
+}
+
 }

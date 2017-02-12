@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/miscellaneous/josephus/josephus.h"
+#include "alg/misc/josephus/josephus.h"
 
 namespace algtest {
 

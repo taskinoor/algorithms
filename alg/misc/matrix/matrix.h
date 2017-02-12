@@ -3,17 +3,11 @@
 
 #include <cstddef>
 #include <initializer_list>
+#include <stdexcept>
 #include <utility>
 
 namespace alg {
 
-/**
- * This Matrix class doesn't validate arguments. For example, it doesn't
- * check whether the dimensions of two matrices that we are trying to add
- * are same, or the matrices can be multiplied.
- *
- * The behavior is undefined for such dimension mismatch.
- */
 template <class T>
 class Matrix {
 private:

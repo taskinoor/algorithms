@@ -2,6 +2,10 @@ namespace alg {
 
 template <class T>
 Matrix<T>::Matrix(std::size_t m, std::size_t n) {
+    if (!m || !n) {
+        throw std::invalid_argument("Dimension can't be zero");
+    }
+
     this->m = m;
     this->n = n;
     a = new T[m * n];
@@ -9,12 +13,18 @@ Matrix<T>::Matrix(std::size_t m, std::size_t n) {
 
 template <class T>
 Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> matrix_list) {
-    m = matrix_list.size();
-    n = matrix_list.begin()->size();
+    if (!(m = matrix_list.size()) || !(n = matrix_list.begin()->size())) {
+        throw std::invalid_argument("Dimension can't be zero");
+    }
+
     a = new T[m * n];
     int i = 0;
 
     for (std::initializer_list<T> row : matrix_list) {
+        if (row.size() != n) {
+            throw std::invalid_argument("Malformed initializer list");
+        }
+
         std::copy(row.begin(), row.end(), &a[i]);
         i += n;
     }
@@ -77,6 +87,10 @@ typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
 
 template <class T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& that) {
+    if (m != that.m || n != that.n) {
+        throw std::invalid_argument("Dimension mismatch");
+    }
+
     std::copy(&that.a[0], &that.a[m * n], a);
 
     return *this;
@@ -86,6 +100,8 @@ template <class T>
 Matrix<T>& Matrix<T>::operator=(Matrix<T>&& that) noexcept {
     delete[] a;
 
+    m = that.m;
+    n = that.n;
     a = that.a;
     that.a = nullptr;
 
@@ -94,6 +110,10 @@ Matrix<T>& Matrix<T>::operator=(Matrix<T>&& that) noexcept {
 
 template <class T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T>& that) const {
+    if (m != that.m || n != that.n) {
+        throw std::invalid_argument("Dimension mismatch");
+    }
+
     Matrix<T> M(m, n);
 
     for (std::size_t i = 0; i < m; i++) {
@@ -107,6 +127,10 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T>& that) const {
 
 template <class T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T>& that) const {
+    if (m != that.m || n != that.n) {
+        throw std::invalid_argument("Dimension mismatch");
+    }
+
     Matrix<T> M(m, n);
 
     for (std::size_t i = 0; i < m; i++) {
@@ -120,6 +144,10 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& that) const {
 
 template <class T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T>& that) const {
+    if (n != that.m) {
+        throw std::invalid_argument("Dimension mismatch");
+    }
+
     Matrix<T> M(m, that.n);
 
     for (std::size_t i = 0; i < m; i++) {

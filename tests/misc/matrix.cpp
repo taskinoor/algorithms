@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/math/matrix/matrix.h"
+#include "alg/misc/matrix/matrix.h"
 
 namespace algtest {
 
@@ -218,6 +218,71 @@ TEST(Matrix, ScalarMultiplication) {
             ASSERT_EQ(expected[i][j], C[i][j]);
         }
     }
+}
+
+TEST(Matrix, InvalidArgumentConstructor) {
+    ASSERT_THROW(alg::Matrix<int> M(0, 0), std::invalid_argument);
+    ASSERT_THROW(alg::Matrix<int> M(0, 1), std::invalid_argument);
+    ASSERT_THROW(alg::Matrix<int> M(1, 0), std::invalid_argument);
+    ASSERT_NO_THROW(alg::Matrix<int> M(1, 1));
+}
+
+TEST(Matrix, InvalidArgumentInitializerList) {
+    ASSERT_THROW(alg::Matrix<int> M = {{}}, std::invalid_argument);
+
+    try {
+        alg::Matrix<int> M = {
+            {2},
+            {3, 5}
+        };
+        FAIL();
+    } catch (const std::invalid_argument& e) {}
+}
+
+TEST(Matrix, InvalidArgumentCopyAssignment) {
+    alg::Matrix<int> A(2, 3);
+    alg::Matrix<int> B(5, 3);
+    alg::Matrix<int> C(2, 7);
+    alg::Matrix<int> D(2, 3);
+
+    ASSERT_THROW(A = B, std::invalid_argument);
+    ASSERT_THROW(A = C, std::invalid_argument);
+    ASSERT_THROW(B = C, std::invalid_argument);
+    ASSERT_NO_THROW(A = D);
+}
+
+TEST(Matrix, InvalidArgumentAddition) {
+    alg::Matrix<int> A(2, 3);
+    alg::Matrix<int> B(5, 3);
+    alg::Matrix<int> C(2, 7);
+    alg::Matrix<int> D(2, 3);
+
+    ASSERT_THROW(A + B, std::invalid_argument);
+    ASSERT_THROW(A + C, std::invalid_argument);
+    ASSERT_THROW(B + C, std::invalid_argument);
+    ASSERT_NO_THROW(A + D);
+}
+
+TEST(Matrix, InvalidArgumentSubtraction) {
+    alg::Matrix<int> A(2, 3);
+    alg::Matrix<int> B(5, 3);
+    alg::Matrix<int> C(2, 7);
+    alg::Matrix<int> D(2, 3);
+
+    ASSERT_THROW(A - B, std::invalid_argument);
+    ASSERT_THROW(A - C, std::invalid_argument);
+    ASSERT_THROW(B - C, std::invalid_argument);
+    ASSERT_NO_THROW(A - D);
+}
+
+TEST(Matrix, InvalidArgumentMultiplication) {
+    alg::Matrix<int> A(2, 3);
+    alg::Matrix<int> B(3, 2);
+    alg::Matrix<int> C(2, 2);
+
+    ASSERT_NO_THROW(A * B);
+    ASSERT_NO_THROW(C * A);
+    ASSERT_THROW(A * C, std::invalid_argument);
 }
 
 }

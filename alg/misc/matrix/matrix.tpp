@@ -1,6 +1,13 @@
 namespace alg {
 
 template <class T>
+Matrix<T>::Matrix() {
+    m = 0;
+    n = 0;
+    a = nullptr;
+}
+
+template <class T>
 Matrix<T>::Matrix(std::size_t m, std::size_t n) {
     if (!m || !n) {
         throw std::invalid_argument("Dimension can't be zero");
@@ -68,6 +75,33 @@ Matrix<T> Matrix<T>::transpose() const {
     }
 
     return M;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::submatrix(std::size_t start_i, std::size_t start_j,
+        std::size_t x, std::size_t y) const {
+
+    Matrix<T> M(x, y);
+
+    for (std::size_t i = 0; i < x; i++) {
+        for (std::size_t j = 0; j < y; j++) {
+            M[i][j] = (*this)[start_i + i][start_j + j];
+        }
+    }
+
+    return M;
+}
+
+template <class T>
+void Matrix<T>::copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
+        std::size_t from_i, std::size_t from_j,
+        std::size_t x, std::size_t y) {
+
+    for (std::size_t i = 0; i < x; i++) {
+        for (std::size_t j = 0; j < y; j++) {
+            (*this)[to_i + i][to_j + j] = M[from_i + i][from_j + j];
+        }
+    }
 }
 
 template <class T>

@@ -16,6 +16,7 @@ private:
     T *a;
 
 public:
+    Matrix();
     Matrix(std::size_t m, std::size_t n);
     Matrix(std::initializer_list<std::initializer_list<T>> matrix_list);
 
@@ -26,6 +27,13 @@ public:
 
     std::pair<std::size_t, std::size_t> dimension() const;
     Matrix<T> transpose() const;
+
+    Matrix<T> submatrix(std::size_t start_i, std::size_t start_j,
+            std::size_t x, std::size_t y) const;
+
+    void copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
+            std::size_t from_i, std::size_t from_j,
+            std::size_t x, std::size_t y);
 
     class Proxy {
     private:

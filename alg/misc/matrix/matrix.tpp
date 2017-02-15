@@ -29,6 +29,7 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> matrix_list) {
 
     for (std::initializer_list<T> row : matrix_list) {
         if (row.size() != n) {
+            delete[] a;
             throw std::invalid_argument("Malformed initializer list");
         }
 

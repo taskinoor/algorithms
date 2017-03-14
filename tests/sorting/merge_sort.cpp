@@ -31,4 +31,12 @@ TEST_F(Sorting, MergeSortRandomOrdered) {
     ASSERT_EQ(expected, random_ordered);
 }
 
+TEST_F(Sorting, MergeSortLargeData) {
+    generate_random_large_data();
+
+    alg::merge_sort(large_data.data(), large_data.size());
+
+    assert_large_data_sorted();
+}
+
 }

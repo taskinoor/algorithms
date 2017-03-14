@@ -2,6 +2,7 @@
 #define ALGTEST_SORTING_H_
 
 #include <array>
+#include <random>
 #include <string>
 #include <gtest/gtest.h>
 
@@ -14,6 +15,7 @@ protected:
     std::array<int, 13> already_sorted;
     std::array<int, 13> reverse_sorted;
     std::array<int, 13> random_ordered;
+    std::array<double, 1346269> large_data;
 
     std::array<int, 13> expected;
     std::array<std::string, 1> expected_single_element;
@@ -26,6 +28,22 @@ protected:
 
         expected = {2, 2, 3, 5, 7, 11, 13, 17, 19, 19, 23, 29, 31};
         expected_single_element = {"two"};
+    }
+
+    void generate_random_large_data() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dis(-121393, 121393);
+
+        for (std::size_t i = 0; i < large_data.size(); i++) {
+            large_data[i] = dis(gen);
+        }
+    }
+
+    void assert_large_data_sorted() {
+        for (std::size_t i = 1; i < large_data.size(); i++) {
+            ASSERT_GE(large_data[i], large_data[i - 1]);
+        }
     }
 };
 

@@ -2,9 +2,10 @@
 #define ALGTEST_SORTING_H_
 
 #include <array>
-#include <random>
 #include <string>
 #include <gtest/gtest.h>
+
+#include "alg/common/randomizer.h"
 
 namespace algtest {
 
@@ -31,12 +32,8 @@ protected:
     }
 
     void generate_random_large_data() {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(-121393, 121393);
-
         for (std::size_t i = 0; i < large_data.size(); i++) {
-            large_data[i] = dis(gen);
+            large_data[i] = alg::randomizer::uniform_double(-121393, 121393);
         }
     }
 

@@ -2,8 +2,8 @@
 #define ALG_JOSEPHUS_H_
 
 #include <algorithm>
-#include <random>
 
+#include "alg/common/randomizer.h"
 #include "alg/data_structure/tree/order_statistic_tree/order_statistic_tree.h"
 
 namespace alg {

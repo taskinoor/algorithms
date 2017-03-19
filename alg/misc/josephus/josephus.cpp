@@ -47,10 +47,7 @@ OrderStatisticTree<int> *randomized_ost(int n) {
         data[i] = i + 1;
     }
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    std::shuffle(&data[0], &data[n], gen);
+    std::shuffle(&data[0], &data[n], randomizer::engine());
 
     for (int i = 0; i < n; i++) {
         ost->insert(data[i]);

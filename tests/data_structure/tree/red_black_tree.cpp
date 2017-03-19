@@ -1,12 +1,12 @@
 #include <cmath>
 
 #include <algorithm>
-#include <random>
 #include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
 
+#include "alg/common/randomizer.h"
 #include "alg/data_structure/tree/red_black_tree/red_black_tree.h"
 #include "alg/data_structure/tree/traversal/inorder.h"
 #include "alg/data_structure/tree/traversal/postorder.h"
@@ -27,25 +27,21 @@ protected:
         constexpr int delete_frequency = 5;
         count = total - (total / delete_frequency - 1);
 
-        std::random_device rd;
-        std::mt19937 gen(rd());
-
         for (int i = 0; i < total; i++) {
             keys.push_back(std::make_pair(true, i));
         }
 
-        std::shuffle(keys.begin(), keys.end(), gen);
+        std::shuffle(keys.begin(), keys.end(), alg::randomizer::engine());
         tree->insert(keys[0].second);
 
         for (int i = 1; i < total; i++) {
             tree->insert(keys[i].second);
 
             if (!(i % delete_frequency)) {
-                std::uniform_int_distribution<> dis(0, i);
-                int j = dis(gen);
+                int j = alg::randomizer::uniform_int(0, i);
 
                 while (!keys[j].first) {
-                    j = dis(gen);
+                    j = alg::randomizer::uniform_int(0, i);
                 }
 
                 tree->remove(tree->search(keys[j].second));

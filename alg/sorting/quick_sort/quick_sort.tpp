@@ -1,23 +1,28 @@
 namespace alg {
 
 template <class T>
-void quick_sort(T *a, int n) {
-    quick_sort(a, 0, n - 1);
+void quick_sort(T *a, int n, QSPartitionStrategy st) {
+    quick_sort(a, 0, n - 1, st);
 }
 
 template <class T>
-void quick_sort(T *a, int p, int r) {
+void quick_sort(T *a, int p, int r, QSPartitionStrategy st) {
     if (p >= r) {
         return;
     }
 
-    int q = qs_partition(a, p, r);
-    quick_sort(a, p, q - 1);
-    quick_sort(a, q + 1, r);
+    int q;
+
+    if (st == LOMUTO) {
+        q = qs_partition_lomuto(a, p, r);
+    }
+
+    quick_sort(a, p, q - 1, st);
+    quick_sort(a, q + 1, r, st);
 }
 
 template <class T>
-int qs_partition(T *a, int p, int r) {
+int qs_partition_lomuto(T *a, int p, int r) {
     int i = p - 1;
 
     for (int j = p; j < r; j++) {

@@ -5,14 +5,18 @@
 
 namespace alg {
 
-template <class T>
-void quick_sort(T *a, int n);
+enum QSPartitionStrategy {
+    LOMUTO
+};
 
 template <class T>
-void quick_sort(T *a, int p, int r);
+void quick_sort(T *a, int n, QSPartitionStrategy st = LOMUTO);
 
 template <class T>
-int qs_partition(T *a, int p, int r);
+void quick_sort(T *a, int p, int r, QSPartitionStrategy st);
+
+template <class T>
+int qs_partition_lomuto(T *a, int p, int r);
 
 }
 

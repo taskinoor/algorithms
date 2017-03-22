@@ -28,6 +28,7 @@ Here is the list of data structures and algorithms implemented so far:
 	* Merge Sort
 	* Quicksort
 		* Lomuto Partition
+		* Randomized Partition
 	* Bubble Sort
 	* Insertion Sort
 	* Selection Sort

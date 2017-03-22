@@ -15,6 +15,8 @@ void quick_sort(T *a, int p, int r, QSPartitionStrategy st) {
 
     if (st == LOMUTO) {
         q = qs_partition_lomuto(a, p, r);
+    } else if (st == RANDOMIZED) {
+        q = qs_partition_randomized(a, p, r);
     }
 
     quick_sort(a, p, q - 1, st);
@@ -34,6 +36,14 @@ int qs_partition_lomuto(T *a, int p, int r) {
     swap(a[++i], a[r]);
 
     return i;
+}
+
+template <class T>
+int qs_partition_randomized(T *a, int p, int r) {
+    int i = randomizer::uniform_int(p, r);
+    swap(a[i], a[r]);
+
+    return qs_partition_lomuto(a, p, r);
 }
 
 }

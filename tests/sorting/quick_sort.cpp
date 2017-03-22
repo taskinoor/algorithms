@@ -39,4 +39,45 @@ TEST_F(Sorting, QuickSortLargeData) {
     assert_large_data_sorted();
 }
 
+TEST_F(Sorting, RandomizedQuickSortEmptyArray) {
+    ASSERT_NO_THROW(alg::quick_sort(empty.data(), empty.size(),
+            alg::RANDOMIZED));
+}
+
+TEST_F(Sorting, RandomizedQuickSortSingleElement) {
+    alg::quick_sort(single_element.data(), single_element.size(),
+            alg::RANDOMIZED);
+
+    ASSERT_EQ(expected_single_element, single_element);
+}
+
+TEST_F(Sorting, RandomizedQuickSortAlreadySorted) {
+    alg::quick_sort(already_sorted.data(), already_sorted.size(),
+            alg::RANDOMIZED);
+
+    ASSERT_EQ(expected, already_sorted);
+}
+
+TEST_F(Sorting, RandomizedQuickSortReverseSorted) {
+    alg::quick_sort(reverse_sorted.data(), reverse_sorted.size(),
+            alg::RANDOMIZED);
+
+    ASSERT_EQ(expected, reverse_sorted);
+}
+
+TEST_F(Sorting, RandomizedQuickSortRandomOrdered) {
+    alg::quick_sort(random_ordered.data(), random_ordered.size(),
+            alg::RANDOMIZED);
+
+    ASSERT_EQ(expected, random_ordered);
+}
+
+TEST_F(Sorting, RandomizedQuickSortLargeData) {
+    generate_random_large_data();
+
+    alg::quick_sort(large_data.data(), large_data.size(), alg::RANDOMIZED);
+
+    assert_large_data_sorted();
+}
+
 }

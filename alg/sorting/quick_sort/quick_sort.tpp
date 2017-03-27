@@ -11,16 +11,24 @@ void quick_sort(T *a, int p, int r, QSPartitionStrategy st) {
         return;
     }
 
-    int q;
+    int q = qs_partition(a, p, r, st);
 
-    if (st == LOMUTO) {
-        q = qs_partition_lomuto(a, p, r);
-    } else if (st == RANDOMIZED) {
-        q = qs_partition_randomized(a, p, r);
-    }
-
-    quick_sort(a, p, q - 1, st);
+    quick_sort(a, p, st == HOARE ? q : q - 1, st);
     quick_sort(a, q + 1, r, st);
+}
+
+template <class T>
+int qs_partition(T *a, int p, int r, QSPartitionStrategy st) {
+    switch (st) {
+    case LOMUTO:
+        return qs_partition_lomuto(a, p, r);
+    case RANDOMIZED:
+        return qs_partition_randomized(a, p, r);
+    case HOARE:
+        return qs_partition_hoare(a, p, r);
+    default:
+        return -1;
+    }
 }
 
 template <class T>
@@ -44,6 +52,29 @@ int qs_partition_randomized(T *a, int p, int r) {
     swap(a[i], a[r]);
 
     return qs_partition_lomuto(a, p, r);
+}
+
+template <class T>
+int qs_partition_hoare(T *a, int p, int r) {
+    T x = a[p];
+    int i = p - 1;
+    int j = r + 1;
+
+    while (true) {
+        do {
+            j--;
+        } while (a[j] > x);
+
+        do {
+            i++;
+        } while (a[i] < x);
+
+        if (i >= j) {
+            return j;
+        }
+
+        swap(a[i], a[j]);
+    }
 }
 
 }

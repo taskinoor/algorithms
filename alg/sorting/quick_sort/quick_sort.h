@@ -8,7 +8,8 @@ namespace alg {
 
 enum QSPartitionStrategy {
     LOMUTO,
-    RANDOMIZED
+    RANDOMIZED,
+    HOARE
 };
 
 template <class T>
@@ -18,10 +19,16 @@ template <class T>
 void quick_sort(T *a, int p, int r, QSPartitionStrategy st);
 
 template <class T>
+int qs_partition(T *a, int p, int r, QSPartitionStrategy st);
+
+template <class T>
 int qs_partition_lomuto(T *a, int p, int r);
 
 template <class T>
 int qs_partition_randomized(T *a, int p, int r);
+
+template <class T>
+int qs_partition_hoare(T *a, int p, int r);
 
 }
 

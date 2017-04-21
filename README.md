@@ -26,6 +26,7 @@ Here is the list of data structures and algorithms implemented so far:
 			* Inorder (non-recursive iterator using stack)
 			* Euler Tour (recursive)
 * Sorting
+	* Heapsort
 	* Merge Sort
 	* Quicksort
 		* Lomuto Partition

@@ -1,7 +1,10 @@
-#ifndef ALG_ARRAY_H_
-#define ALG_ARRAY_H_
+#ifndef ALG_EXTENDABLE_ARRAY_H_
+#define ALG_EXTENDABLE_ARRAY_H_
 
 #include <cstddef>
+
+#include <algorithm>
+#include <initializer_list>
 #include <stdexcept>
 
 namespace alg {
@@ -22,15 +25,20 @@ private:
 
 public:
     ExtendableArray(std::size_t capacity = 1);
+    ExtendableArray(std::initializer_list<T> lst);
+
+    ExtendableArray(const ExtendableArray<T>& that);
+    ExtendableArray(ExtendableArray<T>&& that) noexcept;
+
     virtual ~ExtendableArray();
 
-    std::size_t count();
+    std::size_t count() const;
 
-    void add(int index, T element);
+    void add(int index, const T& element);
+    void append(const T& element);
     T remove(int index);
 
-    void set(int index, T element);
-    T get(int index);
+    T& operator[](int index) const;
 };
 
 }

@@ -8,6 +8,33 @@ ExtendableArray<T>::ExtendableArray(std::size_t capacity) {
 }
 
 template <class T>
+ExtendableArray<T>::ExtendableArray(std::initializer_list<T> lst) {
+    capacity = lst.size();
+    buffer = new T[capacity];
+    n = capacity;
+
+    std::copy(lst.begin(), lst.end(), buffer);
+}
+
+template <class T>
+ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& that) {
+    capacity = that.capacity;
+    buffer = new T[capacity];
+    n = that.n;
+
+    std::copy(&that.buffer[0], &that.buffer[n], buffer);
+}
+
+template <class T>
+ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& that) noexcept {
+    capacity = that.capacity;
+    n = that.n;
+    buffer = that.buffer;
+
+    that.buffer = nullptr;
+}
+
+template <class T>
 ExtendableArray<T>::~ExtendableArray() {
     delete[] buffer;
 }
@@ -26,12 +53,12 @@ void ExtendableArray<T>::grow() {
 }
 
 template <class T>
-std::size_t ExtendableArray<T>::count() {
+std::size_t ExtendableArray<T>::count() const {
     return n;
 }
 
 template <class T>
-void ExtendableArray<T>::add(int index, T element) {
+void ExtendableArray<T>::add(int index, const T& element) {
     if (index < 0 || index > n) {
         throw InvalidIndexError();
     }
@@ -46,6 +73,11 @@ void ExtendableArray<T>::add(int index, T element) {
 
     buffer[index] = element;
     n++;
+}
+
+template <class T>
+void ExtendableArray<T>::append(const T& element) {
+    add(n, element);
 }
 
 template <class T>
@@ -66,16 +98,7 @@ T ExtendableArray<T>::remove(int index) {
 }
 
 template <class T>
-void ExtendableArray<T>::set(int index, T element) {
-    if (index < 0 || index >= n) {
-        throw InvalidIndexError();
-    }
-
-    buffer[index] = element;
-}
-
-template <class T>
-T ExtendableArray<T>::get(int index) {
+T& ExtendableArray<T>::operator[](int index) const {
     if (index < 0 || index >= n) {
         throw InvalidIndexError();
     }

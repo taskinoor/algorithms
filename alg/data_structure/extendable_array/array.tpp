@@ -57,6 +57,11 @@ std::size_t ExtendableArray<T>::count() const {
     return n;
 }
 
+template<class T>
+T *ExtendableArray<T>::data_ptr() const {
+    return buffer;
+}
+
 template <class T>
 void ExtendableArray<T>::add(int index, const T& element) {
     if (index < 0 || index > n) {

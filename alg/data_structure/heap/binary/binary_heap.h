@@ -25,6 +25,9 @@ void min_heapify(T *a, int i, int n);
 template <class T>
 void max_heapify(T *a, int i, int n);
 
+template <class T>
+void heapify(T *a, int i, int n, Type type);
+
 }
 }
 }

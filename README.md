@@ -15,6 +15,7 @@ Here is the list of data structures and algorithms implemented so far:
 	* Stack (Fixed size)
 	* Queue (Fixed size)
 	* Heap (Binary)
+	* Priority Queue
 	* Tree
 		* Binary Tree
 		* Binary Search Tree

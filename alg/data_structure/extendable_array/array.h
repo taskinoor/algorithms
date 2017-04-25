@@ -33,6 +33,7 @@ public:
     virtual ~ExtendableArray();
 
     std::size_t count() const;
+    T *data_ptr() const;
 
     void add(int index, const T& element);
     void append(const T& element);

@@ -59,6 +59,15 @@ void max_heapify(T *a, int i, int n) {
     }
 }
 
+template <class T>
+void heapify(T *a, int i, int n, Type type) {
+    if (type == MIN_HEAP) {
+        min_heapify(a, i, n);
+    } else {
+        max_heapify(a, i, n);
+    }
+}
+
 }
 }
 }

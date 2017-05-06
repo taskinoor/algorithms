@@ -3,11 +3,11 @@ namespace heap {
 namespace binary {
 
 template <class T>
-void build_heap(T *a, int n, Type type) {
+void build_heap(T *a, int n, HeapType type) {
     for (int i = parent(n - 1); i >= 0; i--) {
-        if (type == MIN_HEAP) {
+        if (type == HeapType::MIN) {
             min_heapify(a, i, n);
-        } else {
+        } else if (type == HeapType::MAX) {
             max_heapify(a, i, n);
         }
     }
@@ -60,10 +60,10 @@ void max_heapify(T *a, int i, int n) {
 }
 
 template <class T>
-void heapify(T *a, int i, int n, Type type) {
-    if (type == MIN_HEAP) {
+void heapify(T *a, int i, int n, HeapType type) {
+    if (type == HeapType::MIN) {
         min_heapify(a, i, n);
-    } else {
+    } else if (type == HeapType::MAX) {
         max_heapify(a, i, n);
     }
 }

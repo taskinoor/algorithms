@@ -7,7 +7,7 @@ namespace alg {
 
 template <class T> class RedBlackTree;
 
-enum RBColor {
+enum class RBColor {
     RED,
     BLACK
 };

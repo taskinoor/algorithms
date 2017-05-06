@@ -13,19 +13,22 @@ void quick_sort(T *a, int p, int r, QSPartitionStrategy st) {
 
     int q = qs_partition(a, p, r, st);
 
-    quick_sort(a, p, st == HOARE ? q : q - 1, st);
+    quick_sort(a, p, st == QSPartitionStrategy::HOARE ? q : q - 1, st);
     quick_sort(a, q + 1, r, st);
 }
 
 template <class T>
 int qs_partition(T *a, int p, int r, QSPartitionStrategy st) {
     switch (st) {
-    case LOMUTO:
+    case QSPartitionStrategy::LOMUTO:
         return qs_partition_lomuto(a, p, r);
-    case RANDOMIZED:
+
+    case QSPartitionStrategy::RANDOMIZED:
         return qs_partition_randomized(a, p, r);
-    case HOARE:
+
+    case QSPartitionStrategy::HOARE:
         return qs_partition_hoare(a, p, r);
+
     default:
         return -1;
     }

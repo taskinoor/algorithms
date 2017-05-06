@@ -6,14 +6,15 @@
 
 namespace alg {
 
-enum QSPartitionStrategy {
+enum class QSPartitionStrategy {
     LOMUTO,
     RANDOMIZED,
     HOARE
 };
 
 template <class T>
-void quick_sort(T *a, int n, QSPartitionStrategy st = LOMUTO);
+void quick_sort(T *a, int n,
+        QSPartitionStrategy st = QSPartitionStrategy::LOMUTO);
 
 template <class T>
 void quick_sort(T *a, int p, int r, QSPartitionStrategy st);

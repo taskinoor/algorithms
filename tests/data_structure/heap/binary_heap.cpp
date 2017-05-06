@@ -36,7 +36,7 @@ TEST(BinaryHeap, BuildMaxHeap) {
     std::array<int, 10> expected = {16, 14, 10, 8, 7, 9, 3, 2, 4, 1};
 
     alg::heap::binary::build_heap(data.data(), data.size(),
-            alg::heap::binary::MAX_HEAP);
+            alg::heap::binary::HeapType::MAX);
 
     ASSERT_EQ(expected, data);
 }
@@ -46,7 +46,7 @@ TEST(BinaryHeap, BuildMinHeap) {
     std::array<int, 10> expected = {1, 2, 3, 4, 7, 9, 10, 14, 8, 16};
 
     alg::heap::binary::build_heap(data.data(), data.size(),
-            alg::heap::binary::MIN_HEAP);
+            alg::heap::binary::HeapType::MIN);
 
     ASSERT_EQ(expected, data);
 }
@@ -59,7 +59,7 @@ TEST(BinaryHeap, BuildMaxHeapLargeData) {
     }
 
     alg::heap::binary::build_heap(data.data(), data.size(),
-            alg::heap::binary::MAX_HEAP);
+            alg::heap::binary::HeapType::MAX);
 
     for (std::size_t i = data.size() - 1; i > 0; i--) {
         ASSERT_GE(data[(i - 1) / 2], data[i]);
@@ -74,7 +74,7 @@ TEST(BinaryHeap, BuildMinHeapLargeData) {
     }
 
     alg::heap::binary::build_heap(data.data(), data.size(),
-            alg::heap::binary::MIN_HEAP);
+            alg::heap::binary::HeapType::MIN);
 
     for (std::size_t i = data.size() - 1; i > 0; i--) {
         ASSERT_LE(data[(i - 1) / 2], data[i]);

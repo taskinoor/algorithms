@@ -71,13 +71,13 @@ TEST_F(RedBlackTree, Height) {
 TEST_F(RedBlackTree, RootColor) {
     alg::RBNode<int> *root = (alg::RBNode<int> *)tree->root();
 
-    ASSERT_EQ(alg::BLACK, root->color());
+    ASSERT_EQ(alg::RBColor::BLACK, root->color());
 }
 
 TEST_F(RedBlackTree, LeafColor) {
     alg::RBNode<int> *nil = (alg::RBNode<int> *)tree->nil();
 
-    ASSERT_EQ(alg::BLACK, nil->color());
+    ASSERT_EQ(alg::RBColor::BLACK, nil->color());
 }
 
 TEST_F(RedBlackTree, ChildOfRed) {
@@ -89,9 +89,9 @@ TEST_F(RedBlackTree, ChildOfRed) {
         alg::RBNode<int> *left = (alg::RBNode<int> *)tree->left(node);
         alg::RBNode<int> *right = (alg::RBNode<int> *)tree->right(node);
 
-        if (node->color() == alg::RED) {
-            ASSERT_EQ(alg::BLACK, left->color());
-            ASSERT_EQ(alg::BLACK, right->color());
+        if (node->color() == alg::RBColor::RED) {
+            ASSERT_EQ(alg::RBColor::BLACK, left->color());
+            ASSERT_EQ(alg::RBColor::BLACK, right->color());
         }
     }
 
@@ -114,7 +114,7 @@ TEST_F(RedBlackTree, BlackHeight) {
             int count = 0;
 
             while (node != tree->nil()) {
-                if (node->color() == alg::BLACK) {
+                if (node->color() == alg::RBColor::BLACK) {
                     count++;
                 }
 

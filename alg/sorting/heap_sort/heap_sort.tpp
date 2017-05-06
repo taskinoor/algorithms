@@ -2,7 +2,7 @@ namespace alg {
 
 template <class T>
 void heap_sort(T *a, int n) {
-    heap::binary::build_heap(a, n, heap::binary::MAX_HEAP);
+    heap::binary::build_heap(a, n, heap::binary::HeapType::MAX);
 
     while (n > 1) {
         swap(a[0], a[n - 1]);

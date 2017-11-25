@@ -10,6 +10,8 @@ public:
     virtual void next() = 0;
     virtual bool is_done() const = 0;
     virtual T current_item() const = 0;
+
+    virtual ~Iterator() = default;
 };
 
 }

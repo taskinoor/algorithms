@@ -5,7 +5,8 @@ CC := g++ -std=c++11
 CFLAGS := \
 	-MMD \
 	-Wall \
-	-Wextra
+	-Wextra \
+	-Wnon-virtual-dtor
 
 INCLUDE := -I..
 

@@ -15,6 +15,7 @@ LIBS := \
 
 SRCS := $(shell find .. -name '*.cpp')
 OBJS := $(SRCS:%.cpp=%.o)
+DEPS := $(OBJS:%.o=%.d)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
@@ -25,6 +26,6 @@ runner.out: $(OBJS)
 clean:
 	rm runner.out
 	rm $(OBJS)
-	rm *.d
+	rm $(DEPS)
 
 -include $(OBJS:.o=.d)

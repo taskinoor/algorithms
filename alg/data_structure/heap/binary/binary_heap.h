@@ -12,9 +12,17 @@ enum class HeapType {
     MAX
 };
 
-int parent(int i);
-int left(int i);
-int right(int i);
+inline int parent(int i) {
+    return i ? (i - 1) / 2 : -1;
+}
+
+inline int left(int i) {
+    return 2 * i + 1;
+}
+
+inline int right(int i) {
+    return 2 * (i + 1);
+}
 
 template <class T>
 void min_heapify(T *a, int i, int n) {

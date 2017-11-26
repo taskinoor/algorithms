@@ -13,26 +13,87 @@ enum class QSPartitionStrategy {
 };
 
 template <class T>
-void quick_sort(T *a, int n,
-        QSPartitionStrategy st = QSPartitionStrategy::LOMUTO);
+int qs_partition_lomuto(T *a, int p, int r) {
+    int i = p - 1;
 
-template <class T>
-void quick_sort(T *a, int p, int r, QSPartitionStrategy st);
+    for (int j = p; j < r; j++) {
+        if (a[j] <= a[r]) {
+            swap(a[++i], a[j]);
+        }
+    }
 
-template <class T>
-int qs_partition(T *a, int p, int r, QSPartitionStrategy st);
+    swap(a[++i], a[r]);
 
-template <class T>
-int qs_partition_lomuto(T *a, int p, int r);
-
-template <class T>
-int qs_partition_randomized(T *a, int p, int r);
-
-template <class T>
-int qs_partition_hoare(T *a, int p, int r);
-
+    return i;
 }
 
-#include "quick_sort.tpp"
+template <class T>
+int qs_partition_randomized(T *a, int p, int r) {
+    int i = randomizer::uniform_int(p, r);
+    swap(a[i], a[r]);
+
+    return qs_partition_lomuto(a, p, r);
+}
+
+template <class T>
+int qs_partition_hoare(T *a, int p, int r) {
+    T x = a[p];
+    int i = p - 1;
+    int j = r + 1;
+
+    while (true) {
+        do {
+            j--;
+        } while (a[j] > x);
+
+        do {
+            i++;
+        } while (a[i] < x);
+
+        if (i >= j) {
+            return j;
+        }
+
+        swap(a[i], a[j]);
+    }
+}
+
+template <class T>
+int qs_partition(T *a, int p, int r, QSPartitionStrategy st) {
+    switch (st) {
+    case QSPartitionStrategy::LOMUTO:
+        return qs_partition_lomuto(a, p, r);
+
+    case QSPartitionStrategy::RANDOMIZED:
+        return qs_partition_randomized(a, p, r);
+
+    case QSPartitionStrategy::HOARE:
+        return qs_partition_hoare(a, p, r);
+
+    default:
+        return -1;
+    }
+}
+
+template <class T>
+void quick_sort(T *a, int p, int r, QSPartitionStrategy st) {
+    if (p >= r) {
+        return;
+    }
+
+    int q = qs_partition(a, p, r, st);
+
+    quick_sort(a, p, st == QSPartitionStrategy::HOARE ? q : q - 1, st);
+    quick_sort(a, q + 1, r, st);
+}
+
+template <class T>
+void quick_sort(T *a, int n,
+        QSPartitionStrategy st = QSPartitionStrategy::LOMUTO) {
+
+    quick_sort(a, 0, n - 1, st);
+}
+
+}
 
 #endif

@@ -6,10 +6,16 @@
 namespace alg {
 
 template <class T>
-void bubble_sort(T *a, int n);
-
+void bubble_sort(T *a, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = n - 1; j > i; j--) {
+            if (a[j] < a[j - 1]) {
+                swap(a[j], a[j - 1]);
+            }
+        }
+    }
 }
 
-#include "bubble_sort.tpp"
+}
 
 #endif

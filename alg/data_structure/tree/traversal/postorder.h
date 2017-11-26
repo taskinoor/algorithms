@@ -30,6 +30,7 @@ template <class T>
 PostOrderIterator<T>::PostOrderIterator(BinaryTree<T> *tree) {
     this->tree = tree;
     stack = new Stack<TreeNode<T> *>(256);
+    last_visited = tree->nil();
 }
 
 template <class T>
@@ -40,7 +41,6 @@ PostOrderIterator<T>::~PostOrderIterator() {
 template <class T>
 void PostOrderIterator<T>::first() {
     stack->push(tree->root());
-    last_visited = tree->nil();
 
     next();
 }

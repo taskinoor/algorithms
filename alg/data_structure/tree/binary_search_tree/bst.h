@@ -12,6 +12,7 @@ protected:
 
 public:
     BST() : BinaryTree<T>(nullptr) {}
+    virtual ~BST() = default;
 
     virtual void insert(T element);
     virtual void insert_node(TreeNode<T> *node);

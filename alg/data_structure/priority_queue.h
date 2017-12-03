@@ -5,9 +5,9 @@
 #include <limits>
 
 #include "alg/common/utils.h"
-#include "alg/data_structure/extendable_array/array.h"
-#include "alg/data_structure/heap/binary/binary_heap.h"
-#include "alg/data_structure/queue/queue.h"
+#include "alg/data_structure/array.h"
+#include "alg/data_structure/binary_heap.h"
+#include "alg/data_structure/queue.h"
 
 namespace alg {
 

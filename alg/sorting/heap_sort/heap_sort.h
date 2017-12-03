@@ -2,7 +2,7 @@
 #define ALG_HEAP_SORT_H_
 
 #include "alg/common/utils.h"
-#include "alg/data_structure/heap/binary/binary_heap.h"
+#include "alg/data_structure/binary_heap.h"
 
 namespace alg {
 

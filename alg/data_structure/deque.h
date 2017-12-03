@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-#include "alg/data_structure/linked_list/list.h"
+#include "alg/data_structure/list.h"
 
 namespace alg {
 

@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "alg/data_structure/extendable_array/array.h"
+#include "alg/data_structure/array.h"
 
 namespace algtest {
 

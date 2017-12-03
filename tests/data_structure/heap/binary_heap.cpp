@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include "alg/common/randomizer.h"
-#include "alg/data_structure/heap/binary/binary_heap.h"
+#include "alg/data_structure/binary_heap.h"
 
 namespace algtest {
 

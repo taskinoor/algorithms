@@ -2,7 +2,7 @@
 #define ALG_POSTORDER_H_
 
 #include "alg/common/iterator.h"
-#include "alg/data_structure/stack/stack.h"
+#include "alg/data_structure/stack.h"
 #include "alg/data_structure/tree/binary_tree/binary_tree.h"
 
 namespace alg {

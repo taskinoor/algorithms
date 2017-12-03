@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 
 #include "alg/common/randomizer.h"
-#include "alg/data_structure/priority_queue/priority_queue.h"
+#include "alg/data_structure/priority_queue.h"
 
 namespace algtest {
 

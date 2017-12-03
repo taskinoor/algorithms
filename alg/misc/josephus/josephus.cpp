@@ -1,4 +1,4 @@
-#include "alg/data_structure/queue/queue.h"
+#include "alg/data_structure/queue.h"
 #include "josephus.h"
 
 namespace alg {

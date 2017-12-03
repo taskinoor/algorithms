@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/misc/matrix/matrix.h"
+#include "alg/misc/matrix.h"
 
 namespace algtest {
 

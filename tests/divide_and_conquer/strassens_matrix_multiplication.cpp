@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/divide_and_conquer/strassens_matrix_multiplication/strassens_matrix.h"
+#include "alg/divide_and_conquer/strassens_matrix.h"
 
 namespace algtest {
 

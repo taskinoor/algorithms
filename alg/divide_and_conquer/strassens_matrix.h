@@ -1,7 +1,7 @@
 #ifndef ALG_STRASSENS_MATRIX_H_
 #define ALG_STRASSENS_MATRIX_H_
 
-#include "alg/misc/matrix/matrix.h"
+#include "alg/misc/matrix.h"
 
 namespace alg {
 

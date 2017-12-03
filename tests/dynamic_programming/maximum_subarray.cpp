@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/dynamic_programming/maximum_subarray/subarray.h"
+#include "alg/dynamic_programming/subarray.h"
 
 namespace algtest {
 

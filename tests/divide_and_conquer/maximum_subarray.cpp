@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/divide_and_conquer/subarray.h"
+#include "alg/divide_and_conquer/maximum_subarray.h"
 
 namespace algtest {
 

@@ -1,5 +1,5 @@
-#ifndef ALG_DNC_SUBARRAY_H_
-#define ALG_DNC_SUBARRAY_H_
+#ifndef ALG_DNC_MAXIMUM_SUBARRAY_H_
+#define ALG_DNC_MAXIMUM_SUBARRAY_H_
 
 #include <limits>
 

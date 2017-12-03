@@ -1,5 +1,5 @@
-#ifndef ALG_DP_SUBARRAY_H_
-#define ALG_DP_SUBARRAY_H_
+#ifndef ALG_DP_MAXIMUM_SUBARRAY_H_
+#define ALG_DP_MAXIMUM_SUBARRAY_H_
 
 #include <cstddef>
 

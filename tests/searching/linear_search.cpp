@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "alg/searching/linear_search/linear_search.h"
+#include "alg/searching/linear_search.h"
 
 namespace algtest {
 

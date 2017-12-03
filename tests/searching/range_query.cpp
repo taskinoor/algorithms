@@ -1,7 +1,7 @@
 #include <array>
 #include <gtest/gtest.h>
 
-#include "alg/searching/range_query/range_query.h"
+#include "alg/searching/range_query.h"
 
 namespace algtest {
 

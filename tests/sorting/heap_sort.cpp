@@ -1,4 +1,4 @@
-#include "alg/sorting/heap_sort/heap_sort.h"
+#include "alg/sorting/heap_sort.h"
 #include "sorting.h"
 
 namespace algtest {

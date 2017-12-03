@@ -1,4 +1,4 @@
-#include "alg/sorting/quick_sort/quick_sort.h"
+#include "alg/sorting/quick_sort.h"
 #include "sorting.h"
 
 namespace algtest {

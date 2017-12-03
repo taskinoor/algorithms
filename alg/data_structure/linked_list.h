@@ -1,5 +1,5 @@
-#ifndef ALG_LIST_H_
-#define ALG_LIST_H_
+#ifndef ALG_LINKED_LIST_H_
+#define ALG_LINKED_LIST_H_
 
 #include "alg/common/iterator.h"
 

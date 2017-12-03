@@ -5,7 +5,7 @@
 #include <limits>
 
 #include "alg/common/utils.h"
-#include "alg/data_structure/array.h"
+#include "alg/data_structure/extendable_array.h"
 #include "alg/data_structure/binary_heap.h"
 #include "alg/data_structure/queue.h"
 

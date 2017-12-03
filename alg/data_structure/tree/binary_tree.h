@@ -213,7 +213,7 @@ int BinaryTree<T>::height(TreeNode<T> *p) {
         return -1;
     }
 
-    return 1 + max(height(p->left), height(p->right));
+    return 1 + utils::max(height(p->left), height(p->right));
 }
 
 template <class T>

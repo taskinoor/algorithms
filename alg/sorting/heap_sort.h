@@ -11,7 +11,7 @@ void heap_sort(T *a, int n) {
     heap::binary::build_heap(a, n, heap::binary::HeapType::MAX);
 
     while (n > 1) {
-        swap(a[0], a[n - 1]);
+        utils::swap(a[0], a[n - 1]);
         n--;
         heap::binary::max_heapify(a, 0, n);
     }

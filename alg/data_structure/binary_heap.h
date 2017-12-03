@@ -42,7 +42,7 @@ void min_heapify(T *a, int i, int n) {
             break;
         }
 
-        swap(a[i], a[smallest]);
+        utils::swap(a[i], a[smallest]);
         i = smallest;
     }
 }
@@ -65,7 +65,7 @@ void max_heapify(T *a, int i, int n) {
             break;
         }
 
-        swap(a[i], a[largest]);
+        utils::swap(a[i], a[largest]);
         i = largest;
     }
 }

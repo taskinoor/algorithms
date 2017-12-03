@@ -18,11 +18,11 @@ int qs_partition_lomuto(T *a, int p, int r) {
 
     for (int j = p; j < r; j++) {
         if (a[j] <= a[r]) {
-            swap(a[++i], a[j]);
+            utils::swap(a[++i], a[j]);
         }
     }
 
-    swap(a[++i], a[r]);
+    utils::swap(a[++i], a[r]);
 
     return i;
 }
@@ -30,7 +30,7 @@ int qs_partition_lomuto(T *a, int p, int r) {
 template <class T>
 int qs_partition_randomized(T *a, int p, int r) {
     int i = randomizer::uniform_int(p, r);
-    swap(a[i], a[r]);
+    utils::swap(a[i], a[r]);
 
     return qs_partition_lomuto(a, p, r);
 }
@@ -54,7 +54,7 @@ int qs_partition_hoare(T *a, int p, int r) {
             return j;
         }
 
-        swap(a[i], a[j]);
+        utils::swap(a[i], a[j]);
     }
 }
 

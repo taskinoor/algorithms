@@ -135,7 +135,7 @@ void PriorityQueue<T>::increase_priority(int index, int new_priority) {
             break;
         }
 
-        swap(buffer[index], buffer[parent]);
+        utils::swap(buffer[index], buffer[parent]);
         index = parent;
     }
 }
@@ -155,7 +155,7 @@ void PriorityQueue<T>::decrease_priority(int index, int new_priority) {
             break;
         }
 
-        swap(buffer[index], buffer[parent]);
+        utils::swap(buffer[index], buffer[parent]);
         index = parent;
     }
 }

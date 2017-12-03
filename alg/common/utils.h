@@ -4,6 +4,7 @@
 #include <cstddef>
 
 namespace alg {
+namespace utils {
 
 template <class T>
 T max(const T& a, const T& b) {
@@ -32,6 +33,7 @@ void swap(T& a, T& b) {
     b = tmp;
 }
 
+}
 }
 
 #endif

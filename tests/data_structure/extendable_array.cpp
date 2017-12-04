@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 #include <utility>
 
 #include <gtest/gtest.h>
@@ -10,17 +11,17 @@ namespace algtest {
 TEST(ExtendableArray, InvalidIndex) {
     alg::ExtendableArray<int> array;
 
-    ASSERT_THROW(array[-1], alg::InvalidIndexError);
-    ASSERT_THROW(array[0], alg::InvalidIndexError);
+    ASSERT_THROW(array[-1], std::out_of_range);
+    ASSERT_THROW(array[0], std::out_of_range);
 
-    ASSERT_THROW(array.add(-1, 2), alg::InvalidIndexError);
-    ASSERT_THROW(array.add(1, 2), alg::InvalidIndexError);
+    ASSERT_THROW(array.add(-1, 2), std::out_of_range);
+    ASSERT_THROW(array.add(1, 2), std::out_of_range);
 
-    ASSERT_THROW(array[-1] = 2, alg::InvalidIndexError);
-    ASSERT_THROW(array[0] = 2, alg::InvalidIndexError);
+    ASSERT_THROW(array[-1] = 2, std::out_of_range);
+    ASSERT_THROW(array[0] = 2, std::out_of_range);
 
-    ASSERT_THROW(array.remove(-1), alg::InvalidIndexError);
-    ASSERT_THROW(array.remove(0), alg::InvalidIndexError);
+    ASSERT_THROW(array.remove(-1), std::out_of_range);
+    ASSERT_THROW(array.remove(0), std::out_of_range);
 }
 
 TEST(ExtendableArray, Operations) {

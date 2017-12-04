@@ -9,11 +9,6 @@
 
 namespace alg {
 
-class InvalidIndexError : public std::runtime_error {
-public:
-    InvalidIndexError() : std::runtime_error("Invalid index") {}
-};
-
 template <class T>
 class ExtendableArray {
 private:
@@ -107,7 +102,7 @@ T *ExtendableArray<T>::data_ptr() const {
 template <class T>
 void ExtendableArray<T>::add(int index, const T& element) {
     if (index < 0 || index > n) {
-        throw InvalidIndexError();
+        throw std::out_of_range("");
     }
 
     if (n == capacity) {
@@ -130,7 +125,7 @@ void ExtendableArray<T>::append(const T& element) {
 template <class T>
 T ExtendableArray<T>::remove(int index) {
     if (index < 0 || index > n - 1) {
-        throw InvalidIndexError();
+        throw std::out_of_range("");
     }
 
     T element = buffer[index];
@@ -147,7 +142,7 @@ T ExtendableArray<T>::remove(int index) {
 template <class T>
 T& ExtendableArray<T>::operator[](int index) const {
     if (index < 0 || index >= n) {
-        throw InvalidIndexError();
+        throw std::out_of_range("");
     }
 
     return buffer[index];

@@ -2,16 +2,11 @@
 #define ALG_DEQUE_H_
 
 #include <cstddef>
-#include <stdexcept>
 
+#include "alg/common/exception.h"
 #include "alg/data_structure/linked_list.h"
 
 namespace alg {
-
-class DequeEmptyError : public std::runtime_error {
-public:
-    DequeEmptyError() : std::runtime_error("Deque is empty") {}
-};
 
 template <class T>
 class Deque {
@@ -66,7 +61,7 @@ ListNode<T> *Deque<T>::back_node() {
     ListNode<T> *node = list->last();
 
     if (!node) {
-        throw DequeEmptyError();
+        throw except::BufferEmpty();
     }
 
     return node;
@@ -77,7 +72,7 @@ ListNode<T> *Deque<T>::front_node() {
     ListNode<T> *node = list->first();
 
     if (!node) {
-        throw DequeEmptyError();
+        throw except::BufferEmpty();
     }
 
     return node;

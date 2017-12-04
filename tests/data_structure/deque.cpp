@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "alg/common/exception.h"
 #include "alg/data_structure/deque.h"
 
 namespace algtest {
@@ -10,10 +11,10 @@ protected:
     void assert_empty(alg::Deque<T>& deq) {
         ASSERT_EQ(0, deq.count());
 
-        ASSERT_THROW(deq.back(), alg::DequeEmptyError);
-        ASSERT_THROW(deq.front(), alg::DequeEmptyError);
-        ASSERT_THROW(deq.pop_back(), alg::DequeEmptyError);
-        ASSERT_THROW(deq.pop_front(), alg::DequeEmptyError);
+        ASSERT_THROW(deq.back(), alg::except::BufferEmpty);
+        ASSERT_THROW(deq.front(), alg::except::BufferEmpty);
+        ASSERT_THROW(deq.pop_back(), alg::except::BufferEmpty);
+        ASSERT_THROW(deq.pop_front(), alg::except::BufferEmpty);
     }
 };
 
@@ -53,8 +54,8 @@ TEST_F(Deque, Operations) {
             ASSERT_EQ(15, deq.front());
             ASSERT_EQ(19 - (i + 1), deq.back());
         } else {
-            ASSERT_THROW(deq.front(), alg::DequeEmptyError);
-            ASSERT_THROW(deq.back(), alg::DequeEmptyError);
+            ASSERT_THROW(deq.front(), alg::except::BufferEmpty);
+            ASSERT_THROW(deq.back(), alg::except::BufferEmpty);
         }
     }
 

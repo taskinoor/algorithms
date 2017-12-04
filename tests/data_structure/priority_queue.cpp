@@ -5,6 +5,7 @@
 
 #include <gtest/gtest.h>
 
+#include "alg/common/exception.h"
 #include "alg/common/randomizer.h"
 #include "alg/data_structure/priority_queue.h"
 
@@ -15,8 +16,8 @@ TEST(PriorityQueue, MaxQueue) {
 
     ASSERT_EQ(0, queue.count());
 
-    ASSERT_THROW(queue.top(), alg::QueueEmptyError);
-    ASSERT_THROW(queue.pop(), alg::QueueEmptyError);
+    ASSERT_THROW(queue.top(), alg::except::BufferEmpty);
+    ASSERT_THROW(queue.pop(), alg::except::BufferEmpty);
 
     queue.insert("2", 2);
 
@@ -35,8 +36,8 @@ TEST(PriorityQueue, MaxQueue) {
     ASSERT_EQ("-1", queue.pop());
     ASSERT_EQ(0, queue.count());
 
-    ASSERT_THROW(queue.top(), alg::QueueEmptyError);
-    ASSERT_THROW(queue.pop(), alg::QueueEmptyError);
+    ASSERT_THROW(queue.top(), alg::except::BufferEmpty);
+    ASSERT_THROW(queue.pop(), alg::except::BufferEmpty);
 }
 
 TEST(PriorityQueue, MinQueue) {
@@ -44,8 +45,8 @@ TEST(PriorityQueue, MinQueue) {
 
     ASSERT_EQ(0, queue.count());
 
-    ASSERT_THROW(queue.top(), alg::QueueEmptyError);
-    ASSERT_THROW(queue.pop(), alg::QueueEmptyError);
+    ASSERT_THROW(queue.top(), alg::except::BufferEmpty);
+    ASSERT_THROW(queue.pop(), alg::except::BufferEmpty);
 
     queue.insert("2", 2);
 
@@ -64,8 +65,8 @@ TEST(PriorityQueue, MinQueue) {
     ASSERT_EQ("7", queue.pop());
     ASSERT_EQ(0, queue.count());
 
-    ASSERT_THROW(queue.top(), alg::QueueEmptyError);
-    ASSERT_THROW(queue.pop(), alg::QueueEmptyError);
+    ASSERT_THROW(queue.top(), alg::except::BufferEmpty);
+    ASSERT_THROW(queue.pop(), alg::except::BufferEmpty);
 }
 
 TEST(PriorityQueue, MaxQueueLargeDataSet) {

@@ -1,5 +1,5 @@
-#include <string>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 #include <gtest/gtest.h>

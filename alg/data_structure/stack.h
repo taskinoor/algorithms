@@ -2,19 +2,10 @@
 #define ALG_STACK_H_
 
 #include <cstddef>
-#include <stdexcept>
+
+#include "alg/common/exception.h"
 
 namespace alg {
-
-class StackFullError : public std::runtime_error {
-public:
-    StackFullError() : std::runtime_error("Stack is full") {}
-};
-
-class StackEmptyError : public std::runtime_error {
-public:
-    StackEmptyError() : std::runtime_error("Stack is empty") {}
-};
 
 template <class T>
 class Stack {
@@ -48,7 +39,7 @@ Stack<T>::~Stack() {
 template <class T>
 void Stack<T>::push(T element) {
     if (top_ == size - 1) {
-        throw StackFullError();
+        throw except::BufferFull();
     }
 
     top_++;
@@ -58,7 +49,7 @@ void Stack<T>::push(T element) {
 template <class T>
 T Stack<T>::pop() {
     if (top_ == -1) {
-        throw StackEmptyError();
+        throw except::BufferEmpty();
     }
 
     top_--;
@@ -68,7 +59,7 @@ T Stack<T>::pop() {
 template <class T>
 T Stack<T>::top() {
     if (top_ == -1) {
-        throw StackEmptyError();
+        throw except::BufferEmpty();
     }
 
     return buffer[top_];

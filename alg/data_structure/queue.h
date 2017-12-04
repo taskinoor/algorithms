@@ -2,19 +2,10 @@
 #define ALG_QUEUE_H_
 
 #include <cstddef>
-#include <stdexcept>
+
+#include "alg/common/exception.h"
 
 namespace alg {
-
-class QueueFullError : public std::runtime_error {
-public:
-    QueueFullError() : std::runtime_error("Queue is full") {}
-};
-
-class QueueEmptyError : public std::runtime_error {
-public:
-    QueueEmptyError() : std::runtime_error("Queue is empty") {}
-};
 
 template <class T>
 class Queue {
@@ -49,7 +40,7 @@ Queue<T>::~Queue() {
 template <class T>
 void Queue<T>::enqueue(T element) {
     if ((rear + 1) % size == front) {
-        throw QueueFullError();
+        throw except::BufferFull();
     }
 
     buffer[rear] = element;
@@ -59,7 +50,7 @@ void Queue<T>::enqueue(T element) {
 template <class T>
 T Queue<T>::dequeue() {
     if (front == rear) {
-        throw QueueEmptyError();
+        throw except::BufferEmpty();
     }
 
     T element = buffer[front];

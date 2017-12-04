@@ -4,10 +4,10 @@
 #include <cstddef>
 #include <limits>
 
+#include "alg/common/exception.h"
 #include "alg/common/utils.h"
 #include "alg/data_structure/extendable_array.h"
 #include "alg/data_structure/binary_heap.h"
-#include "alg/data_structure/queue.h"
 
 namespace alg {
 
@@ -70,7 +70,7 @@ std::size_t PriorityQueue<T>::count() const {
 template <class T>
 T PriorityQueue<T>::top() {
     if (!count_) {
-        throw QueueEmptyError();
+        throw except::BufferEmpty();
     }
 
     return buffer[0].element;
@@ -79,7 +79,7 @@ T PriorityQueue<T>::top() {
 template <class T>
 T PriorityQueue<T>::pop() {
     if (!count_) {
-        throw QueueEmptyError();
+        throw except::BufferEmpty();
     }
 
     T element = buffer[0].element;

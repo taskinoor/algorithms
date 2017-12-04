@@ -1,6 +1,7 @@
 #include <array>
 #include <gtest/gtest.h>
 
+#include "alg/common/exception.h"
 #include "alg/data_structure/stack.h"
 
 namespace algtest {
@@ -8,7 +9,7 @@ namespace algtest {
 TEST(Stack, Empty) {
     alg::Stack<int> s(2);
 
-    ASSERT_THROW(s.pop(), alg::StackEmptyError);
+    ASSERT_THROW(s.pop(), alg::except::BufferEmpty);
 }
 
 TEST(Stack, Full) {
@@ -16,7 +17,7 @@ TEST(Stack, Full) {
 
     ASSERT_NO_THROW(s.push(2));
     ASSERT_NO_THROW(s.push(3));
-    ASSERT_THROW(s.push(5), alg::StackFullError);
+    ASSERT_THROW(s.push(5), alg::except::BufferFull);
 }
 
 TEST(Stack, PushPop) {
@@ -36,7 +37,7 @@ TEST(Stack, PushPop) {
 TEST(Stack, Top) {
     alg::Stack<int> s(2);
 
-    ASSERT_THROW(s.top(), alg::StackEmptyError);
+    ASSERT_THROW(s.top(), alg::except::BufferEmpty);
 
     s.push(2);
 

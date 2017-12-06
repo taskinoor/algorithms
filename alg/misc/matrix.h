@@ -23,7 +23,7 @@ public:
     Matrix(const Matrix<T>& that);
     Matrix(Matrix<T>&& that) noexcept;
 
-    virtual ~Matrix();
+    ~Matrix();
 
     std::pair<std::size_t, std::size_t> dimension() const;
     Matrix<T> transpose() const;

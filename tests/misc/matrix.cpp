@@ -95,6 +95,33 @@ TEST(Matrix, MoveAssignmentOperator) {
     ASSERT_DOUBLE_EQ(2.3, B[0][0]);
 }
 
+TEST(Matrix, OriginalDataAfterMove) {
+    alg::Matrix<int> A = {{1, 2, 3}, {4, 5, 6}};
+    std::pair<std::size_t, std::size_t> dimension = {2, 3};
+    std::pair<std::size_t, std::size_t> dimension_after_move = {0, 0};
+
+    ASSERT_NE(nullptr, A.data_ptr());
+    ASSERT_EQ(dimension, A.dimension());
+
+    alg::Matrix<int> B = std::move(A);
+
+    ASSERT_NE(nullptr, B.data_ptr());
+    ASSERT_EQ(dimension, B.dimension());
+
+    ASSERT_EQ(nullptr, A.data_ptr());
+    ASSERT_EQ(dimension_after_move, A.dimension());
+
+    alg::Matrix<int> C;
+
+    C = std::move(B);
+
+    ASSERT_NE(nullptr, C.data_ptr());
+    ASSERT_EQ(dimension, C.dimension());
+
+    ASSERT_EQ(nullptr, B.data_ptr());
+    ASSERT_EQ(dimension_after_move, B.dimension());
+}
+
 TEST(Matrix, Transpose) {
     constexpr std::size_t m = 2;
     constexpr std::size_t n = 3;

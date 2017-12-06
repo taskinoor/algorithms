@@ -26,6 +26,8 @@ public:
     ~Matrix();
 
     std::pair<std::size_t, std::size_t> dimension() const;
+    T *data_ptr() const;
+
     Matrix<T> transpose() const;
 
     Matrix<T> submatrix(std::size_t start_i, std::size_t start_j,
@@ -110,7 +112,10 @@ Matrix<T>::Matrix(Matrix<T>&& that) noexcept {
     m = that.m;
     n = that.n;
     a = that.a;
+
     that.a = nullptr;
+    that.m = 0;
+    that.n = 0;
 }
 
 template <class T>
@@ -121,6 +126,11 @@ Matrix<T>::~Matrix() {
 template <class T>
 std::pair<std::size_t, std::size_t> Matrix<T>::dimension() const {
     return {m, n};
+}
+
+template <class T>
+T *Matrix<T>::data_ptr() const {
+    return a;
 }
 
 template <class T>
@@ -196,7 +206,10 @@ Matrix<T>& Matrix<T>::operator=(Matrix<T>&& that) noexcept {
     m = that.m;
     n = that.n;
     a = that.a;
+
     that.a = nullptr;
+    that.m = 0;
+    that.n = 0;
 
     return *this;
 }

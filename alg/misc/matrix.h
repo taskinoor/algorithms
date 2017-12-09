@@ -13,7 +13,7 @@ class Matrix {
 private:
     std::size_t m;
     std::size_t n;
-    T *a;
+    T *data;
 
 public:
     Matrix();
@@ -64,7 +64,7 @@ template <class T>
 Matrix<T>::Matrix() {
     m = 0;
     n = 0;
-    a = nullptr;
+    data = nullptr;
 }
 
 template <class T>
@@ -75,7 +75,7 @@ Matrix<T>::Matrix(std::size_t m, std::size_t n) {
 
     this->m = m;
     this->n = n;
-    a = new T[m * n];
+    data = new T[m * n];
 }
 
 template <class T>
@@ -84,16 +84,16 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> matrix_list) {
         throw std::invalid_argument("Dimension can't be zero");
     }
 
-    a = new T[m * n];
+    data = new T[m * n];
     int i = 0;
 
     for (std::initializer_list<T> row : matrix_list) {
         if (row.size() != n) {
-            delete[] a;
+            delete[] data;
             throw std::invalid_argument("Malformed initializer list");
         }
 
-        std::copy(row.begin(), row.end(), &a[i]);
+        std::copy(row.begin(), row.end(), &data[i]);
         i += n;
     }
 }
@@ -102,25 +102,25 @@ template <class T>
 Matrix<T>::Matrix(const Matrix<T>& that) {
     m = that.m;
     n = that.n;
-    a = new T[m * n];
+    data = new T[m * n];
 
-    std::copy(&that.a[0], &that.a[m * n], a);
+    std::copy(&that.data[0], &that.data[m * n], data);
 }
 
 template <class T>
 Matrix<T>::Matrix(Matrix<T>&& that) noexcept {
     m = that.m;
     n = that.n;
-    a = that.a;
+    data = that.data;
 
-    that.a = nullptr;
+    that.data = nullptr;
     that.m = 0;
     that.n = 0;
 }
 
 template <class T>
 Matrix<T>::~Matrix() {
-    delete[] a;
+    delete[] data;
 }
 
 template <class T>
@@ -130,7 +130,7 @@ std::pair<std::size_t, std::size_t> Matrix<T>::dimension() const {
 
 template <class T>
 T *Matrix<T>::data_ptr() const {
-    return a;
+    return data;
 }
 
 template <class T>
@@ -185,7 +185,7 @@ T& Matrix<T>::Proxy::operator[](int index) const {
 
 template <class T>
 typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
-    return Proxy(&a[index * n]);
+    return Proxy(&data[index * n]);
 }
 
 template <class T>
@@ -198,20 +198,20 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& that) {
         return *this;
     }
 
-    std::copy(&that.a[0], &that.a[m * n], a);
+    std::copy(&that.data[0], &that.data[m * n], data);
 
     return *this;
 }
 
 template <class T>
 Matrix<T>& Matrix<T>::operator=(Matrix<T>&& that) noexcept {
-    delete[] a;
+    delete[] data;
 
     m = that.m;
     n = that.n;
-    a = that.a;
+    data = that.data;
 
-    that.a = nullptr;
+    that.data = nullptr;
     that.m = 0;
     that.n = 0;
 

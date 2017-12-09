@@ -95,6 +95,25 @@ TEST(Matrix, MoveAssignmentOperator) {
     ASSERT_DOUBLE_EQ(2.3, B[0][0]);
 }
 
+TEST(Matrix, SelfAssignment) {
+    constexpr std::size_t n = 100;
+    alg::Matrix<int> M(n, n);
+
+    for (std::size_t i = 0; i < n; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            M[i][j] = i + j;
+        }
+    }
+
+    M = M;
+
+    for (std::size_t i = 0; i < n; i++) {
+        for (std::size_t j = 0; j < n; j++) {
+            ASSERT_EQ(i + j, M[i][j]);
+        }
+    }
+}
+
 TEST(Matrix, OriginalDataAfterMove) {
     alg::Matrix<int> A = {{1, 2, 3}, {4, 5, 6}};
     std::pair<std::size_t, std::size_t> dimension = {2, 3};

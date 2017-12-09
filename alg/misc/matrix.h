@@ -194,6 +194,10 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& that) {
         throw std::invalid_argument("Dimension mismatch");
     }
 
+    if (this == &that) {
+        return *this;
+    }
+
     std::copy(&that.a[0], &that.a[m * n], a);
 
     return *this;

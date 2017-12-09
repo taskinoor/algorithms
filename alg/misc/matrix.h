@@ -13,15 +13,15 @@ class Matrix {
 private:
     std::size_t m;
     std::size_t n;
-    T *a;
+    T *buffer;
 
 public:
     Matrix();
     Matrix(std::size_t m, std::size_t n);
     Matrix(std::initializer_list<std::initializer_list<T>> matrix_list);
 
-    Matrix(const Matrix<T>& that);
-    Matrix(Matrix<T>&& that) noexcept;
+    Matrix(const Matrix<T>& rhs);
+    Matrix(Matrix<T>&& rhs) noexcept;
 
     ~Matrix();
 
@@ -48,23 +48,23 @@ public:
 
     Proxy operator[](int index) const;
 
-    Matrix<T>& operator=(const Matrix<T>& that);
-    Matrix<T>& operator=(Matrix<T>&& that) noexcept;
+    Matrix<T>& operator=(const Matrix<T>& rhs);
+    Matrix<T>& operator=(Matrix<T>&& rhs) noexcept;
 
-    Matrix<T> operator+(const Matrix<T>& that) const;
-    Matrix<T> operator-(const Matrix<T>& that) const;
-    Matrix<T> operator*(const Matrix<T>& that) const;
-    Matrix<T> operator*(const T& lambda) const;
+    Matrix<T> operator+(const Matrix<T>& rhs) const;
+    Matrix<T> operator-(const Matrix<T>& rhs) const;
+    Matrix<T> operator*(const Matrix<T>& rhs) const;
+    Matrix<T> operator*(const T& rhs) const;
 };
 
 template <class T>
-Matrix<T> operator*(const T& lambda, const Matrix<T>& M);
+Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs);
 
 template <class T>
 Matrix<T>::Matrix() {
     m = 0;
     n = 0;
-    a = nullptr;
+    buffer = nullptr;
 }
 
 template <class T>
@@ -75,7 +75,7 @@ Matrix<T>::Matrix(std::size_t m, std::size_t n) {
 
     this->m = m;
     this->n = n;
-    a = new T[m * n];
+    buffer = new T[m * n];
 }
 
 template <class T>
@@ -84,43 +84,43 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> matrix_list) {
         throw std::invalid_argument("Dimension can't be zero");
     }
 
-    a = new T[m * n];
+    buffer = new T[m * n];
     int i = 0;
 
     for (std::initializer_list<T> row : matrix_list) {
         if (row.size() != n) {
-            delete[] a;
+            delete[] buffer;
             throw std::invalid_argument("Malformed initializer list");
         }
 
-        std::copy(row.begin(), row.end(), &a[i]);
+        std::copy(row.begin(), row.end(), &buffer[i]);
         i += n;
     }
 }
 
 template <class T>
-Matrix<T>::Matrix(const Matrix<T>& that) {
-    m = that.m;
-    n = that.n;
-    a = new T[m * n];
+Matrix<T>::Matrix(const Matrix<T>& rhs) {
+    m = rhs.m;
+    n = rhs.n;
+    buffer = new T[m * n];
 
-    std::copy(&that.a[0], &that.a[m * n], a);
+    std::copy(&rhs.buffer[0], &rhs.buffer[m * n], buffer);
 }
 
 template <class T>
-Matrix<T>::Matrix(Matrix<T>&& that) noexcept {
-    m = that.m;
-    n = that.n;
-    a = that.a;
+Matrix<T>::Matrix(Matrix<T>&& rhs) noexcept {
+    m = rhs.m;
+    n = rhs.n;
+    buffer = rhs.buffer;
 
-    that.a = nullptr;
-    that.m = 0;
-    that.n = 0;
+    rhs.buffer = nullptr;
+    rhs.m = 0;
+    rhs.n = 0;
 }
 
 template <class T>
 Matrix<T>::~Matrix() {
-    delete[] a;
+    delete[] buffer;
 }
 
 template <class T>
@@ -130,7 +130,7 @@ std::pair<std::size_t, std::size_t> Matrix<T>::dimension() const {
 
 template <class T>
 T *Matrix<T>::data_ptr() const {
-    return a;
+    return buffer;
 }
 
 template <class T>
@@ -185,42 +185,42 @@ T& Matrix<T>::Proxy::operator[](int index) const {
 
 template <class T>
 typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
-    return Proxy(&a[index * n]);
+    return Proxy(&buffer[index * n]);
 }
 
 template <class T>
-Matrix<T>& Matrix<T>::operator=(const Matrix<T>& that) {
-    if (m != that.m || n != that.n) {
+Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs) {
+    if (m != rhs.m || n != rhs.n) {
         throw std::invalid_argument("Dimension mismatch");
     }
 
-    if (this == &that) {
+    if (this == &rhs) {
         return *this;
     }
 
-    std::copy(&that.a[0], &that.a[m * n], a);
+    std::copy(&rhs.buffer[0], &rhs.buffer[m * n], buffer);
 
     return *this;
 }
 
 template <class T>
-Matrix<T>& Matrix<T>::operator=(Matrix<T>&& that) noexcept {
-    delete[] a;
+Matrix<T>& Matrix<T>::operator=(Matrix<T>&& rhs) noexcept {
+    delete[] buffer;
 
-    m = that.m;
-    n = that.n;
-    a = that.a;
+    m = rhs.m;
+    n = rhs.n;
+    buffer = rhs.buffer;
 
-    that.a = nullptr;
-    that.m = 0;
-    that.n = 0;
+    rhs.buffer = nullptr;
+    rhs.m = 0;
+    rhs.n = 0;
 
     return *this;
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator+(const Matrix<T>& that) const {
-    if (m != that.m || n != that.n) {
+Matrix<T> Matrix<T>::operator+(const Matrix<T>& rhs) const {
+    if (m != rhs.m || n != rhs.n) {
         throw std::invalid_argument("Dimension mismatch");
     }
 
@@ -228,7 +228,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T>& that) const {
 
     for (std::size_t i = 0; i < m; i++) {
         for (std::size_t j = 0; j < n; j++) {
-            M[i][j] = (*this)[i][j] + that[i][j];
+            M[i][j] = (*this)[i][j] + rhs[i][j];
         }
     }
 
@@ -236,8 +236,8 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T>& that) const {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator-(const Matrix<T>& that) const {
-    if (m != that.m || n != that.n) {
+Matrix<T> Matrix<T>::operator-(const Matrix<T>& rhs) const {
+    if (m != rhs.m || n != rhs.n) {
         throw std::invalid_argument("Dimension mismatch");
     }
 
@@ -245,7 +245,7 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& that) const {
 
     for (std::size_t i = 0; i < m; i++) {
         for (std::size_t j = 0; j < n; j++) {
-            M[i][j] = (*this)[i][j] - that[i][j];
+            M[i][j] = (*this)[i][j] - rhs[i][j];
         }
     }
 
@@ -253,19 +253,19 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& that) const {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator*(const Matrix<T>& that) const {
-    if (n != that.m) {
+Matrix<T> Matrix<T>::operator*(const Matrix<T>& rhs) const {
+    if (n != rhs.m) {
         throw std::invalid_argument("Dimension mismatch");
     }
 
-    Matrix<T> M(m, that.n);
+    Matrix<T> M(m, rhs.n);
 
     for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < that.n; j++) {
+        for (std::size_t j = 0; j < rhs.n; j++) {
             T sum = T();
 
             for (std::size_t k = 0; k < n; k++) {
-                sum += (*this)[i][k] * that[k][j];
+                sum += (*this)[i][k] * rhs[k][j];
             }
 
             M[i][j] = sum;
@@ -276,12 +276,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& that) const {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator*(const T& lambda) const {
+Matrix<T> Matrix<T>::operator*(const T& rhs) const {
     Matrix<T> M(m, n);
 
     for (std::size_t i = 0; i < m; i++) {
         for (std::size_t j = 0; j < n; j++) {
-            M[i][j] = (*this)[i][j] * lambda;
+            M[i][j] = (*this)[i][j] * rhs;
         }
     }
 
@@ -289,8 +289,8 @@ Matrix<T> Matrix<T>::operator*(const T& lambda) const {
 }
 
 template <class T>
-Matrix<T> operator*(const T& lambda, const Matrix<T>& M) {
-    return M * lambda;
+Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs) {
+    return rhs * lhs;
 }
 
 }

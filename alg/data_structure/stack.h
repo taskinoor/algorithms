@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class Stack {
 public:
-    Stack(std::size_t n);
+    explicit Stack(std::size_t n);
     virtual ~Stack();
 
     void push(T element);

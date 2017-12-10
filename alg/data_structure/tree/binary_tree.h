@@ -14,7 +14,7 @@ template <class T> class BinaryTree;
 template <class T>
 class TreeNode {
 public:
-    TreeNode(T element = T(), TreeNode<T>* parent = nullptr,
+    explicit TreeNode(T element = T(), TreeNode<T>* parent = nullptr,
             TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
 
     virtual ~TreeNode() {}
@@ -35,7 +35,7 @@ protected:
 template <class T>
 class BinaryTree {
 public:
-    BinaryTree(TreeNode<T>* root);
+    explicit BinaryTree(TreeNode<T>* root);
     virtual ~BinaryTree();
 
     TreeNode<T>* root();

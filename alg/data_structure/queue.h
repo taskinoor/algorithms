@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class Queue {
 public:
-    Queue(std::size_t n);
+    explicit Queue(std::size_t n);
     virtual ~Queue();
 
     void enqueue(T element);

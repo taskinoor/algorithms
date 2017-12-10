@@ -11,7 +11,7 @@ template <class T> class ListIterator;
 template <class T>
 class ListNode {
 public:
-    ListNode(T element = T());
+    explicit ListNode(T element = T());
 
     T element();
 

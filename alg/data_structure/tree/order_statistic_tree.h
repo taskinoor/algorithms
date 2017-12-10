@@ -11,7 +11,7 @@ template <class T> class OrderStatisticTree;
 template <class T>
 class OSTNode : public TreeNode<T> {
 public:
-    OSTNode(T element = T(), TreeNode<T>* parent = nullptr,
+    explicit OSTNode(T element = T(), TreeNode<T>* parent = nullptr,
             TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
 
     int count();

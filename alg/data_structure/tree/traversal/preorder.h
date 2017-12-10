@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class PreOrderIterator : public Iterator<T> {
 public:
-    PreOrderIterator(BinaryTree<T>* tree);
+    explicit PreOrderIterator(BinaryTree<T>* tree);
     virtual ~PreOrderIterator();
 
     void first();

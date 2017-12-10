@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class PostOrderIterator : public Iterator<T> {
 public:
-    PostOrderIterator(BinaryTree<T>* tree);
+    explicit PostOrderIterator(BinaryTree<T>* tree);
     virtual ~PostOrderIterator();
 
     void first();

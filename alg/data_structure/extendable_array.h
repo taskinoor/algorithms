@@ -12,7 +12,7 @@ namespace alg {
 template <class T>
 class ExtendableArray {
 public:
-    ExtendableArray(std::size_t capacity = 1);
+    explicit ExtendableArray(std::size_t capacity = 1);
     ExtendableArray(std::initializer_list<T> lst);
 
     ExtendableArray(const ExtendableArray<T>& that);

@@ -16,7 +16,7 @@ enum class RBColor {
 template <class T>
 class RBNode : public TreeNode<T> {
 public:
-    RBNode(RBColor color, T element = T(), TreeNode<T>* parent = nullptr,
+    explicit RBNode(RBColor color, T element = T(), TreeNode<T>* parent = nullptr,
             TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
 
     RBColor color();

@@ -20,7 +20,7 @@ enum class PriorityQueueType {
 template <class T>
 class PriorityQueue {
 public:
-    PriorityQueue(PriorityQueueType type);
+    explicit PriorityQueue(PriorityQueueType type);
 
     T top();
     T pop();

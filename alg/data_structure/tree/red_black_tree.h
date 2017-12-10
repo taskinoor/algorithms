@@ -14,30 +14,30 @@ enum class RBColor {
 
 template <class T>
 class RBNode : public TreeNode<T> {
-private:
-    RBColor color_;
-
-    friend class RedBlackTree<T>;
-
 public:
     RBNode(RBColor color, T element = T(), TreeNode<T> *parent = nullptr,
             TreeNode<T> *left = nullptr, TreeNode<T> *right = nullptr);
 
     RBColor color();
+
+private:
+    RBColor color_;
+
+    friend class RedBlackTree<T>;
 };
 
 template <class T>
 class RedBlackTree : public BST<T> {
-private:
-    void insert_fixup(RBNode<T> *node);
-    void remove_fixup(RBNode<T> *x);
-
 public:
     RedBlackTree();
 
     void rotate(TreeNode<T> *x, bool left);
     void insert(T element) override;
     void remove(TreeNode<T> *z) override;
+
+private:
+    void insert_fixup(RBNode<T> *node);
+    void remove_fixup(RBNode<T> *x);
 };
 
 template <class T>

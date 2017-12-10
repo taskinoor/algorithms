@@ -10,11 +10,6 @@ namespace alg {
 
 template <class T>
 class Matrix {
-private:
-    std::size_t m;
-    std::size_t n;
-    T *buffer;
-
 public:
     Matrix();
     Matrix(std::size_t m, std::size_t n);
@@ -38,12 +33,12 @@ public:
             std::size_t x, std::size_t y);
 
     class Proxy {
-    private:
-        T *a;
-
     public:
         Proxy(T *a);
         T& operator[](int index) const;
+
+    private:
+        T *a;
     };
 
     Proxy operator[](int index) const;
@@ -55,6 +50,11 @@ public:
     Matrix<T> operator-(const Matrix<T>& rhs) const;
     Matrix<T> operator*(const Matrix<T>& rhs) const;
     Matrix<T> operator*(const T& rhs) const;
+
+private:
+    std::size_t m;
+    std::size_t n;
+    T *buffer;
 };
 
 template <class T>

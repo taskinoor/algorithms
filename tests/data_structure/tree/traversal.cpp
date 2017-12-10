@@ -9,11 +9,6 @@
 namespace algtest {
 
 class TreeTraversal : public ::testing::Test {
-private:
-    int index(char ch) {
-        return ch - 'A';
-    }
-
 protected:
     alg::BST<char> *tree;
     alg::BST<char> *tree_only_root;
@@ -60,6 +55,11 @@ protected:
     virtual void TearDown() {
         delete tree;
         delete tree_only_root;
+    }
+
+private:
+    int index(char ch) {
+        return ch - 'A';
     }
 };
 

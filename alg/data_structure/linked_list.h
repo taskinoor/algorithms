@@ -10,24 +10,21 @@ template <class T> class ListIterator;
 
 template <class T>
 class ListNode {
+public:
+    ListNode(T element = T());
+
+    T element();
+
 private:
     ListNode<T> *next;
     ListNode<T> *prev;
     T element_;
 
     friend class LinkedList<T>;
-public:
-    ListNode(T element = T());
-
-    T element();
 };
 
 template <class T>
 class LinkedList {
-private:
-    ListNode<T> *head;
-    ListNode<T> *tail;
-
 public:
     LinkedList();
     virtual ~LinkedList();
@@ -47,20 +44,24 @@ public:
 
     ListIterator<T> *create_iterator(bool forward = true);
     void destroy_iterator(ListIterator<T> *iter);
+
+private:
+    ListNode<T> *head;
+    ListNode<T> *tail;
 };
 
 template <class T>
 class ListIterator : public Iterator<T> {
-protected:
-    LinkedList<T> *list;
-    ListNode<T> *current;
-
 public:
     ListIterator(LinkedList<T> *list);
     virtual ~ListIterator() {}
 
     virtual bool is_done() const;
     virtual T current_item() const;
+
+protected:
+    LinkedList<T> *list;
+    ListNode<T> *current;
 };
 
 template <class T>

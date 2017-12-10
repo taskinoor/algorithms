@@ -9,12 +9,6 @@ namespace alg {
 
 template <class T>
 class Queue {
-private:
-    T *buffer;
-    int front;
-    int rear;
-    std::size_t size;
-
 public:
     Queue(std::size_t n);
     virtual ~Queue();
@@ -22,6 +16,12 @@ public:
     void enqueue(T element);
     T dequeue();
     std::size_t count();
+
+private:
+    T *buffer;
+    int front;
+    int rear;
+    std::size_t size;
 };
 
 template <class T>

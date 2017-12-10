@@ -9,23 +9,20 @@ template <class T> class OrderStatisticTree;
 
 template <class T>
 class OSTNode : public TreeNode<T> {
-private:
-    int count_;
-
-    friend class OrderStatisticTree<T>;
-
 public:
     OSTNode(T element = T(), TreeNode<T> *parent = nullptr,
             TreeNode<T> *left = nullptr, TreeNode<T> *right = nullptr);
 
     int count();
+
+private:
+    int count_;
+
+    friend class OrderStatisticTree<T>;
 };
 
 template <class T>
 class OrderStatisticTree : public BST<T> {
-private:
-    void decrement_count(TreeNode<T> *node, TreeNode<T> *until);
-
 public:
     void insert(T element) override;
     void remove(TreeNode<T> *z) override;
@@ -37,6 +34,9 @@ public:
     TreeNode<T> *select_node(int i, OSTNode<T> *v);
 
     int rank(T element);
+
+private:
+    void decrement_count(TreeNode<T> *node, TreeNode<T> *until);
 };
 
 template <class T>

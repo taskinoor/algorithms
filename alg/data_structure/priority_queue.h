@@ -18,6 +18,17 @@ enum class PriorityQueueType {
 
 template <class T>
 class PriorityQueue {
+public:
+    PriorityQueue(PriorityQueueType type);
+
+    T top();
+    T pop();
+
+    void insert(const T& element, int priority);
+    void update_priority(int index, int new_priority);
+
+    std::size_t count() const;
+
 private:
     class PQData {
     public:
@@ -43,17 +54,6 @@ private:
 
     void increase_priority(int index, int new_priority);
     void decrease_priority(int index, int new_priority);
-
-public:
-    PriorityQueue(PriorityQueueType type);
-
-    T top();
-    T pop();
-
-    void insert(const T& element, int priority);
-    void update_priority(int index, int new_priority);
-
-    std::size_t count() const;
 };
 
 template <class T>

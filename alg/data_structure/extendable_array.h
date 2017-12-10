@@ -11,13 +11,6 @@ namespace alg {
 
 template <class T>
 class ExtendableArray {
-private:
-    T *buffer;
-    std::size_t capacity;
-    int n;
-
-    void grow();
-
 public:
     ExtendableArray(std::size_t capacity = 1);
     ExtendableArray(std::initializer_list<T> lst);
@@ -35,6 +28,13 @@ public:
     T remove(int index);
 
     T& operator[](int index) const;
+
+private:
+    T *buffer;
+    std::size_t capacity;
+    int n;
+
+    void grow();
 };
 
 template <class T>

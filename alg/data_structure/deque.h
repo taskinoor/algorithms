@@ -10,13 +10,6 @@ namespace alg {
 
 template <class T>
 class Deque {
-private:
-    LinkedList<T> *list;
-    std::size_t count_;
-
-    ListNode<T> *back_node();
-    ListNode<T> *front_node();
-
 public:
     Deque();
     virtual ~Deque();
@@ -31,6 +24,13 @@ public:
     T front();
 
     std::size_t count();
+
+private:
+    LinkedList<T> *list;
+    std::size_t count_;
+
+    ListNode<T> *back_node();
+    ListNode<T> *front_node();
 };
 
 template <class T>

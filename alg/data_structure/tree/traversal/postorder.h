@@ -9,11 +9,6 @@ namespace alg {
 
 template <class T>
 class PostOrderIterator : public Iterator<T> {
-private:
-    BinaryTree<T> *tree;
-    Stack<TreeNode<T> *> *stack;
-    TreeNode<T> *last_visited;
-
 public:
     PostOrderIterator(BinaryTree<T> *tree);
     virtual ~PostOrderIterator();
@@ -24,6 +19,11 @@ public:
 
     T current_item() const;
     TreeNode<T> *current_node() const;
+
+private:
+    BinaryTree<T> *tree;
+    Stack<TreeNode<T> *> *stack;
+    TreeNode<T> *last_visited;
 };
 
 template <class T>

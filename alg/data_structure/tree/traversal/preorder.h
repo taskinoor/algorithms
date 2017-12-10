@@ -9,10 +9,6 @@ namespace alg {
 
 template <class T>
 class PreOrderIterator : public Iterator<T> {
-private:
-    BinaryTree<T> *tree;
-    Stack<TreeNode<T> *> *stack;
-
 public:
     PreOrderIterator(BinaryTree<T> *tree);
     virtual ~PreOrderIterator();
@@ -23,6 +19,10 @@ public:
 
     T current_item() const;
     TreeNode<T> *current_node() const;
+
+private:
+    BinaryTree<T> *tree;
+    Stack<TreeNode<T> *> *stack;
 };
 
 template <class T>

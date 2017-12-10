@@ -12,15 +12,6 @@ template <class T> class BinaryTree;
 
 template <class T>
 class TreeNode {
-    friend class BinaryTree<T>;
-
-protected:
-    TreeNode<T> *parent;
-    TreeNode<T> *left;
-    TreeNode<T> *right;
-
-    T element_;
-
 public:
     TreeNode(T element = T(), TreeNode<T> *parent = nullptr,
             TreeNode<T> *left = nullptr, TreeNode<T> *right = nullptr);
@@ -29,19 +20,19 @@ public:
 
     T element();
     virtual std::string to_string(TreeNode<T> *nil = nullptr);
+
+protected:
+    TreeNode<T> *parent;
+    TreeNode<T> *left;
+    TreeNode<T> *right;
+
+    T element_;
+
+    friend class BinaryTree<T>;
 };
 
 template <class T>
 class BinaryTree {
-private:
-    TreeNode<T> *root_;
-
-    void to_string(TreeNode<T> *p, std::string& out);
-    void free(TreeNode<T> *node);
-
-protected:
-    TreeNode<T> *nil_;
-
 public:
     BinaryTree(TreeNode<T> *root);
     virtual ~BinaryTree();
@@ -65,6 +56,15 @@ public:
 
     TreeNode<T> *nil();
     void set_nil(TreeNode<T> *nil_);
+
+protected:
+    TreeNode<T> *nil_;
+
+private:
+    TreeNode<T> *root_;
+
+    void to_string(TreeNode<T> *p, std::string& out);
+    void free(TreeNode<T> *node);
 };
 
 template <class T>

@@ -7,9 +7,6 @@ namespace alg {
 
 template <class T>
 class BST : public BinaryTree<T> {
-protected:
-    void transplant(TreeNode<T> *u, TreeNode<T> *v);
-
 public:
     BST() : BinaryTree<T>(nullptr) {}
     virtual ~BST() = default;
@@ -30,6 +27,9 @@ public:
 
     TreeNode<T> *successor(TreeNode<T> *node);
     TreeNode<T> *predecessor(TreeNode<T> *node);
+
+protected:
+    void transplant(TreeNode<T> *u, TreeNode<T> *v);
 };
 
 template <class T>

@@ -9,12 +9,6 @@ namespace alg {
 
 template <class T>
 class InOrderIterator : public Iterator<T> {
-private:
-    BinaryTree<T> *tree;
-    Stack<TreeNode<T> *> *stack;
-
-    void push_left_nodes(TreeNode<T> *p);
-
 public:
     InOrderIterator(BinaryTree<T> *tree);
     virtual ~InOrderIterator();
@@ -25,6 +19,12 @@ public:
 
     T current_item() const;
     TreeNode<T> *current_node() const;
+
+private:
+    BinaryTree<T> *tree;
+    Stack<TreeNode<T> *> *stack;
+
+    void push_left_nodes(TreeNode<T> *p);
 };
 
 template <class T>

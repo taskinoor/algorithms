@@ -9,11 +9,6 @@ namespace alg {
 
 template <class T>
 class Stack {
-private:
-    T *buffer;
-    int top_;
-    std::size_t size;
-
 public:
     Stack(std::size_t n);
     virtual ~Stack();
@@ -22,6 +17,11 @@ public:
     T pop();
     T top();
     std::size_t count();
+
+private:
+    T *buffer;
+    int top_;
+    std::size_t size;
 };
 
 template <class T>

@@ -11,7 +11,7 @@ namespace alg {
 int josephus_queue(int n, int k);
 int josephus_ost(int n, int k);
 
-OrderStatisticTree<int> *randomized_ost(int n);
+OrderStatisticTree<int>* randomized_ost(int n);
 
 }
 

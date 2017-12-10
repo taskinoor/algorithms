@@ -12,7 +12,7 @@ T max(const T& a, const T& b) {
 }
 
 template <class T>
-int min_index(T *a, std::size_t n, int start = 0) {
+int min_index(T* a, std::size_t n, int start = 0) {
     int index = start;
     T value = a[index];
 

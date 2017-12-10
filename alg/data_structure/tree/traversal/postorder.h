@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class PostOrderIterator : public Iterator<T> {
 public:
-    PostOrderIterator(BinaryTree<T> *tree);
+    PostOrderIterator(BinaryTree<T>* tree);
     virtual ~PostOrderIterator();
 
     void first();
@@ -18,18 +18,18 @@ public:
     bool is_done() const;
 
     T current_item() const;
-    TreeNode<T> *current_node() const;
+    TreeNode<T>* current_node() const;
 
 private:
-    BinaryTree<T> *tree;
-    Stack<TreeNode<T> *> *stack;
-    TreeNode<T> *last_visited;
+    BinaryTree<T>* tree;
+    Stack<TreeNode<T>*>* stack;
+    TreeNode<T>* last_visited;
 };
 
 template <class T>
-PostOrderIterator<T>::PostOrderIterator(BinaryTree<T> *tree) {
+PostOrderIterator<T>::PostOrderIterator(BinaryTree<T>* tree) {
     this->tree = tree;
-    stack = new Stack<TreeNode<T> *>(256);
+    stack = new Stack<TreeNode<T>*>(256);
     last_visited = tree->nil();
 }
 
@@ -47,14 +47,14 @@ void PostOrderIterator<T>::first() {
 
 template <class T>
 void PostOrderIterator<T>::next() {
-    TreeNode<T> *nil_ = tree->nil();
+    TreeNode<T>* nil_ = tree->nil();
 
     if (!stack->count()) {
         last_visited = nil_;
         return;
     }
 
-    TreeNode<T> *node = stack->top();
+    TreeNode<T>* node = stack->top();
 
     while (true) {
         if (tree->right(node) == last_visited && last_visited != nil_) {
@@ -94,7 +94,7 @@ T PostOrderIterator<T>::current_item() const {
 }
 
 template <class T>
-TreeNode<T> *PostOrderIterator<T>::current_node() const {
+TreeNode<T>* PostOrderIterator<T>::current_node() const {
     return last_visited;
 }
 

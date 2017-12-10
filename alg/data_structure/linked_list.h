@@ -16,8 +16,8 @@ public:
     T element();
 
 private:
-    ListNode<T> *next;
-    ListNode<T> *prev;
+    ListNode<T>* next;
+    ListNode<T>* prev;
     T element_;
 
     friend class LinkedList<T>;
@@ -29,45 +29,45 @@ public:
     LinkedList();
     virtual ~LinkedList();
 
-    ListNode<T> *first();
-    ListNode<T> *last();
-    ListNode<T> *after(ListNode<T> *p);
-    ListNode<T> *before(ListNode<T> *p);
+    ListNode<T>* first();
+    ListNode<T>* last();
+    ListNode<T>* after(ListNode<T>* p);
+    ListNode<T>* before(ListNode<T>* p);
 
-    void insert_after(ListNode<T> *p, T element);
-    void insert_before(ListNode<T> *p, T element);
+    void insert_after(ListNode<T>* p, T element);
+    void insert_before(ListNode<T>* p, T element);
     void insert_first(T element);
     void insert_last(T element);
 
-    ListNode<T> *search(T element);
-    void remove(ListNode<T> *p);
+    ListNode<T>* search(T element);
+    void remove(ListNode<T>* p);
 
-    ListIterator<T> *create_iterator(bool forward = true);
-    void destroy_iterator(ListIterator<T> *iter);
+    ListIterator<T>* create_iterator(bool forward = true);
+    void destroy_iterator(ListIterator<T>* iter);
 
 private:
-    ListNode<T> *head;
-    ListNode<T> *tail;
+    ListNode<T>* head;
+    ListNode<T>* tail;
 };
 
 template <class T>
 class ListIterator : public Iterator<T> {
 public:
-    ListIterator(LinkedList<T> *list);
+    ListIterator(LinkedList<T>* list);
     virtual ~ListIterator() {}
 
     virtual bool is_done() const;
     virtual T current_item() const;
 
 protected:
-    LinkedList<T> *list;
-    ListNode<T> *current;
+    LinkedList<T>* list;
+    ListNode<T>* current;
 };
 
 template <class T>
 class ForwardListIterator : public ListIterator<T> {
 public:
-    ForwardListIterator(LinkedList<T> *list) : ListIterator<T>(list) {}
+    ForwardListIterator(LinkedList<T>* list) : ListIterator<T>(list) {}
 
     void first();
     void next();
@@ -76,7 +76,7 @@ public:
 template <class T>
 class BackwardListIterator : public ListIterator<T> {
 public:
-    BackwardListIterator(LinkedList<T> *list) : ListIterator<T>(list) {}
+    BackwardListIterator(LinkedList<T>* list) : ListIterator<T>(list) {}
 
     void first();
     void next();
@@ -105,10 +105,10 @@ LinkedList<T>::LinkedList() {
 
 template <class T>
 LinkedList<T>::~LinkedList() {
-    ListNode<T> *current = head->next;
+    ListNode<T>* current = head->next;
 
     while (current != tail) {
-        ListNode<T> *next = current->next;
+        ListNode<T>* next = current->next;
         delete current;
         current = next;
     }
@@ -118,17 +118,17 @@ LinkedList<T>::~LinkedList() {
 }
 
 template <class T>
-ListNode<T> *LinkedList<T>::first() {
+ListNode<T>* LinkedList<T>::first() {
     return after(head);
 }
 
 template <class T>
-ListNode<T> *LinkedList<T>::last() {
+ListNode<T>* LinkedList<T>::last() {
     return before(tail);
 }
 
 template <class T>
-ListNode<T> *LinkedList<T>::after(ListNode<T> *p) {
+ListNode<T>* LinkedList<T>::after(ListNode<T>* p) {
     if (p->next == tail) {
         return nullptr;
     }
@@ -137,7 +137,7 @@ ListNode<T> *LinkedList<T>::after(ListNode<T> *p) {
 }
 
 template <class T>
-ListNode<T> *LinkedList<T>::before(ListNode<T> *p) {
+ListNode<T>* LinkedList<T>::before(ListNode<T>* p) {
     if (p->prev == head) {
         return nullptr;
     }
@@ -146,8 +146,8 @@ ListNode<T> *LinkedList<T>::before(ListNode<T> *p) {
 }
 
 template <class T>
-void LinkedList<T>::insert_after(ListNode<T> *p, T element) {
-    ListNode<T> *node = new ListNode<T>(element);
+void LinkedList<T>::insert_after(ListNode<T>* p, T element) {
+    ListNode<T>* node = new ListNode<T>(element);
 
     node->next = p->next;
     node->prev = p;
@@ -156,8 +156,8 @@ void LinkedList<T>::insert_after(ListNode<T> *p, T element) {
 }
 
 template <class T>
-void LinkedList<T>::insert_before(ListNode<T> *p, T element) {
-    ListNode<T> *node = new ListNode<T>(element);
+void LinkedList<T>::insert_before(ListNode<T>* p, T element) {
+    ListNode<T>* node = new ListNode<T>(element);
 
     node->next = p;
     node->prev = p->prev;
@@ -176,8 +176,8 @@ void LinkedList<T>::insert_last(T element) {
 }
 
 template <class T>
-ListNode<T> *LinkedList<T>::search(T element) {
-    ListNode<T> *current = head->next;
+ListNode<T>* LinkedList<T>::search(T element) {
+    ListNode<T>* current = head->next;
 
     while (current != tail) {
         if (current->element() == element) {
@@ -190,7 +190,7 @@ ListNode<T> *LinkedList<T>::search(T element) {
 }
 
 template <class T>
-void LinkedList<T>::remove(ListNode<T> *p) {
+void LinkedList<T>::remove(ListNode<T>* p) {
     p->prev->next = p->next;
     p->next->prev = p->prev;
 
@@ -198,8 +198,8 @@ void LinkedList<T>::remove(ListNode<T> *p) {
 }
 
 template <class T>
-ListIterator<T> *LinkedList<T>::create_iterator(bool forward) {
-    ListIterator<T> *iter;
+ListIterator<T>* LinkedList<T>::create_iterator(bool forward) {
+    ListIterator<T>* iter;
 
     if (forward) {
         iter = new ForwardListIterator<T>(this);
@@ -213,12 +213,12 @@ ListIterator<T> *LinkedList<T>::create_iterator(bool forward) {
 }
 
 template <class T>
-void LinkedList<T>::destroy_iterator(ListIterator<T> *iter) {
+void LinkedList<T>::destroy_iterator(ListIterator<T>* iter) {
     delete iter;
 }
 
 template <class T>
-ListIterator<T>::ListIterator(LinkedList<T> *list) {
+ListIterator<T>::ListIterator(LinkedList<T>* list) {
     this->list = list;
     current = nullptr;
 }

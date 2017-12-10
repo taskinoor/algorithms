@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class InOrderIterator : public Iterator<T> {
 public:
-    InOrderIterator(BinaryTree<T> *tree);
+    InOrderIterator(BinaryTree<T>* tree);
     virtual ~InOrderIterator();
 
     void first();
@@ -18,19 +18,19 @@ public:
     bool is_done() const;
 
     T current_item() const;
-    TreeNode<T> *current_node() const;
+    TreeNode<T>* current_node() const;
 
 private:
-    BinaryTree<T> *tree;
-    Stack<TreeNode<T> *> *stack;
+    BinaryTree<T>* tree;
+    Stack<TreeNode<T>*>* stack;
 
-    void push_left_nodes(TreeNode<T> *p);
+    void push_left_nodes(TreeNode<T>* p);
 };
 
 template <class T>
-InOrderIterator<T>::InOrderIterator(BinaryTree<T> *tree) {
+InOrderIterator<T>::InOrderIterator(BinaryTree<T>* tree) {
     this->tree = tree;
-    stack = new Stack<TreeNode<T> *>(256);
+    stack = new Stack<TreeNode<T>*>(256);
 }
 
 template <class T>
@@ -39,7 +39,7 @@ InOrderIterator<T>::~InOrderIterator() {
 }
 
 template <class T>
-void InOrderIterator<T>::push_left_nodes(TreeNode<T> *p) {
+void InOrderIterator<T>::push_left_nodes(TreeNode<T>* p) {
     while (p != tree->nil()) {
         stack->push(p);
         p = tree->left(p);
@@ -53,7 +53,7 @@ void InOrderIterator<T>::first() {
 
 template <class T>
 void InOrderIterator<T>::next() {
-    TreeNode<T> *p = stack->pop();
+    TreeNode<T>* p = stack->pop();
     push_left_nodes(tree->right(p));
 }
 
@@ -68,7 +68,7 @@ T InOrderIterator<T>::current_item() const {
 }
 
 template <class T>
-TreeNode<T> *InOrderIterator<T>::current_node() const {
+TreeNode<T>* InOrderIterator<T>::current_node() const {
     return stack->top();
 }
 

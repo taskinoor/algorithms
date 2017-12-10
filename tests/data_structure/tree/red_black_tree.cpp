@@ -16,7 +16,7 @@ namespace algtest {
 
 class RedBlackTree : public ::testing::Test {
 protected:
-    static alg::RedBlackTree<int> *tree;
+    static alg::RedBlackTree<int>* tree;
     static std::vector<std::pair<bool, int>> keys;
     static int count;
 
@@ -55,7 +55,7 @@ protected:
     }
 };
 
-alg::RedBlackTree<int> *RedBlackTree::tree = nullptr;
+alg::RedBlackTree<int>* RedBlackTree::tree = nullptr;
 std::vector<std::pair<bool, int>> RedBlackTree::keys = {};
 int RedBlackTree::count = 0;
 
@@ -69,25 +69,25 @@ TEST_F(RedBlackTree, Height) {
 }
 
 TEST_F(RedBlackTree, RootColor) {
-    alg::RBNode<int> *root = (alg::RBNode<int> *)tree->root();
+    alg::RBNode<int>* root = (alg::RBNode<int>*)tree->root();
 
     ASSERT_EQ(alg::RBColor::BLACK, root->color());
 }
 
 TEST_F(RedBlackTree, LeafColor) {
-    alg::RBNode<int> *nil = (alg::RBNode<int> *)tree->nil();
+    alg::RBNode<int>* nil = (alg::RBNode<int>*)tree->nil();
 
     ASSERT_EQ(alg::RBColor::BLACK, nil->color());
 }
 
 TEST_F(RedBlackTree, ChildOfRed) {
-    alg::PreOrderIterator<int> *iter = new alg::PreOrderIterator<int>(tree);
+    alg::PreOrderIterator<int>* iter = new alg::PreOrderIterator<int>(tree);
     int found = 0;
 
     for (iter->first(); !iter->is_done(); iter->next(), found++) {
-        alg::RBNode<int> *node = (alg::RBNode<int> *)iter->current_node();
-        alg::RBNode<int> *left = (alg::RBNode<int> *)tree->left(node);
-        alg::RBNode<int> *right = (alg::RBNode<int> *)tree->right(node);
+        alg::RBNode<int>* node = (alg::RBNode<int>*)iter->current_node();
+        alg::RBNode<int>* left = (alg::RBNode<int>*)tree->left(node);
+        alg::RBNode<int>* right = (alg::RBNode<int>*)tree->right(node);
 
         if (node->color() == alg::RBColor::RED) {
             ASSERT_EQ(alg::RBColor::BLACK, left->color());
@@ -101,14 +101,14 @@ TEST_F(RedBlackTree, ChildOfRed) {
 }
 
 TEST_F(RedBlackTree, BlackHeight) {
-    alg::PostOrderIterator<int> *iter = new alg::PostOrderIterator<int>(tree);
+    alg::PostOrderIterator<int>* iter = new alg::PostOrderIterator<int>(tree);
     int found = 0;
     int black_height = -1;
 
     for (iter->first(); !iter->is_done(); iter->next(), found++) {
-        alg::RBNode<int> *node = (alg::RBNode<int> *)iter->current_node();
-        alg::RBNode<int> *left = (alg::RBNode<int> *)tree->left(node);
-        alg::RBNode<int> *right = (alg::RBNode<int> *)tree->right(node);
+        alg::RBNode<int>* node = (alg::RBNode<int>*)iter->current_node();
+        alg::RBNode<int>* left = (alg::RBNode<int>*)tree->left(node);
+        alg::RBNode<int>* right = (alg::RBNode<int>*)tree->right(node);
 
         if (left == tree->nil() && right == tree->nil()) {
             int count = 0;
@@ -118,7 +118,7 @@ TEST_F(RedBlackTree, BlackHeight) {
                     count++;
                 }
 
-                node = (alg::RBNode<int> *)tree->parent(node);
+                node = (alg::RBNode<int>*)tree->parent(node);
             }
 
             if (black_height == -1) {
@@ -156,7 +156,7 @@ TEST_F(RedBlackTree, Sorting) {
     ASSERT_EQ(count, present_keys.size());
     std::sort(present_keys.begin(), present_keys.end());
 
-    alg::InOrderIterator<int> *iter = new alg::InOrderIterator<int>(tree);
+    alg::InOrderIterator<int>* iter = new alg::InOrderIterator<int>(tree);
     int i = 0;
 
     for (iter->first(); !iter->is_done(); iter->next(), i++) {
@@ -174,15 +174,15 @@ TEST_F(RedBlackTree, Sorting) {
 TEST_F(RedBlackTree, Rotation) {
     constexpr int n = 6;
     int keys[n] = {7, 11, 9, 18, 14, 19};
-    alg::TreeNode<int> *nodes[n];
-    alg::RedBlackTree<int> *rb_tree = new alg::RedBlackTree<int>();
-    alg::TreeNode<int> *nil = rb_tree->nil();
+    alg::TreeNode<int>* nodes[n];
+    alg::RedBlackTree<int>* rb_tree = new alg::RedBlackTree<int>();
+    alg::TreeNode<int>* nil = rb_tree->nil();
 
     for (int i = 0; i < n; i++) {
         nodes[i] = new alg::TreeNode<int>(keys[i], nil, nil, nil);
     }
 
-    alg::TreeNode<int> *begin[n][3] = {
+    alg::TreeNode<int>* begin[n][3] = {
             nil, nil, nodes[1],
             nodes[0], nodes[2], nodes[3],
             nodes[1], nil, nil,
@@ -190,7 +190,7 @@ TEST_F(RedBlackTree, Rotation) {
             nodes[3], nil, nil,
             nodes[3], nil, nil
     };
-    alg::TreeNode<int> *after[n][3] = {
+    alg::TreeNode<int>* after[n][3] = {
             nil, nil, nodes[3],
             nodes[3], nodes[2], nodes[4],
             nodes[1], nil, nil,

@@ -7,7 +7,7 @@ namespace algtest {
 
 class OST : public ::testing::Test {
 protected:
-    alg::OrderStatisticTree<int> *ost;
+    alg::OrderStatisticTree<int>* ost;
     std::array<int, 14> elements;
     std::array<int, 7> after_remove;
 
@@ -40,7 +40,7 @@ TEST_F(OST, NodeCountAfterInsert) {
     std::array<int, 14> result;
 
     for (unsigned int i = 0; i < elements.size(); i++) {
-        result[i] = ((alg::OSTNode<int> *)ost->search(elements[i]))->count();
+        result[i] = ((alg::OSTNode<int>*)ost->search(elements[i]))->count();
     }
 
     ASSERT_EQ(expected, result);
@@ -53,7 +53,7 @@ TEST_F(OST, NodeCountAfterRemove) {
     std::array<int, 7> result;
 
     for (unsigned int i = 0; i < after_remove.size(); i++) {
-        result[i] = ((alg::OSTNode<int> *)ost->search(after_remove[i]))->count();
+        result[i] = ((alg::OSTNode<int>*)ost->search(after_remove[i]))->count();
     }
 
     ASSERT_EQ(expected, result);

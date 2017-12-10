@@ -19,8 +19,8 @@ TEST(TreeNode, Element) {
 
 class BinaryTree : public ::testing::Test {
 protected:
-    alg::BinaryTree<int> *tree;
-    alg::TreeNode<int> *node[6];
+    alg::BinaryTree<int>* tree;
+    alg::TreeNode<int>* node[6];
 
     virtual void SetUp() {
         for (int i = 0; i < 6; i++) {
@@ -42,7 +42,7 @@ protected:
 };
 
 TEST_F(BinaryTree, Accessors) {
-    alg::TreeNode<int> *expected[6][3] = {
+    alg::TreeNode<int>* expected[6][3] = {
         nullptr, node[1], node[2],
         node[0], node[3], node[4],
         node[0], nullptr, nullptr,

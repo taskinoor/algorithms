@@ -8,7 +8,7 @@
 namespace alg {
 
 template <class T>
-void euler_visit(TreeNode<T> *v, std::string &out) {
+void euler_visit(TreeNode<T>* v, std::string &out) {
     std::ostringstream buf;
 
     buf << v->element();
@@ -16,7 +16,7 @@ void euler_visit(TreeNode<T> *v, std::string &out) {
 }
 
 template <class T>
-std::string euler_tour(BinaryTree<T> *tree) {
+std::string euler_tour(BinaryTree<T>* tree) {
     std::string out = "";
     euler_tour(tree, tree->root(), out);
 
@@ -24,7 +24,7 @@ std::string euler_tour(BinaryTree<T> *tree) {
 }
 
 template <class T>
-void euler_tour(BinaryTree<T> *tree, TreeNode<T> *v, std::string &out) {
+void euler_tour(BinaryTree<T>* tree, TreeNode<T>* v, std::string &out) {
     if (v == tree->nil()) {
         return;
     }

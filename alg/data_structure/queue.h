@@ -18,7 +18,7 @@ public:
     std::size_t count();
 
 private:
-    T *buffer;
+    T* buffer;
     int front;
     int rear;
     std::size_t size;

@@ -4,11 +4,11 @@
 namespace alg {
 
 template <class T>
-void merge(T *a, int p, int q, int r) {
+void merge(T* a, int p, int q, int r) {
     int n1 = q - p + 1;
     int n2 = r - q;
-    T *left = new T[n1];
-    T *right = new T[n2];
+    T* left = new T[n1];
+    T* right = new T[n2];
 
     for (int i = 0; i < n1; i++) {
         left[i] = a[p + i];
@@ -38,7 +38,7 @@ void merge(T *a, int p, int q, int r) {
 }
 
 template <class T>
-void merge_sort(T *a, int p, int r) {
+void merge_sort(T* a, int p, int r) {
     if (p >= r) {
         return;
     }
@@ -51,7 +51,7 @@ void merge_sort(T *a, int p, int r) {
 }
 
 template <class T>
-void merge_sort(T *a, int n) {
+void merge_sort(T* a, int n) {
     merge_sort(a, 0, n - 1);
 }
 

@@ -14,7 +14,7 @@ public:
 };
 
 template <class T>
-MaxSubarrayResult<T> max_crossing_subarray(T *a, int low, int mid, int high) {
+MaxSubarrayResult<T> max_crossing_subarray(T* a, int low, int mid, int high) {
     T left_max = std::numeric_limits<T>::lowest();
     int left_index = -1;
     T sum = 0;
@@ -45,7 +45,7 @@ MaxSubarrayResult<T> max_crossing_subarray(T *a, int low, int mid, int high) {
 }
 
 template <class T>
-MaxSubarrayResult<T> max_subarray_dnc(T *a, int low, int high) {
+MaxSubarrayResult<T> max_subarray_dnc(T* a, int low, int high) {
     if (low == high) {
         return {low, low, a[low]};
     }

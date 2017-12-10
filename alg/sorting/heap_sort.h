@@ -7,7 +7,7 @@
 namespace alg {
 
 template <class T>
-void heap_sort(T *a, int n) {
+void heap_sort(T* a, int n) {
     heap::binary::build_heap(a, n, heap::binary::HeapType::MAX);
 
     while (n > 1) {

@@ -10,9 +10,9 @@ namespace algtest {
 
 class TreeTraversal : public ::testing::Test {
 protected:
-    alg::BST<char> *tree;
-    alg::BST<char> *tree_only_root;
-    alg::TreeNode<char> *node[9];
+    alg::BST<char>* tree;
+    alg::BST<char>* tree_only_root;
+    alg::TreeNode<char>* node[9];
 
     virtual void SetUp() {
         tree = new alg::BST<char>();
@@ -64,7 +64,7 @@ private:
 };
 
 TEST_F(TreeTraversal, PreOrder) {
-    alg::PreOrderIterator<char> *it = new alg::PreOrderIterator<char>(tree);
+    alg::PreOrderIterator<char>* it = new alg::PreOrderIterator<char>(tree);
     char expected[9] = {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
     int i = 0;
 
@@ -77,7 +77,7 @@ TEST_F(TreeTraversal, PreOrder) {
 }
 
 TEST_F(TreeTraversal, PreOrderOnlyRoot) {
-    alg::PreOrderIterator<char> *it =
+    alg::PreOrderIterator<char>* it =
             new alg::PreOrderIterator<char>(tree_only_root);
     int i = 0;
 
@@ -90,7 +90,7 @@ TEST_F(TreeTraversal, PreOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, PostOrder) {
-    alg::PostOrderIterator<char> *it = new alg::PostOrderIterator<char>(tree);
+    alg::PostOrderIterator<char>* it = new alg::PostOrderIterator<char>(tree);
     char expected[9] = {'A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'};
     int i = 0;
 
@@ -103,7 +103,7 @@ TEST_F(TreeTraversal, PostOrder) {
 }
 
 TEST_F(TreeTraversal, PostOrderOnlyRoot) {
-    alg::PostOrderIterator<char> *it =
+    alg::PostOrderIterator<char>* it =
             new alg::PostOrderIterator<char>(tree_only_root);
     int i = 0;
 
@@ -116,7 +116,7 @@ TEST_F(TreeTraversal, PostOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, InOrder) {
-    alg::InOrderIterator<char> *it = new alg::InOrderIterator<char>(tree);
+    alg::InOrderIterator<char>* it = new alg::InOrderIterator<char>(tree);
     char expected[9] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
     int i = 0;
 
@@ -129,7 +129,7 @@ TEST_F(TreeTraversal, InOrder) {
 }
 
 TEST_F(TreeTraversal, InOrderOnlyRoot) {
-    alg::InOrderIterator<char> *it =
+    alg::InOrderIterator<char>* it =
             new alg::InOrderIterator<char>(tree_only_root);
     int i = 0;
 

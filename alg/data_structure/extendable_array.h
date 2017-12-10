@@ -21,7 +21,7 @@ public:
     virtual ~ExtendableArray();
 
     std::size_t count() const;
-    T *data_ptr() const;
+    T* data_ptr() const;
 
     void add(int index, const T& element);
     void append(const T& element);
@@ -30,7 +30,7 @@ public:
     T& operator[](int index) const;
 
 private:
-    T *buffer;
+    T* buffer;
     std::size_t capacity;
     int n;
 
@@ -79,7 +79,7 @@ ExtendableArray<T>::~ExtendableArray() {
 template <class T>
 void ExtendableArray<T>::grow() {
     capacity *= 2;
-    T *tmp_buffer = new T[capacity];
+    T* tmp_buffer = new T[capacity];
 
     for (int i = 0; i < n; i++) {
         tmp_buffer[i] = buffer[i];
@@ -95,7 +95,7 @@ std::size_t ExtendableArray<T>::count() const {
 }
 
 template<class T>
-T *ExtendableArray<T>::data_ptr() const {
+T* ExtendableArray<T>::data_ptr() const {
     return buffer;
 }
 

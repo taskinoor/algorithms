@@ -10,8 +10,8 @@ template <class T> class OrderStatisticTree;
 template <class T>
 class OSTNode : public TreeNode<T> {
 public:
-    OSTNode(T element = T(), TreeNode<T> *parent = nullptr,
-            TreeNode<T> *left = nullptr, TreeNode<T> *right = nullptr);
+    OSTNode(T element = T(), TreeNode<T>* parent = nullptr,
+            TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
 
     int count();
 
@@ -25,23 +25,23 @@ template <class T>
 class OrderStatisticTree : public BST<T> {
 public:
     void insert(T element) override;
-    void remove(TreeNode<T> *z) override;
+    void remove(TreeNode<T>* z) override;
 
     T select(int i);
-    T select(int i, OSTNode<T> *v);
+    T select(int i, OSTNode<T>* v);
 
-    TreeNode<T> *select_node(int i);
-    TreeNode<T> *select_node(int i, OSTNode<T> *v);
+    TreeNode<T>* select_node(int i);
+    TreeNode<T>* select_node(int i, OSTNode<T>* v);
 
     int rank(T element);
 
 private:
-    void decrement_count(TreeNode<T> *node, TreeNode<T> *until);
+    void decrement_count(TreeNode<T>* node, TreeNode<T>* until);
 };
 
 template <class T>
-OSTNode<T>::OSTNode(T element, TreeNode<T> *parent, TreeNode<T> *left,
-        TreeNode<T> *right) : TreeNode<T>(element, parent, left, right) {
+OSTNode<T>::OSTNode(T element, TreeNode<T>* parent, TreeNode<T>* left,
+        TreeNode<T>* right) : TreeNode<T>(element, parent, left, right) {
 
     count_ = 1;
 }
@@ -53,9 +53,9 @@ int OSTNode<T>::count() {
 
 template <class T>
 void OrderStatisticTree<T>::insert(T element) {
-    OSTNode<T> *last = nullptr;
-    OSTNode<T> *current = (OSTNode<T> *)this->root();
-    OSTNode<T> *node = new OSTNode<T>(element, this->nil_, this->nil_,
+    OSTNode<T>* last = nullptr;
+    OSTNode<T>* current = (OSTNode<T>*)this->root();
+    OSTNode<T>* node = new OSTNode<T>(element, this->nil_, this->nil_,
             this->nil_);
 
     while (current != this->nil_) {
@@ -63,9 +63,9 @@ void OrderStatisticTree<T>::insert(T element) {
         last->count_++;
 
         if (element < current->element()) {
-            current = (OSTNode<T> *)this->left(current);
+            current = (OSTNode<T>*)this->left(current);
         } else {
-            current = (OSTNode<T> *)this->right(current);
+            current = (OSTNode<T>*)this->right(current);
         }
     }
 
@@ -79,13 +79,13 @@ void OrderStatisticTree<T>::insert(T element) {
 }
 
 template <class T>
-void OrderStatisticTree<T>::remove(TreeNode<T> *z) {
+void OrderStatisticTree<T>::remove(TreeNode<T>* z) {
     if (this->left(z) == this->nil_) {
         this->transplant(z, this->right(z));
     } else if (this->right(z) == this->nil_) {
         this->transplant(z, this->left(z));
     } else {
-        TreeNode<T> *y = this->min(this->right(z));
+        TreeNode<T>* y = this->min(this->right(z));
 
         if (this->parent(y) != z) {
             this->transplant(y, this->right(y));
@@ -94,7 +94,7 @@ void OrderStatisticTree<T>::remove(TreeNode<T> *z) {
         }
 
         this->transplant(z, y);
-        ((OSTNode<T> *)y)->count_ = ((OSTNode<T> *)z)->count_ - 1;
+        ((OSTNode<T>*)y)->count_ = ((OSTNode<T>*)z)->count_ - 1;
         this->set_left(y, this->left(z));
     }
 
@@ -105,34 +105,34 @@ void OrderStatisticTree<T>::remove(TreeNode<T> *z) {
 
 template <class T>
 void OrderStatisticTree<T>::decrement_count(
-        TreeNode<T> *node, TreeNode<T> *until) {
+        TreeNode<T>* node, TreeNode<T>* until) {
 
-    OSTNode<T> *parent = (OSTNode<T> *)this->parent(node);
+    OSTNode<T>* parent = (OSTNode<T>*)this->parent(node);
 
     while (parent != until) {
         parent->count_--;
-        parent = (OSTNode<T> *)this->parent(parent);
+        parent = (OSTNode<T>*)this->parent(parent);
     }
 }
 
 template <class T>
 T OrderStatisticTree<T>::select(int i) {
-    return select(i, (OSTNode<T> *)this->root());
+    return select(i, (OSTNode<T>*)this->root());
 }
 
 template <class T>
-T OrderStatisticTree<T>::select(int i, OSTNode<T> *v) {
+T OrderStatisticTree<T>::select(int i, OSTNode<T>* v) {
     return select_node(i, v)->element();
 }
 
 template <class T>
-TreeNode<T> *OrderStatisticTree<T>::select_node(int i) {
-    return select_node(i, (OSTNode<T> *)this->root());
+TreeNode<T>* OrderStatisticTree<T>::select_node(int i) {
+    return select_node(i, (OSTNode<T>*)this->root());
 }
 
 template <class T>
-TreeNode<T> *OrderStatisticTree<T>::select_node(int i, OSTNode<T> *v) {
-    OSTNode<T> *left = (OSTNode<T> *)this->left(v);
+TreeNode<T>* OrderStatisticTree<T>::select_node(int i, OSTNode<T>* v) {
+    OSTNode<T>* left = (OSTNode<T>*)this->left(v);
     int count = left != this->nil_ ? left->count_ : 0;
 
     if (i == count) {
@@ -140,28 +140,28 @@ TreeNode<T> *OrderStatisticTree<T>::select_node(int i, OSTNode<T> *v) {
     } else if (i < count) {
         return select_node(i, left);
     } else {
-        return select_node(i - count - 1, (OSTNode<T> *)this->right(v));
+        return select_node(i - count - 1, (OSTNode<T>*)this->right(v));
     }
 }
 
 template <class T>
 int OrderStatisticTree<T>::rank(T element) {
-    TreeNode<T> *node = this->search(element);
+    TreeNode<T>* node = this->search(element);
 
     if (node == this->nil_) {
         return -1;
     }
 
-    OSTNode<T> *left = (OSTNode<T> *)this->left(node);
-    TreeNode<T> *root = this->root();
+    OSTNode<T>* left = (OSTNode<T>*)this->left(node);
+    TreeNode<T>* root = this->root();
 
     int r = left != this->nil_ ? left->count() : 0;
 
     while (node != root) {
-        TreeNode<T> *parent = this->parent(node);
+        TreeNode<T>* parent = this->parent(node);
 
         if (node == this->right(parent)) {
-            left = (OSTNode<T> *)this->left(parent);
+            left = (OSTNode<T>*)this->left(parent);
             r += (left != this->nil_ ? left->count() : 0) + 1;
         }
 

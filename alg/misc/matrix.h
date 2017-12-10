@@ -21,7 +21,7 @@ public:
     ~Matrix();
 
     std::pair<std::size_t, std::size_t> dimension() const;
-    T *data_ptr() const;
+    T* data_ptr() const;
 
     Matrix<T> transpose() const;
 
@@ -34,11 +34,11 @@ public:
 
     class Proxy {
     public:
-        Proxy(T *a);
+        Proxy(T* a);
         T& operator[](int index) const;
 
     private:
-        T *a;
+        T* a;
     };
 
     Proxy operator[](int index) const;
@@ -54,7 +54,7 @@ public:
 private:
     std::size_t m;
     std::size_t n;
-    T *buffer;
+    T* buffer;
 };
 
 template <class T>
@@ -129,7 +129,7 @@ std::pair<std::size_t, std::size_t> Matrix<T>::dimension() const {
 }
 
 template <class T>
-T *Matrix<T>::data_ptr() const {
+T* Matrix<T>::data_ptr() const {
     return buffer;
 }
 
@@ -174,7 +174,7 @@ void Matrix<T>::copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
 }
 
 template <class T>
-Matrix<T>::Proxy::Proxy(T *a) {
+Matrix<T>::Proxy::Proxy(T* a) {
     this->a = a;
 }
 

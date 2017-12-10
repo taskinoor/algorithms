@@ -10,7 +10,7 @@ namespace algtest {
 
 class BST : public ::testing::Test {
 protected:
-    alg::BST<int> *bst;
+    alg::BST<int>* bst;
 
     virtual void SetUp() {
         bst = new alg::BST<int>();
@@ -38,7 +38,7 @@ TEST_F(BST, Insert) {
 
 TEST_F(BST, InOrderTraversal) {
     constexpr int n = 10;
-    alg::InOrderIterator<int> *it = new alg::InOrderIterator<int>(bst);
+    alg::InOrderIterator<int>* it = new alg::InOrderIterator<int>(bst);
     std::array<int, n> expected = {2, 2, 5, 9, 12, 13, 15, 17, 18, 19};
     std::array<int, n> result;
 
@@ -68,10 +68,10 @@ TEST_F(BST, Search) {
     };
 
     for (int i = 0; i < n; i++) {
-        alg::TreeNode<int> *result = bst->search(data[i][0]);
-        alg::TreeNode<int> *left = bst->left(result);
-        alg::TreeNode<int> *right = bst->right(result);
-        alg::TreeNode<int> *parent = bst->parent(result);
+        alg::TreeNode<int>* result = bst->search(data[i][0]);
+        alg::TreeNode<int>* left = bst->left(result);
+        alg::TreeNode<int>* right = bst->right(result);
+        alg::TreeNode<int>* parent = bst->parent(result);
 
         ASSERT_EQ(data[i][0], result->element());
         ASSERT_EQ(data[i][1], left ? left->element() : 0);

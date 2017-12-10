@@ -10,7 +10,7 @@ namespace alg {
 template <class T>
 class PreOrderIterator : public Iterator<T> {
 public:
-    PreOrderIterator(BinaryTree<T> *tree);
+    PreOrderIterator(BinaryTree<T>* tree);
     virtual ~PreOrderIterator();
 
     void first();
@@ -18,17 +18,17 @@ public:
     bool is_done() const;
 
     T current_item() const;
-    TreeNode<T> *current_node() const;
+    TreeNode<T>* current_node() const;
 
 private:
-    BinaryTree<T> *tree;
-    Stack<TreeNode<T> *> *stack;
+    BinaryTree<T>* tree;
+    Stack<TreeNode<T>*>* stack;
 };
 
 template <class T>
-PreOrderIterator<T>::PreOrderIterator(BinaryTree<T> *tree) {
+PreOrderIterator<T>::PreOrderIterator(BinaryTree<T>* tree) {
     this->tree = tree;
-    stack = new Stack<TreeNode<T> *>(256);
+    stack = new Stack<TreeNode<T>*>(256);
 }
 
 template <class T>
@@ -43,10 +43,10 @@ void PreOrderIterator<T>::first() {
 
 template <class T>
 void PreOrderIterator<T>::next() {
-    TreeNode<T> *current = stack->pop();
-    TreeNode<T> *left = tree->left(current);
-    TreeNode<T> *right = tree->right(current);
-    TreeNode<T> *nil_ = tree->nil();
+    TreeNode<T>* current = stack->pop();
+    TreeNode<T>* left = tree->left(current);
+    TreeNode<T>* right = tree->right(current);
+    TreeNode<T>* nil_ = tree->nil();
 
     if (right != nil_) {
         stack->push(right);
@@ -67,7 +67,7 @@ T PreOrderIterator<T>::current_item() const {
 }
 
 template <class T>
-TreeNode<T> *PreOrderIterator<T>::current_node() const {
+TreeNode<T>* PreOrderIterator<T>::current_node() const {
     return stack->top();
 }
 

@@ -7,7 +7,7 @@ namespace algtest {
 
 class RangeQuery : public ::testing::Test {
 protected:
-    alg::BST<int> *bst;
+    alg::BST<int>* bst;
 
     virtual void SetUp() {
         bst = new alg::BST<int>();

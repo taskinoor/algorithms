@@ -104,10 +104,10 @@ TEST(LinkedList, Remove) {
 
     std::array<int, 4> expected = {3, 5, 11, 13};
 
-    alg::ForwardListIterator<int> *iter_forward =
-            (alg::ForwardListIterator<int> *)list.create_iterator();
-    alg::BackwardListIterator<int> *iter_backward =
-            (alg::BackwardListIterator<int> *)list.create_iterator(false);
+    alg::ForwardListIterator<int>* iter_forward =
+            (alg::ForwardListIterator<int>*)list.create_iterator();
+    alg::BackwardListIterator<int>* iter_backward =
+            (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
     for (int i = 3; !iter_forward->is_done(); iter_forward->next(), i--) {
         ASSERT_EQ(expected[i], iter_forward->current_item());
@@ -128,10 +128,10 @@ TEST(ListIterator, InsertFirst) {
         list.insert_first(i);
     }
 
-    alg::ForwardListIterator<int> *iter_forward =
-            (alg::ForwardListIterator<int> *)list.create_iterator();
-    alg::BackwardListIterator<int> *iter_backward =
-            (alg::BackwardListIterator<int> *)list.create_iterator(false);
+    alg::ForwardListIterator<int>* iter_forward =
+            (alg::ForwardListIterator<int>*)list.create_iterator();
+    alg::BackwardListIterator<int>* iter_backward =
+            (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
     for (int i = 6; !iter_forward->is_done(); iter_forward->next(), i--) {
         ASSERT_EQ(data[i], iter_forward->current_item());
@@ -152,10 +152,10 @@ TEST(ListIterator, InsertLast) {
         list.insert_last(i);
     }
 
-    alg::ForwardListIterator<int> *iter_forward =
-            (alg::ForwardListIterator<int> *)list.create_iterator();
-    alg::BackwardListIterator<int> *iter_backward =
-            (alg::BackwardListIterator<int> *)list.create_iterator(false);
+    alg::ForwardListIterator<int>* iter_forward =
+            (alg::ForwardListIterator<int>*)list.create_iterator();
+    alg::BackwardListIterator<int>* iter_backward =
+            (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
     for (int i = 0; !iter_forward->is_done(); iter_forward->next(), i++) {
         ASSERT_EQ(data[i], iter_forward->current_item());
@@ -171,10 +171,10 @@ TEST(ListIterator, InsertLast) {
 TEST(ListIterator, EmptyList) {
     alg::LinkedList<int> list;
 
-    alg::ForwardListIterator<int> *iter_forward =
-            (alg::ForwardListIterator<int> *)list.create_iterator();
-    alg::BackwardListIterator<int> *iter_backward =
-            (alg::BackwardListIterator<int> *)list.create_iterator(false);
+    alg::ForwardListIterator<int>* iter_forward =
+            (alg::ForwardListIterator<int>*)list.create_iterator();
+    alg::BackwardListIterator<int>* iter_backward =
+            (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
     for (; !iter_forward->is_done(); iter_forward->next()) {
         FAIL();

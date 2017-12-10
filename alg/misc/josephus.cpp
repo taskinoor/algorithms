@@ -23,7 +23,7 @@ int josephus_queue(int n, int k) {
 }
 
 int josephus_ost(int n, int k) {
-    OrderStatisticTree<int> *ost = randomized_ost(n);
+    OrderStatisticTree<int>* ost = randomized_ost(n);
     int left = n;
     int next = (k - 1) % left;
 
@@ -39,9 +39,9 @@ int josephus_ost(int n, int k) {
     return survivor;
 }
 
-OrderStatisticTree<int> *randomized_ost(int n) {
-    int *data = new int[n];
-    OrderStatisticTree<int> *ost = new OrderStatisticTree<int>;
+OrderStatisticTree<int>* randomized_ost(int n) {
+    int* data = new int[n];
+    OrderStatisticTree<int>* ost = new OrderStatisticTree<int>;
 
     for (int i = 0; i < n; i++) {
         data[i] = i + 1;

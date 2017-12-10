@@ -25,7 +25,7 @@ inline int right(int i) {
 }
 
 template <class T>
-void min_heapify(T *a, int i, int n) {
+void min_heapify(T* a, int i, int n) {
     while (true) {
         int left_ = left(i);
         int right_ = right(i);
@@ -48,7 +48,7 @@ void min_heapify(T *a, int i, int n) {
 }
 
 template <class T>
-void max_heapify(T *a, int i, int n) {
+void max_heapify(T* a, int i, int n) {
     while (true) {
         int left_ = left(i);
         int right_ = right(i);
@@ -71,7 +71,7 @@ void max_heapify(T *a, int i, int n) {
 }
 
 template <class T>
-void heapify(T *a, int i, int n, HeapType type) {
+void heapify(T* a, int i, int n, HeapType type) {
     if (type == HeapType::MIN) {
         min_heapify(a, i, n);
     } else if (type == HeapType::MAX) {
@@ -80,7 +80,7 @@ void heapify(T *a, int i, int n, HeapType type) {
 }
 
 template <class T>
-void build_heap(T *a, int n, HeapType type) {
+void build_heap(T* a, int n, HeapType type) {
     for (int i = parent(n - 1); i >= 0; i--) {
         if (type == HeapType::MIN) {
             min_heapify(a, i, n);

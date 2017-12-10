@@ -19,7 +19,7 @@ public:
     std::size_t count();
 
 private:
-    T *buffer;
+    T* buffer;
     int top_;
     std::size_t size;
 };

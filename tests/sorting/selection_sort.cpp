@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 #include "alg/sorting/selection_sort.h"
 #include "sorting.h"
 

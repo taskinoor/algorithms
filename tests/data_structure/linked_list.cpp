@@ -1,4 +1,5 @@
 #include <array>
+
 #include <gtest/gtest.h>
 
 #include "alg/data_structure/linked_list.h"

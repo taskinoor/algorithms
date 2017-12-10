@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 #include "alg/sorting/bubble_sort.h"
 #include "sorting.h"
 

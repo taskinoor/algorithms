@@ -1,6 +1,8 @@
 #ifndef ALG_STRASSENS_MATRIX_MULTIPLICATION_H_
 #define ALG_STRASSENS_MATRIX_MULTIPLICATION_H_
 
+#include <cstddef>
+
 #include "alg/misc/matrix.h"
 
 namespace alg {

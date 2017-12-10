@@ -3,6 +3,7 @@
 
 #include <unordered_set>
 
+#include "alg/data_structure/tree/binary_tree.h"
 #include "alg/data_structure/tree/bst.h"
 
 namespace alg {

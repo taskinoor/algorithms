@@ -1,4 +1,6 @@
 #include <array>
+#include <unordered_set>
+
 #include <gtest/gtest.h>
 
 #include "alg/searching/range_query.h"

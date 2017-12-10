@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "alg/data_structure/tree/binary_tree.h"
 #include "alg/data_structure/tree/bst.h"
 #include "alg/data_structure/tree/traversal/euler_tour.h"
 #include "alg/data_structure/tree/traversal/inorder.h"

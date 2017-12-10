@@ -1,3 +1,8 @@
+#include <cstddef>
+
+#include <stdexcept>
+#include <utility>
+
 #include <gtest/gtest.h>
 
 #include "alg/misc/matrix.h"

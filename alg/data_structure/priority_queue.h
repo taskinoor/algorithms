@@ -2,12 +2,13 @@
 #define ALG_PRIORITY_QUEUE_H_
 
 #include <cstddef>
+
 #include <limits>
 
 #include "alg/common/exception.h"
 #include "alg/common/utils.h"
-#include "alg/data_structure/extendable_array.h"
 #include "alg/data_structure/binary_heap.h"
+#include "alg/data_structure/extendable_array.h"
 
 namespace alg {
 

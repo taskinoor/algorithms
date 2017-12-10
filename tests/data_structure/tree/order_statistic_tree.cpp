@@ -1,4 +1,5 @@
 #include <array>
+
 #include <gtest/gtest.h>
 
 #include "alg/data_structure/tree/order_statistic_tree.h"

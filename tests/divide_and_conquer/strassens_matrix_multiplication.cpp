@@ -1,5 +1,10 @@
+#include <cstddef>
+
+#include <utility>
+
 #include <gtest/gtest.h>
 
+#include "alg/misc/matrix.h"
 #include "alg/divide_and_conquer/strassens_matrix_multiplication.h"
 
 namespace algtest {

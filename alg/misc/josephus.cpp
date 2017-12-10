@@ -1,3 +1,6 @@
+#include <algorithm>
+
+#include "alg/common/randomizer.h"
 #include "alg/data_structure/queue.h"
 #include "josephus.h"
 

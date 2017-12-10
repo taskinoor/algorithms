@@ -1,4 +1,5 @@
 #include <string>
+
 #include <gtest/gtest.h>
 
 #include "alg/data_structure/tree/binary_tree.h"

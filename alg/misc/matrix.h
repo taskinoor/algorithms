@@ -2,6 +2,8 @@
 #define ALG_MATRIX_H_
 
 #include <cstddef>
+
+#include <algorithm>
 #include <initializer_list>
 #include <stdexcept>
 #include <utility>

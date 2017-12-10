@@ -1,8 +1,11 @@
 #ifndef ALGTEST_SORTING_H_
 #define ALGTEST_SORTING_H_
 
+#include <cstddef>
+
 #include <array>
 #include <string>
+
 #include <gtest/gtest.h>
 
 #include "alg/common/randomizer.h"

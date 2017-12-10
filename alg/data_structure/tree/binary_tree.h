@@ -1,6 +1,7 @@
 #ifndef ALG_BINARY_TREE_H_
 #define ALG_BINARY_TREE_H_
 
+#include <ostream>
 #include <sstream>
 #include <string>
 

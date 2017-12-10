@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include <array>
 
 #include <gtest/gtest.h>

@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 #include "alg/common/randomizer.h"
+#include "alg/data_structure/tree/binary_tree.h"
 #include "alg/data_structure/tree/red_black_tree.h"
 #include "alg/data_structure/tree/traversal/inorder.h"
 #include "alg/data_structure/tree/traversal/postorder.h"

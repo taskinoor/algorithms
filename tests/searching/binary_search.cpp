@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include <gtest/gtest.h>
 
 #include "alg/searching/binary_search.h"

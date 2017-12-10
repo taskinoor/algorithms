@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 #include "alg/sorting/quick_sort.h"
 #include "sorting.h"
 

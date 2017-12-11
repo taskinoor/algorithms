@@ -153,6 +153,26 @@ TEST(ExtendableArray, LargeRandomDataSet) {
     for (std::size_t i = 0; i < alg_arr.count(); i++) {
         ASSERT_EQ(std_vec[i].data(), alg_arr[i].data());
     }
+
+    alg::ExtendableArray<NoDefaultCtor<int>> arr_copied = alg_arr;
+
+    ASSERT_EQ(arr_copied.count(), alg_arr.count());
+
+    for (std::size_t i = 0; i < arr_copied.count(); i++) {
+        ASSERT_EQ(alg_arr[i], arr_copied[i]);
+    }
+
+    alg::ExtendableArray<NoDefaultCtor<int>> arr_moved = std::move(alg_arr);
+
+    ASSERT_EQ(nullptr, alg_arr.data_ptr());
+    ASSERT_EQ(0, alg_arr.count());
+    ASSERT_EQ(0, alg_arr.capacity());
+
+    ASSERT_EQ(arr_copied.count(), arr_moved.count());
+
+    for (std::size_t i = 0; i < arr_copied.count(); i++) {
+        ASSERT_EQ(arr_copied[i], arr_moved[i]);
+    }
 }
 
 }

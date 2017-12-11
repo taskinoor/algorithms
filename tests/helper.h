@@ -6,11 +6,6 @@ namespace algtest {
 template <class T>
 class NoDefaultCtor {
 public:
-    // this will be removed
-    NoDefaultCtor() {
-        data_ = new T;
-    }
-
     NoDefaultCtor(const T& data) {
         data_ = new T;
         *data_ = data;
@@ -25,6 +20,10 @@ public:
         *data_ = rhs.data();
 
         return *this;
+    }
+
+    bool operator==(const NoDefaultCtor<T>& rhs) const {
+        return *data_ == rhs.data();
     }
 
     ~NoDefaultCtor() {

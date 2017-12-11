@@ -21,6 +21,7 @@ public:
     virtual ~ExtendableArray();
 
     std::size_t count() const;
+    std::size_t capacity() const;
     T* data_ptr() const;
 
     void add(int index, const T& element);
@@ -31,7 +32,7 @@ public:
 
 private:
     T* buffer;
-    std::size_t capacity;
+    std::size_t capacity_;
     int count_;
 
     void grow();
@@ -39,24 +40,24 @@ private:
 
 template <class T>
 ExtendableArray<T>::ExtendableArray(std::size_t capacity) {
-    this->capacity = capacity;
+    capacity_ = capacity;
     buffer = new T[capacity];
     count_ = 0;
 }
 
 template <class T>
 ExtendableArray<T>::ExtendableArray(std::initializer_list<T> lst) {
-    capacity = lst.size();
-    buffer = new T[capacity];
-    count_ = capacity;
+    capacity_ = lst.size();
+    buffer = new T[capacity_];
+    count_ = capacity_;
 
     std::copy(lst.begin(), lst.end(), buffer);
 }
 
 template <class T>
 ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
-    capacity = rhs.capacity;
-    buffer = new T[capacity];
+    capacity_ = rhs.capacity_;
+    buffer = new T[capacity_];
     count_ = rhs.count_;
 
     std::copy(&rhs.buffer[0], &rhs.buffer[count_], buffer);
@@ -64,12 +65,12 @@ ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
 
 template <class T>
 ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& rhs) noexcept {
-    capacity = rhs.capacity;
+    capacity_ = rhs.capacity_;
     count_ = rhs.count_;
     buffer = rhs.buffer;
 
     rhs.buffer = nullptr;
-    rhs.capacity = 0;
+    rhs.capacity_ = 0;
     rhs.count_ = 0;
 }
 
@@ -80,8 +81,8 @@ ExtendableArray<T>::~ExtendableArray() {
 
 template <class T>
 void ExtendableArray<T>::grow() {
-    capacity *= 2;
-    T* tmp_buffer = new T[capacity];
+    capacity_ *= 2;
+    T* tmp_buffer = new T[capacity_];
 
     for (int i = 0; i < count_; i++) {
         tmp_buffer[i] = buffer[i];
@@ -96,6 +97,11 @@ std::size_t ExtendableArray<T>::count() const {
     return count_;
 }
 
+template <class T>
+std::size_t ExtendableArray<T>::capacity() const {
+    return capacity_;
+}
+
 template<class T>
 T* ExtendableArray<T>::data_ptr() const {
     return buffer;
@@ -107,7 +113,7 @@ void ExtendableArray<T>::add(int index, const T& element) {
         throw std::out_of_range("");
     }
 
-    if (count_ == capacity) {
+    if (count_ == capacity_) {
         grow();
     }
 

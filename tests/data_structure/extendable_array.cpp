@@ -115,4 +115,10 @@ TEST(ExtendableArray, MoveConstructor) {
     ASSERT_EQ(0, a.count());
 }
 
+TEST(ExtendableArray, Capacity) {
+    alg::ExtendableArray<int> a(1024);
+
+    ASSERT_EQ(1024, a.capacity());
+}
+
 }

@@ -1,10 +1,13 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <gtest/gtest.h>
 
+#include "alg/common/randomizer.h"
 #include "alg/data_structure/extendable_array.h"
+#include "tests/helper.h"
 
 namespace algtest {
 
@@ -119,6 +122,37 @@ TEST(ExtendableArray, Capacity) {
     alg::ExtendableArray<int> a(1024);
 
     ASSERT_EQ(1024, a.capacity());
+}
+
+TEST(ExtendableArray, LargeRandomDataSet) {
+    constexpr int total = 100000;
+    constexpr int delete_freq = 10;
+
+    std::vector<NoDefaultCtor<int>> std_vec;
+    alg::ExtendableArray<NoDefaultCtor<int>> alg_arr;
+
+    for (int i = 0; i < total; i++) {
+        int data = alg::randomizer::uniform_int(-total, total);
+
+        NoDefaultCtor<int> std_data(data);
+        NoDefaultCtor<int> alg_data(data);
+
+        std_vec.push_back(std_data);
+        alg_arr.append(alg_data);
+
+        if (!(i % delete_freq)) {
+            int index = alg::randomizer::uniform_int(0, alg_arr.count() - 1);
+
+            std_vec.erase(std_vec.begin() + index);
+            alg_arr.remove(index);
+        }
+    }
+
+    ASSERT_EQ(std_vec.size(), alg_arr.count());
+
+    for (std::size_t i = 0; i < alg_arr.count(); i++) {
+        ASSERT_EQ(std_vec[i].data(), alg_arr[i].data());
+    }
 }
 
 }

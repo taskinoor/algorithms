@@ -33,7 +33,7 @@ public:
 private:
     T* buffer;
     std::size_t capacity_;
-    int count_;
+    std::size_t count_;
 
     void grow();
 };
@@ -132,7 +132,7 @@ void ExtendableArray<T>::append(const T& element) {
 
 template <class T>
 T ExtendableArray<T>::remove(int index) {
-    if (index < 0 || index > count_ - 1) {
+    if (index < 0 || index >= count_) {
         throw std::out_of_range("");
     }
 

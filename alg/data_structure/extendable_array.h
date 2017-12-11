@@ -32,7 +32,7 @@ public:
 private:
     T* buffer;
     std::size_t capacity;
-    int n;
+    int count_;
 
     void grow();
 };
@@ -41,14 +41,14 @@ template <class T>
 ExtendableArray<T>::ExtendableArray(std::size_t capacity) {
     this->capacity = capacity;
     buffer = new T[capacity];
-    n = 0;
+    count_ = 0;
 }
 
 template <class T>
 ExtendableArray<T>::ExtendableArray(std::initializer_list<T> lst) {
     capacity = lst.size();
     buffer = new T[capacity];
-    n = capacity;
+    count_ = capacity;
 
     std::copy(lst.begin(), lst.end(), buffer);
 }
@@ -57,20 +57,20 @@ template <class T>
 ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
     capacity = rhs.capacity;
     buffer = new T[capacity];
-    n = rhs.n;
+    count_ = rhs.count_;
 
-    std::copy(&rhs.buffer[0], &rhs.buffer[n], buffer);
+    std::copy(&rhs.buffer[0], &rhs.buffer[count_], buffer);
 }
 
 template <class T>
 ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& rhs) noexcept {
     capacity = rhs.capacity;
-    n = rhs.n;
+    count_ = rhs.count_;
     buffer = rhs.buffer;
 
     rhs.buffer = nullptr;
     rhs.capacity = 0;
-    rhs.n = 0;
+    rhs.count_ = 0;
 }
 
 template <class T>
@@ -83,7 +83,7 @@ void ExtendableArray<T>::grow() {
     capacity *= 2;
     T* tmp_buffer = new T[capacity];
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < count_; i++) {
         tmp_buffer[i] = buffer[i];
     }
 
@@ -93,7 +93,7 @@ void ExtendableArray<T>::grow() {
 
 template <class T>
 std::size_t ExtendableArray<T>::count() const {
-    return n;
+    return count_;
 }
 
 template<class T>
@@ -103,47 +103,47 @@ T* ExtendableArray<T>::data_ptr() const {
 
 template <class T>
 void ExtendableArray<T>::add(int index, const T& element) {
-    if (index < 0 || index > n) {
+    if (index < 0 || index > count_) {
         throw std::out_of_range("");
     }
 
-    if (n == capacity) {
+    if (count_ == capacity) {
         grow();
     }
 
-    for (int i = n - 1; i >= index; i--) {
+    for (int i = count_ - 1; i >= index; i--) {
         buffer[i + 1] = buffer[i];
     }
 
     buffer[index] = element;
-    n++;
+    count_++;
 }
 
 template <class T>
 void ExtendableArray<T>::append(const T& element) {
-    add(n, element);
+    add(count_, element);
 }
 
 template <class T>
 T ExtendableArray<T>::remove(int index) {
-    if (index < 0 || index > n - 1) {
+    if (index < 0 || index > count_ - 1) {
         throw std::out_of_range("");
     }
 
     T element = buffer[index];
 
-    for (int i = index + 1; i < n; i++) {
+    for (int i = index + 1; i < count_; i++) {
         buffer[i - 1] = buffer[i];
     }
 
-    n--;
+    count_--;
 
     return element;
 }
 
 template <class T>
 T& ExtendableArray<T>::operator[](int index) const {
-    if (index < 0 || index >= n) {
+    if (index < 0 || index >= count_) {
         throw std::out_of_range("");
     }
 

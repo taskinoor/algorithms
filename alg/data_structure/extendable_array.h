@@ -15,8 +15,8 @@ public:
     explicit ExtendableArray(std::size_t capacity = 1);
     ExtendableArray(std::initializer_list<T> lst);
 
-    ExtendableArray(const ExtendableArray<T>& that);
-    ExtendableArray(ExtendableArray<T>&& that) noexcept;
+    ExtendableArray(const ExtendableArray<T>& rhs);
+    ExtendableArray(ExtendableArray<T>&& rhs) noexcept;
 
     virtual ~ExtendableArray();
 
@@ -54,21 +54,23 @@ ExtendableArray<T>::ExtendableArray(std::initializer_list<T> lst) {
 }
 
 template <class T>
-ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& that) {
-    capacity = that.capacity;
+ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
+    capacity = rhs.capacity;
     buffer = new T[capacity];
-    n = that.n;
+    n = rhs.n;
 
-    std::copy(&that.buffer[0], &that.buffer[n], buffer);
+    std::copy(&rhs.buffer[0], &rhs.buffer[n], buffer);
 }
 
 template <class T>
-ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& that) noexcept {
-    capacity = that.capacity;
-    n = that.n;
-    buffer = that.buffer;
+ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& rhs) noexcept {
+    capacity = rhs.capacity;
+    n = rhs.n;
+    buffer = rhs.buffer;
 
-    that.buffer = nullptr;
+    rhs.buffer = nullptr;
+    rhs.capacity = 0;
+    rhs.n = 0;
 }
 
 template <class T>

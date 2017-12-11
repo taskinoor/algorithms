@@ -82,7 +82,7 @@ TEST(ExtendableArray, Append) {
     }
 }
 
-TEST(ExtendableArray, Copy) {
+TEST(ExtendableArray, CopyConstructor) {
     alg::ExtendableArray<int> a = {0, 1, 2, 3, 4};
 
     for (int i = 5; i < 10; i++) {
@@ -95,18 +95,24 @@ TEST(ExtendableArray, Copy) {
         b[i]++;
     }
 
+    ASSERT_EQ(10, a.count());
+    ASSERT_EQ(10, b.count());
+
     for (int i = 0; i < 10; i++) {
         ASSERT_EQ(i, a[i]);
         ASSERT_EQ(i + 1, b[i]);
     }
 }
 
-TEST(ExtendableArray, Move) {
+TEST(ExtendableArray, MoveConstructor) {
     alg::ExtendableArray<std::string> a = {"foo"};
     alg::ExtendableArray<std::string> b = std::move(a);
 
     ASSERT_EQ(1, b.count());
     ASSERT_EQ("foo", b[0]);
+
+    ASSERT_EQ(nullptr, a.data_ptr());
+    ASSERT_EQ(0, a.count());
 }
 
 }

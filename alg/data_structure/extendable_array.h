@@ -19,7 +19,7 @@ public:
     ExtendableArray(const ExtendableArray<T, A>& rhs);
     ExtendableArray(ExtendableArray<T, A>&& rhs) noexcept;
 
-    virtual ~ExtendableArray();
+    ~ExtendableArray();
 
     std::size_t count() const;
     std::size_t capacity() const;

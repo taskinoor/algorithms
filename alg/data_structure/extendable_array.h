@@ -32,12 +32,16 @@ public:
 
     T& operator[](int index) const;
 
+    ExtendableArray<T, A>& operator=(const ExtendableArray<T, A>& rhs);
+
 private:
     A alloc;
 
     T* buffer {nullptr};
     std::size_t capacity_ {0};
     std::size_t count_ {0};
+
+    void clear_memory(std::size_t start, std::size_t end, bool dealloc);
 };
 
 template <class T, class A>
@@ -76,11 +80,20 @@ ExtendableArray<T, A>::ExtendableArray(ExtendableArray<T, A>&& rhs) noexcept {
 
 template <class T, class A>
 ExtendableArray<T, A>::~ExtendableArray() {
-    for (std::size_t i = 0; i < count_; i++) {
+    clear_memory(0, count_, true);
+}
+
+template <class T, class A>
+void ExtendableArray<T, A>::clear_memory(std::size_t start, std::size_t end,
+        bool dealloc) {
+
+    for (std::size_t i = start; i < end; i++) {
         alloc.destroy(&buffer[i]);
     }
 
-    alloc.deallocate(buffer, capacity_);
+    if (dealloc && buffer) {
+        alloc.deallocate(buffer, capacity_);
+    }
 }
 
 template <class T, class A>
@@ -177,6 +190,39 @@ T& ExtendableArray<T, A>::operator[](int index) const {
     }
 
     return buffer[index];
+}
+
+template <class T, class A>
+ExtendableArray<T, A>& ExtendableArray<T, A>::operator=(
+        const ExtendableArray<T, A>& rhs) {
+
+    if (this == &rhs) {
+        return *this;
+    }
+
+    if (rhs.count_ > capacity_) {
+        T *tmp_buffer = alloc.allocate(rhs.count_);
+
+        for (std::size_t i = 0; i < rhs.count_; i++) {
+            alloc.construct(&tmp_buffer[i], rhs[i]);
+        }
+
+        clear_memory(0, count_, true);
+
+        buffer = tmp_buffer;
+        count_ = rhs.count_;
+        capacity_ = rhs.count_;
+    } else {
+        clear_memory(0, count_, false);
+
+        for (std::size_t i  = 0; i < rhs.count_; i++) {
+            alloc.construct(&buffer[i], rhs[i]);
+        }
+
+        count_ = rhs.count_;
+    }
+
+    return *this;
 }
 
 }

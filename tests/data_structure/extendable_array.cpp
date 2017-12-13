@@ -175,4 +175,99 @@ TEST(ExtendableArray, LargeRandomDataSet) {
     }
 }
 
+TEST(ExtendableArray, CopyAssignmentLargerThanCapacity) {
+    alg::ExtendableArray<std::string> lhs = {"a"};
+    alg::ExtendableArray<std::string> rhs = {"b", "c", "d", "e", "f", "g"};
+
+    lhs = rhs;
+
+    ASSERT_NE(rhs.data_ptr(), lhs.data_ptr());
+    ASSERT_EQ(rhs.count(), lhs.count());
+    ASSERT_EQ(rhs.count(), lhs.capacity());
+
+    for (std::size_t i = 0; i < rhs.count(); i++) {
+        ASSERT_EQ(rhs[i], lhs[i]);
+    }
+}
+
+TEST(ExtendableArray, CopyAssignmentSmallerThanCapacity) {
+    alg::ExtendableArray<std::string> lhs = {"b", "c", "d", "e", "f", "g"};
+    alg::ExtendableArray<std::string> rhs = {"a", "x", "y", "z"};
+
+    lhs.append("h");
+
+    ASSERT_EQ(12, lhs.capacity());
+
+    lhs = rhs;
+
+    ASSERT_NE(rhs.data_ptr(), lhs.data_ptr());
+    ASSERT_EQ(rhs.count(), lhs.count());
+    ASSERT_EQ(12, lhs.capacity());
+
+    for (std::size_t i = 0; i < rhs.count(); i++) {
+        ASSERT_EQ(rhs[i], lhs[i]);
+    }
+}
+
+TEST(ExtendableArray, CopyAssignmentEqualCapacity) {
+    alg::ExtendableArray<std::string> lhs = {"b", "c", "d", "e", "f", "g"};
+    alg::ExtendableArray<std::string> rhs = {"a", "x", "y", "z", "p", "q"};
+
+    lhs = rhs;
+
+    ASSERT_NE(rhs.data_ptr(), lhs.data_ptr());
+    ASSERT_EQ(rhs.count(), lhs.count());
+    ASSERT_EQ(rhs.capacity(), lhs.capacity());
+
+    for (std::size_t i = 0; i < rhs.count(); i++) {
+        ASSERT_EQ(rhs[i], lhs[i]);
+    }
+}
+
+TEST(ExtendableArray, SelfCopyAssignment) {
+    alg::ExtendableArray<std::string> arr = {"a", "b", "c"};
+    std::vector<std::string> expected = {"a", "b", "c"};
+
+    arr = arr;
+
+    ASSERT_NE(nullptr, arr.data_ptr());
+    ASSERT_EQ(expected.size(), arr.count());
+
+    for (std::size_t i = 0; i < expected.size(); i++) {
+        ASSERT_EQ(expected[i], arr[i]);
+    }
+}
+
+TEST(ExtendableArray, CopyAssignmentRHSEmpty) {
+    alg::ExtendableArray<std::string> lhs = {"a"};
+    alg::ExtendableArray<std::string> rhs;
+
+    lhs = rhs;
+
+    ASSERT_EQ(0, lhs.count());
+    ASSERT_NE(nullptr, lhs.data_ptr());
+    ASSERT_EQ(1, lhs.capacity());
+}
+
+TEST(ExtendableArray, CopyAssignmentLHSEmpty) {
+    alg::ExtendableArray<std::string> lhs;
+    alg::ExtendableArray<std::string> rhs = {"a"};
+
+    lhs = rhs;
+
+    ASSERT_EQ(1, lhs.count());
+    ASSERT_EQ("a", lhs[0]);
+}
+
+TEST(ExtendableArray, CopyAssignmentBothEmpty) {
+    alg::ExtendableArray<std::string> lhs;
+    alg::ExtendableArray<std::string> rhs;
+
+    lhs = rhs;
+
+    ASSERT_EQ(0, lhs.count());
+    ASSERT_EQ(0, lhs.capacity());
+    ASSERT_EQ(nullptr, lhs.data_ptr());
+}
+
 }

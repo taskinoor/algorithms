@@ -33,6 +33,7 @@ public:
     T& operator[](int index) const;
 
     ExtendableArray<T, A>& operator=(const ExtendableArray<T, A>& rhs);
+    ExtendableArray<T, A>& operator=(ExtendableArray<T, A>&& rhs) noexcept;
 
 private:
     A alloc;
@@ -221,6 +222,23 @@ ExtendableArray<T, A>& ExtendableArray<T, A>::operator=(
 
         count_ = rhs.count_;
     }
+
+    return *this;
+}
+
+template <class T, class A>
+ExtendableArray<T, A>& ExtendableArray<T, A>::operator=(
+        ExtendableArray<T, A>&& rhs) noexcept {
+
+    clear_memory(0, count_, true);
+
+    buffer = rhs.buffer;
+    count_ = rhs.count_;
+    capacity_ = rhs.capacity_;
+
+    rhs.buffer = nullptr;
+    rhs.count_ = 0;
+    rhs.capacity_ = 0;
 
     return *this;
 }

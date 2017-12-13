@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -268,6 +270,32 @@ TEST(ExtendableArray, CopyAssignmentBothEmpty) {
     ASSERT_EQ(0, lhs.count());
     ASSERT_EQ(0, lhs.capacity());
     ASSERT_EQ(nullptr, lhs.data_ptr());
+}
+
+TEST(ExtendableArray, MoveAssignment) {
+    constexpr int total = 10000;
+
+    alg::ExtendableArray<NoDefaultCtor<int>> lhs;
+    alg::ExtendableArray<NoDefaultCtor<int>> rhs;
+
+    for (int i = 0; i < total; i++) {
+        rhs.append(NoDefaultCtor<int>{i});
+    }
+
+    std::size_t rhs_old_capacity = rhs.capacity();
+
+    lhs = std::move(rhs);
+
+    ASSERT_EQ(total, lhs.count());
+    ASSERT_EQ(rhs_old_capacity, lhs.capacity());
+
+    for (int i = 0; i < total; i++) {
+        ASSERT_EQ(i, lhs[i].data());
+    }
+
+    ASSERT_EQ(nullptr, rhs.data_ptr());
+    ASSERT_EQ(0, rhs.capacity());
+    ASSERT_EQ(0, rhs.count());
 }
 
 }

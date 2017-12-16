@@ -35,7 +35,7 @@ public:
     }
 
 private:
-    T *data_ {nullptr};
+    T* data_{nullptr};
 };
 
 }

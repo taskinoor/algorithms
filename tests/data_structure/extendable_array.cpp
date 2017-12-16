@@ -118,6 +118,7 @@ TEST(ExtendableArray, MoveConstructor) {
 
     ASSERT_EQ(nullptr, a.data_ptr());
     ASSERT_EQ(0, a.count());
+    ASSERT_EQ(0, a.capacity());
 }
 
 TEST(ExtendableArray, Capacity) {
@@ -158,7 +159,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
 
     alg::ExtendableArray<NoDefaultCtor<int>> arr_copied = alg_arr;
 
-    ASSERT_EQ(arr_copied.count(), alg_arr.count());
+    ASSERT_EQ(alg_arr.count(), arr_copied.count());
 
     for (std::size_t i = 0; i < arr_copied.count(); i++) {
         ASSERT_EQ(alg_arr[i], arr_copied[i]);

@@ -23,8 +23,9 @@ public:
 
     std::size_t count() const;
     std::size_t capacity() const;
-    const T* data_ptr() const;
+
     T* data_ptr();
+    const T* data_ptr() const;
 
     void reserve(std::size_t new_capacity);
 
@@ -32,8 +33,8 @@ public:
     void append(const T& element);
     T remove(int index);
 
-    const T& operator[](int index) const;
     T& operator[](int index);
+    const T& operator[](int index) const;
 
     ExtendableArray<T,A>& operator=(const ExtendableArray<T,A>& rhs);
     ExtendableArray<T,A>& operator=(ExtendableArray<T,A>&& rhs) noexcept;
@@ -128,13 +129,13 @@ std::size_t ExtendableArray<T,A>::capacity() const {
     return capacity_;
 }
 
-template<class T, class A>
-const T* ExtendableArray<T,A>::data_ptr() const {
+template <class T, class A>
+T* ExtendableArray<T,A>::data_ptr() {
     return buffer;
 }
 
 template <class T, class A>
-T* ExtendableArray<T,A>::data_ptr() {
+const T* ExtendableArray<T,A>::data_ptr() const {
     return buffer;
 }
 
@@ -190,17 +191,17 @@ T ExtendableArray<T,A>::remove(int index) {
 }
 
 template <class T, class A>
+T& ExtendableArray<T,A>::operator[](int index) {
+    return const_cast<T&>(static_cast<const ExtendableArray<T,A>&>(*this)[index]);
+}
+
+template <class T, class A>
 const T& ExtendableArray<T,A>::operator[](int index) const {
     if (index < 0 || index >= count_) {
         throw std::out_of_range("");
     }
 
     return buffer[index];
-}
-
-template <class T, class A>
-T& ExtendableArray<T,A>::operator[](int index) {
-    return const_cast<T&>(static_cast<const ExtendableArray&>(*this)[index]);
 }
 
 template <class T, class A>

@@ -1,6 +1,7 @@
 #include <array>
 #include <stack>
 #include <string>
+#include <utility>
 
 #include <gtest/gtest.h>
 
@@ -114,6 +115,34 @@ TEST(Stack, CopyConstructor) {
 
     ASSERT_EQ(0, st.count());
     ASSERT_EQ(0, st_copied.count());
+}
+
+TEST(Stack, MoveConstructor) {
+    std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
+    alg::Stack<std::string> st(data.size());
+
+    for (std::size_t i = 0; i < data.size() / 2; i++) {
+        st.push(data[i]);
+    }
+
+    alg::Stack<std::string> st_moved = std::move(st);
+
+    for (std::size_t i = data.size() / 2; i < data.size(); i++) {
+        st_moved.push(data[i]);
+    }
+
+    ASSERT_EQ(data.size(), st_moved.count());
+    ASSERT_EQ(0, st.count());
+
+    for (int i = data.size() - 1; i >= 0; i--) {
+        ASSERT_EQ(data[i], st_moved.pop());
+    }
+
+    st.push("foo");
+
+    ASSERT_EQ("foo", st.top());
+    ASSERT_EQ(1, st.count());
+    ASSERT_EQ("foo", st.pop());
 }
 
 TEST(Stack, LargeRandomDataSet) {

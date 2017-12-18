@@ -15,6 +15,7 @@ public:
     explicit Stack(std::size_t n);
 
     Stack(const Stack<T,A>& rhs);
+    Stack(Stack<T,A>&& rhs) noexcept;
 
     ~Stack();
 
@@ -49,6 +50,16 @@ Stack<T,A>::Stack(const Stack<T,A>& rhs) {
     }
 
     top_ = rhs.top_;
+}
+
+template <class T, class A>
+Stack<T,A>::Stack(Stack<T,A>&& rhs) noexcept {
+    buffer = rhs.buffer;
+    size = rhs.size;
+    top_ = rhs.top_;
+
+    rhs.buffer = nullptr;
+    rhs.top_ = -1;
 }
 
 template <class T, class A>

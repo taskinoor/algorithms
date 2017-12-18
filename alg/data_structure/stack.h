@@ -15,7 +15,7 @@ public:
     explicit Stack(std::size_t n);
     ~Stack();
 
-    void push(T element);
+    void push(const T& element);
     T pop();
     T top();
     std::size_t count();
@@ -41,7 +41,7 @@ Stack<T,A>::~Stack() {
 }
 
 template <class T, class A>
-void Stack<T,A>::push(T element) {
+void Stack<T,A>::push(const T& element) {
     if (top_ == size - 1) {
         throw except::BufferFull();
     }

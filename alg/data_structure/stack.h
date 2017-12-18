@@ -13,6 +13,9 @@ template <class T, class A = std::allocator<T>>
 class Stack {
 public:
     explicit Stack(std::size_t n);
+
+    Stack(const Stack<T,A>& rhs);
+
     ~Stack();
 
     void push(const T& element);
@@ -33,6 +36,19 @@ private:
 
 template <class T, class A>
 Stack<T,A>::Stack(std::size_t n) : size{n} {
+}
+
+template <class T, class A>
+Stack<T,A>::Stack(const Stack<T,A>& rhs) {
+    size = rhs.size;
+
+    reserve();
+
+    for (int i = 0; i <= rhs.top_; i++) {
+        std::allocator_traits<A>::construct(alloc, &buffer[i], rhs.buffer[i]);
+    }
+
+    top_ = rhs.top_;
 }
 
 template <class T, class A>

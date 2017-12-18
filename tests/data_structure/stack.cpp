@@ -1,9 +1,12 @@
 #include <array>
+#include <stack>
 
 #include <gtest/gtest.h>
 
 #include "alg/common/exception.h"
+#include "alg/common/randomizer.h"
 #include "alg/data_structure/stack.h"
+#include "tests/helper.h"
 
 namespace algtest {
 
@@ -77,6 +80,41 @@ TEST(Stack, Count) {
     }
 
     ASSERT_EQ(0, s.count());
+}
+
+TEST(Stack, LargeRandomDataSet) {
+    constexpr int total = 100000;
+    constexpr int delete_freq = 10;
+
+    std::stack<NoDefaultCtor<int>> std_stack;
+    alg::Stack<NoDefaultCtor<int>> alg_stack(total);
+
+    for (int i = 0; i < total; i++) {
+        int data = alg::randomizer::uniform_int(-total, total);
+
+        NoDefaultCtor<int> std_data(data);
+        NoDefaultCtor<int> alg_data(data);
+
+        std_stack.push(std_data);
+        alg_stack.push(alg_data);
+
+        if (!(i % delete_freq)) {
+            ASSERT_EQ(std_stack.top().data(), alg_stack.top().data());
+
+            std_stack.pop();
+            alg_stack.pop();
+        }
+    }
+
+    ASSERT_EQ(std_stack.size(), alg_stack.count());
+
+    while (std_stack.size()) {
+        ASSERT_EQ(std_stack.top().data(), alg_stack.pop().data());
+
+        std_stack.pop();
+    }
+
+    ASSERT_EQ(0, alg_stack.count());
 }
 
 }

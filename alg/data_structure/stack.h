@@ -17,8 +17,8 @@ public:
 
     void push(const T& element);
     T pop();
-    T top();
-    std::size_t count();
+    T top() const;
+    std::size_t count() const;
 
 private:
     A alloc;
@@ -71,7 +71,7 @@ T Stack<T,A>::pop() {
 }
 
 template <class T, class A>
-T Stack<T,A>::top() {
+T Stack<T,A>::top() const {
     if (top_ == -1) {
         throw except::BufferEmpty();
     }
@@ -80,7 +80,7 @@ T Stack<T,A>::top() {
 }
 
 template <class T, class A>
-std::size_t Stack<T,A>::count() {
+std::size_t Stack<T,A>::count() const {
     return top_ + 1;
 }
 

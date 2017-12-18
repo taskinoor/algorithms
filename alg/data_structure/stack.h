@@ -11,7 +11,7 @@ template <class T>
 class Stack {
 public:
     explicit Stack(std::size_t n);
-    virtual ~Stack();
+    ~Stack();
 
     void push(T element);
     T pop();

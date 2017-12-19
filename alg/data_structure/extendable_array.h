@@ -7,6 +7,8 @@
 #include <memory>
 #include <stdexcept>
 
+#include "alg/common/utils.h"
+
 namespace alg {
 
 template <class T, class A = std::allocator<T>>
@@ -45,8 +47,6 @@ private:
     T* buffer{nullptr};
     std::size_t capacity_{0};
     std::size_t count_{0};
-
-    void clear_memory(std::size_t start, std::size_t end, bool dealloc);
 };
 
 template <class T, class A>
@@ -86,20 +86,7 @@ ExtendableArray<T,A>::ExtendableArray(ExtendableArray<T,A>&& rhs) noexcept {
 
 template <class T, class A>
 ExtendableArray<T,A>::~ExtendableArray() {
-    clear_memory(0, count_, true);
-}
-
-template <class T, class A>
-void ExtendableArray<T,A>::clear_memory(std::size_t start, std::size_t end,
-        bool dealloc) {
-
-    for (std::size_t i = start; i < end; i++) {
-        std::allocator_traits<A>::destroy(alloc, &buffer[i]);
-    }
-
-    if (dealloc && buffer) {
-        std::allocator_traits<A>::deallocate(alloc, buffer, capacity_);
-    }
+    utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 }
 
 template <class T, class A>
@@ -114,7 +101,7 @@ void ExtendableArray<T,A>::reserve(std::size_t new_capacity) {
         std::allocator_traits<A>::construct(alloc, &tmp_buffer[i], buffer[i]);
     }
 
-    clear_memory(0, count_, true);
+    utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 
     buffer = tmp_buffer;
     capacity_ = new_capacity;
@@ -222,13 +209,13 @@ ExtendableArray<T,A>& ExtendableArray<T,A>::operator=(
                     rhs.buffer[i]);
         }
 
-        clear_memory(0, count_, true);
+        utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 
         buffer = tmp_buffer;
         count_ = rhs.count_;
         capacity_ = rhs.count_;
     } else {
-        clear_memory(0, count_, false);
+        utils::clear_buffer(buffer, alloc, 0, count_, capacity_, false);
 
         for (std::size_t i = 0; i < rhs.count_; i++) {
             std::allocator_traits<A>::construct(alloc, &buffer[i], rhs.buffer[i]);
@@ -244,7 +231,7 @@ template <class T, class A>
 ExtendableArray<T,A>& ExtendableArray<T,A>::operator=(
         ExtendableArray<T,A>&& rhs) noexcept {
 
-    clear_memory(0, count_, true);
+    utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 
     buffer = rhs.buffer;
     count_ = rhs.count_;

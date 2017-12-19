@@ -3,6 +3,8 @@
 
 #include <cstddef>
 
+#include <memory>
+
 namespace alg {
 namespace utils {
 
@@ -31,6 +33,23 @@ void swap(T& a, T& b) {
     T tmp = a;
     a = b;
     b = tmp;
+}
+
+template <class T, class A>
+void clear_buffer(T* buffer, A& alloc, std::size_t begin, std::size_t end,
+        std::size_t capacity, bool dealloc) {
+
+    if (!buffer) {
+        return;
+    }
+
+    for (std::size_t i = begin; i < end; i++) {
+        std::allocator_traits<A>::destroy(alloc, buffer + i);
+    }
+
+    if (dealloc) {
+        std::allocator_traits<A>::deallocate(alloc, buffer, capacity);
+    }
 }
 
 }

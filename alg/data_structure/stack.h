@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "alg/common/exception.h"
+#include "alg/common/utils.h"
 
 namespace alg {
 
@@ -32,7 +33,6 @@ private:
     std::size_t size{0};
 
     void reserve();
-    void clear_memory();
 };
 
 template <class T, class A>
@@ -64,7 +64,7 @@ Stack<T,A>::Stack(Stack<T,A>&& rhs) noexcept {
 
 template <class T, class A>
 Stack<T,A>::~Stack() {
-    clear_memory();
+    utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
 }
 
 template <class T, class A>
@@ -114,15 +114,6 @@ std::size_t Stack<T,A>::count() const {
 template <class T, class A>
 void Stack<T,A>::reserve() {
     buffer = std::allocator_traits<A>::allocate(alloc, size);
-}
-
-template <class T, class A>
-void Stack<T,A>::clear_memory() {
-    for (int i = 0; i <= top_; i++) {
-        std::allocator_traits<A>::destroy(alloc, &buffer[i]);
-    }
-
-    std::allocator_traits<A>::deallocate(alloc, buffer, size);
 }
 
 }

@@ -145,6 +145,66 @@ TEST(Stack, MoveConstructor) {
     ASSERT_EQ("foo", st.pop());
 }
 
+TEST(Stack, SelfCopyAssignment) {
+    std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
+    alg::Stack<std::string> st(data.size() * 2);
+
+    for (std::size_t i = 0; i < data.size(); i++) {
+        st.push(data[i]);
+    }
+
+    st = st;
+
+    for (int i = data.size() - 1; i >= 0; i--) {
+        ASSERT_EQ(data[i], st.pop());
+    }
+
+    st.push("foo");
+
+    ASSERT_EQ(1, st.count());
+}
+
+template <class T, std::size_t NL, std::size_t NR>
+void assert_stack_copy_assignment(const std::array<T,NL>& lhs_data,
+        const std::array<T,NR>& rhs_data) {
+
+    alg::Stack<T> lhs_st(lhs_data.size() * 2);
+    alg::Stack<T> rhs_st(rhs_data.size() * 2);
+
+    for (std::size_t i = 0; i < lhs_data.size(); i++) {
+        lhs_st.push(lhs_data[i]);
+    }
+
+    for (std::size_t i = 0; i < rhs_data.size(); i++) {
+        rhs_st.push(rhs_data[i]);
+    }
+
+    ASSERT_EQ(lhs_data.size(), lhs_st.count());
+    ASSERT_EQ(rhs_data.size(), rhs_st.count());
+
+    lhs_st = rhs_st;
+
+    ASSERT_EQ(rhs_st.count(), lhs_st.count());
+
+    while (rhs_st.count()) {
+        ASSERT_EQ(rhs_st.pop(), lhs_st.pop());
+    }
+}
+
+TEST(Stack, CopyAssignmentDifferentSize) {
+    std::array<std::string, 4> lhs_data = {"a", "b", "c", "d"};
+    std::array<std::string, 6> rhs_data = {"x", "y", "z", "p", "q", "r"};
+
+    assert_stack_copy_assignment(lhs_data, rhs_data);
+}
+
+TEST(Stack, CopyAssignmentSameSize) {
+    std::array<std::string, 6> lhs_data = {"a", "b", "c", "d", "e", "f"};
+    std::array<std::string, 6> rhs_data = {"x", "y", "z", "p", "q", "r"};
+
+    assert_stack_copy_assignment(lhs_data, rhs_data);
+}
+
 TEST(Stack, LargeRandomDataSet) {
     constexpr int total = 100000;
     constexpr int delete_freq = 10;

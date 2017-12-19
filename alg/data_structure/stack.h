@@ -25,6 +25,8 @@ public:
     T top() const;
     std::size_t count() const;
 
+    Stack<T,A>& operator=(const Stack<T,A>& rhs);
+
 private:
     A alloc;
 
@@ -109,6 +111,31 @@ T Stack<T,A>::top() const {
 template <class T, class A>
 std::size_t Stack<T,A>::count() const {
     return top_ + 1;
+}
+
+template <class T, class A>
+Stack<T,A>& Stack<T,A>::operator=(const Stack<T,A>& rhs) {
+    if (this == &rhs) {
+        return *this;
+    }
+
+    if (size == rhs.size) {
+        utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, false);
+    } else {
+        utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
+
+        size = rhs.size;
+
+        reserve();
+    }
+
+    for (int i = 0; i <= rhs.top_; i++) {
+        std::allocator_traits<A>::construct(alloc, &buffer[i], rhs.buffer[i]);
+    }
+
+    top_ = rhs.top_;
+
+    return *this;
 }
 
 template <class T, class A>

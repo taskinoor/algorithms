@@ -26,6 +26,7 @@ public:
     std::size_t count() const;
 
     Stack<T,A>& operator=(const Stack<T,A>& rhs);
+    Stack<T,A>& operator=(Stack<T,A>&& rhs) noexcept;
 
 private:
     A alloc;
@@ -134,6 +135,20 @@ Stack<T,A>& Stack<T,A>::operator=(const Stack<T,A>& rhs) {
     }
 
     top_ = rhs.top_;
+
+    return *this;
+}
+
+template <class T, class A>
+Stack<T,A>& Stack<T,A>::operator=(Stack<T,A>&& rhs) noexcept {
+    utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
+
+    buffer = rhs.buffer;
+    size = rhs.size;
+    top_ = rhs.top_;
+
+    rhs.buffer = nullptr;
+    rhs.top_ = -1;
 
     return *this;
 }

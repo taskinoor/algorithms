@@ -205,6 +205,34 @@ TEST(Stack, CopyAssignmentSameSize) {
     assert_stack_copy_assignment(lhs_data, rhs_data);
 }
 
+TEST(Stack, MoveAssignment) {
+    std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
+    alg::Stack<std::string> rhs(data.size() * 2);
+
+    for (std::size_t i = 0; i < data.size(); i++) {
+        rhs.push(data[i]);
+    }
+
+    alg::Stack<std::string> lhs(0);
+
+    lhs = std::move(rhs);
+
+    ASSERT_EQ(data.size(), lhs.count());
+    ASSERT_EQ(0, rhs.count());
+
+    for (std::size_t i = data.size() - 1; i >= data.size() / 2; i--) {
+        ASSERT_EQ(data[i], lhs.pop());
+    }
+
+    ASSERT_EQ(data.size() / 2, lhs.count());
+
+    rhs.push("foo");
+
+    ASSERT_EQ("foo", rhs.top());
+    ASSERT_EQ(1, rhs.count());
+    ASSERT_EQ("foo", rhs.pop());
+}
+
 TEST(Stack, LargeRandomDataSet) {
     constexpr int total = 100000;
     constexpr int delete_freq = 10;

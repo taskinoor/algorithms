@@ -33,12 +33,13 @@ public:
 
     void reserve(std::size_t new_capacity);
 
-    void add(int index, const T& element);
+    void add(std::size_t index, const T& element);
     void append(const T& element);
-    T remove(int index);
 
-    T& operator[](int index);
-    const T& operator[](int index) const;
+    T remove(std::size_t index);
+
+    T& operator[](std::size_t index);
+    const T& operator[](std::size_t index) const;
 
     ExtendableArray<T>& operator=(const ExtendableArray<T>& rhs);
     ExtendableArray<T>& operator=(ExtendableArray<T>&& rhs) noexcept;
@@ -98,7 +99,7 @@ void ExtendableArray<T>::reserve(std::size_t new_capacity) {
         return;
     }
 
-    T *tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
+    T* tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
             new_capacity);
 
     for (std::size_t i = 0; i < count_; i++) {
@@ -133,8 +134,8 @@ const T* ExtendableArray<T>::data_ptr() const {
 }
 
 template <class T>
-void ExtendableArray<T>::add(int index, const T& element) {
-    if (index < 0 || index > count_) {
+void ExtendableArray<T>::add(std::size_t index, const T& element) {
+    if (index > count_) {
         throw std::out_of_range("");
     }
 
@@ -151,7 +152,7 @@ void ExtendableArray<T>::add(int index, const T& element) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[count_], buffer[count_ - 1]);
 
-        for (int i = count_ - 2; i >= index; i--) {
+        for (int i = count_ - 2; i >= (int)index; i--) {
             buffer[i + 1] = buffer[i];
         }
 
@@ -167,14 +168,14 @@ void ExtendableArray<T>::append(const T& element) {
 }
 
 template <class T>
-T ExtendableArray<T>::remove(int index) {
-    if (index < 0 || index >= count_) {
+T ExtendableArray<T>::remove(std::size_t index) {
+    if (index >= count_) {
         throw std::out_of_range("");
     }
 
     T element = buffer[index];
 
-    for (int i = index + 1; i < count_; i++) {
+    for (std::size_t i = index + 1; i < count_; i++) {
         buffer[i - 1] = buffer[i];
     }
 
@@ -186,13 +187,13 @@ T ExtendableArray<T>::remove(int index) {
 }
 
 template <class T>
-T& ExtendableArray<T>::operator[](int index) {
+T& ExtendableArray<T>::operator[](std::size_t index) {
     return const_cast<T&>(static_cast<const ExtendableArray<T>&>(*this)[index]);
 }
 
 template <class T>
-const T& ExtendableArray<T>::operator[](int index) const {
-    if (index < 0 || index >= count_) {
+const T& ExtendableArray<T>::operator[](std::size_t index) const {
+    if (index >= count_) {
         throw std::out_of_range("");
     }
 
@@ -208,7 +209,7 @@ ExtendableArray<T>& ExtendableArray<T>::operator=(
     }
 
     if (rhs.count_ > capacity_) {
-        T *tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
+        T* tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
                 rhs.count_);
 
         for (std::size_t i = 0; i < rhs.count_; i++) {

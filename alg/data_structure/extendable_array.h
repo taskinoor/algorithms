@@ -11,15 +11,17 @@
 
 namespace alg {
 
-template <class T, class A = std::allocator<T>>
+template <class T>
 class ExtendableArray {
 public:
+    using allocator_type = std::allocator<T>;
+
     ExtendableArray() = default;
     explicit ExtendableArray(std::size_t capacity);
     ExtendableArray(std::initializer_list<T> lst);
 
-    ExtendableArray(const ExtendableArray<T,A>& rhs);
-    ExtendableArray(ExtendableArray<T,A>&& rhs) noexcept;
+    ExtendableArray(const ExtendableArray<T>& rhs);
+    ExtendableArray(ExtendableArray<T>&& rhs) noexcept;
 
     ~ExtendableArray();
 
@@ -38,43 +40,44 @@ public:
     T& operator[](int index);
     const T& operator[](int index) const;
 
-    ExtendableArray<T,A>& operator=(const ExtendableArray<T,A>& rhs);
-    ExtendableArray<T,A>& operator=(ExtendableArray<T,A>&& rhs) noexcept;
+    ExtendableArray<T>& operator=(const ExtendableArray<T>& rhs);
+    ExtendableArray<T>& operator=(ExtendableArray<T>&& rhs) noexcept;
 
 private:
-    A alloc;
+    allocator_type alloc;
 
     T* buffer{nullptr};
     std::size_t capacity_{0};
     std::size_t count_{0};
 };
 
-template <class T, class A>
-ExtendableArray<T,A>::ExtendableArray(std::size_t capacity) {
+template <class T>
+ExtendableArray<T>::ExtendableArray(std::size_t capacity) {
     reserve(capacity);
 }
 
-template <class T, class A>
-ExtendableArray<T,A>::ExtendableArray(std::initializer_list<T> lst) {
+template <class T>
+ExtendableArray<T>::ExtendableArray(std::initializer_list<T> lst) {
     reserve(lst.size());
 
     for (const T& value : lst) {
-        std::allocator_traits<A>::construct(alloc, &buffer[count_++], value);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[count_++], value);
     }
 }
 
-template <class T, class A>
-ExtendableArray<T,A>::ExtendableArray(const ExtendableArray<T,A>& rhs) {
+template <class T>
+ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
     reserve(rhs.count_);
 
     for ( ; count_ < rhs.count_; count_++) {
-        std::allocator_traits<A>::construct(alloc, &buffer[count_],
-                rhs.buffer[count_]);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[count_], rhs.buffer[count_]);
     }
 }
 
-template <class T, class A>
-ExtendableArray<T,A>::ExtendableArray(ExtendableArray<T,A>&& rhs) noexcept {
+template <class T>
+ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& rhs) noexcept {
     capacity_ = rhs.capacity_;
     count_ = rhs.count_;
     buffer = rhs.buffer;
@@ -84,21 +87,23 @@ ExtendableArray<T,A>::ExtendableArray(ExtendableArray<T,A>&& rhs) noexcept {
     rhs.count_ = 0;
 }
 
-template <class T, class A>
-ExtendableArray<T,A>::~ExtendableArray() {
+template <class T>
+ExtendableArray<T>::~ExtendableArray() {
     utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 }
 
-template <class T, class A>
-void ExtendableArray<T,A>::reserve(std::size_t new_capacity) {
+template <class T>
+void ExtendableArray<T>::reserve(std::size_t new_capacity) {
     if (new_capacity <= capacity_) {
         return;
     }
 
-    T *tmp_buffer = std::allocator_traits<A>::allocate(alloc, new_capacity);
+    T *tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
+            new_capacity);
 
     for (std::size_t i = 0; i < count_; i++) {
-        std::allocator_traits<A>::construct(alloc, &tmp_buffer[i], buffer[i]);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &tmp_buffer[i], buffer[i]);
     }
 
     utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
@@ -107,28 +112,28 @@ void ExtendableArray<T,A>::reserve(std::size_t new_capacity) {
     capacity_ = new_capacity;
 }
 
-template <class T, class A>
-std::size_t ExtendableArray<T,A>::count() const {
+template <class T>
+std::size_t ExtendableArray<T>::count() const {
     return count_;
 }
 
-template <class T, class A>
-std::size_t ExtendableArray<T,A>::capacity() const {
+template <class T>
+std::size_t ExtendableArray<T>::capacity() const {
     return capacity_;
 }
 
-template <class T, class A>
-T* ExtendableArray<T,A>::data_ptr() {
+template <class T>
+T* ExtendableArray<T>::data_ptr() {
     return buffer;
 }
 
-template <class T, class A>
-const T* ExtendableArray<T,A>::data_ptr() const {
+template <class T>
+const T* ExtendableArray<T>::data_ptr() const {
     return buffer;
 }
 
-template <class T, class A>
-void ExtendableArray<T,A>::add(int index, const T& element) {
+template <class T>
+void ExtendableArray<T>::add(int index, const T& element) {
     if (index < 0 || index > count_) {
         throw std::out_of_range("");
     }
@@ -140,10 +145,11 @@ void ExtendableArray<T,A>::add(int index, const T& element) {
     }
 
     if (index == count_) {
-        std::allocator_traits<A>::construct(alloc, &buffer[count_], element);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[count_], element);
     } else {
-        std::allocator_traits<A>::construct(alloc, &buffer[count_],
-                buffer[count_ - 1]);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[count_], buffer[count_ - 1]);
 
         for (int i = count_ - 2; i >= index; i--) {
             buffer[i + 1] = buffer[i];
@@ -155,13 +161,13 @@ void ExtendableArray<T,A>::add(int index, const T& element) {
     count_++;
 }
 
-template <class T, class A>
-void ExtendableArray<T,A>::append(const T& element) {
+template <class T>
+void ExtendableArray<T>::append(const T& element) {
     add(count_, element);
 }
 
-template <class T, class A>
-T ExtendableArray<T,A>::remove(int index) {
+template <class T>
+T ExtendableArray<T>::remove(int index) {
     if (index < 0 || index >= count_) {
         throw std::out_of_range("");
     }
@@ -172,20 +178,20 @@ T ExtendableArray<T,A>::remove(int index) {
         buffer[i - 1] = buffer[i];
     }
 
-    std::allocator_traits<A>::destroy(alloc, &buffer[count_ - 1]);
+    std::allocator_traits<allocator_type>::destroy(alloc, &buffer[count_ - 1]);
 
     count_--;
 
     return element;
 }
 
-template <class T, class A>
-T& ExtendableArray<T,A>::operator[](int index) {
-    return const_cast<T&>(static_cast<const ExtendableArray<T,A>&>(*this)[index]);
+template <class T>
+T& ExtendableArray<T>::operator[](int index) {
+    return const_cast<T&>(static_cast<const ExtendableArray<T>&>(*this)[index]);
 }
 
-template <class T, class A>
-const T& ExtendableArray<T,A>::operator[](int index) const {
+template <class T>
+const T& ExtendableArray<T>::operator[](int index) const {
     if (index < 0 || index >= count_) {
         throw std::out_of_range("");
     }
@@ -193,20 +199,21 @@ const T& ExtendableArray<T,A>::operator[](int index) const {
     return buffer[index];
 }
 
-template <class T, class A>
-ExtendableArray<T,A>& ExtendableArray<T,A>::operator=(
-        const ExtendableArray<T,A>& rhs) {
+template <class T>
+ExtendableArray<T>& ExtendableArray<T>::operator=(
+        const ExtendableArray<T>& rhs) {
 
     if (this == &rhs) {
         return *this;
     }
 
     if (rhs.count_ > capacity_) {
-        T *tmp_buffer = std::allocator_traits<A>::allocate(alloc, rhs.count_);
+        T *tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
+                rhs.count_);
 
         for (std::size_t i = 0; i < rhs.count_; i++) {
-            std::allocator_traits<A>::construct(alloc, &tmp_buffer[i],
-                    rhs.buffer[i]);
+            std::allocator_traits<allocator_type>::construct(alloc,
+                    &tmp_buffer[i], rhs.buffer[i]);
         }
 
         utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
@@ -218,7 +225,8 @@ ExtendableArray<T,A>& ExtendableArray<T,A>::operator=(
         utils::clear_buffer(buffer, alloc, 0, count_, capacity_, false);
 
         for (std::size_t i = 0; i < rhs.count_; i++) {
-            std::allocator_traits<A>::construct(alloc, &buffer[i], rhs.buffer[i]);
+            std::allocator_traits<allocator_type>::construct(alloc,
+                    &buffer[i], rhs.buffer[i]);
         }
 
         count_ = rhs.count_;
@@ -227,9 +235,9 @@ ExtendableArray<T,A>& ExtendableArray<T,A>::operator=(
     return *this;
 }
 
-template <class T, class A>
-ExtendableArray<T,A>& ExtendableArray<T,A>::operator=(
-        ExtendableArray<T,A>&& rhs) noexcept {
+template <class T>
+ExtendableArray<T>& ExtendableArray<T>::operator=(
+        ExtendableArray<T>&& rhs) noexcept {
 
     utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 

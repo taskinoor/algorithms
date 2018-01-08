@@ -10,13 +10,15 @@
 
 namespace alg {
 
-template <class T, class A = std::allocator<T>>
+template <class T>
 class Stack {
 public:
+    using allocator_type = std::allocator<T>;
+
     explicit Stack(std::size_t n);
 
-    Stack(const Stack<T,A>& rhs);
-    Stack(Stack<T,A>&& rhs) noexcept;
+    Stack(const Stack<T>& rhs);
+    Stack(Stack<T>&& rhs) noexcept;
 
     ~Stack();
 
@@ -25,11 +27,11 @@ public:
     T top() const;
     std::size_t count() const;
 
-    Stack<T,A>& operator=(const Stack<T,A>& rhs);
-    Stack<T,A>& operator=(Stack<T,A>&& rhs) noexcept;
+    Stack<T>& operator=(const Stack<T>& rhs);
+    Stack<T>& operator=(Stack<T>&& rhs) noexcept;
 
 private:
-    A alloc;
+    allocator_type alloc;
 
     T* buffer{nullptr};
     int top_{-1};
@@ -38,25 +40,26 @@ private:
     void reserve();
 };
 
-template <class T, class A>
-Stack<T,A>::Stack(std::size_t n) : size{n} {
+template <class T>
+Stack<T>::Stack(std::size_t n) : size{n} {
 }
 
-template <class T, class A>
-Stack<T,A>::Stack(const Stack<T,A>& rhs) {
+template <class T>
+Stack<T>::Stack(const Stack<T>& rhs) {
     size = rhs.size;
 
     reserve();
 
     for (int i = 0; i <= rhs.top_; i++) {
-        std::allocator_traits<A>::construct(alloc, &buffer[i], rhs.buffer[i]);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[i], rhs.buffer[i]);
     }
 
     top_ = rhs.top_;
 }
 
-template <class T, class A>
-Stack<T,A>::Stack(Stack<T,A>&& rhs) noexcept {
+template <class T>
+Stack<T>::Stack(Stack<T>&& rhs) noexcept {
     buffer = rhs.buffer;
     size = rhs.size;
     top_ = rhs.top_;
@@ -65,13 +68,13 @@ Stack<T,A>::Stack(Stack<T,A>&& rhs) noexcept {
     rhs.top_ = -1;
 }
 
-template <class T, class A>
-Stack<T,A>::~Stack() {
+template <class T>
+Stack<T>::~Stack() {
     utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
 }
 
-template <class T, class A>
-void Stack<T,A>::push(const T& element) {
+template <class T>
+void Stack<T>::push(const T& element) {
     if (top_ == size - 1) {
         throw except::BufferFull();
     }
@@ -82,26 +85,27 @@ void Stack<T,A>::push(const T& element) {
 
     top_++;
 
-    std::allocator_traits<A>::construct(alloc, &buffer[top_], element);
+    std::allocator_traits<allocator_type>::construct(alloc,
+            &buffer[top_], element);
 }
 
-template <class T, class A>
-T Stack<T,A>::pop() {
+template <class T>
+T Stack<T>::pop() {
     if (top_ == -1) {
         throw except::BufferEmpty();
     }
 
     T element = buffer[top_];
 
-    std::allocator_traits<A>::destroy(alloc, &buffer[top_]);
+    std::allocator_traits<allocator_type>::destroy(alloc, &buffer[top_]);
 
     top_--;
 
     return element;
 }
 
-template <class T, class A>
-T Stack<T,A>::top() const {
+template <class T>
+T Stack<T>::top() const {
     if (top_ == -1) {
         throw except::BufferEmpty();
     }
@@ -109,13 +113,13 @@ T Stack<T,A>::top() const {
     return buffer[top_];
 }
 
-template <class T, class A>
-std::size_t Stack<T,A>::count() const {
+template <class T>
+std::size_t Stack<T>::count() const {
     return top_ + 1;
 }
 
-template <class T, class A>
-Stack<T,A>& Stack<T,A>::operator=(const Stack<T,A>& rhs) {
+template <class T>
+Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
     if (this == &rhs) {
         return *this;
     }
@@ -131,7 +135,8 @@ Stack<T,A>& Stack<T,A>::operator=(const Stack<T,A>& rhs) {
     }
 
     for (int i = 0; i <= rhs.top_; i++) {
-        std::allocator_traits<A>::construct(alloc, &buffer[i], rhs.buffer[i]);
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[i], rhs.buffer[i]);
     }
 
     top_ = rhs.top_;
@@ -139,8 +144,8 @@ Stack<T,A>& Stack<T,A>::operator=(const Stack<T,A>& rhs) {
     return *this;
 }
 
-template <class T, class A>
-Stack<T,A>& Stack<T,A>::operator=(Stack<T,A>&& rhs) noexcept {
+template <class T>
+Stack<T>& Stack<T>::operator=(Stack<T>&& rhs) noexcept {
     utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
 
     buffer = rhs.buffer;
@@ -153,9 +158,9 @@ Stack<T,A>& Stack<T,A>::operator=(Stack<T,A>&& rhs) noexcept {
     return *this;
 }
 
-template <class T, class A>
-void Stack<T,A>::reserve() {
-    buffer = std::allocator_traits<A>::allocate(alloc, size);
+template <class T>
+void Stack<T>::reserve() {
+    buffer = std::allocator_traits<allocator_type>::allocate(alloc, size);
 }
 
 }

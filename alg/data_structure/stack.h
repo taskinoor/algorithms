@@ -23,8 +23,10 @@ public:
     ~Stack();
 
     void push(const T& element);
+
     T pop();
     T top() const;
+
     std::size_t count() const;
 
     Stack<T>& operator=(const Stack<T>& rhs);
@@ -34,8 +36,9 @@ private:
     allocator_type alloc;
 
     T* buffer{nullptr};
-    int top_{-1};
+
     std::size_t size{0};
+    int top_{-1};
 
     void reserve();
 };
@@ -45,9 +48,7 @@ Stack<T>::Stack(std::size_t n) : size{n} {
 }
 
 template <class T>
-Stack<T>::Stack(const Stack<T>& rhs) {
-    size = rhs.size;
-
+Stack<T>::Stack(const Stack<T>& rhs) : size{rhs.size} {
     reserve();
 
     for (int i = 0; i <= rhs.top_; i++) {
@@ -59,10 +60,8 @@ Stack<T>::Stack(const Stack<T>& rhs) {
 }
 
 template <class T>
-Stack<T>::Stack(Stack<T>&& rhs) noexcept {
-    buffer = rhs.buffer;
-    size = rhs.size;
-    top_ = rhs.top_;
+Stack<T>::Stack(Stack<T>&& rhs) noexcept : buffer{rhs.buffer}, size{rhs.size},
+        top_{rhs.top_} {
 
     rhs.buffer = nullptr;
     rhs.top_ = -1;
@@ -124,11 +123,9 @@ Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
         return *this;
     }
 
-    if (size == rhs.size) {
-        utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, false);
-    } else {
-        utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
+    utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, size != rhs.size);
 
+    if (size != rhs.size) {
         size = rhs.size;
 
         reserve();

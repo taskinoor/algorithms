@@ -1,7 +1,7 @@
 #ifndef ALG_BINARY_HEAP_H_
 #define ALG_BINARY_HEAP_H_
 
-#include "alg/common/utils.h"
+#include <algorithm>
 
 namespace alg {
 namespace heap {
@@ -42,7 +42,7 @@ void min_heapify(T* a, int i, int n) {
             break;
         }
 
-        utils::swap(a[i], a[smallest]);
+        std::swap(a[i], a[smallest]);
         i = smallest;
     }
 }
@@ -65,7 +65,7 @@ void max_heapify(T* a, int i, int n) {
             break;
         }
 
-        utils::swap(a[i], a[largest]);
+        std::swap(a[i], a[largest]);
         i = largest;
     }
 }

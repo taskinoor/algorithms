@@ -1,6 +1,8 @@
 #ifndef ALG_SELECTION_SORT_H_
 #define ALG_SELECTION_SORT_H_
 
+#include <algorithm>
+
 #include "alg/common/utils.h"
 
 namespace alg {
@@ -11,7 +13,7 @@ void selection_sort(T* a, int n) {
         int index = utils::min_index(a, n, i);
 
         if (index != i) {
-            utils::swap(a[index], a[i]);
+            std::swap(a[index], a[i]);
         }
     }
 }

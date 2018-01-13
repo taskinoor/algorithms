@@ -3,10 +3,10 @@
 
 #include <cstddef>
 
+#include <algorithm>
 #include <limits>
 
 #include "alg/common/exception.h"
-#include "alg/common/utils.h"
 #include "alg/data_structure/binary_heap.h"
 #include "alg/data_structure/extendable_array.h"
 
@@ -136,7 +136,7 @@ void PriorityQueue<T>::increase_priority(int index, int new_priority) {
             break;
         }
 
-        utils::swap(buffer[index], buffer[parent]);
+        std::swap(buffer[index], buffer[parent]);
         index = parent;
     }
 }
@@ -156,7 +156,7 @@ void PriorityQueue<T>::decrease_priority(int index, int new_priority) {
             break;
         }
 
-        utils::swap(buffer[index], buffer[parent]);
+        std::swap(buffer[index], buffer[parent]);
         index = parent;
     }
 }

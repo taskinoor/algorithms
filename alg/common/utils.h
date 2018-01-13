@@ -23,13 +23,6 @@ int min_index(T* a, std::size_t n, int start = 0) {
     return index;
 }
 
-template <class T>
-void swap(T& a, T& b) {
-    T tmp = a;
-    a = b;
-    b = tmp;
-}
-
 template <class T, class A>
 void clear_buffer(T* buffer, A& alloc, std::size_t begin, std::size_t end,
         std::size_t capacity, bool dealloc) {

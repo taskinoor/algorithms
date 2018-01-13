@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-#include "alg/common/utils.h"
+#include <algorithm>
 
 namespace alg {
 
@@ -16,16 +16,16 @@ T max_subarray_dp(T* a, std::size_t n) {
     T* suffix_sum = new T[n];
     T zero = 0;
 
-    suffix_sum[0] = utils::max(zero, a[0]);
+    suffix_sum[0] = std::max(zero, a[0]);
 
     for (int i = 1; i < n; i++) {
-        suffix_sum[i] = utils::max(zero, suffix_sum[i - 1] + a[i]);
+        suffix_sum[i] = std::max(zero, suffix_sum[i - 1] + a[i]);
     }
 
     T max_sum = suffix_sum[0];
 
     for (int i = 1; i < n; i++) {
-        max_sum = utils::max(max_sum, suffix_sum[i]);
+        max_sum = std::max(max_sum, suffix_sum[i]);
     }
 
     delete[] suffix_sum;

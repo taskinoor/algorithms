@@ -1,11 +1,10 @@
 #ifndef ALG_BINARY_TREE_H_
 #define ALG_BINARY_TREE_H_
 
+#include <algorithm>
 #include <ostream>
 #include <sstream>
 #include <string>
-
-#include "alg/common/utils.h"
 
 namespace alg {
 
@@ -214,7 +213,7 @@ int BinaryTree<T>::height(TreeNode<T>* p) {
         return -1;
     }
 
-    return 1 + utils::max(height(p->left), height(p->right));
+    return 1 + std::max(height(p->left), height(p->right));
 }
 
 template <class T>

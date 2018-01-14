@@ -1,5 +1,5 @@
-#ifndef ALG_MATRIX_H_
-#define ALG_MATRIX_H_
+#ifndef ALG_NUMERIC_MATRIX_H_
+#define ALG_NUMERIC_MATRIX_H_
 
 #include <cstddef>
 
@@ -9,6 +9,7 @@
 #include <utility>
 
 namespace alg {
+namespace numeric {
 
 template <class T>
 class Matrix {
@@ -295,6 +296,7 @@ Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs) {
     return rhs * lhs;
 }
 
+}
 }
 
 #endif

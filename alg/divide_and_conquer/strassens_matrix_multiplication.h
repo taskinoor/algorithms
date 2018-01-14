@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-#include "alg/misc/matrix.h"
+#include "alg/numeric/matrix.h"
 
 namespace alg {
 
@@ -17,19 +17,22 @@ namespace alg {
  * improved further by partitioning matrices using index calculation.
  */
 template <class T>
-Matrix<T> strassens_matrix_multiply(const Matrix<T>& A, const Matrix<T>& B) {
+numeric::Matrix<T> strassens_matrix_multiply(const numeric::Matrix<T>& A,
+        const numeric::Matrix<T>& B) {
+
     std::size_t n = A.dimension().first;
     std::size_t p = n / 2;
-    Matrix<T> C(n, n);
+
+    numeric::Matrix<T> C(n, n);
 
     if (n == 1) {
         C[0][0] = A[0][0] * B[0][0];
     } else {
-        Matrix<T> PA[2][2];
-        Matrix<T> PB[2][2];
-        Matrix<T> PC[2][2];
-        Matrix<T> S[10];
-        Matrix<T> P[7];
+        numeric::Matrix<T> PA[2][2];
+        numeric::Matrix<T> PB[2][2];
+        numeric::Matrix<T> PC[2][2];
+        numeric::Matrix<T> S[10];
+        numeric::Matrix<T> P[7];
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {

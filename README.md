@@ -2,7 +2,7 @@
 
 Implementation of some common data structures and algorithms using C++11. This is mostly a recreational activity. The main purpose is to learn and to have fun.
 
-Implementations from C++ standard library and other notable libraries are almost always more preferable for production quality software. For example, codes here provide almost no exception guarantee, not optimized, do not take care of rule of five properly, containers are not properly allocator aware are some of the problems that reliable production quality codes must consider. So, I don't think this will have much value ever other than learning and having fun. You have been warned.
+Implementations from C++ standard library and other notable libraries (e.g. `boost`) are almost always more preferable for production quality software. I don't think this will have much value ever other than learning and having fun. You have been warned.
 
 The [references section](https://github.com/taskinoor/algorithms/blob/master/REFERENCES.md) must be consulted first before checking out a particular code.
 
@@ -49,6 +49,7 @@ List of data structures and algorithms implemented so far:
 	* Strassen’s Matrix Multiplication
 * Dynamic Programming
 	* Maximum Subarray
+* Numeric
+	* Matrix (Basic Operations)
 * Miscellaneous
 	* Josephus problem (1. Using Queue, 2. Using Order Statistic Tree)
-	* Matrix (Basic Operations)

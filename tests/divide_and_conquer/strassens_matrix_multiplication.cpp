@@ -4,15 +4,15 @@
 
 #include <gtest/gtest.h>
 
-#include "alg/misc/matrix.h"
 #include "alg/divide_and_conquer/strassens_matrix_multiplication.h"
+#include "alg/numeric/matrix.h"
 
 namespace algtest {
 
 TEST(StrassensMatrix, Multiplication) {
     constexpr int n = 8;
 
-    alg::Matrix<int> A = {
+    alg::numeric::Matrix<int> A = {
         {269, 499, 659, 7, 71, 647, 569, 577},
         {599, 607, 61, 277, 563, 241, 353, 631},
         {467, 461, 419, 541, 373, 151, 421, 181},
@@ -22,7 +22,7 @@ TEST(StrassensMatrix, Multiplication) {
         {67, 173, 271, 619, 349, 587, 293, 593},
         {89, 337, 557, 19, 199, 229, 491, 163}
     };
-    alg::Matrix<int> B = {
+    alg::numeric::Matrix<int> B = {
         {257, 449, 661, 59, 167, 31, 109, 677},
         {41, 73, 383, 97, 281, 601, 29, 127},
         {433, 43, 709, 79, 83, 101, 617, 331},
@@ -44,7 +44,7 @@ TEST(StrassensMatrix, Multiplication) {
         {640104, 385566, 939834, 564560, 468408, 492368, 457698, 522634}
     };
 
-    alg::Matrix<int> C = alg::strassens_matrix_multiply(A, B);
+    alg::numeric::Matrix<int> C = alg::strassens_matrix_multiply(A, B);
     std::pair<std::size_t, std::size_t> d = C.dimension();
 
     ASSERT_EQ(n, d.first);

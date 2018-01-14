@@ -1,5 +1,5 @@
-#ifndef ALG_ITERATOR_H_
-#define ALG_ITERATOR_H_
+#ifndef ALG_PATTERNS_ITERATOR_H_
+#define ALG_PATTERNS_ITERATOR_H_
 
 namespace alg {
 namespace patterns {

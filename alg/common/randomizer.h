@@ -1,5 +1,5 @@
-#ifndef ALG_RANDOMIZER_H_
-#define ALG_RANDOMIZER_H_
+#ifndef ALG_COMMON_RANDOMIZER_H_
+#define ALG_COMMON_RANDOMIZER_H_
 
 #include <random>
 

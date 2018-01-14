@@ -1,5 +1,5 @@
-#ifndef ALG_EXCEPTION_H_
-#define ALG_EXCEPTION_H_
+#ifndef ALG_EXCEPT_EXCEPTION_H_
+#define ALG_EXCEPT_EXCEPTION_H_
 
 #include <stdexcept>
 

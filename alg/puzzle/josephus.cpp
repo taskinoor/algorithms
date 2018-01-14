@@ -1,23 +1,51 @@
 #include <algorithm>
+#include <memory>
 
 #include "alg/common/randomizer.h"
+#include "alg/data_structure/extendable_array.h"
 #include "alg/data_structure/queue.h"
+#include "alg/data_structure/tree/order_statistic_tree.h"
+
 #include "josephus.h"
 
 namespace alg {
 namespace puzzle {
 
-int josephus_queue(int n, int k) {
-    Queue<int> q(256);
+namespace {
 
-    for (int i = 1; i <= n; i++) {
+std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
+    ExtendableArray<std::size_t> data(n);
+
+    for (std::size_t i = 1; i <= n; i++) {
+        data.append(i);
+    }
+
+    std::shuffle(data.data_ptr(), data.data_ptr() + n, randomizer::engine());
+
+    std::unique_ptr<OrderStatisticTree<std::size_t>> ost(
+            new OrderStatisticTree<std::size_t>());
+
+    for (std::size_t i = 0; i < n; i++) {
+        ost->insert(data[i]);
+    }
+
+    return ost;
+}
+
+}
+
+std::size_t josephus_queue(std::size_t n, std::size_t k) {
+    Queue<std::size_t> q(n);
+
+    for (std::size_t i = 1; i <= n; i++) {
         q.enqueue(i);
     }
 
     while (true) {
-        for (int i = 1; i < k; i++) {
+        for (std::size_t i = 1; i < k; i++) {
             q.enqueue(q.dequeue());
         }
+
         q.dequeue();
 
         if (q.count() == 1) {
@@ -26,10 +54,11 @@ int josephus_queue(int n, int k) {
     }
 }
 
-int josephus_ost(int n, int k) {
-    OrderStatisticTree<int>* ost = randomized_ost(n);
-    int left = n;
-    int next = (k - 1) % left;
+std::size_t josephus_ost(std::size_t n, std::size_t k) {
+    std::unique_ptr<OrderStatisticTree<std::size_t>> ost = randomized_ost(n);
+
+    std::size_t left = n;
+    std::size_t next = (k - 1) % left;
 
     while (left > 1) {
         ost->remove(ost->select_node(next));
@@ -37,29 +66,7 @@ int josephus_ost(int n, int k) {
         next = (next + k - 1) % left;
     }
 
-    int survivor = ost->root()->element();
-    delete ost;
-
-    return survivor;
-}
-
-OrderStatisticTree<int>* randomized_ost(int n) {
-    int* data = new int[n];
-    OrderStatisticTree<int>* ost = new OrderStatisticTree<int>;
-
-    for (int i = 0; i < n; i++) {
-        data[i] = i + 1;
-    }
-
-    std::shuffle(&data[0], &data[n], randomizer::engine());
-
-    for (int i = 0; i < n; i++) {
-        ost->insert(data[i]);
-    }
-
-    delete[] data;
-
-    return ost;
+    return ost->root()->element();
 }
 
 }

@@ -51,5 +51,5 @@ List of data structures and algorithms implemented so far:
 	* Maximum Subarray
 * Numeric
 	* Matrix (Basic Operations)
-* Miscellaneous
+* Puzzle
 	* Josephus problem (1. Using Queue, 2. Using Order Statistic Tree)

@@ -5,6 +5,7 @@
 #include "josephus.h"
 
 namespace alg {
+namespace puzzle {
 
 int josephus_queue(int n, int k) {
     Queue<int> q(256);
@@ -61,4 +62,5 @@ OrderStatisticTree<int>* randomized_ost(int n) {
     return ost;
 }
 
+}
 }

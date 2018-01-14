@@ -51,7 +51,7 @@ private:
 };
 
 template <class T>
-class ListIterator : public Iterator<T> {
+class ListIterator : public patterns::Iterator<T> {
 public:
     ListIterator(LinkedList<T>* list);
     virtual ~ListIterator() {}

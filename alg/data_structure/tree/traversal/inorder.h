@@ -8,7 +8,7 @@
 namespace alg {
 
 template <class T>
-class InOrderIterator : public Iterator<T> {
+class InOrderIterator : public patterns::Iterator<T> {
 public:
     explicit InOrderIterator(BinaryTree<T>* tree);
     virtual ~InOrderIterator();

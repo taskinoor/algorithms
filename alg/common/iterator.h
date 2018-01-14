@@ -2,6 +2,7 @@
 #define ALG_ITERATOR_H_
 
 namespace alg {
+namespace patterns {
 
 template <class T>
 class Iterator {
@@ -14,6 +15,7 @@ public:
     virtual ~Iterator() = default;
 };
 
+}
 }
 
 #endif

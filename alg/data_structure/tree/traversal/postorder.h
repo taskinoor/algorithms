@@ -8,7 +8,7 @@
 namespace alg {
 
 template <class T>
-class PostOrderIterator : public Iterator<T> {
+class PostOrderIterator : public patterns::Iterator<T> {
 public:
     explicit PostOrderIterator(BinaryTree<T>* tree);
     virtual ~PostOrderIterator();

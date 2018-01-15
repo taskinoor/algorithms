@@ -9,7 +9,7 @@ namespace algtest {
 TEST(BinarySearch, EmptyArray) {
     int a[] = {};
 
-    ASSERT_EQ(-1, alg::binary_search(a, 2, 0));
+    ASSERT_EQ(-1, alg::searching::binary_search(a, 2, 0));
 }
 
 TEST(BinarySearch, NonEmptyArray) {
@@ -17,12 +17,12 @@ TEST(BinarySearch, NonEmptyArray) {
     std::size_t n = 16;
 
     for (unsigned int i = 0; i < n; i++) {
-        ASSERT_EQ(i, alg::binary_search(a, a[i], n));
+        ASSERT_EQ(i, alg::searching::binary_search(a, a[i], n));
     }
 
-    ASSERT_EQ(-1, alg::binary_search(a, 0, n));
-    ASSERT_EQ(-1, alg::binary_search(a, 41, n));
-    ASSERT_EQ(-1, alg::binary_search(a, 10, n));
+    ASSERT_EQ(-1, alg::searching::binary_search(a, 0, n));
+    ASSERT_EQ(-1, alg::searching::binary_search(a, 41, n));
+    ASSERT_EQ(-1, alg::searching::binary_search(a, 10, n));
 }
 
 }

@@ -1,5 +1,5 @@
-#ifndef ALG_RANGE_QUERY_H_
-#define ALG_RANGE_QUERY_H_
+#ifndef ALG_SEARCHING_RANGE_QUERY_H_
+#define ALG_SEARCHING_RANGE_QUERY_H_
 
 #include <unordered_set>
 
@@ -7,6 +7,7 @@
 #include "alg/data_structure/tree/bst.h"
 
 namespace alg {
+namespace searching {
 
 template <class T>
 void range_query(BST<T>* bst, TreeNode<T>* v, T k1, T k2,
@@ -33,6 +34,7 @@ void range_query(BST<T>* bst, T k1, T k2, std::unordered_set<T> &result) {
     range_query(bst, bst->root(), k1, k2, result);
 }
 
+}
 }
 
 #endif

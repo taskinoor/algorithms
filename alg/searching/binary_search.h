@@ -1,9 +1,10 @@
-#ifndef ALG_BINARY_SEARCH_H_
-#define ALG_BINARY_SEARCH_H_
+#ifndef ALG_SEARCHING_BINARY_SEARCH_H_
+#define ALG_SEARCHING_BINARY_SEARCH_H_
 
 #include <cstddef>
 
 namespace alg {
+namespace searching {
 
 template <class T>
 int binary_search(T* a, T key, std::size_t n) {
@@ -25,6 +26,7 @@ int binary_search(T* a, T key, std::size_t n) {
     return -1;
 }
 
+}
 }
 
 #endif

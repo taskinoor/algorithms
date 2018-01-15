@@ -40,7 +40,7 @@ TEST_F(OST, NodeCountAfterInsert) {
     std::array<int, 14> expected = {14, 5, 8, 3, 1, 4, 3, 1, 1, 2, 1, 2, 1, 1};
     std::array<int, 14> result;
 
-    for (unsigned int i = 0; i < elements.size(); i++) {
+    for (unsigned int i = 0; i < elements.size(); ++i) {
         result[i] = ((alg::OSTNode<int>*)ost->search(elements[i]))->count();
     }
 
@@ -53,7 +53,7 @@ TEST_F(OST, NodeCountAfterRemove) {
     std::array<int, 7> expected = {2, 2, 1, 1, 1, 7, 4};
     std::array<int, 7> result;
 
-    for (unsigned int i = 0; i < after_remove.size(); i++) {
+    for (unsigned int i = 0; i < after_remove.size(); ++i) {
         result[i] = ((alg::OSTNode<int>*)ost->search(after_remove[i]))->count();
     }
 
@@ -67,7 +67,7 @@ TEST_F(OST, SelectAfterInsert) {
     };
     std::array<int, 14> result;
 
-    for (unsigned int i = 0; i < elements.size(); i++) {
+    for (unsigned int i = 0; i < elements.size(); ++i) {
         result[i] = ost->select(i);
     }
 
@@ -80,7 +80,7 @@ TEST_F(OST, SelectAfterRemove) {
     std::array<int, 7> expected = {20, 33, 46, 51, 58, 72, 74};
     std::array<int, 7> result;
 
-    for (unsigned int i = 0; i < after_remove.size(); i++) {
+    for (unsigned int i = 0; i < after_remove.size(); ++i) {
         result[i] = ost->select(i);
     }
 
@@ -93,7 +93,7 @@ TEST_F(OST, RankAfterInsert) {
     };
     std::array<int, 14> result;
 
-    for (unsigned int i = 0; i < elements.size(); i++) {
+    for (unsigned int i = 0; i < elements.size(); ++i) {
         result[i] = ost->rank(elements[i]);
     }
 
@@ -106,7 +106,7 @@ TEST_F(OST, RankAfterRemove) {
     std::array<int, 7> expected = {1, 3, 6, 0, 4, 2, 5};
     std::array<int, 7> result;
 
-    for (unsigned int i = 0; i < after_remove.size(); i++) {
+    for (unsigned int i = 0; i < after_remove.size(); ++i) {
         result[i] = ost->rank(after_remove[i]);
     }
 

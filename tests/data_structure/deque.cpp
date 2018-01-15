@@ -23,7 +23,7 @@ TEST_F(Deque, Operations) {
 
     assert_empty(deq);
 
-    for (int i = 9; i >= 0; i--) {
+    for (int i = 9; i >= 0; --i) {
         deq.push_front(i);
 
         ASSERT_EQ(9, deq.back());
@@ -31,7 +31,7 @@ TEST_F(Deque, Operations) {
         ASSERT_EQ(10 - i, deq.count());
     }
 
-    for (int i = 10; i < 20; i++) {
+    for (int i = 10; i < 20; ++i) {
         deq.push_back(i);
 
         ASSERT_EQ(i, deq.back());
@@ -39,14 +39,14 @@ TEST_F(Deque, Operations) {
         ASSERT_EQ(i + 1, deq.count());
     }
 
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 15; ++i) {
         ASSERT_EQ(i, deq.pop_front());
         ASSERT_EQ(20 - (i + 1), deq.count());
         ASSERT_EQ(i + 1, deq.front());
         ASSERT_EQ(19, deq.back());
     }
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; ++i) {
         ASSERT_EQ(19 - i, deq.pop_back());
         ASSERT_EQ(5 - (i + 1), deq.count());
 

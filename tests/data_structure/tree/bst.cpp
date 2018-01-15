@@ -45,7 +45,7 @@ TEST_F(BST, InOrderTraversal) {
 
     it->first();
 
-    for (int i = 0; !it->is_done(); it->next(), i++) {
+    for (int i = 0; !it->is_done(); it->next(), ++i) {
         result[i] = it->current_item();
     }
 
@@ -68,7 +68,7 @@ TEST_F(BST, Search) {
         17, 0, 0, 15
     };
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         alg::TreeNode<int>* result = bst->search(data[i][0]);
         alg::TreeNode<int>* left = bst->left(result);
         alg::TreeNode<int>* right = bst->right(result);
@@ -100,7 +100,7 @@ TEST_F(BST, Successor) {
     ASSERT_EQ(2, bst->successor(bst->search(2))->element());
     ASSERT_EQ(bst->nil(), bst->successor(bst->search(data[n - 1])));
 
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n - 1; ++i) {
         ASSERT_EQ(data[i + 1], bst->successor(bst->search(data[i]))->element());
     }
 }
@@ -109,7 +109,7 @@ TEST_F(BST, Predecessor) {
     constexpr int n = 9;
     std::array<int, n> data = {2, 5, 9, 12, 13, 15, 17, 18, 19};
 
-    for (int i = n - 1; i > 0; i--) {
+    for (int i = n - 1; i > 0; --i) {
         ASSERT_EQ(data[i - 1],
                 bst->predecessor(bst->search(data[i]))->element());
     }

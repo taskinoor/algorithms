@@ -16,7 +16,7 @@ TEST(BinarySearch, NonEmptyArray) {
     int a[] = {2, 4, 5, 7, 8, 9, 12, 14, 17, 19, 22, 25, 27, 28, 33, 37};
     std::size_t n = 16;
 
-    for (unsigned int i = 0; i < n; i++) {
+    for (unsigned int i = 0; i < n; ++i) {
         ASSERT_EQ(i, alg::searching::binary_search(a, a[i], n));
     }
 

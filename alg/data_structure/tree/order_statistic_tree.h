@@ -61,7 +61,7 @@ void OrderStatisticTree<T>::insert(T element) {
 
     while (current != this->nil_) {
         last = current;
-        last->count_++;
+        ++(last->count_);
 
         if (element < current->element()) {
             current = (OSTNode<T>*)this->left(current);
@@ -111,7 +111,7 @@ void OrderStatisticTree<T>::decrement_count(
     OSTNode<T>* parent = (OSTNode<T>*)this->parent(node);
 
     while (parent != until) {
-        parent->count_--;
+        --(parent->count_);
         parent = (OSTNode<T>*)this->parent(parent);
     }
 }

@@ -50,8 +50,8 @@ TEST(StrassensMatrix, Multiplication) {
     ASSERT_EQ(n, d.first);
     ASSERT_EQ(n, d.second);
 
-    for (std::size_t i = 0; i < n; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < n; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(expected[i][j], C[i][j]);
         }
     }

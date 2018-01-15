@@ -16,7 +16,7 @@ namespace {
 std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
     ExtendableArray<std::size_t> data(n);
 
-    for (std::size_t i = 1; i <= n; i++) {
+    for (std::size_t i = 1; i <= n; ++i) {
         data.append(i);
     }
 
@@ -25,7 +25,7 @@ std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
     std::unique_ptr<OrderStatisticTree<std::size_t>> ost(
             new OrderStatisticTree<std::size_t>());
 
-    for (std::size_t i = 0; i < n; i++) {
+    for (std::size_t i = 0; i < n; ++i) {
         ost->insert(data[i]);
     }
 
@@ -37,12 +37,12 @@ std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
 std::size_t josephus_queue(std::size_t n, std::size_t k) {
     Queue<std::size_t> q(n);
 
-    for (std::size_t i = 1; i <= n; i++) {
+    for (std::size_t i = 1; i <= n; ++i) {
         q.enqueue(i);
     }
 
     while (true) {
-        for (std::size_t i = 1; i < k; i++) {
+        for (std::size_t i = 1; i < k; ++i) {
             q.enqueue(q.dequeue());
         }
 
@@ -62,7 +62,7 @@ std::size_t josephus_ost(std::size_t n, std::size_t k) {
 
     while (left > 1) {
         ost->remove(ost->select_node(next));
-        left--;
+        --left;
         next = (next + k - 1) % left;
     }
 

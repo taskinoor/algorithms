@@ -24,14 +24,14 @@ TEST(Matrix, SubscriptOperator) {
 
     alg::numeric::Matrix<int> A(m, n);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             A[i][j] = i + j;
         }
     }
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(i + j, A[i][j]);
         }
     }
@@ -56,8 +56,8 @@ TEST(Matrix, InitializerList) {
     ASSERT_EQ(m, d.first);
     ASSERT_EQ(n, d.second);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(expected[i][j], A[i][j]);
         }
     }
@@ -108,16 +108,16 @@ TEST(Matrix, SelfAssignment) {
 
     alg::numeric::Matrix<int> M(n, n);
 
-    for (std::size_t i = 0; i < n; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < n; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             M[i][j] = i + j;
         }
     }
 
     M = M;
 
-    for (std::size_t i = 0; i < n; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < n; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(i + j, M[i][j]);
         }
     }
@@ -172,8 +172,8 @@ TEST(Matrix, Transpose) {
     ASSERT_EQ(n, d.first);
     ASSERT_EQ(m, d.second);
 
-    for (std::size_t i = 0; i < n; i++) {
-        for (std::size_t j = 0; j < m; j++) {
+    for (std::size_t i = 0; i < n; ++i) {
+        for (std::size_t j = 0; j < m; ++j) {
             ASSERT_EQ(expected[i][j], AT[i][j]);
         }
     }
@@ -216,8 +216,8 @@ TEST(Matrix, AdditionSubtraction) {
     ASSERT_EQ(m, d.first);
     ASSERT_EQ(n, d.second);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(expected[i][j], M[i][j]);
         }
     }
@@ -250,8 +250,8 @@ TEST(Matrix, Multiplication) {
     ASSERT_EQ(2, d.first);
     ASSERT_EQ(2, d.second);
 
-    for (std::size_t i = 0; i < d.first; i++) {
-        for (std::size_t j = 0; j < d.second; j++) {
+    for (std::size_t i = 0; i < d.first; ++i) {
+        for (std::size_t j = 0; j < d.second; ++j) {
             ASSERT_DOUBLE_EQ(expected[i][j], M[i][j]);
         }
     }
@@ -274,8 +274,8 @@ TEST(Matrix, ScalarMultiplication) {
     alg::numeric::Matrix<int> B = A * 2;
     alg::numeric::Matrix<int> C = 2 * A;
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(expected[i][j], B[i][j]);
             ASSERT_EQ(expected[i][j], C[i][j]);
         }

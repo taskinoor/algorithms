@@ -74,7 +74,7 @@ TEST(PriorityQueue, MaxQueueLargeDataSet) {
     std::priority_queue<int> std_queue;
     alg::PriorityQueue<int> alg_queue(alg::PriorityQueueType::MAX);
 
-    for (int i = 1; i <= total; i++) {
+    for (int i = 1; i <= total; ++i) {
         int data = alg::randomizer::uniform_int(-100000, 100000);
 
         std_queue.push(data);
@@ -106,7 +106,7 @@ TEST(PriorityQueue, MinQueueLargeDataSet) {
     std::priority_queue<int, std::vector<int>, std::greater<int>> std_queue;
     alg::PriorityQueue<int> alg_queue(alg::PriorityQueueType::MIN);
 
-    for (int i = 1; i <= total; i++) {
+    for (int i = 1; i <= total; ++i) {
         int data = alg::randomizer::uniform_int(-100000, 100000);
 
         std_queue.push(data);

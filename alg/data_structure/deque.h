@@ -47,13 +47,13 @@ Deque<T>::~Deque() {
 template <class T>
 void Deque<T>::push_back(T element) {
     list->insert_last(element);
-    count_++;
+    ++count_;
 }
 
 template <class T>
 void Deque<T>::push_front(T element) {
     list->insert_first(element);
-    count_++;
+    ++count_;
 }
 
 template <class T>
@@ -84,7 +84,7 @@ T Deque<T>::pop_back() {
     T element = node->element();
 
     list->remove(node);
-    count_--;
+    --count_;
 
     return element;
 }
@@ -95,7 +95,7 @@ T Deque<T>::pop_front() {
     T element = node->element();
 
     list->remove(node);
-    count_--;
+    --count_;
 
     return element;
 }

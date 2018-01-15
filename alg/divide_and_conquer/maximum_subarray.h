@@ -19,7 +19,7 @@ MaxSubarrayResult<T> max_crossing_subarray(T* a, int low, int mid, int high) {
     int left_index = -1;
     T sum = 0;
 
-    for (int i = mid; i >= low; i--) {
+    for (int i = mid; i >= low; --i) {
         sum += a[i];
 
         if (sum > left_max) {
@@ -32,7 +32,7 @@ MaxSubarrayResult<T> max_crossing_subarray(T* a, int low, int mid, int high) {
     int right_index = -1;
     sum = 0;
 
-    for (int i = mid + 1; i <= high; i++) {
+    for (int i = mid + 1; i <= high; ++i) {
         sum += a[i];
 
         if (sum > right_max) {

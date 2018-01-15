@@ -24,7 +24,7 @@ protected:
     alg::TreeNode<int>* node[6];
 
     virtual void SetUp() {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; ++i) {
             node[i] = new alg::TreeNode<int>(i);
         }
 
@@ -52,7 +52,7 @@ TEST_F(BinaryTree, Accessors) {
         node[4], nullptr, nullptr
     };
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; ++i) {
         ASSERT_EQ(expected[i][0], tree->parent(node[i]));
         ASSERT_EQ(expected[i][1], tree->left(node[i]));
         ASSERT_EQ(expected[i][2], tree->right(node[i]));
@@ -62,7 +62,7 @@ TEST_F(BinaryTree, Accessors) {
 TEST_F(BinaryTree, Depth) {
     int expected[6] = {0, 1, 1, 2, 2, 3};
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; ++i) {
         ASSERT_EQ(expected[i], tree->depth(node[i]));
     }
 }
@@ -70,7 +70,7 @@ TEST_F(BinaryTree, Depth) {
 TEST_F(BinaryTree, Height) {
     int expected[6] = {3, 2, 0, 0, 1, 0};
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; ++i) {
         ASSERT_EQ(expected[i], tree->height(node[i]));
     }
 
@@ -80,7 +80,7 @@ TEST_F(BinaryTree, Height) {
 TEST_F(BinaryTree, DescendantsCount) {
     int expected[6] = {6, 4, 1, 1, 2, 1};
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; ++i) {
         ASSERT_EQ(expected[i], tree->count_descendants(node[i]));
     }
 }

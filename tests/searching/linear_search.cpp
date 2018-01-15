@@ -8,7 +8,7 @@ TEST(LinearSearch, KeyExists) {
     constexpr int n = 11;
     int a[n] = {19, 11, 7, 3, 5, 23, 17, 29, 13, 2, 31};
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         ASSERT_EQ(i, alg::searching::linear_search(a, a[i], n));
     }
 }

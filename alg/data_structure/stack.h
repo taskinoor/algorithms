@@ -51,7 +51,7 @@ template <class T>
 Stack<T>::Stack(const Stack<T>& rhs) : size{rhs.size} {
     reserve();
 
-    for (int i = 0; i <= rhs.top_; i++) {
+    for (int i = 0; i <= rhs.top_; ++i) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[i], rhs.buffer[i]);
     }
@@ -82,7 +82,7 @@ void Stack<T>::push(const T& element) {
         reserve();
     }
 
-    top_++;
+    ++top_;
 
     std::allocator_traits<allocator_type>::construct(alloc,
             &buffer[top_], element);
@@ -98,7 +98,7 @@ T Stack<T>::pop() {
 
     std::allocator_traits<allocator_type>::destroy(alloc, &buffer[top_]);
 
-    top_--;
+    --top_;
 
     return element;
 }
@@ -131,7 +131,7 @@ Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
         reserve();
     }
 
-    for (int i = 0; i <= rhs.top_; i++) {
+    for (int i = 0; i <= rhs.top_; ++i) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[i], rhs.buffer[i]);
     }

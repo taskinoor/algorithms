@@ -28,26 +28,26 @@ TEST(Queue, EnqueueDequeue) {
 
     ASSERT_EQ(0, q.count());
 
-    for (int i = 0; i < n / 2; i++) {
+    for (int i = 0; i < n / 2; ++i) {
         q.enqueue(data[i]);
     }
 
     ASSERT_EQ(n / 2, q.count());
 
-    for (int i = 0; i < n / 5; i++) {
+    for (int i = 0; i < n / 5; ++i) {
         ASSERT_EQ(data[i], q.dequeue());
     }
 
     ASSERT_EQ(n / 2 - n / 5, q.count());
 
-    for (int i = n / 2; i < n; i++) {
+    for (int i = n / 2; i < n; ++i) {
         q.enqueue(data[i]);
     }
 
     ASSERT_EQ(n - 2, q.count());
     ASSERT_THROW(q.enqueue(31), alg::except::BufferFull);
 
-    for (int i = n / 5; i < n; i++) {
+    for (int i = n / 5; i < n; ++i) {
         ASSERT_EQ(data[i], q.dequeue());
     }
 

@@ -196,7 +196,7 @@ int BinaryTree<T>::depth(TreeNode<T>* p) {
 
     while (p->parent != nil_) {
         p = p->parent;
-        d++;
+        ++d;
     }
 
     return d;

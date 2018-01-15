@@ -85,7 +85,7 @@ T PriorityQueue<T>::pop() {
 
     T element = buffer[0].element;
     buffer[0] = buffer[count_ - 1];
-    count_--;
+    --count_;
 
     heap::binary::HeapType heap_type = (type == PriorityQueueType::MIN) ?
             heap::binary::HeapType::MIN : heap::binary::HeapType::MAX;
@@ -101,7 +101,7 @@ void PriorityQueue<T>::insert(const T& element, int priority) {
             std::numeric_limits<int>::min() : std::numeric_limits<int>::max();
 
     PQData data(element, default_priotiry);
-    count_++;
+    ++count_;
 
     if (count_ <= buffer.count()) {
         buffer[count_ - 1] = data;

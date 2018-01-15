@@ -44,7 +44,7 @@ TEST(ExtendableArray, Operations) {
 
     int expected[] = {11, 17, 2, 3, 7, 5, 13};
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 7; ++i) {
         ASSERT_EQ(expected[i], array[i]);
     }
 
@@ -56,7 +56,7 @@ TEST(ExtendableArray, Operations) {
     expected[6] = 23;
     expected[3] = 29;
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 7; ++i) {
         ASSERT_EQ(expected[i], array[i]);
     }
 
@@ -68,7 +68,7 @@ TEST(ExtendableArray, Operations) {
 
     int expected_after_remove[] = {17, 2, 29, 5};
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; ++i) {
         ASSERT_EQ(expected_after_remove[i], array[i]);
     }
 }
@@ -77,12 +77,12 @@ TEST(ExtendableArray, Append) {
     alg::ExtendableArray<int> a;
     constexpr int n = 1000;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         a.append(i);
         ASSERT_EQ(i + 1, a.count());
     }
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         ASSERT_EQ(i, a[i]);
     }
 }
@@ -90,20 +90,20 @@ TEST(ExtendableArray, Append) {
 TEST(ExtendableArray, CopyConstructor) {
     alg::ExtendableArray<int> a = {0, 1, 2, 3, 4};
 
-    for (int i = 5; i < 10; i++) {
+    for (int i = 5; i < 10; ++i) {
         a.append(i);
     }
 
     alg::ExtendableArray<int> b = a;
 
-    for (int i = 0; i < 10; i++) {
-        b[i]++;
+    for (int i = 0; i < 10; ++i) {
+        ++b[i];
     }
 
     ASSERT_EQ(10, a.count());
     ASSERT_EQ(10, b.count());
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; ++i) {
         ASSERT_EQ(i, a[i]);
         ASSERT_EQ(i + 1, b[i]);
     }
@@ -134,7 +134,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
     std::vector<NoDefaultCtor<int>> std_vec;
     alg::ExtendableArray<NoDefaultCtor<int>> alg_arr;
 
-    for (int i = 0; i < total; i++) {
+    for (int i = 0; i < total; ++i) {
         int data = alg::randomizer::uniform_int(-total, total);
 
         NoDefaultCtor<int> std_data(data);
@@ -153,7 +153,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
 
     ASSERT_EQ(std_vec.size(), alg_arr.count());
 
-    for (std::size_t i = 0; i < alg_arr.count(); i++) {
+    for (std::size_t i = 0; i < alg_arr.count(); ++i) {
         ASSERT_EQ(std_vec[i].data(), alg_arr[i].data());
     }
 
@@ -161,7 +161,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
 
     ASSERT_EQ(alg_arr.count(), arr_copied.count());
 
-    for (std::size_t i = 0; i < arr_copied.count(); i++) {
+    for (std::size_t i = 0; i < arr_copied.count(); ++i) {
         ASSERT_EQ(alg_arr[i], arr_copied[i]);
     }
 
@@ -173,7 +173,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
 
     ASSERT_EQ(arr_copied.count(), arr_moved.count());
 
-    for (std::size_t i = 0; i < arr_copied.count(); i++) {
+    for (std::size_t i = 0; i < arr_copied.count(); ++i) {
         ASSERT_EQ(arr_copied[i], arr_moved[i]);
     }
 }
@@ -188,7 +188,7 @@ TEST(ExtendableArray, CopyAssignmentLargerThanCapacity) {
     ASSERT_EQ(rhs.count(), lhs.count());
     ASSERT_EQ(rhs.count(), lhs.capacity());
 
-    for (std::size_t i = 0; i < rhs.count(); i++) {
+    for (std::size_t i = 0; i < rhs.count(); ++i) {
         ASSERT_EQ(rhs[i], lhs[i]);
     }
 }
@@ -207,7 +207,7 @@ TEST(ExtendableArray, CopyAssignmentSmallerThanCapacity) {
     ASSERT_EQ(rhs.count(), lhs.count());
     ASSERT_EQ(12, lhs.capacity());
 
-    for (std::size_t i = 0; i < rhs.count(); i++) {
+    for (std::size_t i = 0; i < rhs.count(); ++i) {
         ASSERT_EQ(rhs[i], lhs[i]);
     }
 }
@@ -222,7 +222,7 @@ TEST(ExtendableArray, CopyAssignmentEqualCapacity) {
     ASSERT_EQ(rhs.count(), lhs.count());
     ASSERT_EQ(rhs.capacity(), lhs.capacity());
 
-    for (std::size_t i = 0; i < rhs.count(); i++) {
+    for (std::size_t i = 0; i < rhs.count(); ++i) {
         ASSERT_EQ(rhs[i], lhs[i]);
     }
 }
@@ -236,7 +236,7 @@ TEST(ExtendableArray, SelfCopyAssignment) {
     ASSERT_NE(nullptr, arr.data_ptr());
     ASSERT_EQ(expected.size(), arr.count());
 
-    for (std::size_t i = 0; i < expected.size(); i++) {
+    for (std::size_t i = 0; i < expected.size(); ++i) {
         ASSERT_EQ(expected[i], arr[i]);
     }
 }
@@ -279,7 +279,7 @@ TEST(ExtendableArray, MoveAssignment) {
     alg::ExtendableArray<NoDefaultCtor<int>> lhs;
     alg::ExtendableArray<NoDefaultCtor<int>> rhs;
 
-    for (int i = 0; i < total; i++) {
+    for (int i = 0; i < total; ++i) {
         rhs.append(NoDefaultCtor<int>{i});
     }
 
@@ -290,7 +290,7 @@ TEST(ExtendableArray, MoveAssignment) {
     ASSERT_EQ(total, lhs.count());
     ASSERT_EQ(rhs_old_capacity, lhs.capacity());
 
-    for (int i = 0; i < total; i++) {
+    for (int i = 0; i < total; ++i) {
         ASSERT_EQ(i, lhs[i].data());
     }
 

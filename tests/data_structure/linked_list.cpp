@@ -110,10 +110,10 @@ TEST(LinkedList, Remove) {
     alg::BackwardListIterator<int>* iter_backward =
             (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
-    for (int i = 3; !iter_forward->is_done(); iter_forward->next(), i--) {
+    for (int i = 3; !iter_forward->is_done(); iter_forward->next(), --i) {
         ASSERT_EQ(expected[i], iter_forward->current_item());
     }
-    for (int i = 0; !iter_backward->is_done(); iter_backward->next(), i++) {
+    for (int i = 0; !iter_backward->is_done(); iter_backward->next(), ++i) {
         ASSERT_EQ(expected[i], iter_backward->current_item());
     }
 
@@ -134,10 +134,10 @@ TEST(ListIterator, InsertFirst) {
     alg::BackwardListIterator<int>* iter_backward =
             (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
-    for (int i = 6; !iter_forward->is_done(); iter_forward->next(), i--) {
+    for (int i = 6; !iter_forward->is_done(); iter_forward->next(), --i) {
         ASSERT_EQ(data[i], iter_forward->current_item());
     }
-    for (int i = 0; !iter_backward->is_done(); iter_backward->next(), i++) {
+    for (int i = 0; !iter_backward->is_done(); iter_backward->next(), ++i) {
         ASSERT_EQ(data[i], iter_backward->current_item());
     }
 
@@ -158,10 +158,10 @@ TEST(ListIterator, InsertLast) {
     alg::BackwardListIterator<int>* iter_backward =
             (alg::BackwardListIterator<int>*)list.create_iterator(false);
 
-    for (int i = 0; !iter_forward->is_done(); iter_forward->next(), i++) {
+    for (int i = 0; !iter_forward->is_done(); iter_forward->next(), ++i) {
         ASSERT_EQ(data[i], iter_forward->current_item());
     }
-    for (int i = 6; !iter_backward->is_done(); iter_backward->next(), i--) {
+    for (int i = 6; !iter_backward->is_done(); iter_backward->next(), --i) {
         ASSERT_EQ(data[i], iter_backward->current_item());
     }
 

@@ -81,7 +81,7 @@ void heapify(T* a, int i, int n, HeapType type) {
 
 template <class T>
 void build_heap(T* a, int n, HeapType type) {
-    for (int i = parent(n - 1); i >= 0; i--) {
+    for (int i = parent(n - 1); i >= 0; --i) {
         if (type == HeapType::MIN) {
             min_heapify(a, i, n);
         } else if (type == HeapType::MAX) {

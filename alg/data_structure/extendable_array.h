@@ -71,7 +71,7 @@ template <class T>
 ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
     reserve(rhs.count_);
 
-    for ( ; count_ < rhs.count_; count_++) {
+    for ( ; count_ < rhs.count_; ++count_) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[count_], rhs.buffer[count_]);
     }
@@ -102,7 +102,7 @@ void ExtendableArray<T>::reserve(std::size_t new_capacity) {
     T* tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
             new_capacity);
 
-    for (std::size_t i = 0; i < count_; i++) {
+    for (std::size_t i = 0; i < count_; ++i) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &tmp_buffer[i], buffer[i]);
     }
@@ -152,14 +152,14 @@ void ExtendableArray<T>::add(std::size_t index, const T& element) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[count_], buffer[count_ - 1]);
 
-        for (int i = count_ - 2; i >= (int)index; i--) {
+        for (int i = count_ - 2; i >= (int)index; --i) {
             buffer[i + 1] = buffer[i];
         }
 
         buffer[index] = element;
     }
 
-    count_++;
+    ++count_;
 }
 
 template <class T>
@@ -175,13 +175,13 @@ T ExtendableArray<T>::remove(std::size_t index) {
 
     T element = buffer[index];
 
-    for (std::size_t i = index + 1; i < count_; i++) {
+    for (std::size_t i = index + 1; i < count_; ++i) {
         buffer[i - 1] = buffer[i];
     }
 
     std::allocator_traits<allocator_type>::destroy(alloc, &buffer[count_ - 1]);
 
-    count_--;
+    --count_;
 
     return element;
 }
@@ -212,7 +212,7 @@ ExtendableArray<T>& ExtendableArray<T>::operator=(
         T* tmp_buffer = std::allocator_traits<allocator_type>::allocate(alloc,
                 rhs.count_);
 
-        for (std::size_t i = 0; i < rhs.count_; i++) {
+        for (std::size_t i = 0; i < rhs.count_; ++i) {
             std::allocator_traits<allocator_type>::construct(alloc,
                     &tmp_buffer[i], rhs.buffer[i]);
         }
@@ -225,7 +225,7 @@ ExtendableArray<T>& ExtendableArray<T>::operator=(
     } else {
         utils::clear_buffer(buffer, alloc, 0, count_, capacity_, false);
 
-        for (std::size_t i = 0; i < rhs.count_; i++) {
+        for (std::size_t i = 0; i < rhs.count_; ++i) {
             std::allocator_traits<allocator_type>::construct(alloc,
                     &buffer[i], rhs.buffer[i]);
         }

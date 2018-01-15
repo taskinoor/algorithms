@@ -13,7 +13,7 @@ void heap_sort(T* a, int n) {
 
     while (n > 1) {
         std::swap(a[0], a[n - 1]);
-        n--;
+        --n;
         heap::binary::max_heapify(a, 0, n);
     }
 }

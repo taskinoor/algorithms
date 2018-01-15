@@ -17,7 +17,7 @@ template <class T>
 int qs_partition_lomuto(T* a, int p, int r) {
     int i = p - 1;
 
-    for (int j = p; j < r; j++) {
+    for (int j = p; j < r; ++j) {
         if (a[j] <= a[r]) {
             std::swap(a[++i], a[j]);
         }
@@ -44,11 +44,11 @@ int qs_partition_hoare(T* a, int p, int r) {
 
     while (true) {
         do {
-            j--;
+            --j;
         } while (a[j] > x);
 
         do {
-            i++;
+            ++i;
         } while (a[i] < x);
 
         if (i >= j) {

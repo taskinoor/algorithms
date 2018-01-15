@@ -18,7 +18,7 @@ protected:
     virtual void SetUp() {
         tree = new alg::BST<char>();
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; ++i) {
             node[i] = new alg::TreeNode<char>('A' + i,
                     tree->nil(), tree->nil(), tree->nil());
         }
@@ -37,7 +37,7 @@ protected:
             'H', -1
         };
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; ++i) {
             if (child_map[i][0] != -1) {
                 tree->set_left(node[i], node[index(child_map[i][0])]);
             }
@@ -69,7 +69,7 @@ TEST_F(TreeTraversal, PreOrder) {
     char expected[9] = {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
     int i = 0;
 
-    for (it->first(); !it->is_done(); it->next(), i++) {
+    for (it->first(); !it->is_done(); it->next(), ++i) {
         ASSERT_EQ(expected[i], it->current_item());
     }
     ASSERT_EQ(9, i);
@@ -82,7 +82,7 @@ TEST_F(TreeTraversal, PreOrderOnlyRoot) {
             new alg::PreOrderIterator<char>(tree_only_root);
     int i = 0;
 
-    for (it->first(); !it->is_done(); it->next(), i++) {
+    for (it->first(); !it->is_done(); it->next(), ++i) {
         ASSERT_EQ('A', it->current_item());
     }
     ASSERT_EQ(1, i);
@@ -95,7 +95,7 @@ TEST_F(TreeTraversal, PostOrder) {
     char expected[9] = {'A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'};
     int i = 0;
 
-    for (it->first(); !it->is_done(); it->next(), i++) {
+    for (it->first(); !it->is_done(); it->next(), ++i) {
         ASSERT_EQ(expected[i], it->current_item());
     }
     ASSERT_EQ(9, i);
@@ -108,7 +108,7 @@ TEST_F(TreeTraversal, PostOrderOnlyRoot) {
             new alg::PostOrderIterator<char>(tree_only_root);
     int i = 0;
 
-    for (it->first(); !it->is_done(); it->next(), i++) {
+    for (it->first(); !it->is_done(); it->next(), ++i) {
         ASSERT_EQ('A', it->current_item());
     }
     ASSERT_EQ(1, i);
@@ -121,7 +121,7 @@ TEST_F(TreeTraversal, InOrder) {
     char expected[9] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
     int i = 0;
 
-    for (it->first(); !it->is_done(); it->next(), i++) {
+    for (it->first(); !it->is_done(); it->next(), ++i) {
         ASSERT_EQ(expected[i], it->current_item());
     }
     ASSERT_EQ(9, i);
@@ -134,7 +134,7 @@ TEST_F(TreeTraversal, InOrderOnlyRoot) {
             new alg::InOrderIterator<char>(tree_only_root);
     int i = 0;
 
-    for (it->first(); !it->is_done(); it->next(), i++) {
+    for (it->first(); !it->is_done(); it->next(), ++i) {
         ASSERT_EQ('A', it->current_item());
     }
     ASSERT_EQ(1, i);

@@ -140,8 +140,8 @@ template <class T>
 Matrix<T> Matrix<T>::transpose() const {
     Matrix<T> M(n, m);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             M[j][i] = (*this)[i][j];
         }
     }
@@ -155,8 +155,8 @@ Matrix<T> Matrix<T>::submatrix(std::size_t start_i, std::size_t start_j,
 
     Matrix<T> M(x, y);
 
-    for (std::size_t i = 0; i < x; i++) {
-        for (std::size_t j = 0; j < y; j++) {
+    for (std::size_t i = 0; i < x; ++i) {
+        for (std::size_t j = 0; j < y; ++j) {
             M[i][j] = (*this)[start_i + i][start_j + j];
         }
     }
@@ -169,8 +169,8 @@ void Matrix<T>::copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
         std::size_t from_i, std::size_t from_j,
         std::size_t x, std::size_t y) {
 
-    for (std::size_t i = 0; i < x; i++) {
-        for (std::size_t j = 0; j < y; j++) {
+    for (std::size_t i = 0; i < x; ++i) {
+        for (std::size_t j = 0; j < y; ++j) {
             (*this)[to_i + i][to_j + j] = M[from_i + i][from_j + j];
         }
     }
@@ -229,8 +229,8 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T>& rhs) const {
 
     Matrix<T> M(m, n);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             M[i][j] = (*this)[i][j] + rhs[i][j];
         }
     }
@@ -246,8 +246,8 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& rhs) const {
 
     Matrix<T> M(m, n);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             M[i][j] = (*this)[i][j] - rhs[i][j];
         }
     }
@@ -263,11 +263,11 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& rhs) const {
 
     Matrix<T> M(m, rhs.n);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < rhs.n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < rhs.n; ++j) {
             T sum = T();
 
-            for (std::size_t k = 0; k < n; k++) {
+            for (std::size_t k = 0; k < n; ++k) {
                 sum += (*this)[i][k] * rhs[k][j];
             }
 
@@ -282,8 +282,8 @@ template <class T>
 Matrix<T> Matrix<T>::operator*(const T& rhs) const {
     Matrix<T> M(m, n);
 
-    for (std::size_t i = 0; i < m; i++) {
-        for (std::size_t j = 0; j < n; j++) {
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < n; ++j) {
             M[i][j] = (*this)[i][j] * rhs;
         }
     }

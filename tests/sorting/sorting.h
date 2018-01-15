@@ -35,13 +35,13 @@ protected:
     }
 
     void generate_random_large_data() {
-        for (std::size_t i = 0; i < large_data.size(); i++) {
+        for (std::size_t i = 0; i < large_data.size(); ++i) {
             large_data[i] = alg::randomizer::uniform_double(-121393, 121393);
         }
     }
 
     void assert_large_data_sorted() {
-        for (std::size_t i = 1; i < large_data.size(); i++) {
+        for (std::size_t i = 1; i < large_data.size(); ++i) {
             ASSERT_GE(large_data[i], large_data[i - 1]);
         }
     }

@@ -152,7 +152,7 @@ void ExtendableArray<T>::add(std::size_t index, const T& element) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[count_], buffer[count_ - 1]);
 
-        for (int i = count_ - 2; i >= (int)index; --i) {
+        for (int i = count_ - 2; i >= static_cast<int>(index); --i) {
             buffer[i + 1] = buffer[i];
         }
 

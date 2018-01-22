@@ -13,13 +13,15 @@ template <class T> class BinaryTree;
 template <class T>
 class TreeNode {
 public:
-    explicit TreeNode(T element = T(), TreeNode<T>* parent = nullptr,
+    explicit TreeNode(const T& element = T(), TreeNode<T>* parent = nullptr,
             TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
 
     virtual ~TreeNode() {}
 
-    T element();
-    virtual std::string to_string(TreeNode<T>* nil = nullptr);
+    T& element();
+    const T& element() const;
+
+    virtual std::string to_string(TreeNode<T>* nil = nullptr) const;
 
 protected:
     TreeNode<T>* parent;
@@ -68,7 +70,7 @@ private:
 };
 
 template <class T>
-TreeNode<T>::TreeNode(T element, TreeNode<T>* parent, TreeNode<T>* left,
+TreeNode<T>::TreeNode(const T& element, TreeNode<T>* parent, TreeNode<T>* left,
         TreeNode<T>* right) {
 
     element_ = element;
@@ -79,12 +81,17 @@ TreeNode<T>::TreeNode(T element, TreeNode<T>* parent, TreeNode<T>* left,
 }
 
 template <class T>
-T TreeNode<T>::element() {
+T& TreeNode<T>::element() {
     return element_;
 }
 
 template <class T>
-std::string TreeNode<T>::to_string(TreeNode<T>* nil) {
+const T& TreeNode<T>::element() const {
+    return element_;
+}
+
+template <class T>
+std::string TreeNode<T>::to_string(TreeNode<T>* nil) const {
     std::ostringstream buf;
 
     buf << "E: " << element_;

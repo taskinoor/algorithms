@@ -11,10 +11,10 @@ template <class T> class OrderStatisticTree;
 template <class T>
 class OSTNode : public TreeNode<T> {
 public:
-    explicit OSTNode(T element = T(), TreeNode<T>* parent = nullptr,
+    explicit OSTNode(const T& element = T(), TreeNode<T>* parent = nullptr,
             TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
 
-    int count();
+    int count() const;
 
 private:
     int count_;
@@ -41,14 +41,14 @@ private:
 };
 
 template <class T>
-OSTNode<T>::OSTNode(T element, TreeNode<T>* parent, TreeNode<T>* left,
+OSTNode<T>::OSTNode(const T& element, TreeNode<T>* parent, TreeNode<T>* left,
         TreeNode<T>* right) : TreeNode<T>(element, parent, left, right) {
 
     count_ = 1;
 }
 
 template <class T>
-int OSTNode<T>::count() {
+int OSTNode<T>::count() const {
     return count_;
 }
 

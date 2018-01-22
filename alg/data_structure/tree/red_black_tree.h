@@ -16,10 +16,11 @@ enum class RBColor {
 template <class T>
 class RBNode : public TreeNode<T> {
 public:
-    explicit RBNode(RBColor color, T element = T(), TreeNode<T>* parent = nullptr,
-            TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
+    explicit RBNode(RBColor color, const T& element = T(),
+            TreeNode<T>* parent = nullptr, TreeNode<T>* left = nullptr,
+            TreeNode<T>* right = nullptr);
 
-    RBColor color();
+    RBColor color() const;
 
 private:
     RBColor color_;
@@ -42,7 +43,7 @@ private:
 };
 
 template <class T>
-RBNode<T>::RBNode(RBColor color, T element, TreeNode<T>* parent,
+RBNode<T>::RBNode(RBColor color, const T& element, TreeNode<T>* parent,
         TreeNode<T>* left, TreeNode<T>* right) :
         TreeNode<T>(element, parent, left, right) {
 
@@ -50,7 +51,7 @@ RBNode<T>::RBNode(RBColor color, T element, TreeNode<T>* parent,
 }
 
 template <class T>
-RBColor RBNode<T>::color() {
+RBColor RBNode<T>::color() const {
     return color_;
 }
 

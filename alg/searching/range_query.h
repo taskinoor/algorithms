@@ -1,39 +1,39 @@
 #ifndef ALG_SEARCHING_RANGE_QUERY_H_
 #define ALG_SEARCHING_RANGE_QUERY_H_
 
-#include <unordered_set>
-
 #include "alg/data_structure/tree/binary_tree.h"
 #include "alg/data_structure/tree/bst.h"
 
 namespace alg {
 namespace searching {
 
-template <class T>
-void range_query(const BST<T>* bst, const TreeNode<T>* v, const T& k1,
-        const T& k2, std::unordered_set<T>& result) {
+template <class OutputIt, class T>
+OutputIt range_query(const BST<T>* bst, const TreeNode<T>* v, const T& k1,
+        const T& k2, OutputIt iter) {
 
     if (v == bst->nil()) {
-        return;
+        return iter;
     }
 
     if (v->element() < k1) {
-        range_query(bst, bst->right(v), k1, k2, result);
+        iter = range_query(bst, bst->right(v), k1, k2, iter);
     } else if (v->element() > k2) {
-        range_query(bst, bst->left(v), k1, k2, result);
+        iter = range_query(bst, bst->left(v), k1, k2, iter);
     } else {
-        result.insert(v->element());
+        *iter++ = v->element();
 
-        range_query(bst, bst->left(v), k1, k2, result);
-        range_query(bst, bst->right(v), k1, k2, result);
+        iter = range_query(bst, bst->left(v), k1, k2, iter);
+        iter = range_query(bst, bst->right(v), k1, k2, iter);
     }
+
+    return iter;
 }
 
-template <class T>
-void range_query(const BST<T>* bst, const T& k1, const T& k2,
-        std::unordered_set<T>& result) {
+template <class OutputIt, class T>
+OutputIt range_query(const BST<T>* bst, const T& k1, const T& k2,
+        OutputIt iter) {
 
-    range_query(bst, bst->root(), k1, k2, result);
+    return range_query(bst, bst->root(), k1, k2, iter);
 }
 
 }

@@ -299,4 +299,16 @@ TEST(ExtendableArray, MoveAssignment) {
     ASSERT_EQ(0, rhs.count());
 }
 
+TEST(ExtendableArray, DefaultElements) {
+    constexpr std::size_t total = 100;
+
+    alg::ExtendableArray<int> arr(total);
+
+    ASSERT_EQ(total, arr.count());
+
+    for (std::size_t i = 0; i < total; ++i) {
+        ASSERT_EQ(0, arr[i]);
+    }
+}
+
 }

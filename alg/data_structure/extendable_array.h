@@ -17,7 +17,7 @@ public:
     using allocator_type = std::allocator<T>;
 
     ExtendableArray() = default;
-    explicit ExtendableArray(std::size_t capacity);
+    explicit ExtendableArray(std::size_t count);
     ExtendableArray(std::initializer_list<T> lst);
 
     ExtendableArray(const ExtendableArray<T>& rhs);
@@ -53,8 +53,13 @@ private:
 };
 
 template <class T>
-ExtendableArray<T>::ExtendableArray(std::size_t capacity) {
-    reserve(capacity);
+ExtendableArray<T>::ExtendableArray(std::size_t count) {
+    reserve(count);
+
+    for (count_ = 0; count_ < count; ++count_) {
+        std::allocator_traits<allocator_type>::construct(alloc,
+                &buffer[count_], T());
+    }
 }
 
 template <class T>

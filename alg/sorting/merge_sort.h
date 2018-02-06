@@ -1,7 +1,8 @@
-#ifndef ALG_MERGE_SORT_H_
-#define ALG_MERGE_SORT_H_
+#ifndef ALG_SORTING_MERGE_SORT_H_
+#define ALG_SORTING_MERGE_SORT_H_
 
 namespace alg {
+namespace sorting {
 
 template <class T>
 void merge(T* a, int p, int q, int r) {
@@ -55,6 +56,7 @@ void merge_sort(T* a, int n) {
     merge_sort(a, 0, n - 1);
 }
 
+}
 }
 
 #endif

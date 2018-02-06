@@ -1,11 +1,12 @@
-#ifndef ALG_SELECTION_SORT_H_
-#define ALG_SELECTION_SORT_H_
+#ifndef ALG_SORTING_SELECTION_SORT_H_
+#define ALG_SORTING_SELECTION_SORT_H_
 
 #include <algorithm>
 
 #include "alg/common/utils.h"
 
 namespace alg {
+namespace sorting {
 
 template <class T>
 void selection_sort(T* a, int n) {
@@ -18,6 +19,7 @@ void selection_sort(T* a, int n) {
     }
 }
 
+}
 }
 
 #endif

@@ -1,7 +1,8 @@
-#ifndef ALG_INSERTION_SORT_H_
-#define ALG_INSERTION_SORT_H_
+#ifndef ALG_SORTING_INSERTION_SORT_H_
+#define ALG_SORTING_INSERTION_SORT_H_
 
 namespace alg {
+namespace sorting {
 
 template <class T>
 void insertion_sort(T* a, int n) {
@@ -18,6 +19,7 @@ void insertion_sort(T* a, int n) {
     }
 }
 
+}
 }
 
 #endif

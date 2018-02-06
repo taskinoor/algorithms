@@ -1,11 +1,12 @@
-#ifndef ALG_HEAP_SORT_H_
-#define ALG_HEAP_SORT_H_
+#ifndef ALG_SORTING_HEAP_SORT_H_
+#define ALG_SORTING_HEAP_SORT_H_
 
 #include <algorithm>
 
 #include "alg/data_structure/binary_heap.h"
 
 namespace alg {
+namespace sorting {
 
 template <class T>
 void heap_sort(T* a, int n) {
@@ -18,6 +19,7 @@ void heap_sort(T* a, int n) {
     }
 }
 
+}
 }
 
 #endif

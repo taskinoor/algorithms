@@ -1,9 +1,10 @@
-#ifndef ALG_BUBBLE_SORT_H_
-#define ALG_BUBBLE_SORT_H_
+#ifndef ALG_SORTING_BUBBLE_SORT_H_
+#define ALG_SORTING_BUBBLE_SORT_H_
 
 #include <algorithm>
 
 namespace alg {
+namespace sorting {
 
 template <class T>
 void bubble_sort(T* a, int n) {
@@ -16,6 +17,7 @@ void bubble_sort(T* a, int n) {
     }
 }
 
+}
 }
 
 #endif

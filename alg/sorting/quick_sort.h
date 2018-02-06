@@ -1,11 +1,12 @@
-#ifndef ALG_QUICK_SORT_H_
-#define ALG_QUICK_SORT_H_
+#ifndef ALG_SORTING_QUICK_SORT_H_
+#define ALG_SORTING_QUICK_SORT_H_
 
 #include <algorithm>
 
 #include "alg/common/randomizer.h"
 
 namespace alg {
+namespace sorting {
 
 enum class QSPartitionStrategy {
     LOMUTO,
@@ -95,6 +96,7 @@ void quick_sort(T* a, int n,
     quick_sort(a, 0, n - 1, st);
 }
 
+}
 }
 
 #endif

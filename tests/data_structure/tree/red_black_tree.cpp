@@ -82,7 +82,7 @@ TEST_F(RedBlackTree, LeafColor) {
 }
 
 TEST_F(RedBlackTree, ChildOfRed) {
-    alg::PreOrderIterator<int>* iter = new alg::PreOrderIterator<int>(tree);
+    alg::ds::PreOrderIterator<int>* iter = new alg::ds::PreOrderIterator<int>(tree);
     int found = 0;
 
     for (iter->first(); !iter->is_done(); iter->next(), ++found) {
@@ -102,7 +102,7 @@ TEST_F(RedBlackTree, ChildOfRed) {
 }
 
 TEST_F(RedBlackTree, BlackHeight) {
-    alg::PostOrderIterator<int>* iter = new alg::PostOrderIterator<int>(tree);
+    alg::ds::PostOrderIterator<int>* iter = new alg::ds::PostOrderIterator<int>(tree);
     int found = 0;
     int black_height = -1;
 
@@ -157,7 +157,7 @@ TEST_F(RedBlackTree, Sorting) {
     ASSERT_EQ(count, present_keys.size());
     std::sort(present_keys.begin(), present_keys.end());
 
-    alg::InOrderIterator<int>* iter = new alg::InOrderIterator<int>(tree);
+    alg::ds::InOrderIterator<int>* iter = new alg::ds::InOrderIterator<int>(tree);
     int i = 0;
 
     for (iter->first(); !iter->is_done(); iter->next(), ++i) {

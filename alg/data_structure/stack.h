@@ -1,5 +1,5 @@
-#ifndef ALG_STACK_H_
-#define ALG_STACK_H_
+#ifndef ALG_DS_STACK_H_
+#define ALG_DS_STACK_H_
 
 #include <cstddef>
 
@@ -9,6 +9,7 @@
 #include "alg/common/utils.h"
 
 namespace alg {
+namespace ds {
 
 template <class T>
 class Stack {
@@ -160,6 +161,7 @@ void Stack<T>::reserve() {
     buffer = std::allocator_traits<allocator_type>::allocate(alloc, size);
 }
 
+}
 }
 
 #endif

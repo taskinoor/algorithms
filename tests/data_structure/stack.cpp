@@ -13,13 +13,13 @@
 namespace algtest {
 
 TEST(Stack, Empty) {
-    alg::Stack<int> s(2);
+    alg::ds::Stack<int> s(2);
 
     ASSERT_THROW(s.pop(), alg::except::BufferEmpty);
 }
 
 TEST(Stack, Full) {
-    alg::Stack<int> s(2);
+    alg::ds::Stack<int> s(2);
 
     ASSERT_NO_THROW(s.push(2));
     ASSERT_NO_THROW(s.push(3));
@@ -29,7 +29,7 @@ TEST(Stack, Full) {
 TEST(Stack, PushPop) {
     constexpr int n = 10;
     std::array<int, n> data = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
-    alg::Stack<int> s(n);
+    alg::ds::Stack<int> s(n);
 
     for (int i = 0; i < n; ++i) {
         s.push(data[i]);
@@ -41,7 +41,7 @@ TEST(Stack, PushPop) {
 }
 
 TEST(Stack, Top) {
-    alg::Stack<int> s(2);
+    alg::ds::Stack<int> s(2);
 
     ASSERT_THROW(s.top(), alg::except::BufferEmpty);
 
@@ -55,7 +55,7 @@ TEST(Stack, Count) {
     int n = 17;
     int d1 = 13;
     int d2 = 7;
-    alg::Stack<int> s(n);
+    alg::ds::Stack<int> s(n);
 
     ASSERT_EQ(0, s.count());
 
@@ -86,13 +86,13 @@ TEST(Stack, Count) {
 
 TEST(Stack, CopyConstructor) {
     std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
-    alg::Stack<std::string> st(data.size());
+    alg::ds::Stack<std::string> st(data.size());
 
     for (std::size_t i = 0; i < data.size() / 2; ++i) {
         st.push(data[i]);
     }
 
-    alg::Stack<std::string> st_copied = st;
+    alg::ds::Stack<std::string> st_copied = st;
 
     for (std::size_t i = data.size() / 2; i < data.size(); ++i) {
         st.push(data[i]);
@@ -119,13 +119,13 @@ TEST(Stack, CopyConstructor) {
 
 TEST(Stack, MoveConstructor) {
     std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
-    alg::Stack<std::string> st(data.size());
+    alg::ds::Stack<std::string> st(data.size());
 
     for (std::size_t i = 0; i < data.size() / 2; ++i) {
         st.push(data[i]);
     }
 
-    alg::Stack<std::string> st_moved = std::move(st);
+    alg::ds::Stack<std::string> st_moved = std::move(st);
 
     for (std::size_t i = data.size() / 2; i < data.size(); ++i) {
         st_moved.push(data[i]);
@@ -147,7 +147,7 @@ TEST(Stack, MoveConstructor) {
 
 TEST(Stack, SelfCopyAssignment) {
     std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
-    alg::Stack<std::string> st(data.size() * 2);
+    alg::ds::Stack<std::string> st(data.size() * 2);
 
     for (std::size_t i = 0; i < data.size(); ++i) {
         st.push(data[i]);
@@ -168,8 +168,8 @@ template <class T, std::size_t NL, std::size_t NR>
 void assert_stack_copy_assignment(const std::array<T,NL>& lhs_data,
         const std::array<T,NR>& rhs_data) {
 
-    alg::Stack<T> lhs_st(lhs_data.size() * 2);
-    alg::Stack<T> rhs_st(rhs_data.size() * 2);
+    alg::ds::Stack<T> lhs_st(lhs_data.size() * 2);
+    alg::ds::Stack<T> rhs_st(rhs_data.size() * 2);
 
     for (std::size_t i = 0; i < lhs_data.size(); ++i) {
         lhs_st.push(lhs_data[i]);
@@ -207,13 +207,13 @@ TEST(Stack, CopyAssignmentSameSize) {
 
 TEST(Stack, MoveAssignment) {
     std::array<std::string, 8> data = {"a", "b", "c", "d", "e", "f", "g", "h"};
-    alg::Stack<std::string> rhs(data.size() * 2);
+    alg::ds::Stack<std::string> rhs(data.size() * 2);
 
     for (std::size_t i = 0; i < data.size(); ++i) {
         rhs.push(data[i]);
     }
 
-    alg::Stack<std::string> lhs(0);
+    alg::ds::Stack<std::string> lhs(0);
 
     lhs = std::move(rhs);
 
@@ -238,7 +238,7 @@ TEST(Stack, LargeRandomDataSet) {
     constexpr int delete_freq = 10;
 
     std::stack<NoDefaultCtor<int>> std_stack;
-    alg::Stack<NoDefaultCtor<int>> alg_stack(total);
+    alg::ds::Stack<NoDefaultCtor<int>> alg_stack(total);
 
     for (int i = 0; i < total; ++i) {
         int data = alg::randomizer::uniform_int(-total, total);

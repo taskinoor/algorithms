@@ -1,11 +1,12 @@
-#ifndef ALG_INORDER_H_
-#define ALG_INORDER_H_
+#ifndef ALG_DS_INORDER_H_
+#define ALG_DS_INORDER_H_
 
 #include "alg/common/iterator.h"
 #include "alg/data_structure/stack.h"
 #include "alg/data_structure/tree/binary_tree.h"
 
 namespace alg {
+namespace ds {
 
 template <class T>
 class InOrderIterator : public patterns::Iterator<T> {
@@ -72,6 +73,7 @@ TreeNode<T>* InOrderIterator<T>::current_node() const {
     return stack->top();
 }
 
+}
 }
 
 #endif

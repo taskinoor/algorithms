@@ -39,7 +39,7 @@ TEST_F(BST, Insert) {
 
 TEST_F(BST, InOrderTraversal) {
     constexpr int n = 10;
-    alg::InOrderIterator<int>* it = new alg::InOrderIterator<int>(bst);
+    alg::ds::InOrderIterator<int>* it = new alg::ds::InOrderIterator<int>(bst);
     std::array<int, n> expected = {2, 2, 5, 9, 12, 13, 15, 17, 18, 19};
     std::array<int, n> result;
 

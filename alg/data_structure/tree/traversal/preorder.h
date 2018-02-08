@@ -1,11 +1,12 @@
-#ifndef ALG_PREORDER_H_
-#define ALG_PREORDER_H_
+#ifndef ALG_DS_PREORDER_H_
+#define ALG_DS_PREORDER_H_
 
 #include "alg/common/iterator.h"
 #include "alg/data_structure/stack.h"
 #include "alg/data_structure/tree/binary_tree.h"
 
 namespace alg {
+namespace ds {
 
 template <class T>
 class PreOrderIterator : public patterns::Iterator<T> {
@@ -71,6 +72,7 @@ TreeNode<T>* PreOrderIterator<T>::current_node() const {
     return stack->top();
 }
 
+}
 }
 
 #endif

@@ -12,7 +12,7 @@
 namespace algtest {
 
 TEST(PriorityQueue, MaxQueue) {
-    alg::PriorityQueue<std::string> queue(alg::PriorityQueueType::MAX);
+    alg::ds::PriorityQueue<std::string> queue(alg::ds::PriorityQueueType::MAX);
 
     ASSERT_EQ(0, queue.count());
 
@@ -41,7 +41,7 @@ TEST(PriorityQueue, MaxQueue) {
 }
 
 TEST(PriorityQueue, MinQueue) {
-    alg::PriorityQueue<std::string> queue(alg::PriorityQueueType::MIN);
+    alg::ds::PriorityQueue<std::string> queue(alg::ds::PriorityQueueType::MIN);
 
     ASSERT_EQ(0, queue.count());
 
@@ -72,7 +72,7 @@ TEST(PriorityQueue, MinQueue) {
 TEST(PriorityQueue, MaxQueueLargeDataSet) {
     constexpr int total = 500000;
     std::priority_queue<int> std_queue;
-    alg::PriorityQueue<int> alg_queue(alg::PriorityQueueType::MAX);
+    alg::ds::PriorityQueue<int> alg_queue(alg::ds::PriorityQueueType::MAX);
 
     for (int i = 1; i <= total; ++i) {
         int data = alg::randomizer::uniform_int(-100000, 100000);
@@ -104,7 +104,7 @@ TEST(PriorityQueue, MaxQueueLargeDataSet) {
 TEST(PriorityQueue, MinQueueLargeDataSet) {
     constexpr int total = 500000;
     std::priority_queue<int, std::vector<int>, std::greater<int>> std_queue;
-    alg::PriorityQueue<int> alg_queue(alg::PriorityQueueType::MIN);
+    alg::ds::PriorityQueue<int> alg_queue(alg::ds::PriorityQueueType::MIN);
 
     for (int i = 1; i <= total; ++i) {
         int data = alg::randomizer::uniform_int(-100000, 100000);

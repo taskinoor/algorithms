@@ -14,7 +14,7 @@ namespace puzzle {
 namespace {
 
 std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
-    ExtendableArray<std::size_t> data(n);
+    ds::ExtendableArray<std::size_t> data(n);
 
     for (std::size_t i = 0; i < n; ++i) {
         data[i] = i + 1;

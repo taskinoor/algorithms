@@ -1,5 +1,5 @@
-#ifndef ALG_PRIORITY_QUEUE_H_
-#define ALG_PRIORITY_QUEUE_H_
+#ifndef ALG_DS_PRIORITY_QUEUE_H_
+#define ALG_DS_PRIORITY_QUEUE_H_
 
 #include <cstddef>
 
@@ -11,6 +11,7 @@
 #include "alg/data_structure/extendable_array.h"
 
 namespace alg {
+namespace ds {
 
 enum class PriorityQueueType {
     MIN,
@@ -161,6 +162,7 @@ void PriorityQueue<T>::decrease_priority(int index, int new_priority) {
     }
 }
 
+}
 }
 
 #endif

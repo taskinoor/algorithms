@@ -1,5 +1,5 @@
-#ifndef ALG_EXTENDABLE_ARRAY_H_
-#define ALG_EXTENDABLE_ARRAY_H_
+#ifndef ALG_DS_EXTENDABLE_ARRAY_H_
+#define ALG_DS_EXTENDABLE_ARRAY_H_
 
 #include <cstddef>
 
@@ -10,6 +10,7 @@
 #include "alg/common/utils.h"
 
 namespace alg {
+namespace ds {
 
 template <class T>
 class ExtendableArray {
@@ -258,6 +259,7 @@ ExtendableArray<T>& ExtendableArray<T>::operator=(
     return *this;
 }
 
+}
 }
 
 #endif

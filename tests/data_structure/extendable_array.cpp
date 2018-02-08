@@ -14,7 +14,7 @@
 namespace algtest {
 
 TEST(ExtendableArray, InvalidIndex) {
-    alg::ExtendableArray<int> array;
+    alg::ds::ExtendableArray<int> array;
 
     ASSERT_THROW(array[-1], std::out_of_range);
     ASSERT_THROW(array[0], std::out_of_range);
@@ -30,7 +30,7 @@ TEST(ExtendableArray, InvalidIndex) {
 }
 
 TEST(ExtendableArray, Operations) {
-    alg::ExtendableArray<int> array;
+    alg::ds::ExtendableArray<int> array;
 
     array.add(0, 2);
     array.add(1, 3);
@@ -74,7 +74,7 @@ TEST(ExtendableArray, Operations) {
 }
 
 TEST(ExtendableArray, Append) {
-    alg::ExtendableArray<int> a;
+    alg::ds::ExtendableArray<int> a;
     constexpr int n = 1000;
 
     for (int i = 0; i < n; ++i) {
@@ -88,13 +88,13 @@ TEST(ExtendableArray, Append) {
 }
 
 TEST(ExtendableArray, CopyConstructor) {
-    alg::ExtendableArray<int> a = {0, 1, 2, 3, 4};
+    alg::ds::ExtendableArray<int> a = {0, 1, 2, 3, 4};
 
     for (int i = 5; i < 10; ++i) {
         a.append(i);
     }
 
-    alg::ExtendableArray<int> b = a;
+    alg::ds::ExtendableArray<int> b = a;
 
     for (int i = 0; i < 10; ++i) {
         ++b[i];
@@ -110,8 +110,8 @@ TEST(ExtendableArray, CopyConstructor) {
 }
 
 TEST(ExtendableArray, MoveConstructor) {
-    alg::ExtendableArray<std::string> a = {"foo"};
-    alg::ExtendableArray<std::string> b = std::move(a);
+    alg::ds::ExtendableArray<std::string> a = {"foo"};
+    alg::ds::ExtendableArray<std::string> b = std::move(a);
 
     ASSERT_EQ(1, b.count());
     ASSERT_EQ("foo", b[0]);
@@ -122,7 +122,7 @@ TEST(ExtendableArray, MoveConstructor) {
 }
 
 TEST(ExtendableArray, Capacity) {
-    alg::ExtendableArray<int> a(1024);
+    alg::ds::ExtendableArray<int> a(1024);
 
     ASSERT_EQ(1024, a.capacity());
 }
@@ -132,7 +132,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
     constexpr int delete_freq = 10;
 
     std::vector<NoDefaultCtor<int>> std_vec;
-    alg::ExtendableArray<NoDefaultCtor<int>> alg_arr;
+    alg::ds::ExtendableArray<NoDefaultCtor<int>> alg_arr;
 
     for (int i = 0; i < total; ++i) {
         int data = alg::randomizer::uniform_int(-total, total);
@@ -157,7 +157,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
         ASSERT_EQ(std_vec[i].data(), alg_arr[i].data());
     }
 
-    alg::ExtendableArray<NoDefaultCtor<int>> arr_copied = alg_arr;
+    alg::ds::ExtendableArray<NoDefaultCtor<int>> arr_copied = alg_arr;
 
     ASSERT_EQ(alg_arr.count(), arr_copied.count());
 
@@ -165,7 +165,7 @@ TEST(ExtendableArray, LargeRandomDataSet) {
         ASSERT_EQ(alg_arr[i], arr_copied[i]);
     }
 
-    alg::ExtendableArray<NoDefaultCtor<int>> arr_moved = std::move(alg_arr);
+    alg::ds::ExtendableArray<NoDefaultCtor<int>> arr_moved = std::move(alg_arr);
 
     ASSERT_EQ(nullptr, alg_arr.data_ptr());
     ASSERT_EQ(0, alg_arr.count());
@@ -179,8 +179,8 @@ TEST(ExtendableArray, LargeRandomDataSet) {
 }
 
 TEST(ExtendableArray, CopyAssignmentLargerThanCapacity) {
-    alg::ExtendableArray<std::string> lhs = {"a"};
-    alg::ExtendableArray<std::string> rhs = {"b", "c", "d", "e", "f", "g"};
+    alg::ds::ExtendableArray<std::string> lhs = {"a"};
+    alg::ds::ExtendableArray<std::string> rhs = {"b", "c", "d", "e", "f", "g"};
 
     lhs = rhs;
 
@@ -194,8 +194,8 @@ TEST(ExtendableArray, CopyAssignmentLargerThanCapacity) {
 }
 
 TEST(ExtendableArray, CopyAssignmentSmallerThanCapacity) {
-    alg::ExtendableArray<std::string> lhs = {"b", "c", "d", "e", "f", "g"};
-    alg::ExtendableArray<std::string> rhs = {"a", "x", "y", "z"};
+    alg::ds::ExtendableArray<std::string> lhs = {"b", "c", "d", "e", "f", "g"};
+    alg::ds::ExtendableArray<std::string> rhs = {"a", "x", "y", "z"};
 
     lhs.append("h");
 
@@ -213,8 +213,8 @@ TEST(ExtendableArray, CopyAssignmentSmallerThanCapacity) {
 }
 
 TEST(ExtendableArray, CopyAssignmentEqualCapacity) {
-    alg::ExtendableArray<std::string> lhs = {"b", "c", "d", "e", "f", "g"};
-    alg::ExtendableArray<std::string> rhs = {"a", "x", "y", "z", "p", "q"};
+    alg::ds::ExtendableArray<std::string> lhs = {"b", "c", "d", "e", "f", "g"};
+    alg::ds::ExtendableArray<std::string> rhs = {"a", "x", "y", "z", "p", "q"};
 
     lhs = rhs;
 
@@ -228,7 +228,7 @@ TEST(ExtendableArray, CopyAssignmentEqualCapacity) {
 }
 
 TEST(ExtendableArray, SelfCopyAssignment) {
-    alg::ExtendableArray<std::string> arr = {"a", "b", "c"};
+    alg::ds::ExtendableArray<std::string> arr = {"a", "b", "c"};
     std::vector<std::string> expected = {"a", "b", "c"};
 
     arr = arr;
@@ -242,8 +242,8 @@ TEST(ExtendableArray, SelfCopyAssignment) {
 }
 
 TEST(ExtendableArray, CopyAssignmentRHSEmpty) {
-    alg::ExtendableArray<std::string> lhs = {"a"};
-    alg::ExtendableArray<std::string> rhs;
+    alg::ds::ExtendableArray<std::string> lhs = {"a"};
+    alg::ds::ExtendableArray<std::string> rhs;
 
     lhs = rhs;
 
@@ -253,8 +253,8 @@ TEST(ExtendableArray, CopyAssignmentRHSEmpty) {
 }
 
 TEST(ExtendableArray, CopyAssignmentLHSEmpty) {
-    alg::ExtendableArray<std::string> lhs;
-    alg::ExtendableArray<std::string> rhs = {"a"};
+    alg::ds::ExtendableArray<std::string> lhs;
+    alg::ds::ExtendableArray<std::string> rhs = {"a"};
 
     lhs = rhs;
 
@@ -263,8 +263,8 @@ TEST(ExtendableArray, CopyAssignmentLHSEmpty) {
 }
 
 TEST(ExtendableArray, CopyAssignmentBothEmpty) {
-    alg::ExtendableArray<std::string> lhs;
-    alg::ExtendableArray<std::string> rhs;
+    alg::ds::ExtendableArray<std::string> lhs;
+    alg::ds::ExtendableArray<std::string> rhs;
 
     lhs = rhs;
 
@@ -276,8 +276,8 @@ TEST(ExtendableArray, CopyAssignmentBothEmpty) {
 TEST(ExtendableArray, MoveAssignment) {
     constexpr int total = 10000;
 
-    alg::ExtendableArray<NoDefaultCtor<int>> lhs;
-    alg::ExtendableArray<NoDefaultCtor<int>> rhs;
+    alg::ds::ExtendableArray<NoDefaultCtor<int>> lhs;
+    alg::ds::ExtendableArray<NoDefaultCtor<int>> rhs;
 
     for (int i = 0; i < total; ++i) {
         rhs.append(NoDefaultCtor<int>{i});
@@ -302,7 +302,7 @@ TEST(ExtendableArray, MoveAssignment) {
 TEST(ExtendableArray, DefaultElements) {
     constexpr std::size_t total = 100;
 
-    alg::ExtendableArray<int> arr(total);
+    alg::ds::ExtendableArray<int> arr(total);
 
     ASSERT_EQ(total, arr.count());
 

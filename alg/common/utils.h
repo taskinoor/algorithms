@@ -9,14 +9,14 @@ namespace alg {
 namespace utils {
 
 template <class T, class A>
-void clear_buffer(T* buffer, A& alloc, std::size_t begin, std::size_t end,
+void clear_buffer(T* buffer, A& alloc, std::size_t first, std::size_t last,
         std::size_t capacity, bool dealloc) {
 
     if (!buffer) {
         return;
     }
 
-    for (std::size_t i = begin; i < end; ++i) {
+    for (std::size_t i = first; i < last; ++i) {
         std::allocator_traits<A>::destroy(alloc, buffer + i);
     }
 

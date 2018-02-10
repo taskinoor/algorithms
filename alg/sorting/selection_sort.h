@@ -3,18 +3,16 @@
 
 #include <algorithm>
 
-#include "alg/common/utils.h"
-
 namespace alg {
 namespace sorting {
 
-template <class T>
-void selection_sort(T* a, int n) {
-    for (int i = 0; i < n - 1; ++i) {
-        int index = utils::min_index(a, n, i);
+template <class ForwardIt>
+void selection_sort(ForwardIt first, ForwardIt last) {
+    for ( ; first != last; ++first) {
+        ForwardIt min_pos = std::min_element(first, last);
 
-        if (index != i) {
-            std::swap(a[index], a[i]);
+        if (min_pos != first) {
+            std::iter_swap(min_pos, first);
         }
     }
 }

@@ -1,13 +1,14 @@
-#ifndef ALG_BINARY_HEAP_H_
-#define ALG_BINARY_HEAP_H_
+#ifndef ALG_DS_HEAP_BINARY_BINARY_HEAP_H_
+#define ALG_DS_HEAP_BINARY_BINARY_HEAP_H_
 
 #include <algorithm>
 
 namespace alg {
+namespace ds {
 namespace heap {
 namespace binary {
 
-enum class HeapType {
+enum class Type {
     MIN,
     MAX
 };
@@ -71,25 +72,26 @@ void max_heapify(T* a, int i, int n) {
 }
 
 template <class T>
-void heapify(T* a, int i, int n, HeapType type) {
-    if (type == HeapType::MIN) {
+void heapify(T* a, int i, int n, Type type) {
+    if (type == Type::MIN) {
         min_heapify(a, i, n);
-    } else if (type == HeapType::MAX) {
+    } else if (type == Type::MAX) {
         max_heapify(a, i, n);
     }
 }
 
 template <class T>
-void build_heap(T* a, int n, HeapType type) {
+void build_heap(T* a, int n, Type type) {
     for (int i = parent(n - 1); i >= 0; --i) {
-        if (type == HeapType::MIN) {
+        if (type == Type::MIN) {
             min_heapify(a, i, n);
-        } else if (type == HeapType::MAX) {
+        } else if (type == Type::MAX) {
             max_heapify(a, i, n);
         }
     }
 }
 
+}
 }
 }
 }

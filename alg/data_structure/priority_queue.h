@@ -88,8 +88,8 @@ T PriorityQueue<T>::pop() {
     buffer[0] = buffer[count_ - 1];
     --count_;
 
-    heap::binary::HeapType heap_type = (type == PriorityQueueType::MIN) ?
-            heap::binary::HeapType::MIN : heap::binary::HeapType::MAX;
+    heap::binary::Type heap_type = (type == PriorityQueueType::MIN) ?
+            heap::binary::Type::MIN : heap::binary::Type::MAX;
 
     heap::binary::heapify(buffer.data_ptr(), 0, count_, heap_type);
 

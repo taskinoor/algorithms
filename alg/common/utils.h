@@ -1,5 +1,5 @@
-#ifndef ALG_COMMON_UTILS_H_
-#define ALG_COMMON_UTILS_H_
+#ifndef ALG_UTILS_UTILS_H_
+#define ALG_UTILS_UTILS_H_
 
 #include <cstddef>
 

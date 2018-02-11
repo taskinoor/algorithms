@@ -8,13 +8,13 @@
 namespace algtest {
 
 TEST(Queue, Empty) {
-    alg::Queue<int> q(2);
+    alg::ds::Queue<int> q(2);
 
     ASSERT_THROW(q.dequeue(), alg::except::BufferEmpty);
 }
 
 TEST(Queue, Full) {
-    alg::Queue<int> q(2);
+    alg::ds::Queue<int> q(2);
 
     ASSERT_NO_THROW(q.enqueue(2));
     ASSERT_NO_THROW(q.enqueue(3));
@@ -24,7 +24,7 @@ TEST(Queue, Full) {
 TEST(Queue, EnqueueDequeue) {
     constexpr int n = 10;
     std::array<int, n> data = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
-    alg::Queue<int> q(n - 2);
+    alg::ds::Queue<int> q(n - 2);
 
     ASSERT_EQ(0, q.count());
 

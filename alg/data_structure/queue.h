@@ -1,11 +1,12 @@
-#ifndef ALG_QUEUE_H_
-#define ALG_QUEUE_H_
+#ifndef ALG_DS_QUEUE_H_
+#define ALG_DS_QUEUE_H_
 
 #include <cstddef>
 
 #include "alg/common/exception.h"
 
 namespace alg {
+namespace ds {
 
 template <class T>
 class Queue {
@@ -64,6 +65,7 @@ std::size_t Queue<T>::count() {
     return (rear - front + size) % size;
 }
 
+}
 }
 
 #endif

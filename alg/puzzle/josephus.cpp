@@ -35,7 +35,7 @@ std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
 }
 
 std::size_t josephus_queue(std::size_t n, std::size_t k) {
-    Queue<std::size_t> q(n);
+    ds::Queue<std::size_t> q(n);
 
     for (std::size_t i = 1; i <= n; ++i) {
         q.enqueue(i);

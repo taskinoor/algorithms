@@ -8,7 +8,7 @@ namespace algtest {
 class Deque : public ::testing::Test {
 protected:
     template <class T>
-    void assert_empty(alg::Deque<T>& deq) {
+    void assert_empty(alg::ds::Deque<T>& deq) {
         ASSERT_EQ(0, deq.count());
 
         ASSERT_THROW(deq.back(), alg::except::BufferEmpty);
@@ -19,7 +19,7 @@ protected:
 };
 
 TEST_F(Deque, Operations) {
-    alg::Deque<int> deq;
+    alg::ds::Deque<int> deq;
 
     assert_empty(deq);
 

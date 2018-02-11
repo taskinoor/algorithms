@@ -1,5 +1,5 @@
-#ifndef ALG_DEQUE_H_
-#define ALG_DEQUE_H_
+#ifndef ALG_DS_DEQUE_H_
+#define ALG_DS_DEQUE_H_
 
 #include <cstddef>
 
@@ -7,6 +7,7 @@
 #include "alg/data_structure/linked_list.h"
 
 namespace alg {
+namespace ds {
 
 template <class T>
 class Deque {
@@ -115,6 +116,7 @@ std::size_t Deque<T>::count() {
     return count_;
 }
 
+}
 }
 
 #endif

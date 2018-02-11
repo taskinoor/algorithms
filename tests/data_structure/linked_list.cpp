@@ -7,26 +7,26 @@
 namespace algtest {
 
 TEST(ListNode, DefaultElement) {
-    alg::ListNode<int> node;
+    alg::ds::list::Node<int> node;
 
     ASSERT_EQ(0, node.element());
 }
 
 TEST(ListNode, Element) {
-    alg::ListNode<int> node(2);
+    alg::ds::list::Node<int> node(2);
 
     ASSERT_EQ(2, node.element());
 }
 
 TEST(LinkedList, EmptyList) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
     ASSERT_EQ(nullptr, list.first());
     ASSERT_EQ(nullptr, list.last());
 }
 
 TEST(LinkedList, EmptyInsertFirst) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
     list.insert_first(2);
 
@@ -35,7 +35,7 @@ TEST(LinkedList, EmptyInsertFirst) {
 }
 
 TEST(LinkedList, EmptyInsertLast) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
     list.insert_last(2);
 
@@ -44,7 +44,7 @@ TEST(LinkedList, EmptyInsertLast) {
 }
 
 TEST(LinkedList, InsertAfter) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
     list.insert_first(2);
     list.insert_after(list.first(), 3);
@@ -56,7 +56,7 @@ TEST(LinkedList, InsertAfter) {
 }
 
 TEST(LinkedList, InsertBefore) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
     list.insert_last(2);
     list.insert_before(list.last(), 3);
@@ -68,7 +68,7 @@ TEST(LinkedList, InsertBefore) {
 }
 
 TEST(LinkedList, Search) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
     ASSERT_EQ(nullptr, list.search(2));
 
@@ -92,7 +92,7 @@ TEST(LinkedList, Search) {
 }
 
 TEST(LinkedList, Remove) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
     std::array<int, 7> data = {2, 3, 5, 7, 11, 13, 17};
 
     for (const auto& i : data) {
@@ -105,14 +105,16 @@ TEST(LinkedList, Remove) {
 
     std::array<int, 4> expected = {3, 5, 11, 13};
 
-    alg::ForwardListIterator<int>* iter_forward =
-            (alg::ForwardListIterator<int>*)list.create_iterator();
-    alg::BackwardListIterator<int>* iter_backward =
-            (alg::BackwardListIterator<int>*)list.create_iterator(false);
+    alg::ds::list::ForwardIterator<int>* iter_forward =
+            (alg::ds::list::ForwardIterator<int>*)list.create_iterator();
+
+    alg::ds::list::BackwardIterator<int>* iter_backward =
+            (alg::ds::list::BackwardIterator<int>*)list.create_iterator(false);
 
     for (int i = 3; !iter_forward->is_done(); iter_forward->next(), --i) {
         ASSERT_EQ(expected[i], iter_forward->current_item());
     }
+
     for (int i = 0; !iter_backward->is_done(); iter_backward->next(), ++i) {
         ASSERT_EQ(expected[i], iter_backward->current_item());
     }
@@ -122,21 +124,23 @@ TEST(LinkedList, Remove) {
 }
 
 TEST(ListIterator, InsertFirst) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
     std::array<int, 7> data = {2, 3, 5, 7, 11, 13, 17};
 
     for (const auto& i : data) {
         list.insert_first(i);
     }
 
-    alg::ForwardListIterator<int>* iter_forward =
-            (alg::ForwardListIterator<int>*)list.create_iterator();
-    alg::BackwardListIterator<int>* iter_backward =
-            (alg::BackwardListIterator<int>*)list.create_iterator(false);
+    alg::ds::list::ForwardIterator<int>* iter_forward =
+            (alg::ds::list::ForwardIterator<int>*)list.create_iterator();
+
+    alg::ds::list::BackwardIterator<int>* iter_backward =
+            (alg::ds::list::BackwardIterator<int>*)list.create_iterator(false);
 
     for (int i = 6; !iter_forward->is_done(); iter_forward->next(), --i) {
         ASSERT_EQ(data[i], iter_forward->current_item());
     }
+
     for (int i = 0; !iter_backward->is_done(); iter_backward->next(), ++i) {
         ASSERT_EQ(data[i], iter_backward->current_item());
     }
@@ -146,21 +150,23 @@ TEST(ListIterator, InsertFirst) {
 }
 
 TEST(ListIterator, InsertLast) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
     std::array<int, 7> data = {2, 3, 5, 7, 11, 13, 17};
 
     for (const auto& i : data) {
         list.insert_last(i);
     }
 
-    alg::ForwardListIterator<int>* iter_forward =
-            (alg::ForwardListIterator<int>*)list.create_iterator();
-    alg::BackwardListIterator<int>* iter_backward =
-            (alg::BackwardListIterator<int>*)list.create_iterator(false);
+    alg::ds::list::ForwardIterator<int>* iter_forward =
+            (alg::ds::list::ForwardIterator<int>*)list.create_iterator();
+
+    alg::ds::list::BackwardIterator<int>* iter_backward =
+            (alg::ds::list::BackwardIterator<int>*)list.create_iterator(false);
 
     for (int i = 0; !iter_forward->is_done(); iter_forward->next(), ++i) {
         ASSERT_EQ(data[i], iter_forward->current_item());
     }
+
     for (int i = 6; !iter_backward->is_done(); iter_backward->next(), --i) {
         ASSERT_EQ(data[i], iter_backward->current_item());
     }
@@ -170,16 +176,18 @@ TEST(ListIterator, InsertLast) {
 }
 
 TEST(ListIterator, EmptyList) {
-    alg::LinkedList<int> list;
+    alg::ds::list::LinkedList<int> list;
 
-    alg::ForwardListIterator<int>* iter_forward =
-            (alg::ForwardListIterator<int>*)list.create_iterator();
-    alg::BackwardListIterator<int>* iter_backward =
-            (alg::BackwardListIterator<int>*)list.create_iterator(false);
+    alg::ds::list::ForwardIterator<int>* iter_forward =
+            (alg::ds::list::ForwardIterator<int>*)list.create_iterator();
+
+    alg::ds::list::BackwardIterator<int>* iter_backward =
+            (alg::ds::list::BackwardIterator<int>*)list.create_iterator(false);
 
     for (; !iter_forward->is_done(); iter_forward->next()) {
         FAIL();
     }
+
     for (; !iter_backward->is_done(); iter_backward->next()) {
         FAIL();
     }

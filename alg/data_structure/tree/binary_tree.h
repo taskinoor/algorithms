@@ -1,5 +1,5 @@
-#ifndef ALG_BINARY_TREE_H_
-#define ALG_BINARY_TREE_H_
+#ifndef ALG_DS_TREE_BINARY_TREE_H_
+#define ALG_DS_TREE_BINARY_TREE_H_
 
 #include <algorithm>
 #include <ostream>
@@ -7,26 +7,28 @@
 #include <string>
 
 namespace alg {
+namespace ds {
+namespace tree {
 
 template <class T> class BinaryTree;
 
 template <class T>
-class TreeNode {
+class Node {
 public:
-    explicit TreeNode(const T& element = T(), TreeNode<T>* parent = nullptr,
-            TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
+    explicit Node(const T& element = T(), Node<T>* parent = nullptr,
+            Node<T>* left = nullptr, Node<T>* right = nullptr);
 
-    virtual ~TreeNode() {}
+    virtual ~Node() {}
 
     T& element();
     const T& element() const;
 
-    virtual std::string to_string(TreeNode<T>* nil = nullptr) const;
+    virtual std::string to_string(Node<T>* nil = nullptr) const;
 
 protected:
-    TreeNode<T>* parent;
-    TreeNode<T>* left;
-    TreeNode<T>* right;
+    Node<T>* parent;
+    Node<T>* left;
+    Node<T>* right;
 
     T element_;
 
@@ -36,53 +38,51 @@ protected:
 template <class T>
 class BinaryTree {
 public:
-    explicit BinaryTree(TreeNode<T>* root);
+    explicit BinaryTree(Node<T>* root);
     virtual ~BinaryTree();
 
-    TreeNode<T>* root();
-    const TreeNode<T>* root() const;
+    Node<T>* root();
+    const Node<T>* root() const;
 
-    TreeNode<T>* parent(const TreeNode<T>* p);
-    const TreeNode<T>* parent(const TreeNode<T>* p) const;
+    Node<T>* parent(const Node<T>* p);
+    const Node<T>* parent(const Node<T>* p) const;
 
-    TreeNode<T>* left(const TreeNode<T>* p);
-    const TreeNode<T>* left(const TreeNode<T>* p) const;
+    Node<T>* left(const Node<T>* p);
+    const Node<T>* left(const Node<T>* p) const;
 
-    TreeNode<T>* right(const TreeNode<T>* p);
-    const TreeNode<T>* right(const TreeNode<T>* p) const;
+    Node<T>* right(const Node<T>* p);
+    const Node<T>* right(const Node<T>* p) const;
 
-    void set_root(TreeNode<T>* r);
-    void set_left(TreeNode<T>* p, TreeNode<T>* child);
-    void set_right(TreeNode<T>* p, TreeNode<T>* child);
-    void set_parent(TreeNode<T>* p, TreeNode<T>* child);
+    void set_root(Node<T>* r);
+    void set_left(Node<T>* p, Node<T>* child);
+    void set_right(Node<T>* p, Node<T>* child);
+    void set_parent(Node<T>* p, Node<T>* child);
 
-    int depth(const TreeNode<T>* p) const;
-    int count_descendants(const TreeNode<T>* p) const;
+    int depth(const Node<T>* p) const;
+    int count_descendants(const Node<T>* p) const;
 
     int height() const;
-    int height(const TreeNode<T>* p) const;
+    int height(const Node<T>* p) const;
 
     std::string to_string() const;
 
-    TreeNode<T>* nil();
-    const TreeNode<T>* nil() const;
+    Node<T>* nil();
+    const Node<T>* nil() const;
 
-    void set_nil(TreeNode<T>* nil_);
+    void set_nil(Node<T>* nil_);
 
 protected:
-    TreeNode<T>* nil_;
+    Node<T>* nil_;
 
 private:
-    TreeNode<T>* root_;
+    Node<T>* root_;
 
-    void to_string(const TreeNode<T>* p, std::string& out) const;
-    void free(const TreeNode<T>* node);
+    void to_string(const Node<T>* p, std::string& out) const;
+    void free(const Node<T>* node);
 };
 
 template <class T>
-TreeNode<T>::TreeNode(const T& element, TreeNode<T>* parent, TreeNode<T>* left,
-        TreeNode<T>* right) {
-
+Node<T>::Node(const T& element, Node<T>* parent, Node<T>* left, Node<T>* right) {
     element_ = element;
 
     this->parent = parent;
@@ -91,17 +91,17 @@ TreeNode<T>::TreeNode(const T& element, TreeNode<T>* parent, TreeNode<T>* left,
 }
 
 template <class T>
-T& TreeNode<T>::element() {
+T& Node<T>::element() {
     return element_;
 }
 
 template <class T>
-const T& TreeNode<T>::element() const {
+const T& Node<T>::element() const {
     return element_;
 }
 
 template <class T>
-std::string TreeNode<T>::to_string(TreeNode<T>* nil) const {
+std::string Node<T>::to_string(Node<T>* nil) const {
     std::ostringstream buf;
 
     buf << "E: " << element_;
@@ -130,7 +130,7 @@ std::string TreeNode<T>::to_string(TreeNode<T>* nil) const {
 }
 
 template <class T>
-BinaryTree<T>::BinaryTree(TreeNode<T>* root) {
+BinaryTree<T>::BinaryTree(Node<T>* root) {
    root_ = root;
    nil_ = nullptr;
 }
@@ -138,11 +138,12 @@ BinaryTree<T>::BinaryTree(TreeNode<T>* root) {
 template <class T>
 BinaryTree<T>::~BinaryTree() {
     free(root_);
+
     delete nil_;
 }
 
 template <class T>
-void BinaryTree<T>::free(const TreeNode<T>* node) {
+void BinaryTree<T>::free(const Node<T>* node) {
     if (node == nil_) {
         return;
     }
@@ -154,47 +155,47 @@ void BinaryTree<T>::free(const TreeNode<T>* node) {
 }
 
 template <class T>
-TreeNode<T>* BinaryTree<T>::root() {
+Node<T>* BinaryTree<T>::root() {
     return root_;
 }
 
 template <class T>
-const TreeNode<T>* BinaryTree<T>::root() const {
+const Node<T>* BinaryTree<T>::root() const {
     return root_;
 }
 
 template <class T>
-TreeNode<T>* BinaryTree<T>::parent(const TreeNode<T>* p) {
+Node<T>* BinaryTree<T>::parent(const Node<T>* p) {
     return p->parent;
 }
 
 template <class T>
-const TreeNode<T>* BinaryTree<T>::parent(const TreeNode<T>* p) const {
+const Node<T>* BinaryTree<T>::parent(const Node<T>* p) const {
     return p->parent;
 }
 
 template <class T>
-TreeNode<T>* BinaryTree<T>::left(const TreeNode<T>* p) {
+Node<T>* BinaryTree<T>::left(const Node<T>* p) {
     return p->left;
 }
 
 template <class T>
-const TreeNode<T>* BinaryTree<T>::left(const TreeNode<T>* p) const {
+const Node<T>* BinaryTree<T>::left(const Node<T>* p) const {
     return p->left;
 }
 
 template <class T>
-TreeNode<T>* BinaryTree<T>::right(const TreeNode<T>* p) {
+Node<T>* BinaryTree<T>::right(const Node<T>* p) {
     return p->right;
 }
 
 template <class T>
-const TreeNode<T>* BinaryTree<T>::right(const TreeNode<T>* p) const {
+const Node<T>* BinaryTree<T>::right(const Node<T>* p) const {
     return p->right;
 }
 
 template <class T>
-void BinaryTree<T>::set_root(TreeNode<T>* r) {
+void BinaryTree<T>::set_root(Node<T>* r) {
     root_ = r;
 
     if (root_) {
@@ -203,7 +204,7 @@ void BinaryTree<T>::set_root(TreeNode<T>* r) {
 }
 
 template <class T>
-void BinaryTree<T>::set_left(TreeNode<T>* p, TreeNode<T>* child) {
+void BinaryTree<T>::set_left(Node<T>* p, Node<T>* child) {
     if (child) {
         child->parent = p;
     }
@@ -212,7 +213,7 @@ void BinaryTree<T>::set_left(TreeNode<T>* p, TreeNode<T>* child) {
 }
 
 template <class T>
-void BinaryTree<T>::set_right(TreeNode<T>* p, TreeNode<T>* child) {
+void BinaryTree<T>::set_right(Node<T>* p, Node<T>* child) {
     if (child) {
         child->parent = p;
     }
@@ -221,14 +222,14 @@ void BinaryTree<T>::set_right(TreeNode<T>* p, TreeNode<T>* child) {
 }
 
 template <class T>
-void BinaryTree<T>::set_parent(TreeNode<T>* p, TreeNode<T>* child) {
+void BinaryTree<T>::set_parent(Node<T>* p, Node<T>* child) {
     if (child) {
         child->parent = p;
     }
 }
 
 template <class T>
-int BinaryTree<T>::depth(const TreeNode<T>* p) const {
+int BinaryTree<T>::depth(const Node<T>* p) const {
     int d = 0;
 
     while (p->parent != nil_) {
@@ -245,7 +246,7 @@ int BinaryTree<T>::height() const {
 }
 
 template <class T>
-int BinaryTree<T>::height(const TreeNode<T>* p) const {
+int BinaryTree<T>::height(const Node<T>* p) const {
     if (p == nil_) {
         return -1;
     }
@@ -254,7 +255,7 @@ int BinaryTree<T>::height(const TreeNode<T>* p) const {
 }
 
 template <class T>
-int BinaryTree<T>::count_descendants(const TreeNode<T>* p) const {
+int BinaryTree<T>::count_descendants(const Node<T>* p) const {
     if (p == nil_) {
         return 0;
     }
@@ -271,7 +272,7 @@ std::string BinaryTree<T>::to_string() const {
 }
 
 template <class T>
-void BinaryTree<T>::to_string(const TreeNode<T>* p, std::string& out) const {
+void BinaryTree<T>::to_string(const Node<T>* p, std::string& out) const {
     if (p == nil_) {
         return;
     }
@@ -283,20 +284,22 @@ void BinaryTree<T>::to_string(const TreeNode<T>* p, std::string& out) const {
 }
 
 template <class T>
-TreeNode<T>* BinaryTree<T>::nil() {
+Node<T>* BinaryTree<T>::nil() {
     return nil_;
 }
 
 template <class T>
-const TreeNode<T>* BinaryTree<T>::nil() const {
+const Node<T>* BinaryTree<T>::nil() const {
     return nil_;
 }
 
 template <class T>
-void BinaryTree<T>::set_nil(TreeNode<T>* nil_) {
+void BinaryTree<T>::set_nil(Node<T>* nil_) {
     this->nil_ = nil_;
 }
 
+}
+}
 }
 
 #endif

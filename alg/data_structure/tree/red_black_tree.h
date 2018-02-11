@@ -1,10 +1,12 @@
-#ifndef ALG_RED_BLACK_TREE_H_
-#define ALG_RED_BLACK_TREE_H_
+#ifndef ALG_DS_TREE_RED_BLACK_TREE_H_
+#define ALG_DS_TREE_RED_BLACK_TREE_H_
 
+#include "alg/data_structure/tree/binary_search_tree.h"
 #include "alg/data_structure/tree/binary_tree.h"
-#include "alg/data_structure/tree/bst.h"
 
 namespace alg {
+namespace ds {
+namespace tree {
 
 template <class T> class RedBlackTree;
 
@@ -14,11 +16,11 @@ enum class RBColor {
 };
 
 template <class T>
-class RBNode : public TreeNode<T> {
+class RBNode : public Node<T> {
 public:
     explicit RBNode(RBColor color, const T& element = T(),
-            TreeNode<T>* parent = nullptr, TreeNode<T>* left = nullptr,
-            TreeNode<T>* right = nullptr);
+            Node<T>* parent = nullptr, Node<T>* left = nullptr,
+            Node<T>* right = nullptr);
 
     RBColor color() const;
 
@@ -29,13 +31,13 @@ private:
 };
 
 template <class T>
-class RedBlackTree : public BST<T> {
+class RedBlackTree : public BinarySearchTree<T> {
 public:
     RedBlackTree();
 
-    void rotate(TreeNode<T>* x, bool left);
+    void rotate(Node<T>* x, bool left);
     void insert(T element) override;
-    void remove(TreeNode<T>* z) override;
+    void remove(Node<T>* z) override;
 
 private:
     void insert_fixup(RBNode<T>* node);
@@ -43,9 +45,8 @@ private:
 };
 
 template <class T>
-RBNode<T>::RBNode(RBColor color, const T& element, TreeNode<T>* parent,
-        TreeNode<T>* left, TreeNode<T>* right) :
-        TreeNode<T>(element, parent, left, right) {
+RBNode<T>::RBNode(RBColor color, const T& element, Node<T>* parent,
+        Node<T>* left, Node<T>* right) : Node<T>(element, parent, left, right) {
 
     color_ = color;
 }
@@ -67,9 +68,9 @@ RedBlackTree<T>::RedBlackTree() {
 }
 
 template <class T>
-void RedBlackTree<T>::rotate(TreeNode<T>* x, bool left) {
-    TreeNode<T>* y = left ? this->right(x) : this->left(x);
-    TreeNode<T>* p = this->parent(x);
+void RedBlackTree<T>::rotate(Node<T>* x, bool left) {
+    Node<T>* y = left ? this->right(x) : this->left(x);
+    Node<T>* p = this->parent(x);
 
     if (y == this->nil_) {
         return;
@@ -137,7 +138,7 @@ void RedBlackTree<T>::insert_fixup(RBNode<T>* node) {
 }
 
 template <class T>
-void RedBlackTree<T>::remove(TreeNode<T>* z) {
+void RedBlackTree<T>::remove(Node<T>* z) {
     RBNode<T>* x = nullptr;
     RBNode<T>* y = (RBNode<T>*)z;
     RBColor y_color = y->color_;
@@ -228,6 +229,8 @@ void RedBlackTree<T>::remove_fixup(RBNode<T>* x) {
     x->color_ = RBColor::BLACK;
 }
 
+}
+}
 }
 
 #endif

@@ -11,12 +11,12 @@ namespace algtest {
 
 class RangeQuery : public ::testing::Test {
 protected:
-    alg::BST<int>* bst;
+    alg::ds::tree::BinarySearchTree<int>* bst;
     std::array<int, 14> elements;
 
     virtual void SetUp() {
         elements = {68, 37, 99, 18, 55, 81, 12, 23, 42, 61, 74, 90, 21, 49};
-        bst = new alg::BST<int>();
+        bst = new alg::ds::tree::BinarySearchTree<int>();
 
         for (const auto& e : elements) {
             bst->insert(e);

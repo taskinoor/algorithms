@@ -6,14 +6,14 @@
 
 namespace algtest {
 
-class OST : public ::testing::Test {
+class OrderStatisticTree : public ::testing::Test {
 protected:
-    alg::OrderStatisticTree<int>* ost;
+    alg::ds::tree::OrderStatisticTree<int>* ost;
     std::array<int, 14> elements;
     std::array<int, 7> after_remove;
 
     virtual void SetUp() {
-        ost = new alg::OrderStatisticTree<int>();
+        ost = new alg::ds::tree::OrderStatisticTree<int>();
         elements = {44, 23, 63, 17, 33, 51, 74, 8, 20, 48, 58, 71, 46, 72};
 
         for (const auto& e : elements) {
@@ -36,31 +36,33 @@ protected:
     }
 };
 
-TEST_F(OST, NodeCountAfterInsert) {
+TEST_F(OrderStatisticTree, NodeCountAfterInsert) {
     std::array<int, 14> expected = {14, 5, 8, 3, 1, 4, 3, 1, 1, 2, 1, 2, 1, 1};
     std::array<int, 14> result;
 
     for (unsigned int i = 0; i < elements.size(); ++i) {
-        result[i] = ((alg::OSTNode<int>*)ost->search(elements[i]))->count();
+        result[i] = ((alg::ds::tree::OSTNode<int>*)ost->search(
+                elements[i]))->count();
     }
 
     ASSERT_EQ(expected, result);
 }
 
-TEST_F(OST, NodeCountAfterRemove) {
+TEST_F(OrderStatisticTree, NodeCountAfterRemove) {
     remove_nodes();
 
     std::array<int, 7> expected = {2, 2, 1, 1, 1, 7, 4};
     std::array<int, 7> result;
 
     for (unsigned int i = 0; i < after_remove.size(); ++i) {
-        result[i] = ((alg::OSTNode<int>*)ost->search(after_remove[i]))->count();
+        result[i] = ((alg::ds::tree::OSTNode<int>*)ost->search(
+                after_remove[i]))->count();
     }
 
     ASSERT_EQ(expected, result);
 }
 
-TEST_F(OST, SelectAfterInsert) {
+TEST_F(OrderStatisticTree, SelectAfterInsert) {
     std::array<int, 14> expected = {
             8, 17, 20, 23, 33, 44, 46,
             48, 51, 58, 63, 71, 72, 74
@@ -74,7 +76,7 @@ TEST_F(OST, SelectAfterInsert) {
     ASSERT_EQ(expected, result);
 }
 
-TEST_F(OST, SelectAfterRemove) {
+TEST_F(OrderStatisticTree, SelectAfterRemove) {
     remove_nodes();
 
     std::array<int, 7> expected = {20, 33, 46, 51, 58, 72, 74};
@@ -87,7 +89,7 @@ TEST_F(OST, SelectAfterRemove) {
     ASSERT_EQ(expected, result);
 }
 
-TEST_F(OST, RankAfterInsert) {
+TEST_F(OrderStatisticTree, RankAfterInsert) {
     std::array<int, 14> expected = {
             5, 3, 10, 1, 4, 8, 13, 0, 2, 7, 9, 11, 6, 12
     };
@@ -100,7 +102,7 @@ TEST_F(OST, RankAfterInsert) {
     ASSERT_EQ(expected, result);
 }
 
-TEST_F(OST, RankAfterRemove) {
+TEST_F(OrderStatisticTree, RankAfterRemove) {
     remove_nodes();
 
     std::array<int, 7> expected = {1, 3, 6, 0, 4, 2, 5};
@@ -113,7 +115,7 @@ TEST_F(OST, RankAfterRemove) {
     ASSERT_EQ(expected, result);
 }
 
-TEST_F(OST, RankInvalidItem) {
+TEST_F(OrderStatisticTree, RankInvalidItem) {
     ASSERT_EQ(-1, ost->rank(129));
 }
 

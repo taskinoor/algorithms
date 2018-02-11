@@ -1,15 +1,15 @@
 #ifndef ALG_SEARCHING_RANGE_QUERY_H_
 #define ALG_SEARCHING_RANGE_QUERY_H_
 
+#include "alg/data_structure/tree/binary_search_tree.h"
 #include "alg/data_structure/tree/binary_tree.h"
-#include "alg/data_structure/tree/bst.h"
 
 namespace alg {
 namespace searching {
 
 template <class OutputIt, class T>
-OutputIt range_query(const BST<T>* bst, const TreeNode<T>* v, const T& k1,
-        const T& k2, OutputIt iter) {
+OutputIt range_query(const ds::tree::BinarySearchTree<T>* bst,
+        const ds::tree::Node<T>* v, const T& k1, const T& k2, OutputIt iter) {
 
     if (v == bst->nil()) {
         return iter;
@@ -30,8 +30,8 @@ OutputIt range_query(const BST<T>* bst, const TreeNode<T>* v, const T& k1,
 }
 
 template <class OutputIt, class T>
-OutputIt range_query(const BST<T>* bst, const T& k1, const T& k2,
-        OutputIt iter) {
+OutputIt range_query(const ds::tree::BinarySearchTree<T>* bst,
+        const T& k1, const T& k2, OutputIt iter) {
 
     return range_query(bst, bst->root(), k1, k2, iter);
 }

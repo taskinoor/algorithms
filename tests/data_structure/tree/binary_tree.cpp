@@ -7,28 +7,28 @@
 namespace algtest {
 
 TEST(TreeNode, Default) {
-    alg::TreeNode<int> n;
+    alg::ds::tree::Node<int> n;
 
     ASSERT_EQ(0, n.element());
 }
 
 TEST(TreeNode, Element) {
-    alg::TreeNode<int> n(2);
+    alg::ds::tree::Node<int> n(2);
 
     ASSERT_EQ(2, n.element());
 }
 
 class BinaryTree : public ::testing::Test {
 protected:
-    alg::BinaryTree<int>* tree;
-    alg::TreeNode<int>* node[6];
+    alg::ds::tree::BinaryTree<int>* tree;
+    alg::ds::tree::Node<int>* node[6];
 
     virtual void SetUp() {
         for (int i = 0; i < 6; ++i) {
-            node[i] = new alg::TreeNode<int>(i);
+            node[i] = new alg::ds::tree::Node<int>(i);
         }
 
-        tree = new alg::BinaryTree<int>(node[0]);
+        tree = new alg::ds::tree::BinaryTree<int>(node[0]);
 
         tree->set_left(node[0], node[1]);
         tree->set_right(node[0], node[2]);
@@ -43,7 +43,7 @@ protected:
 };
 
 TEST_F(BinaryTree, Accessors) {
-    alg::TreeNode<int>* expected[6][3] = {
+    alg::ds::tree::Node<int>* expected[6][3] = {
         nullptr, node[1], node[2],
         node[0], node[3], node[4],
         node[0], nullptr, nullptr,

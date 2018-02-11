@@ -1,5 +1,5 @@
-#ifndef ALG_DS_PREORDER_H_
-#define ALG_DS_PREORDER_H_
+#ifndef ALG_DS_TREE_TRAVERSAL_PREORDER_H_
+#define ALG_DS_TREE_TRAVERSAL_PREORDER_H_
 
 #include "alg/common/iterator.h"
 #include "alg/data_structure/stack.h"
@@ -7,6 +7,8 @@
 
 namespace alg {
 namespace ds {
+namespace tree {
+namespace traversal {
 
 template <class T>
 class PreOrderIterator : public patterns::Iterator<T> {
@@ -19,17 +21,17 @@ public:
     bool is_done() const;
 
     T current_item() const;
-    TreeNode<T>* current_node() const;
+    Node<T>* current_node() const;
 
 private:
     BinaryTree<T>* tree;
-    Stack<TreeNode<T>*>* stack;
+    Stack<Node<T>*>* stack;
 };
 
 template <class T>
 PreOrderIterator<T>::PreOrderIterator(BinaryTree<T>* tree) {
     this->tree = tree;
-    stack = new Stack<TreeNode<T>*>(256);
+    stack = new Stack<Node<T>*>(256);
 }
 
 template <class T>
@@ -44,10 +46,10 @@ void PreOrderIterator<T>::first() {
 
 template <class T>
 void PreOrderIterator<T>::next() {
-    TreeNode<T>* current = stack->pop();
-    TreeNode<T>* left = tree->left(current);
-    TreeNode<T>* right = tree->right(current);
-    TreeNode<T>* nil_ = tree->nil();
+    Node<T>* current = stack->pop();
+    Node<T>* left = tree->left(current);
+    Node<T>* right = tree->right(current);
+    Node<T>* nil_ = tree->nil();
 
     if (right != nil_) {
         stack->push(right);
@@ -68,10 +70,12 @@ T PreOrderIterator<T>::current_item() const {
 }
 
 template <class T>
-TreeNode<T>* PreOrderIterator<T>::current_node() const {
+Node<T>* PreOrderIterator<T>::current_node() const {
     return stack->top();
 }
 
+}
+}
 }
 }
 

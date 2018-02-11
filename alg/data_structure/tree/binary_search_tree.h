@@ -1,49 +1,50 @@
-#ifndef ALG_BST_H_
-#define ALG_BST_H_
+#ifndef ALG_DS_TREE_BINARY_SEARCH_TREE_H_
+#define ALG_DS_TREE_BINARY_SEARCH_TREE_H_
 
 #include "alg/data_structure/tree/binary_tree.h"
 
 namespace alg {
+namespace ds {
+namespace tree {
 
 template <class T>
-class BST : public BinaryTree<T> {
+class BinarySearchTree : public BinaryTree<T> {
 public:
-    BST() : BinaryTree<T>(nullptr) {}
-    virtual ~BST() = default;
+    BinarySearchTree() : BinaryTree<T>(nullptr) {}
+    virtual ~BinarySearchTree() = default;
 
     virtual void insert(T element);
-    virtual void insert_node(TreeNode<T>* node);
+    virtual void insert_node(Node<T>* node);
 
-    virtual void remove(TreeNode<T>* z);
+    virtual void remove(Node<T>* z);
 
-    TreeNode<T>* search(TreeNode<T>* node, T key);
-    TreeNode<T>* search(T key);
+    Node<T>* search(Node<T>* node, T key);
+    Node<T>* search(T key);
 
-    TreeNode<T>* min(TreeNode<T>* node);
-    TreeNode<T>* min();
+    Node<T>* min(Node<T>* node);
+    Node<T>* min();
 
-    TreeNode<T>* max(TreeNode<T>* node);
-    TreeNode<T>* max();
+    Node<T>* max(Node<T>* node);
+    Node<T>* max();
 
-    TreeNode<T>* successor(TreeNode<T>* node);
-    TreeNode<T>* predecessor(TreeNode<T>* node);
+    Node<T>* successor(Node<T>* node);
+    Node<T>* predecessor(Node<T>* node);
 
 protected:
-    void transplant(TreeNode<T>* u, TreeNode<T>* v);
+    void transplant(Node<T>* u, Node<T>* v);
 };
 
 template <class T>
-void BST<T>::insert(T element) {
-    TreeNode<T>* node = new TreeNode<T>(element,
-            this->nil_, this->nil_, this->nil_);
+void BinarySearchTree<T>::insert(T element) {
+    Node<T>* node = new Node<T>(element, this->nil_, this->nil_, this->nil_);
 
     insert_node(node);
 }
 
 template <class T>
-void BST<T>::insert_node(TreeNode<T>* node) {
-    TreeNode<T>* last = nullptr;
-    TreeNode<T>* current = this->root();
+void BinarySearchTree<T>::insert_node(Node<T>* node) {
+    Node<T>* last = nullptr;
+    Node<T>* current = this->root();
 
     while (current != this->nil_) {
         last = current;
@@ -65,7 +66,7 @@ void BST<T>::insert_node(TreeNode<T>* node) {
 }
 
 template <class T>
-TreeNode<T>* BST<T>::search(TreeNode<T>* node, T key) {
+Node<T>* BinarySearchTree<T>::search(Node<T>* node, T key) {
     while (node != this->nil_ && node->element() != key) {
         if (key < node->element()) {
              node = this->left(node);
@@ -78,12 +79,12 @@ TreeNode<T>* BST<T>::search(TreeNode<T>* node, T key) {
 }
 
 template <class T>
-TreeNode<T>* BST<T>::search(T key) {
+Node<T>* BinarySearchTree<T>::search(T key) {
     return search(this->root(), key);
 }
 
 template <class T>
-TreeNode<T>* BST<T>::min(TreeNode<T>* node) {
+Node<T>* BinarySearchTree<T>::min(Node<T>* node) {
     while (node != this->nil_ && this->left(node) != this->nil_) {
         node = this->left(node);
     }
@@ -92,12 +93,12 @@ TreeNode<T>* BST<T>::min(TreeNode<T>* node) {
 }
 
 template <class T>
-TreeNode<T>* BST<T>::min() {
+Node<T>* BinarySearchTree<T>::min() {
     return min(this->root());
 }
 
 template <class T>
-TreeNode<T>* BST<T>::max(TreeNode<T>* node) {
+Node<T>* BinarySearchTree<T>::max(Node<T>* node) {
     while (node != this->nil_ && this->right(node) != this->nil_) {
         node = this->right(node);
     }
@@ -106,17 +107,17 @@ TreeNode<T>* BST<T>::max(TreeNode<T>* node) {
 }
 
 template <class T>
-TreeNode<T>* BST<T>::max() {
+Node<T>* BinarySearchTree<T>::max() {
     return max(this->root());
 }
 
 template <class T>
-TreeNode<T>* BST<T>::successor(TreeNode<T>* node) {
+Node<T>* BinarySearchTree<T>::successor(Node<T>* node) {
     if (this->right(node) != this->nil_) {
         return min(this->right(node));
     }
 
-    TreeNode<T>* p = this->parent(node);
+    Node<T>* p = this->parent(node);
 
     while (p != this->nil_ && this->right(p) == node) {
         node = p;
@@ -127,12 +128,12 @@ TreeNode<T>* BST<T>::successor(TreeNode<T>* node) {
 }
 
 template <class T>
-TreeNode<T>* BST<T>::predecessor(TreeNode<T>* node) {
+Node<T>* BinarySearchTree<T>::predecessor(Node<T>* node) {
     if (this->left(node) != this->nil_) {
         return max(this->left(node));
     }
 
-    TreeNode<T>* p = this->parent(node);
+    Node<T>* p = this->parent(node);
 
     while (p != this->nil_ && this->left(p) == node) {
         node = p;
@@ -143,8 +144,8 @@ TreeNode<T>* BST<T>::predecessor(TreeNode<T>* node) {
 }
 
 template <class T>
-void BST<T>::transplant(TreeNode<T>* u, TreeNode<T>* v) {
-    TreeNode<T>* p = this->parent(u);
+void BinarySearchTree<T>::transplant(Node<T>* u, Node<T>* v) {
+    Node<T>* p = this->parent(u);
 
     if (p == this->nil_) {
         this->set_root(v);
@@ -158,13 +159,13 @@ void BST<T>::transplant(TreeNode<T>* u, TreeNode<T>* v) {
 }
 
 template <class T>
-void BST<T>::remove(TreeNode<T>* z) {
+void BinarySearchTree<T>::remove(Node<T>* z) {
     if (this->left(z) == this->nil_) {
         transplant(z, this->right(z));
     } else if (this->right(z) == this->nil_) {
         transplant(z, this->left(z));
     } else {
-        TreeNode<T>* y = min(this->right(z));
+        Node<T>* y = min(this->right(z));
 
         if (this->parent(y) != z) {
             transplant(y, this->right(y));
@@ -178,6 +179,8 @@ void BST<T>::remove(TreeNode<T>* z) {
     delete z;
 }
 
+}
+}
 }
 
 #endif

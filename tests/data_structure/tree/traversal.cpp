@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
+#include "alg/data_structure/tree/binary_search_tree.h"
 #include "alg/data_structure/tree/binary_tree.h"
-#include "alg/data_structure/tree/bst.h"
 #include "alg/data_structure/tree/traversal/euler_tour.h"
 #include "alg/data_structure/tree/traversal/inorder.h"
 #include "alg/data_structure/tree/traversal/postorder.h"
@@ -11,15 +11,15 @@ namespace algtest {
 
 class TreeTraversal : public ::testing::Test {
 protected:
-    alg::BST<char>* tree;
-    alg::BST<char>* tree_only_root;
-    alg::TreeNode<char>* node[9];
+    alg::ds::tree::BinarySearchTree<char>* tree;
+    alg::ds::tree::BinarySearchTree<char>* tree_only_root;
+    alg::ds::tree::Node<char>* node[9];
 
     virtual void SetUp() {
-        tree = new alg::BST<char>();
+        tree = new alg::ds::tree::BinarySearchTree<char>();
 
         for (int i = 0; i < 9; ++i) {
-            node[i] = new alg::TreeNode<char>('A' + i,
+            node[i] = new alg::ds::tree::Node<char>('A' + i,
                     tree->nil(), tree->nil(), tree->nil());
         }
 
@@ -47,8 +47,9 @@ protected:
             }
         }
 
-        tree_only_root = new alg::BST<char>();
-        tree_only_root->set_root(new alg::TreeNode<char>('A',
+        tree_only_root = new alg::ds::tree::BinarySearchTree<char>();
+
+        tree_only_root->set_root(new alg::ds::tree::Node<char>('A',
                 tree_only_root->nil(), tree_only_root->nil(),
                 tree_only_root->nil()));
     }
@@ -65,8 +66,8 @@ private:
 };
 
 TEST_F(TreeTraversal, PreOrder) {
-    alg::ds::PreOrderIterator<char>* it =
-            new alg::ds::PreOrderIterator<char>(tree);
+    alg::ds::tree::traversal::PreOrderIterator<char>* it =
+            new alg::ds::tree::traversal::PreOrderIterator<char>(tree);
 
     char expected[9] = {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
     int i = 0;
@@ -80,8 +81,8 @@ TEST_F(TreeTraversal, PreOrder) {
 }
 
 TEST_F(TreeTraversal, PreOrderOnlyRoot) {
-    alg::ds::PreOrderIterator<char>* it =
-            new alg::ds::PreOrderIterator<char>(tree_only_root);
+    alg::ds::tree::traversal::PreOrderIterator<char>* it =
+            new alg::ds::tree::traversal::PreOrderIterator<char>(tree_only_root);
 
     int i = 0;
 
@@ -94,8 +95,8 @@ TEST_F(TreeTraversal, PreOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, PostOrder) {
-    alg::ds::PostOrderIterator<char>* it =
-            new alg::ds::PostOrderIterator<char>(tree);
+    alg::ds::tree::traversal::PostOrderIterator<char>* it =
+            new alg::ds::tree::traversal::PostOrderIterator<char>(tree);
 
     char expected[9] = {'A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'};
     int i = 0;
@@ -109,8 +110,8 @@ TEST_F(TreeTraversal, PostOrder) {
 }
 
 TEST_F(TreeTraversal, PostOrderOnlyRoot) {
-    alg::ds::PostOrderIterator<char>* it =
-            new alg::ds::PostOrderIterator<char>(tree_only_root);
+    alg::ds::tree::traversal::PostOrderIterator<char>* it =
+            new alg::ds::tree::traversal::PostOrderIterator<char>(tree_only_root);
 
     int i = 0;
 
@@ -123,8 +124,8 @@ TEST_F(TreeTraversal, PostOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, InOrder) {
-    alg::ds::InOrderIterator<char>* it =
-            new alg::ds::InOrderIterator<char>(tree);
+    alg::ds::tree::traversal::InOrderIterator<char>* it =
+            new alg::ds::tree::traversal::InOrderIterator<char>(tree);
 
     char expected[9] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
     int i = 0;
@@ -138,8 +139,8 @@ TEST_F(TreeTraversal, InOrder) {
 }
 
 TEST_F(TreeTraversal, InOrderOnlyRoot) {
-    alg::ds::InOrderIterator<char>* it =
-            new alg::ds::InOrderIterator<char>(tree_only_root);
+    alg::ds::tree::traversal::InOrderIterator<char>* it =
+            new alg::ds::tree::traversal::InOrderIterator<char>(tree_only_root);
 
     int i = 0;
 
@@ -152,11 +153,12 @@ TEST_F(TreeTraversal, InOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, EulerTour) {
-    ASSERT_EQ("FBAAABDCCCDEEEDBFGGIHHHIIGF", alg::euler_tour(tree));
+    ASSERT_EQ("FBAAABDCCCDEEEDBFGGIHHHIIGF",
+            alg::ds::tree::traversal::euler_tour(tree));
 }
 
 TEST_F(TreeTraversal, EulerTourOnlyRoot) {
-    ASSERT_EQ("AAA", alg::euler_tour(tree_only_root));
+    ASSERT_EQ("AAA", alg::ds::tree::traversal::euler_tour(tree_only_root));
 }
 
 }

@@ -1,5 +1,5 @@
-#ifndef ALG_EULER_TOUR_H_
-#define ALG_EULER_TOUR_H_
+#ifndef ALG_DS_TREE_TRAVERSAL_EULER_TOUR_H_
+#define ALG_DS_TREE_TRAVERSAL_EULER_TOUR_H_
 
 #include <sstream>
 #include <string>
@@ -7,9 +7,12 @@
 #include "alg/data_structure/tree/binary_tree.h"
 
 namespace alg {
+namespace ds {
+namespace tree {
+namespace traversal {
 
 template <class T>
-void euler_visit(TreeNode<T>* v, std::string &out) {
+void euler_visit(Node<T>* v, std::string &out) {
     std::ostringstream buf;
 
     buf << v->element();
@@ -17,15 +20,7 @@ void euler_visit(TreeNode<T>* v, std::string &out) {
 }
 
 template <class T>
-std::string euler_tour(BinaryTree<T>* tree) {
-    std::string out = "";
-    euler_tour(tree, tree->root(), out);
-
-    return out;
-}
-
-template <class T>
-void euler_tour(BinaryTree<T>* tree, TreeNode<T>* v, std::string &out) {
+void euler_tour(BinaryTree<T>* tree, Node<T>* v, std::string &out) {
     if (v == tree->nil()) {
         return;
     }
@@ -37,6 +32,18 @@ void euler_tour(BinaryTree<T>* tree, TreeNode<T>* v, std::string &out) {
     euler_visit(v, out);
 }
 
+template <class T>
+std::string euler_tour(BinaryTree<T>* tree) {
+    std::string out = "";
+
+    euler_tour(tree, tree->root(), out);
+
+    return out;
+}
+
+}
+}
+}
 }
 
 #endif

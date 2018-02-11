@@ -17,12 +17,12 @@ namespace algtest {
 
 class RedBlackTree : public ::testing::Test {
 protected:
-    static alg::RedBlackTree<int>* tree;
+    static alg::ds::tree::RedBlackTree<int>* tree;
     static std::vector<std::pair<bool, int>> keys;
     static int count;
 
     static void SetUpTestCase() {
-        tree = new alg::RedBlackTree<int>();
+        tree = new alg::ds::tree::RedBlackTree<int>();
 
         constexpr int total = 1000000;
         constexpr int delete_frequency = 5;
@@ -56,8 +56,9 @@ protected:
     }
 };
 
-alg::RedBlackTree<int>* RedBlackTree::tree = nullptr;
+alg::ds::tree::RedBlackTree<int>* RedBlackTree::tree = nullptr;
 std::vector<std::pair<bool, int>> RedBlackTree::keys = {};
+
 int RedBlackTree::count = 0;
 
 TEST_F(RedBlackTree, Count) {
@@ -70,29 +71,36 @@ TEST_F(RedBlackTree, Height) {
 }
 
 TEST_F(RedBlackTree, RootColor) {
-    alg::RBNode<int>* root = (alg::RBNode<int>*)tree->root();
+    alg::ds::tree::RBNode<int>* root = (alg::ds::tree::RBNode<int>*)tree->root();
 
-    ASSERT_EQ(alg::RBColor::BLACK, root->color());
+    ASSERT_EQ(alg::ds::tree::RBColor::BLACK, root->color());
 }
 
 TEST_F(RedBlackTree, LeafColor) {
-    alg::RBNode<int>* nil = (alg::RBNode<int>*)tree->nil();
+    alg::ds::tree::RBNode<int>* nil = (alg::ds::tree::RBNode<int>*)tree->nil();
 
-    ASSERT_EQ(alg::RBColor::BLACK, nil->color());
+    ASSERT_EQ(alg::ds::tree::RBColor::BLACK, nil->color());
 }
 
 TEST_F(RedBlackTree, ChildOfRed) {
-    alg::ds::PreOrderIterator<int>* iter = new alg::ds::PreOrderIterator<int>(tree);
+    alg::ds::tree::traversal::PreOrderIterator<int>* iter =
+            new alg::ds::tree::traversal::PreOrderIterator<int>(tree);
+
     int found = 0;
 
     for (iter->first(); !iter->is_done(); iter->next(), ++found) {
-        alg::RBNode<int>* node = (alg::RBNode<int>*)iter->current_node();
-        alg::RBNode<int>* left = (alg::RBNode<int>*)tree->left(node);
-        alg::RBNode<int>* right = (alg::RBNode<int>*)tree->right(node);
+        alg::ds::tree::RBNode<int>* node =
+                (alg::ds::tree::RBNode<int>*)iter->current_node();
 
-        if (node->color() == alg::RBColor::RED) {
-            ASSERT_EQ(alg::RBColor::BLACK, left->color());
-            ASSERT_EQ(alg::RBColor::BLACK, right->color());
+        alg::ds::tree::RBNode<int>* left =
+                (alg::ds::tree::RBNode<int>*)tree->left(node);
+
+        alg::ds::tree::RBNode<int>* right =
+                (alg::ds::tree::RBNode<int>*)tree->right(node);
+
+        if (node->color() == alg::ds::tree::RBColor::RED) {
+            ASSERT_EQ(alg::ds::tree::RBColor::BLACK, left->color());
+            ASSERT_EQ(alg::ds::tree::RBColor::BLACK, right->color());
         }
     }
 
@@ -102,24 +110,31 @@ TEST_F(RedBlackTree, ChildOfRed) {
 }
 
 TEST_F(RedBlackTree, BlackHeight) {
-    alg::ds::PostOrderIterator<int>* iter = new alg::ds::PostOrderIterator<int>(tree);
+    alg::ds::tree::traversal::PostOrderIterator<int>* iter =
+            new alg::ds::tree::traversal::PostOrderIterator<int>(tree);
+
     int found = 0;
     int black_height = -1;
 
     for (iter->first(); !iter->is_done(); iter->next(), ++found) {
-        alg::RBNode<int>* node = (alg::RBNode<int>*)iter->current_node();
-        alg::RBNode<int>* left = (alg::RBNode<int>*)tree->left(node);
-        alg::RBNode<int>* right = (alg::RBNode<int>*)tree->right(node);
+        alg::ds::tree::RBNode<int>* node =
+                (alg::ds::tree::RBNode<int>*)iter->current_node();
+
+        alg::ds::tree::RBNode<int>* left =
+                (alg::ds::tree::RBNode<int>*)tree->left(node);
+
+        alg::ds::tree::RBNode<int>* right =
+                (alg::ds::tree::RBNode<int>*)tree->right(node);
 
         if (left == tree->nil() && right == tree->nil()) {
             int count = 0;
 
             while (node != tree->nil()) {
-                if (node->color() == alg::RBColor::BLACK) {
+                if (node->color() == alg::ds::tree::RBColor::BLACK) {
                     ++count;
                 }
 
-                node = (alg::RBNode<int>*)tree->parent(node);
+                node = (alg::ds::tree::RBNode<int>*)tree->parent(node);
             }
 
             if (black_height == -1) {
@@ -157,7 +172,9 @@ TEST_F(RedBlackTree, Sorting) {
     ASSERT_EQ(count, present_keys.size());
     std::sort(present_keys.begin(), present_keys.end());
 
-    alg::ds::InOrderIterator<int>* iter = new alg::ds::InOrderIterator<int>(tree);
+    alg::ds::tree::traversal::InOrderIterator<int>* iter =
+            new alg::ds::tree::traversal::InOrderIterator<int>(tree);
+
     int i = 0;
 
     for (iter->first(); !iter->is_done(); iter->next(), ++i) {
@@ -175,15 +192,18 @@ TEST_F(RedBlackTree, Sorting) {
 TEST_F(RedBlackTree, Rotation) {
     constexpr int n = 6;
     int keys[n] = {7, 11, 9, 18, 14, 19};
-    alg::TreeNode<int>* nodes[n];
-    alg::RedBlackTree<int>* rb_tree = new alg::RedBlackTree<int>();
-    alg::TreeNode<int>* nil = rb_tree->nil();
+
+    alg::ds::tree::Node<int>* nodes[n];
+    alg::ds::tree::RedBlackTree<int>* rb_tree =
+            new alg::ds::tree::RedBlackTree<int>();
+
+    alg::ds::tree::Node<int>* nil = rb_tree->nil();
 
     for (int i = 0; i < n; ++i) {
-        nodes[i] = new alg::TreeNode<int>(keys[i], nil, nil, nil);
+        nodes[i] = new alg::ds::tree::Node<int>(keys[i], nil, nil, nil);
     }
 
-    alg::TreeNode<int>* begin[n][3] = {
+    alg::ds::tree::Node<int>* begin[n][3] = {
             nil, nil, nodes[1],
             nodes[0], nodes[2], nodes[3],
             nodes[1], nil, nil,
@@ -191,7 +211,8 @@ TEST_F(RedBlackTree, Rotation) {
             nodes[3], nil, nil,
             nodes[3], nil, nil
     };
-    alg::TreeNode<int>* after[n][3] = {
+
+    alg::ds::tree::Node<int>* after[n][3] = {
             nil, nil, nodes[3],
             nodes[3], nodes[2], nodes[4],
             nodes[1], nil, nil,

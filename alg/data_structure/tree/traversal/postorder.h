@@ -1,5 +1,5 @@
-#ifndef ALG_DS_POSTORDER_H_
-#define ALG_DS_POSTORDER_H_
+#ifndef ALG_DS_TREE_TRAVERSAL_POSTORDER_H_
+#define ALG_DS_TREE_TRAVERSAL_POSTORDER_H_
 
 #include "alg/common/iterator.h"
 #include "alg/data_structure/stack.h"
@@ -7,6 +7,8 @@
 
 namespace alg {
 namespace ds {
+namespace tree {
+namespace traversal {
 
 template <class T>
 class PostOrderIterator : public patterns::Iterator<T> {
@@ -19,18 +21,18 @@ public:
     bool is_done() const;
 
     T current_item() const;
-    TreeNode<T>* current_node() const;
+    Node<T>* current_node() const;
 
 private:
     BinaryTree<T>* tree;
-    Stack<TreeNode<T>*>* stack;
-    TreeNode<T>* last_visited;
+    Stack<Node<T>*>* stack;
+    Node<T>* last_visited;
 };
 
 template <class T>
 PostOrderIterator<T>::PostOrderIterator(BinaryTree<T>* tree) {
     this->tree = tree;
-    stack = new Stack<TreeNode<T>*>(256);
+    stack = new Stack<Node<T>*>(256);
     last_visited = tree->nil();
 }
 
@@ -48,14 +50,14 @@ void PostOrderIterator<T>::first() {
 
 template <class T>
 void PostOrderIterator<T>::next() {
-    TreeNode<T>* nil_ = tree->nil();
+    Node<T>* nil_ = tree->nil();
 
     if (!stack->count()) {
         last_visited = nil_;
         return;
     }
 
-    TreeNode<T>* node = stack->top();
+    Node<T>* node = stack->top();
 
     while (true) {
         if (tree->right(node) == last_visited && last_visited != nil_) {
@@ -95,10 +97,12 @@ T PostOrderIterator<T>::current_item() const {
 }
 
 template <class T>
-TreeNode<T>* PostOrderIterator<T>::current_node() const {
+Node<T>* PostOrderIterator<T>::current_node() const {
     return last_visited;
 }
 
+}
+}
 }
 }
 

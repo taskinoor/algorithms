@@ -13,7 +13,9 @@ namespace puzzle {
 
 namespace {
 
-std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
+std::unique_ptr<ds::tree::OrderStatisticTree<std::size_t>> randomized_ost(
+        std::size_t n) {
+
     ds::ExtendableArray<std::size_t> data(n);
 
     for (std::size_t i = 0; i < n; ++i) {
@@ -22,8 +24,8 @@ std::unique_ptr<OrderStatisticTree<std::size_t>> randomized_ost(std::size_t n) {
 
     std::shuffle(data.data_ptr(), data.data_ptr() + n, randomizer::engine());
 
-    std::unique_ptr<OrderStatisticTree<std::size_t>> ost(
-            new OrderStatisticTree<std::size_t>());
+    std::unique_ptr<ds::tree::OrderStatisticTree<std::size_t>> ost(
+            new ds::tree::OrderStatisticTree<std::size_t>());
 
     for (std::size_t i = 0; i < n; ++i) {
         ost->insert(data[i]);
@@ -55,7 +57,8 @@ std::size_t josephus_queue(std::size_t n, std::size_t k) {
 }
 
 std::size_t josephus_ost(std::size_t n, std::size_t k) {
-    std::unique_ptr<OrderStatisticTree<std::size_t>> ost = randomized_ost(n);
+    std::unique_ptr<ds::tree::OrderStatisticTree<std::size_t>> ost =
+            randomized_ost(n);
 
     std::size_t left = n;
     std::size_t next = (k - 1) % left;

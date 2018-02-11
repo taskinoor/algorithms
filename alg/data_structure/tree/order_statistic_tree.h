@@ -1,18 +1,20 @@
-#ifndef ALG_ORDER_STATISTIC_TREE_H_
-#define ALG_ORDER_STATISTIC_TREE_H_
+#ifndef ALG_DS_TREE_ORDER_STATISTIC_TREE_H_
+#define ALG_DS_TREE_ORDER_STATISTIC_TREE_H_
 
+#include "alg/data_structure/tree/binary_search_tree.h"
 #include "alg/data_structure/tree/binary_tree.h"
-#include "alg/data_structure/tree/bst.h"
 
 namespace alg {
+namespace ds {
+namespace tree {
 
 template <class T> class OrderStatisticTree;
 
 template <class T>
-class OSTNode : public TreeNode<T> {
+class OSTNode : public Node<T> {
 public:
-    explicit OSTNode(const T& element = T(), TreeNode<T>* parent = nullptr,
-            TreeNode<T>* left = nullptr, TreeNode<T>* right = nullptr);
+    explicit OSTNode(const T& element = T(), Node<T>* parent = nullptr,
+            Node<T>* left = nullptr, Node<T>* right = nullptr);
 
     int count() const;
 
@@ -23,26 +25,26 @@ private:
 };
 
 template <class T>
-class OrderStatisticTree : public BST<T> {
+class OrderStatisticTree : public BinarySearchTree<T> {
 public:
     void insert(T element) override;
-    void remove(TreeNode<T>* z) override;
+    void remove(Node<T>* z) override;
 
     T select(int i);
     T select(int i, OSTNode<T>* v);
 
-    TreeNode<T>* select_node(int i);
-    TreeNode<T>* select_node(int i, OSTNode<T>* v);
+    Node<T>* select_node(int i);
+    Node<T>* select_node(int i, OSTNode<T>* v);
 
     int rank(T element);
 
 private:
-    void decrement_count(TreeNode<T>* node, TreeNode<T>* until);
+    void decrement_count(Node<T>* node, Node<T>* until);
 };
 
 template <class T>
-OSTNode<T>::OSTNode(const T& element, TreeNode<T>* parent, TreeNode<T>* left,
-        TreeNode<T>* right) : TreeNode<T>(element, parent, left, right) {
+OSTNode<T>::OSTNode(const T& element, Node<T>* parent, Node<T>* left,
+        Node<T>* right) : Node<T>(element, parent, left, right) {
 
     count_ = 1;
 }
@@ -80,13 +82,13 @@ void OrderStatisticTree<T>::insert(T element) {
 }
 
 template <class T>
-void OrderStatisticTree<T>::remove(TreeNode<T>* z) {
+void OrderStatisticTree<T>::remove(Node<T>* z) {
     if (this->left(z) == this->nil_) {
         this->transplant(z, this->right(z));
     } else if (this->right(z) == this->nil_) {
         this->transplant(z, this->left(z));
     } else {
-        TreeNode<T>* y = this->min(this->right(z));
+        Node<T>* y = this->min(this->right(z));
 
         if (this->parent(y) != z) {
             this->transplant(y, this->right(y));
@@ -105,8 +107,7 @@ void OrderStatisticTree<T>::remove(TreeNode<T>* z) {
 }
 
 template <class T>
-void OrderStatisticTree<T>::decrement_count(
-        TreeNode<T>* node, TreeNode<T>* until) {
+void OrderStatisticTree<T>::decrement_count(Node<T>* node, Node<T>* until) {
 
     OSTNode<T>* parent = (OSTNode<T>*)this->parent(node);
 
@@ -127,12 +128,12 @@ T OrderStatisticTree<T>::select(int i, OSTNode<T>* v) {
 }
 
 template <class T>
-TreeNode<T>* OrderStatisticTree<T>::select_node(int i) {
+Node<T>* OrderStatisticTree<T>::select_node(int i) {
     return select_node(i, (OSTNode<T>*)this->root());
 }
 
 template <class T>
-TreeNode<T>* OrderStatisticTree<T>::select_node(int i, OSTNode<T>* v) {
+Node<T>* OrderStatisticTree<T>::select_node(int i, OSTNode<T>* v) {
     OSTNode<T>* left = (OSTNode<T>*)this->left(v);
     int count = left != this->nil_ ? left->count_ : 0;
 
@@ -147,19 +148,19 @@ TreeNode<T>* OrderStatisticTree<T>::select_node(int i, OSTNode<T>* v) {
 
 template <class T>
 int OrderStatisticTree<T>::rank(T element) {
-    TreeNode<T>* node = this->search(element);
+    Node<T>* node = this->search(element);
 
     if (node == this->nil_) {
         return -1;
     }
 
     OSTNode<T>* left = (OSTNode<T>*)this->left(node);
-    TreeNode<T>* root = this->root();
+    Node<T>* root = this->root();
 
     int r = left != this->nil_ ? left->count() : 0;
 
     while (node != root) {
-        TreeNode<T>* parent = this->parent(node);
+        Node<T>* parent = this->parent(node);
 
         if (node == this->right(parent)) {
             left = (OSTNode<T>*)this->left(parent);
@@ -172,6 +173,8 @@ int OrderStatisticTree<T>::rank(T element) {
     return r;
 }
 
+}
+}
 }
 
 #endif

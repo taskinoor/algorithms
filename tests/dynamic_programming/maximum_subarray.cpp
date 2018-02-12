@@ -7,13 +7,13 @@ namespace algtest {
 TEST(MaxSubarrayDP, EmptyArray) {
     int a[] = {};
 
-    ASSERT_EQ(0, alg::max_subarray_dp(a, 0));
+    ASSERT_EQ(0, alg::dp::max_subarray(a, 0));
 }
 
 TEST(MaxSubarrayDP, AllPositive) {
     double a[] = {2.2, 3.3, 5.5, 7.7};
 
-    ASSERT_EQ(18.7, alg::max_subarray_dp(a, 4));
+    ASSERT_EQ(18.7, alg::dp::max_subarray(a, 4));
 }
 
 /*
@@ -23,13 +23,13 @@ TEST(MaxSubarrayDP, AllPositive) {
 TEST(MaxSubarrayDP, AllNegative) {
     int a[] = {-2, -3, -5, -7};
 
-    ASSERT_EQ(0, alg::max_subarray_dp(a, 4));
+    ASSERT_EQ(0, alg::dp::max_subarray(a, 4));
 }
 
 TEST(MaxSubarrayDP, AllZero) {
     int a[] = {0, 0, 0};
 
-    ASSERT_EQ(0, alg::max_subarray_dp(a, 3));
+    ASSERT_EQ(0, alg::dp::max_subarray(a, 3));
 }
 
 TEST(MaxSubarrayDP, PositiveAndNegative) {
@@ -38,8 +38,8 @@ TEST(MaxSubarrayDP, PositiveAndNegative) {
         13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7
     };
 
-    ASSERT_EQ(13, alg::max_subarray_dp(a1, 11));
-    ASSERT_EQ(43, alg::max_subarray_dp(a2, 16));
+    ASSERT_EQ(13, alg::dp::max_subarray(a1, 11));
+    ASSERT_EQ(43, alg::dp::max_subarray(a2, 16));
 }
 
 }

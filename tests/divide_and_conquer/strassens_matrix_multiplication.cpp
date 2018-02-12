@@ -22,6 +22,7 @@ TEST(StrassensMatrix, Multiplication) {
         {67, 173, 271, 619, 349, 587, 293, 593},
         {89, 337, 557, 19, 199, 229, 491, 163}
     };
+
     alg::numeric::Matrix<int> B = {
         {257, 449, 661, 59, 167, 31, 109, 677},
         {41, 73, 383, 97, 281, 601, 29, 127},
@@ -44,7 +45,7 @@ TEST(StrassensMatrix, Multiplication) {
         {640104, 385566, 939834, 564560, 468408, 492368, 457698, 522634}
     };
 
-    alg::numeric::Matrix<int> C = alg::strassens_matrix_multiply(A, B);
+    alg::numeric::Matrix<int> C = alg::dnc::strassens_matrix_multiply(A, B);
     std::pair<std::size_t, std::size_t> d = C.dimension();
 
     ASSERT_EQ(n, d.first);

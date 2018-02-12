@@ -6,7 +6,8 @@ namespace algtest {
 
 TEST(MaxSubarrayDNC, AllPositive) {
     double a[] = {2.2, 3.3, 5.5, 7.7};
-    alg::MaxSubarrayResult<double> res = alg::max_subarray_dnc(a, 0, 3);
+
+    alg::dnc::MaxSubarrayResult<double> res = alg::dnc::max_subarray(a, 0, 3);
 
     ASSERT_EQ(18.7, res.sum);
     ASSERT_EQ(0, res.low);
@@ -19,7 +20,8 @@ TEST(MaxSubarrayDNC, AllPositive) {
  */
 TEST(MaxSubarrayDNC, AllNegative) {
     int a[] = {-2, -3, -5, -7};
-    alg::MaxSubarrayResult<int> res = alg::max_subarray_dnc(a, 0, 3);
+
+    alg::dnc::MaxSubarrayResult<int> res = alg::dnc::max_subarray(a, 0, 3);
 
     ASSERT_EQ(-2, res.sum);
     ASSERT_EQ(0, res.low);
@@ -28,7 +30,8 @@ TEST(MaxSubarrayDNC, AllNegative) {
 
 TEST(MaxSubarrayDNC, AllZero) {
     int a[] = {0, 0, 0};
-    alg::MaxSubarrayResult<int> res = alg::max_subarray_dnc(a, 0, 2);
+
+    alg::dnc::MaxSubarrayResult<int> res = alg::dnc::max_subarray(a, 0, 2);
 
     ASSERT_EQ(0, res.sum);
 }
@@ -39,8 +42,8 @@ TEST(MaxSubarrayDNC, PositiveAndNegative) {
         13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7
     };
 
-    alg::MaxSubarrayResult<int> res_1 = alg::max_subarray_dnc(a1, 0, 10);
-    alg::MaxSubarrayResult<int> res_2 = alg::max_subarray_dnc(a2, 0, 15);
+    alg::dnc::MaxSubarrayResult<int> res_1 = alg::dnc::max_subarray(a1, 0, 10);
+    alg::dnc::MaxSubarrayResult<int> res_2 = alg::dnc::max_subarray(a2, 0, 15);
 
     ASSERT_EQ(13, res_1.sum);
     ASSERT_EQ(2, res_1.low);

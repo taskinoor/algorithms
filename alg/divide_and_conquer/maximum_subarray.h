@@ -4,6 +4,7 @@
 #include <limits>
 
 namespace alg {
+namespace dnc {
 
 template <class T>
 class MaxSubarrayResult {
@@ -45,15 +46,15 @@ MaxSubarrayResult<T> max_crossing_subarray(T* a, int low, int mid, int high) {
 }
 
 template <class T>
-MaxSubarrayResult<T> max_subarray_dnc(T* a, int low, int high) {
+MaxSubarrayResult<T> max_subarray(T* a, int low, int high) {
     if (low == high) {
         return {low, low, a[low]};
     }
 
     int mid = (low + high) / 2;
 
-    MaxSubarrayResult<T> left = max_subarray_dnc(a, low, mid);
-    MaxSubarrayResult<T> right = max_subarray_dnc(a, mid + 1, high);
+    MaxSubarrayResult<T> left = max_subarray(a, low, mid);
+    MaxSubarrayResult<T> right = max_subarray(a, mid + 1, high);
     MaxSubarrayResult<T> crossing = max_crossing_subarray(a, low, mid, high);
 
     if (left.sum >= right.sum && left.sum >= crossing.sum) {
@@ -65,6 +66,7 @@ MaxSubarrayResult<T> max_subarray_dnc(T* a, int low, int high) {
     }
 }
 
+}
 }
 
 #endif

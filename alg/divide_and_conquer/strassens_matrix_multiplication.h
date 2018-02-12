@@ -1,11 +1,12 @@
-#ifndef ALG_STRASSENS_MATRIX_MULTIPLICATION_H_
-#define ALG_STRASSENS_MATRIX_MULTIPLICATION_H_
+#ifndef ALG_DNC_STRASSENS_MATRIX_MULTIPLICATION_H_
+#define ALG_DNC_STRASSENS_MATRIX_MULTIPLICATION_H_
 
 #include <cstddef>
 
 #include "alg/numeric/matrix.h"
 
 namespace alg {
+namespace dnc {
 
 /**
  * This method works for n x n matrices where n is an exact power of 2. When
@@ -75,6 +76,7 @@ numeric::Matrix<T> strassens_matrix_multiply(const numeric::Matrix<T>& A,
     return C;
 }
 
+}
 }
 
 #endif

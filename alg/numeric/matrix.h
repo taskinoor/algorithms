@@ -46,8 +46,8 @@ public:
 
     Proxy operator[](int index) const;
 
-    Matrix<T>& operator=(const Matrix<T>& rhs);
-    Matrix<T>& operator=(Matrix<T>&& rhs) noexcept;
+    Matrix<T>& operator=(const Matrix<T>& rhs) &;
+    Matrix<T>& operator=(Matrix<T>&& rhs) & noexcept;
 
     Matrix<T> operator+(const Matrix<T>& rhs) const;
     Matrix<T> operator-(const Matrix<T>& rhs) const;
@@ -192,7 +192,7 @@ typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
 }
 
 template <class T>
-Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs) {
+Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs) & {
     if (m != rhs.m || n != rhs.n) {
         throw std::invalid_argument("Dimension mismatch");
     }
@@ -207,7 +207,7 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs) {
 }
 
 template <class T>
-Matrix<T>& Matrix<T>::operator=(Matrix<T>&& rhs) noexcept {
+Matrix<T>& Matrix<T>::operator=(Matrix<T>&& rhs) & noexcept {
     delete[] buffer;
 
     m = rhs.m;

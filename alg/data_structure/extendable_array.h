@@ -42,8 +42,8 @@ public:
     T& operator[](std::size_t index);
     const T& operator[](std::size_t index) const;
 
-    ExtendableArray<T>& operator=(const ExtendableArray<T>& rhs);
-    ExtendableArray<T>& operator=(ExtendableArray<T>&& rhs) noexcept;
+    ExtendableArray<T>& operator=(const ExtendableArray<T>& rhs) &;
+    ExtendableArray<T>& operator=(ExtendableArray<T>&& rhs) & noexcept;
 
 private:
     allocator_type alloc;
@@ -208,7 +208,7 @@ const T& ExtendableArray<T>::operator[](std::size_t index) const {
 
 template <class T>
 ExtendableArray<T>& ExtendableArray<T>::operator=(
-        const ExtendableArray<T>& rhs) {
+        const ExtendableArray<T>& rhs) & {
 
     if (this == &rhs) {
         return *this;
@@ -244,7 +244,7 @@ ExtendableArray<T>& ExtendableArray<T>::operator=(
 
 template <class T>
 ExtendableArray<T>& ExtendableArray<T>::operator=(
-        ExtendableArray<T>&& rhs) noexcept {
+        ExtendableArray<T>&& rhs) & noexcept {
 
     utils::clear_buffer(buffer, alloc, 0, count_, capacity_, true);
 

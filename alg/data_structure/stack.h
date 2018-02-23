@@ -30,8 +30,8 @@ public:
 
     std::size_t count() const;
 
-    Stack<T>& operator=(const Stack<T>& rhs);
-    Stack<T>& operator=(Stack<T>&& rhs) noexcept;
+    Stack<T>& operator=(const Stack<T>& rhs) &;
+    Stack<T>& operator=(Stack<T>&& rhs) & noexcept;
 
 private:
     allocator_type alloc;
@@ -119,7 +119,7 @@ std::size_t Stack<T>::count() const {
 }
 
 template <class T>
-Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
+Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) & {
     if (this == &rhs) {
         return *this;
     }
@@ -143,7 +143,7 @@ Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
 }
 
 template <class T>
-Stack<T>& Stack<T>::operator=(Stack<T>&& rhs) noexcept {
+Stack<T>& Stack<T>::operator=(Stack<T>&& rhs) & noexcept {
     utils::clear_buffer(buffer, alloc, 0, top_ + 1, size, true);
 
     buffer = rhs.buffer;

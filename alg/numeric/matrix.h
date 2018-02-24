@@ -63,6 +63,7 @@ public:
 private:
     std::size_t m{0};
     std::size_t n{0};
+
     T* buffer{nullptr};
 };
 
@@ -202,12 +203,12 @@ const typename Matrix<T>::Proxy Matrix<T>::operator[](std::size_t index) const {
 
 template <class T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs) & {
-    if (m != rhs.m || n != rhs.n) {
-        throw std::invalid_argument("Dimension mismatch");
-    }
-
     if (this == &rhs) {
         return *this;
+    }
+
+    if (m != rhs.m || n != rhs.n) {
+        throw std::invalid_argument("Dimension mismatch");
     }
 
     std::copy(&rhs.buffer[0], &rhs.buffer[m * n], buffer);

@@ -19,7 +19,7 @@ public:
 
     ExtendableArray() = default;
     explicit ExtendableArray(std::size_t count);
-    ExtendableArray(std::initializer_list<T> lst);
+    ExtendableArray(std::initializer_list<T> init);
 
     ExtendableArray(const ExtendableArray<T>& rhs);
     ExtendableArray(ExtendableArray<T>&& rhs) noexcept;
@@ -64,10 +64,10 @@ ExtendableArray<T>::ExtendableArray(std::size_t count) {
 }
 
 template <class T>
-ExtendableArray<T>::ExtendableArray(std::initializer_list<T> lst) {
-    reserve(lst.size());
+ExtendableArray<T>::ExtendableArray(std::initializer_list<T> init) {
+    reserve(init.size());
 
-    for (const T& value : lst) {
+    for (const T& value : init) {
         std::allocator_traits<allocator_type>::construct(alloc,
                 &buffer[count_++], value);
     }
@@ -84,10 +84,10 @@ ExtendableArray<T>::ExtendableArray(const ExtendableArray<T>& rhs) {
 }
 
 template <class T>
-ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& rhs) noexcept {
-    capacity_ = rhs.capacity_;
-    count_ = rhs.count_;
-    buffer = rhs.buffer;
+ExtendableArray<T>::ExtendableArray(ExtendableArray<T>&& rhs) noexcept :
+    buffer{rhs.buffer},
+    capacity_{rhs.capacity_},
+    count_{rhs.count_} {
 
     rhs.buffer = nullptr;
     rhs.capacity_ = 0;

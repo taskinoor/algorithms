@@ -14,9 +14,10 @@ namespace numeric {
 template <class T>
 class Matrix {
 public:
-    Matrix();
+    Matrix() = default;
+
     Matrix(std::size_t m, std::size_t n);
-    Matrix(std::initializer_list<std::initializer_list<T>> matrix_list);
+    Matrix(std::initializer_list<std::initializer_list<T>> init);
 
     Matrix(const Matrix<T>& rhs);
     Matrix(Matrix<T>&& rhs) noexcept;
@@ -55,42 +56,31 @@ public:
     Matrix<T> operator*(const T& rhs) const;
 
 private:
-    std::size_t m;
-    std::size_t n;
-    T* buffer;
+    std::size_t m{0};
+    std::size_t n{0};
+    T* buffer{nullptr};
 };
 
 template <class T>
 Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs);
 
 template <class T>
-Matrix<T>::Matrix() {
-    m = 0;
-    n = 0;
-    buffer = nullptr;
+Matrix<T>::Matrix(std::size_t m, std::size_t n) :
+    m{m ? m : throw std::invalid_argument("m can't be zero")},
+    n{n ? n : throw std::invalid_argument("n can't be zero")},
+    buffer{new T[m * n]} {
 }
 
 template <class T>
-Matrix<T>::Matrix(std::size_t m, std::size_t n) {
-    if (!m || !n) {
-        throw std::invalid_argument("Dimension can't be zero");
-    }
-
-    this->m = m;
-    this->n = n;
-    buffer = new T[m * n];
-}
-
-template <class T>
-Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> matrix_list) {
-    if (!(m = matrix_list.size()) || !(n = matrix_list.begin()->size())) {
+Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> init) {
+    if (!(m = init.size()) || !(n = init.begin()->size())) {
         throw std::invalid_argument("Dimension can't be zero");
     }
 
     buffer = new T[m * n];
     int i = 0;
 
-    for (std::initializer_list<T> row : matrix_list) {
+    for (std::initializer_list<T> row : init) {
         if (row.size() != n) {
             delete[] buffer;
             throw std::invalid_argument("Malformed initializer list");
@@ -102,19 +92,19 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> matrix_list) {
 }
 
 template <class T>
-Matrix<T>::Matrix(const Matrix<T>& rhs) {
-    m = rhs.m;
-    n = rhs.n;
-    buffer = new T[m * n];
+Matrix<T>::Matrix(const Matrix<T>& rhs) :
+    m{rhs.m},
+    n{rhs.n},
+    buffer{new T[m * n]} {
 
     std::copy(&rhs.buffer[0], &rhs.buffer[m * n], buffer);
 }
 
 template <class T>
-Matrix<T>::Matrix(Matrix<T>&& rhs) noexcept {
-    m = rhs.m;
-    n = rhs.n;
-    buffer = rhs.buffer;
+Matrix<T>::Matrix(Matrix<T>&& rhs) noexcept :
+    m{rhs.m},
+    n{rhs.n},
+    buffer{rhs.buffer} {
 
     rhs.buffer = nullptr;
     rhs.m = 0;
@@ -177,8 +167,7 @@ void Matrix<T>::copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
 }
 
 template <class T>
-Matrix<T>::Proxy::Proxy(T* a) {
-    this->a = a;
+Matrix<T>::Proxy::Proxy(T* a) : a{a} {
 }
 
 template <class T>

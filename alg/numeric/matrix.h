@@ -25,7 +25,9 @@ public:
     ~Matrix();
 
     std::pair<std::size_t, std::size_t> dimension() const;
-    T* data_ptr() const;
+
+    T* data_ptr();
+    const T* data_ptr() const;
 
     Matrix<T> transpose() const;
 
@@ -39,13 +41,16 @@ public:
     class Proxy {
     public:
         Proxy(T* a);
-        T& operator[](int index) const;
+
+        T& operator[](int index);
+        const T& operator[](int index) const;
 
     private:
         T* a;
     };
 
-    Proxy operator[](int index) const;
+    Proxy operator[](int index);
+    const Proxy operator[](int index) const;
 
     Matrix<T>& operator=(const Matrix<T>& rhs) &;
     Matrix<T>& operator=(Matrix<T>&& rhs) & noexcept;
@@ -122,7 +127,12 @@ std::pair<std::size_t, std::size_t> Matrix<T>::dimension() const {
 }
 
 template <class T>
-T* Matrix<T>::data_ptr() const {
+T* Matrix<T>::data_ptr() {
+    return buffer;
+}
+
+template <class T>
+const T* Matrix<T>::data_ptr() const {
     return buffer;
 }
 
@@ -171,12 +181,22 @@ Matrix<T>::Proxy::Proxy(T* a) : a{a} {
 }
 
 template <class T>
-T& Matrix<T>::Proxy::operator[](int index) const {
+T& Matrix<T>::Proxy::operator[](int index) {
     return a[index];
 }
 
 template <class T>
-typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
+const T& Matrix<T>::Proxy::operator[](int index) const {
+    return a[index];
+}
+
+template <class T>
+typename Matrix<T>::Proxy Matrix<T>::operator[](int index) {
+    return Proxy(&buffer[index * n]);
+}
+
+template <class T>
+const typename Matrix<T>::Proxy Matrix<T>::operator[](int index) const {
     return Proxy(&buffer[index * n]);
 }
 

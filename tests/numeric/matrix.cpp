@@ -179,6 +179,29 @@ TEST(Matrix, Transpose) {
     }
 }
 
+TEST(Matrix, Submatrix) {
+    alg::numeric::Matrix<int> A = {
+        {2, 3, 5, 7, 41},
+        {11, 13, 17, 19, 43},
+        {23, 29, 31, 37, 47}
+    };
+
+    alg::numeric::Matrix<int> E = {
+        {17, 19, 43},
+        {31, 37, 47}
+    };
+
+    alg::numeric::Matrix<int> S = A.submatrix(1, 2, 2, 3);
+
+    ASSERT_EQ(E.dimension(), S.dimension());
+
+    for (std::size_t i = 0; i < E.dimension().first; ++i) {
+        for (std::size_t j = 0; j < E.dimension().second; ++j) {
+            ASSERT_EQ(E[i][j], S[i][j]);
+        }
+    }
+}
+
 TEST(Matrix, AdditionSubtraction) {
     constexpr std::size_t m = 3;
     constexpr std::size_t n = 4;
@@ -188,16 +211,19 @@ TEST(Matrix, AdditionSubtraction) {
         {11, 13, 17, 19},
         {23, 29, 31, 37}
     };
+
     alg::numeric::Matrix<int> B = {
         {41, 43, 47, 53},
         {59, 61, 67, 71},
         {73, 79, 83, 89}
     };
+
     alg::numeric::Matrix<int> C = {
         {97, 101, 103, 107},
         {109, 113, 127, 131},
         {137, 139, 149, 151}
     };
+
     alg::numeric::Matrix<int> D = {
         {157, 163, 167, 173},
         {179, 181, 191, 193},
@@ -228,11 +254,13 @@ TEST(Matrix, Multiplication) {
         {2.3, 5.7, 11.13},
         {17.19, 23.29, 31.37}
     };
+
     alg::numeric::Matrix<double> B = {
         {41.43, 47.53},
         {59.61, 67.71},
         {73.79, 83.89}
     };
+
     alg::numeric::Matrix<double> C = {
         {97.101, 103.107},
         {109.113, 127.131}

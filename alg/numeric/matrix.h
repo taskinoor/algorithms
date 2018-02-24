@@ -31,12 +31,12 @@ public:
 
     Matrix<T> transpose() const;
 
-    Matrix<T> submatrix(std::size_t start_i, std::size_t start_j,
-            std::size_t x, std::size_t y) const;
+    Matrix<T> submatrix(std::size_t i, std::size_t j,
+            std::size_t row, std::size_t col) const;
 
-    void copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
-            std::size_t from_i, std::size_t from_j,
-            std::size_t x, std::size_t y);
+    void copy(const Matrix<T>& M, std::size_t dest_i, std::size_t dest_j,
+            std::size_t src_i, std::size_t src_j,
+            std::size_t row, std::size_t col);
 
     class Proxy {
     public:
@@ -150,14 +150,14 @@ Matrix<T> Matrix<T>::transpose() const {
 }
 
 template <class T>
-Matrix<T> Matrix<T>::submatrix(std::size_t start_i, std::size_t start_j,
-        std::size_t x, std::size_t y) const {
+Matrix<T> Matrix<T>::submatrix(std::size_t i, std::size_t j,
+        std::size_t row, std::size_t col) const {
 
-    Matrix<T> M(x, y);
+    Matrix<T> M(row, col);
 
-    for (std::size_t i = 0; i < x; ++i) {
-        for (std::size_t j = 0; j < y; ++j) {
-            M[i][j] = (*this)[start_i + i][start_j + j];
+    for (std::size_t x = 0; x < row; ++x) {
+        for (std::size_t y = 0; y < col; ++y) {
+            M[x][y] = (*this)[i + x][j + y];
         }
     }
 
@@ -165,13 +165,13 @@ Matrix<T> Matrix<T>::submatrix(std::size_t start_i, std::size_t start_j,
 }
 
 template <class T>
-void Matrix<T>::copy(const Matrix<T>& M, std::size_t to_i, std::size_t to_j,
-        std::size_t from_i, std::size_t from_j,
-        std::size_t x, std::size_t y) {
+void Matrix<T>::copy(const Matrix<T>& M, std::size_t dest_i, std::size_t dest_j,
+        std::size_t src_i, std::size_t src_j,
+        std::size_t row, std::size_t col) {
 
-    for (std::size_t i = 0; i < x; ++i) {
-        for (std::size_t j = 0; j < y; ++j) {
-            (*this)[to_i + i][to_j + j] = M[from_i + i][from_j + j];
+    for (std::size_t i = 0; i < row; ++i) {
+        for (std::size_t j = 0; j < col; ++j) {
+            (*this)[dest_i + i][dest_j + j] = M[src_i + i][src_j + j];
         }
     }
 }

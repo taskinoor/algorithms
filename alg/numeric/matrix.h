@@ -275,13 +275,11 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& rhs) const {
 
     for (std::size_t i = 0; i < m; ++i) {
         for (std::size_t j = 0; j < rhs.n; ++j) {
-            T sum = T();
+            M[i][j] = T();
 
             for (std::size_t k = 0; k < n; ++k) {
-                sum += (*this)[i][k] * rhs[k][j];
+                M[i][j] += (*this)[i][k] * rhs[k][j];
             }
-
-            M[i][j] = sum;
         }
     }
 

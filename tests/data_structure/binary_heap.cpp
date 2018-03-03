@@ -57,7 +57,7 @@ TEST(BinaryHeap, BuildMaxHeapLargeData) {
     std::array<double, 8191> data;
 
     for (std::size_t i = 0; i < data.size(); ++i) {
-        data[i] = alg::randomizer::uniform_double(-131071, 131071);
+        data[i] = alg::randomizer::uniform_real(-131071.0, 131071.0);
     }
 
     alg::ds::heap::binary::build_heap(data.data(), data.size(),
@@ -72,7 +72,7 @@ TEST(BinaryHeap, BuildMinHeapLargeData) {
     std::array<double, 8191> data;
 
     for (std::size_t i = 0; i < data.size(); ++i) {
-        data[i] = alg::randomizer::uniform_double(-131071, 131071);
+        data[i] = alg::randomizer::uniform_real(-131071.0, 131071.0);
     }
 
     alg::ds::heap::binary::build_heap(data.data(), data.size(),

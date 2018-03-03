@@ -144,7 +144,8 @@ TEST(ExtendableArray, LargeRandomDataSet) {
         alg_arr.append(alg_data);
 
         if (!(i % delete_freq)) {
-            int index = alg::randomizer::uniform_int(0, alg_arr.count() - 1);
+            std::size_t index = alg::randomizer::uniform_int<std::size_t>(
+                    0, alg_arr.count() - 1);
 
             std_vec.erase(std_vec.begin() + index);
             alg_arr.remove(index);

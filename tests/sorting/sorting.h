@@ -36,7 +36,7 @@ protected:
 
     void generate_random_large_data() {
         for (std::size_t i = 0; i < large_data.size(); ++i) {
-            large_data[i] = alg::randomizer::uniform_double(-121393, 121393);
+            large_data[i] = alg::randomizer::uniform_real(-121393.0, 121393.0);
         }
     }
 

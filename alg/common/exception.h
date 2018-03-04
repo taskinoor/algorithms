@@ -16,6 +16,11 @@ public:
     BufferEmpty() : std::out_of_range("Buffer is empty") {}
 };
 
+class ItemNotFound : public std::invalid_argument {
+public:
+    ItemNotFound() : std::invalid_argument("Item not found") {}
+};
+
 }
 }
 

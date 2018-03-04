@@ -1,6 +1,9 @@
 #ifndef ALG_DS_TREE_ORDER_STATISTIC_TREE_H_
 #define ALG_DS_TREE_ORDER_STATISTIC_TREE_H_
 
+#include <cstddef>
+
+#include "alg/common/exception.h"
 #include "alg/data_structure/tree/binary_search_tree.h"
 #include "alg/data_structure/tree/binary_tree.h"
 
@@ -16,10 +19,10 @@ public:
     explicit OSTNode(const T& element = T(), Node<T>* parent = nullptr,
             Node<T>* left = nullptr, Node<T>* right = nullptr);
 
-    int count() const;
+    std::size_t count() const;
 
 private:
-    int count_;
+    std::size_t count_;
 
     friend class OrderStatisticTree<T>;
 };
@@ -30,13 +33,13 @@ public:
     void insert(T element) override;
     void remove(Node<T>* z) override;
 
-    T select(int i);
-    T select(int i, OSTNode<T>* v);
+    T select(std::size_t i);
+    T select(std::size_t i, OSTNode<T>* v);
 
-    Node<T>* select_node(int i);
-    Node<T>* select_node(int i, OSTNode<T>* v);
+    Node<T>* select_node(std::size_t i);
+    Node<T>* select_node(std::size_t i, OSTNode<T>* v);
 
-    int rank(T element);
+    std::size_t rank(T element);
 
 private:
     void decrement_count(Node<T>* node, Node<T>* until);
@@ -50,7 +53,7 @@ OSTNode<T>::OSTNode(const T& element, Node<T>* parent, Node<T>* left,
 }
 
 template <class T>
-int OSTNode<T>::count() const {
+std::size_t OSTNode<T>::count() const {
     return count_;
 }
 
@@ -118,24 +121,24 @@ void OrderStatisticTree<T>::decrement_count(Node<T>* node, Node<T>* until) {
 }
 
 template <class T>
-T OrderStatisticTree<T>::select(int i) {
+T OrderStatisticTree<T>::select(std::size_t i) {
     return select(i, (OSTNode<T>*)this->root());
 }
 
 template <class T>
-T OrderStatisticTree<T>::select(int i, OSTNode<T>* v) {
+T OrderStatisticTree<T>::select(std::size_t i, OSTNode<T>* v) {
     return select_node(i, v)->element();
 }
 
 template <class T>
-Node<T>* OrderStatisticTree<T>::select_node(int i) {
+Node<T>* OrderStatisticTree<T>::select_node(std::size_t i) {
     return select_node(i, (OSTNode<T>*)this->root());
 }
 
 template <class T>
-Node<T>* OrderStatisticTree<T>::select_node(int i, OSTNode<T>* v) {
+Node<T>* OrderStatisticTree<T>::select_node(std::size_t i, OSTNode<T>* v) {
     OSTNode<T>* left = (OSTNode<T>*)this->left(v);
-    int count = left != this->nil_ ? left->count_ : 0;
+    std::size_t count = left != this->nil_ ? left->count_ : 0;
 
     if (i == count) {
         return v;
@@ -147,17 +150,17 @@ Node<T>* OrderStatisticTree<T>::select_node(int i, OSTNode<T>* v) {
 }
 
 template <class T>
-int OrderStatisticTree<T>::rank(T element) {
+std::size_t OrderStatisticTree<T>::rank(T element) {
     Node<T>* node = this->search(element);
 
     if (node == this->nil_) {
-        return -1;
+        throw except::ItemNotFound();
     }
 
     OSTNode<T>* left = (OSTNode<T>*)this->left(node);
     Node<T>* root = this->root();
 
-    int r = left != this->nil_ ? left->count() : 0;
+    std::size_t r = left != this->nil_ ? left->count() : 0;
 
     while (node != root) {
         Node<T>* parent = this->parent(node);

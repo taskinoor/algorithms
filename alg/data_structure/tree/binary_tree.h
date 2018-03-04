@@ -1,6 +1,8 @@
 #ifndef ALG_DS_TREE_BINARY_TREE_H_
 #define ALG_DS_TREE_BINARY_TREE_H_
 
+#include <cstddef>
+
 #include <algorithm>
 #include <ostream>
 #include <sstream>
@@ -58,11 +60,11 @@ public:
     void set_right(Node<T>* p, Node<T>* child);
     void set_parent(Node<T>* p, Node<T>* child);
 
-    int depth(const Node<T>* p) const;
-    int count_descendants(const Node<T>* p) const;
+    std::size_t depth(const Node<T>* p) const;
+    std::size_t count_descendants(const Node<T>* p) const;
 
-    int height() const;
-    int height(const Node<T>* p) const;
+    std::size_t height() const;
+    std::size_t height(const Node<T>* p) const;
 
     std::string to_string() const;
 
@@ -229,8 +231,8 @@ void BinaryTree<T>::set_parent(Node<T>* p, Node<T>* child) {
 }
 
 template <class T>
-int BinaryTree<T>::depth(const Node<T>* p) const {
-    int d = 0;
+std::size_t BinaryTree<T>::depth(const Node<T>* p) const {
+    std::size_t d = 0;
 
     while (p->parent != nil_) {
         p = p->parent;
@@ -241,21 +243,24 @@ int BinaryTree<T>::depth(const Node<T>* p) const {
 }
 
 template <class T>
-int BinaryTree<T>::height() const {
+std::size_t BinaryTree<T>::height() const {
     return height(root_);
 }
 
 template <class T>
-int BinaryTree<T>::height(const Node<T>* p) const {
-    if (p == nil_) {
-        return -1;
+std::size_t BinaryTree<T>::height(const Node<T>* p) const {
+    if (p->left == nil_ && p->right == nil_) {
+        return 0;
     }
 
-    return 1 + std::max(height(p->left), height(p->right));
+    std::size_t left_height = p->left != nil_ ? height(p->left) : 0;
+    std::size_t right_height = p->right != nil_ ? height(p->right) : 0;
+
+    return 1 + std::max(left_height, right_height);
 }
 
 template <class T>
-int BinaryTree<T>::count_descendants(const Node<T>* p) const {
+std::size_t BinaryTree<T>::count_descendants(const Node<T>* p) const {
     if (p == nil_) {
         return 0;
     }

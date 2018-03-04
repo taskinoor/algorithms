@@ -2,6 +2,7 @@
 
 #include <gtest/gtest.h>
 
+#include "alg/common/exception.h"
 #include "alg/data_structure/tree/order_statistic_tree.h"
 
 namespace algtest {
@@ -116,7 +117,7 @@ TEST_F(OrderStatisticTree, RankAfterRemove) {
 }
 
 TEST_F(OrderStatisticTree, RankInvalidItem) {
-    ASSERT_EQ(-1, ost->rank(129));
+    ASSERT_THROW(ost->rank(129), alg::except::ItemNotFound);
 }
 
 }

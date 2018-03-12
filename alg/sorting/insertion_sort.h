@@ -4,18 +4,18 @@
 namespace alg {
 namespace sorting {
 
-template <class T>
-void insertion_sort(T* a, int n) {
-    for (int j = 1; j < n; ++j) {
-        T key = a[j];
-        int i = j - 1;
+template <class RandomIt>
+void insertion_sort(RandomIt first, RandomIt last) {
+    for (RandomIt j = first + 1; j < last; ++j) {
+        auto key = *j;
+        RandomIt i = j - 1;
 
-        while (i >= 0 && a[i] > key) {
-            a[i + 1] = a[i];
+        while (i >= first && *i > key) {
+            *(i + 1) = *i;
             --i;
         }
 
-        a[i + 1] = key;
+        *(i + 1) = key;
     }
 }
 

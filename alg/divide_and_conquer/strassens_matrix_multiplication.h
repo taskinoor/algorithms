@@ -8,15 +8,6 @@
 namespace alg {
 namespace dnc {
 
-/**
- * This method works for n x n matrices where n is an exact power of 2. When
- * this constraint is not met missing rows and columns need to be filled with
- * zeros before calling this.
- *
- * Moreover, at each step matrices are partitioned by copying data. Though it
- * won't improve the asymptotic performance, the constant factor can be
- * improved further by partitioning matrices using index calculation.
- */
 template <class T>
 numeric::Matrix<T> strassens_matrix_multiply(const numeric::Matrix<T>& A,
         const numeric::Matrix<T>& B) {

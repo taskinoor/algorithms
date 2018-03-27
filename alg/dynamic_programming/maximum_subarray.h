@@ -5,6 +5,8 @@
 
 #include <algorithm>
 
+#include "alg/data_structure/extendable_array.h"
+
 namespace alg {
 namespace dp {
 
@@ -14,7 +16,7 @@ T max_subarray(T* a, std::size_t n) {
         return 0;
     }
 
-    T* suffix_sum = new T[n];
+    ds::ExtendableArray<T> suffix_sum(n);
     T zero = 0;
 
     suffix_sum[0] = std::max(zero, a[0]);
@@ -28,8 +30,6 @@ T max_subarray(T* a, std::size_t n) {
     for (int i = 1; i < n; ++i) {
         max_sum = std::max(max_sum, suffix_sum[i]);
     }
-
-    delete[] suffix_sum;
 
     return max_sum;
 }

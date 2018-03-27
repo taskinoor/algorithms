@@ -23,17 +23,13 @@ void merge(T* a, int p, int q, int r) {
 
     for (int i = 0, j = 0, k = p; k <= r; ++k) {
         if (i == n1) {
-            a[k] = right[j];
-            ++j;
+            a[k] = right[j++];
         } else if (j == n2) {
-            a[k] = left[i];
-            ++i;
+            a[k] = left[i++];
         } else if (left[i] <= right[j]) {
-            a[k] = left[i];
-            ++i;
+            a[k] = left[i++];
         } else {
-            a[k] = right[j];
-            ++j;
+            a[k] = right[j++];
         }
     }
 }

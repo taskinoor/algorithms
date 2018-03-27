@@ -84,7 +84,7 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> init) {
     }
 
     buffer = new T[m * n];
-    int i = 0;
+    std::size_t i = 0;
 
     for (std::initializer_list<T> row : init) {
         if (row.size() != n) {

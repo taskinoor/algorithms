@@ -1,6 +1,8 @@
 #ifndef ALG_SORTING_MERGE_SORT_H_
 #define ALG_SORTING_MERGE_SORT_H_
 
+#include "alg/data_structure/extendable_array.h"
+
 namespace alg {
 namespace sorting {
 
@@ -8,8 +10,9 @@ template <class T>
 void merge(T* a, int p, int q, int r) {
     int n1 = q - p + 1;
     int n2 = r - q;
-    T* left = new T[n1];
-    T* right = new T[n2];
+
+    ds::ExtendableArray<T> left(n1);
+    ds::ExtendableArray<T> right(n2);
 
     for (int i = 0; i < n1; ++i) {
         left[i] = a[p + i];
@@ -33,9 +36,6 @@ void merge(T* a, int p, int q, int r) {
             ++j;
         }
     }
-
-    delete[] left;
-    delete[] right;
 }
 
 template <class T>

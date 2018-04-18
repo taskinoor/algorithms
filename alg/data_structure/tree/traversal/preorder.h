@@ -1,8 +1,6 @@
 #ifndef ALG_DS_TREE_TRAVERSAL_PREORDER_H_
 #define ALG_DS_TREE_TRAVERSAL_PREORDER_H_
 
-#include "alg/common/iterator.h"
-#include "alg/data_structure/stack.h"
 #include "alg/data_structure/tree/binary_tree.h"
 
 namespace alg {
@@ -10,68 +8,23 @@ namespace ds {
 namespace tree {
 namespace traversal {
 
-template <class T>
-class PreOrderIterator : public patterns::Iterator<T> {
-public:
-    explicit PreOrderIterator(BinaryTree<T>* tree);
-    virtual ~PreOrderIterator();
-
-    void first();
-    void next();
-    bool is_done() const;
-
-    T current_item() const;
-    Node<T>* current_node() const;
-
-private:
-    BinaryTree<T>* tree;
-    Stack<Node<T>*>* stack;
-};
-
-template <class T>
-PreOrderIterator<T>::PreOrderIterator(BinaryTree<T>* tree) {
-    this->tree = tree;
-    stack = new Stack<Node<T>*>(256);
-}
-
-template <class T>
-PreOrderIterator<T>::~PreOrderIterator() {
-    delete stack;
-}
-
-template <class T>
-void PreOrderIterator<T>::first() {
-    stack->push(tree->root());
-}
-
-template <class T>
-void PreOrderIterator<T>::next() {
-    Node<T>* current = stack->pop();
-    Node<T>* left = tree->left(current);
-    Node<T>* right = tree->right(current);
-    Node<T>* nil_ = tree->nil();
-
-    if (right != nil_) {
-        stack->push(right);
+template <class OutputIt, class T>
+OutputIt preorder(const BinaryTree<T>* tree, const Node<T>* v, OutputIt iter) {
+    if (v == tree->nil()) {
+        return iter;
     }
-    if (left != nil_) {
-        stack->push(left);
-    }
+
+    *iter++ = v;
+
+    iter = preorder(tree, tree->left(v), iter);
+    iter = preorder(tree, tree->right(v), iter);
+
+    return iter;
 }
 
-template <class T>
-bool PreOrderIterator<T>::is_done() const {
-    return !stack->count();
-}
-
-template <class T>
-T PreOrderIterator<T>::current_item() const {
-    return stack->top()->element();
-}
-
-template <class T>
-Node<T>* PreOrderIterator<T>::current_node() const {
-    return stack->top();
+template <class OutputIt, class T>
+OutputIt preorder(const BinaryTree<T>* tree, OutputIt iter) {
+    return preorder(tree, tree->root(), iter);
 }
 
 }

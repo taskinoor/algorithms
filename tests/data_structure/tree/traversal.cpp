@@ -1,3 +1,5 @@
+#include <array>
+
 #include <gtest/gtest.h>
 
 #include "alg/data_structure/tree/binary_search_tree.h"
@@ -66,32 +68,26 @@ private:
 };
 
 TEST_F(TreeTraversal, PreOrder) {
-    alg::ds::tree::traversal::PreOrderIterator<char>* it =
-            new alg::ds::tree::traversal::PreOrderIterator<char>(tree);
+    std::array<char, 9> expected = {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
+    std::array<const alg::ds::tree::Node<char>*, 9> result;
 
-    char expected[9] = {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
-    int i = 0;
+    auto iter = alg::ds::tree::traversal::preorder(tree, result.begin());
 
-    for (it->first(); !it->is_done(); it->next(), ++i) {
-        ASSERT_EQ(expected[i], it->current_item());
+    for (std::size_t i = 0; i < 9; ++i) {
+        ASSERT_EQ(expected[i], result[i]->element());
     }
-    ASSERT_EQ(9, i);
 
-    delete it;
+    ASSERT_EQ(result.end(), iter);
 }
 
 TEST_F(TreeTraversal, PreOrderOnlyRoot) {
-    alg::ds::tree::traversal::PreOrderIterator<char>* it =
-            new alg::ds::tree::traversal::PreOrderIterator<char>(tree_only_root);
+    std::array<const alg::ds::tree::Node<char>*, 1> result;
 
-    int i = 0;
+    auto iter = alg::ds::tree::traversal::preorder(
+            tree_only_root, result.begin());
 
-    for (it->first(); !it->is_done(); it->next(), ++i) {
-        ASSERT_EQ('A', it->current_item());
-    }
-    ASSERT_EQ(1, i);
-
-    delete it;
+    ASSERT_EQ('A', result[0]->element());
+    ASSERT_EQ(result.end(), iter);
 }
 
 TEST_F(TreeTraversal, PostOrder) {

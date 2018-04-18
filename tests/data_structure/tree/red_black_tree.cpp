@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include <algorithm>
+#include <iterator>
 #include <utility>
 #include <vector>
 
@@ -83,30 +84,27 @@ TEST_F(RedBlackTree, LeafColor) {
 }
 
 TEST_F(RedBlackTree, ChildOfRed) {
-    alg::ds::tree::traversal::PreOrderIterator<int>* iter =
-            new alg::ds::tree::traversal::PreOrderIterator<int>(tree);
+    std::vector<const alg::ds::tree::Node<int>*> nodes;
 
-    int found = 0;
+    alg::ds::tree::traversal::preorder(tree, std::back_inserter(nodes));
 
-    for (iter->first(); !iter->is_done(); iter->next(), ++found) {
-        alg::ds::tree::RBNode<int>* node =
-                (alg::ds::tree::RBNode<int>*)iter->current_node();
+    ASSERT_EQ(count, nodes.size());
+
+    for (const alg::ds::tree::Node<int>* v : nodes) {
+        const alg::ds::tree::RBNode<int>* node =
+                static_cast<const alg::ds::tree::RBNode<int>*>(v);
 
         alg::ds::tree::RBNode<int>* left =
-                (alg::ds::tree::RBNode<int>*)tree->left(node);
+                static_cast<alg::ds::tree::RBNode<int>*>(tree->left(node));
 
         alg::ds::tree::RBNode<int>* right =
-                (alg::ds::tree::RBNode<int>*)tree->right(node);
+                static_cast<alg::ds::tree::RBNode<int>*>(tree->right(node));
 
         if (node->color() == alg::ds::tree::RBColor::RED) {
             ASSERT_EQ(alg::ds::tree::RBColor::BLACK, left->color());
             ASSERT_EQ(alg::ds::tree::RBColor::BLACK, right->color());
         }
     }
-
-    ASSERT_EQ(count, found);
-
-    delete iter;
 }
 
 TEST_F(RedBlackTree, BlackHeight) {

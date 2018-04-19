@@ -1,8 +1,6 @@
 #ifndef ALG_DS_TREE_TRAVERSAL_POSTORDER_H_
 #define ALG_DS_TREE_TRAVERSAL_POSTORDER_H_
 
-#include "alg/common/iterator.h"
-#include "alg/data_structure/stack.h"
 #include "alg/data_structure/tree/binary_tree.h"
 
 namespace alg {
@@ -10,95 +8,23 @@ namespace ds {
 namespace tree {
 namespace traversal {
 
-template <class T>
-class PostOrderIterator : public patterns::Iterator<T> {
-public:
-    explicit PostOrderIterator(BinaryTree<T>* tree);
-    virtual ~PostOrderIterator();
-
-    void first();
-    void next();
-    bool is_done() const;
-
-    T current_item() const;
-    Node<T>* current_node() const;
-
-private:
-    BinaryTree<T>* tree;
-    Stack<Node<T>*>* stack;
-    Node<T>* last_visited;
-};
-
-template <class T>
-PostOrderIterator<T>::PostOrderIterator(BinaryTree<T>* tree) {
-    this->tree = tree;
-    stack = new Stack<Node<T>*>(256);
-    last_visited = tree->nil();
-}
-
-template <class T>
-PostOrderIterator<T>::~PostOrderIterator() {
-    delete stack;
-}
-
-template <class T>
-void PostOrderIterator<T>::first() {
-    stack->push(tree->root());
-
-    next();
-}
-
-template <class T>
-void PostOrderIterator<T>::next() {
-    Node<T>* nil_ = tree->nil();
-
-    if (!stack->count()) {
-        last_visited = nil_;
-        return;
+template <class OutputIt, class T>
+OutputIt postorder(const BinaryTree<T>* tree, const Node<T>* v, OutputIt iter) {
+    if (v == tree->nil()) {
+        return iter;
     }
 
-    Node<T>* node = stack->top();
+    iter = postorder(tree, tree->left(v), iter);
+    iter = postorder(tree, tree->right(v), iter);
 
-    while (true) {
-        if (tree->right(node) == last_visited && last_visited != nil_) {
-            break;
-        }
+    *iter++ = v;
 
-        if (tree->left(node) == last_visited && tree->right(node) == nil_) {
-            break;
-        }
-
-        while (tree->left(node) != nil_ && tree->left(node) != last_visited) {
-            node = tree->left(node);
-            stack->push(node);
-        }
-
-        if (tree->right(node) != nil_) {
-            node = tree->right(node);
-            stack->push(node);
-        }
-
-        if (tree->left(node) == nil_ && tree->right(node) == nil_) {
-            break;
-        }
-    }
-
-    last_visited = stack->pop();
+    return iter;
 }
 
-template <class T>
-bool PostOrderIterator<T>::is_done() const {
-    return last_visited == tree->nil();
-}
-
-template <class T>
-T PostOrderIterator<T>::current_item() const {
-    return last_visited->element();
-}
-
-template <class T>
-Node<T>* PostOrderIterator<T>::current_node() const {
-    return last_visited;
+template <class OutputIt, class T>
+OutputIt postorder(const BinaryTree<T>* tree, OutputIt iter) {
+    return postorder(tree, tree->root(), iter);
 }
 
 }

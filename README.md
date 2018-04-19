@@ -27,7 +27,7 @@ List of data structures and algorithms implemented so far:
 		* Red Black Tree
 		* Traversal (Binary)
 			* Preorder
-			* Postorder (non-recursive iterator using stack)
+			* Postorder
 			* Inorder (non-recursive iterator using stack)
 			* Euler Tour
 * Sorting

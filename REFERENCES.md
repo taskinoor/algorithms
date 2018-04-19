@@ -35,7 +35,6 @@
 	- Red-Black Trees. [[GT]](#GT), ch. 4, pages 126-129.
 	- Order statistic tree. Available at https://en.wikipedia.org/wiki/Order_statistic_tree
 	- Tree traversal. Available at https://en.wikipedia.org/wiki/Tree_traversal
-	- PostOrder Node Iterator of Binary Tree. Available at http://techieme.in/postorder-node-iterator-of-binary-tree
 	- Implement In-order Iterator for Binary Tree. Available at http://n00tc0d3r.blogspot.com/2013/08/implement-iterator-for-binarytree-i-in.html
 - *Sorting*
 	- Insertion sort. [[CLRS]](#CLRS), ch. 2, pages 16-20.

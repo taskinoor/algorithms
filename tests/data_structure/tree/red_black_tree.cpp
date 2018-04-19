@@ -108,21 +108,23 @@ TEST_F(RedBlackTree, ChildOfRed) {
 }
 
 TEST_F(RedBlackTree, BlackHeight) {
-    alg::ds::tree::traversal::PostOrderIterator<int>* iter =
-            new alg::ds::tree::traversal::PostOrderIterator<int>(tree);
+    std::vector<const alg::ds::tree::Node<int>*> nodes;
 
-    int found = 0;
+    alg::ds::tree::traversal::postorder(tree, std::back_inserter(nodes));
+
+    ASSERT_EQ(count, nodes.size());
+
     int black_height = -1;
 
-    for (iter->first(); !iter->is_done(); iter->next(), ++found) {
-        alg::ds::tree::RBNode<int>* node =
-                (alg::ds::tree::RBNode<int>*)iter->current_node();
+    for (const alg::ds::tree::Node<int>* v : nodes) {
+        const alg::ds::tree::RBNode<int>* node =
+                static_cast<const alg::ds::tree::RBNode<int>*>(v);
 
         alg::ds::tree::RBNode<int>* left =
-                (alg::ds::tree::RBNode<int>*)tree->left(node);
+                static_cast<alg::ds::tree::RBNode<int>*>(tree->left(node));
 
         alg::ds::tree::RBNode<int>* right =
-                (alg::ds::tree::RBNode<int>*)tree->right(node);
+                static_cast<alg::ds::tree::RBNode<int>*>(tree->right(node));
 
         if (left == tree->nil() && right == tree->nil()) {
             int count = 0;
@@ -132,7 +134,8 @@ TEST_F(RedBlackTree, BlackHeight) {
                     ++count;
                 }
 
-                node = (alg::ds::tree::RBNode<int>*)tree->parent(node);
+                node = static_cast<alg::ds::tree::RBNode<int>*>(
+                        tree->parent(node));
             }
 
             if (black_height == -1) {
@@ -142,10 +145,6 @@ TEST_F(RedBlackTree, BlackHeight) {
             }
         }
     }
-
-    ASSERT_EQ(count, found);
-
-    delete iter;
 }
 
 TEST_F(RedBlackTree, Search) {

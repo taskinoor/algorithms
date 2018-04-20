@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include <array>
 
 #include <gtest/gtest.h>
@@ -114,32 +116,26 @@ TEST_F(TreeTraversal, PostOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, InOrder) {
-    alg::ds::tree::traversal::InOrderIterator<char>* it =
-            new alg::ds::tree::traversal::InOrderIterator<char>(tree);
+    std::array<char, 9> expected = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
+    std::array<const alg::ds::tree::Node<char>*, 9> result;
 
-    char expected[9] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
-    int i = 0;
+    auto iter = alg::ds::tree::traversal::inorder(tree, result.begin());
 
-    for (it->first(); !it->is_done(); it->next(), ++i) {
-        ASSERT_EQ(expected[i], it->current_item());
+    for (std::size_t i = 0; i < 9; ++i) {
+        ASSERT_EQ(expected[i], result[i]->element());
     }
-    ASSERT_EQ(9, i);
 
-    delete it;
+    ASSERT_EQ(result.end(), iter);
 }
 
 TEST_F(TreeTraversal, InOrderOnlyRoot) {
-    alg::ds::tree::traversal::InOrderIterator<char>* it =
-            new alg::ds::tree::traversal::InOrderIterator<char>(tree_only_root);
+    std::array<const alg::ds::tree::Node<char>*, 1> result;
 
-    int i = 0;
+    auto iter = alg::ds::tree::traversal::inorder(
+            tree_only_root, result.begin());
 
-    for (it->first(); !it->is_done(); it->next(), ++i) {
-        ASSERT_EQ('A', it->current_item());
-    }
-    ASSERT_EQ(1, i);
-
-    delete it;
+    ASSERT_EQ('A', result[0]->element());
+    ASSERT_EQ(result.end(), iter);
 }
 
 TEST_F(TreeTraversal, EulerTour) {

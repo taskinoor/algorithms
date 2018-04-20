@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include <array>
 #include <string>
 
@@ -38,22 +40,18 @@ TEST_F(BinarySearchTree, Insert) {
 }
 
 TEST_F(BinarySearchTree, InOrderTraversal) {
-    constexpr int n = 10;
-    alg::ds::tree::traversal::InOrderIterator<int>* it =
-            new alg::ds::tree::traversal::InOrderIterator<int>(bst);
+    constexpr std::size_t n = 10;
 
     std::array<int, n> expected = {2, 2, 5, 9, 12, 13, 15, 17, 18, 19};
-    std::array<int, n> result;
+    std::array<const alg::ds::tree::Node<int>*, n> result;
 
-    it->first();
+    auto iter = alg::ds::tree::traversal::inorder(bst, result.begin());
 
-    for (int i = 0; !it->is_done(); it->next(), ++i) {
-        result[i] = it->current_item();
+    for (std::size_t i = 0; i < n; ++i) {
+        ASSERT_EQ(expected[i], result[i]->element());
     }
 
-    ASSERT_EQ(expected, result);
-
-    delete it;
+    ASSERT_EQ(result.end(), iter);
 }
 
 TEST_F(BinarySearchTree, Search) {

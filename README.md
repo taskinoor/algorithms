@@ -28,7 +28,7 @@ List of data structures and algorithms implemented so far:
 		* Traversal (Binary)
 			* Preorder
 			* Postorder
-			* Inorder (non-recursive iterator using stack)
+			* Inorder
 			* Euler Tour
 * Sorting
 	* Heapsort

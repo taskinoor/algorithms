@@ -1,4 +1,5 @@
 #include <cmath>
+#include <cstddef>
 
 #include <algorithm>
 #include <iterator>
@@ -20,7 +21,7 @@ class RedBlackTree : public ::testing::Test {
 protected:
     static alg::ds::tree::RedBlackTree<int>* tree;
     static std::vector<std::pair<bool, int>> keys;
-    static int count;
+    static std::size_t count;
 
     static void SetUpTestCase() {
         tree = new alg::ds::tree::RedBlackTree<int>();
@@ -60,7 +61,7 @@ protected:
 alg::ds::tree::RedBlackTree<int>* RedBlackTree::tree = nullptr;
 std::vector<std::pair<bool, int>> RedBlackTree::keys = {};
 
-int RedBlackTree::count = 0;
+std::size_t RedBlackTree::count = 0;
 
 TEST_F(RedBlackTree, Count) {
     ASSERT_NE(0, count);
@@ -158,7 +159,8 @@ TEST_F(RedBlackTree, Search) {
 }
 
 TEST_F(RedBlackTree, Sorting) {
-    std::vector<int> present_keys = {};
+    std::vector<int> present_keys;
+    std::vector<const alg::ds::tree::Node<int>*> nodes;
 
     for (const auto& key : keys) {
         if (key.first) {
@@ -166,24 +168,18 @@ TEST_F(RedBlackTree, Sorting) {
         }
     }
 
-    ASSERT_EQ(count, present_keys.size());
     std::sort(present_keys.begin(), present_keys.end());
+    alg::ds::tree::traversal::inorder(tree, std::back_inserter(nodes));
 
-    alg::ds::tree::traversal::InOrderIterator<int>* iter =
-            new alg::ds::tree::traversal::InOrderIterator<int>(tree);
+    ASSERT_EQ(count, present_keys.size());
+    ASSERT_EQ(count, nodes.size());
 
-    int i = 0;
-
-    for (iter->first(); !iter->is_done(); iter->next(), ++i) {
-        ASSERT_EQ(present_keys[i], iter->current_item());
+    for (std::size_t i = 0; i < count; ++i) {
+        ASSERT_EQ(present_keys[i], nodes[i]->element());
     }
-
-    ASSERT_EQ(count, i);
 
     ASSERT_EQ(present_keys[0], tree->min()->element());
     ASSERT_EQ(present_keys[count - 1], tree->max()->element());
-
-    delete iter;
 }
 
 TEST_F(RedBlackTree, Rotation) {

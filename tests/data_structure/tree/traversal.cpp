@@ -139,12 +139,33 @@ TEST_F(TreeTraversal, InOrderOnlyRoot) {
 }
 
 TEST_F(TreeTraversal, EulerTour) {
-    ASSERT_EQ("FBAAABDCCCDEEEDBFGGIHHHIIGF",
-            alg::ds::tree::traversal::euler_tour(tree));
+    std::array<char, 27> expected = {
+            'F', 'B', 'A', 'A', 'A', 'B', 'D', 'C', 'C', 'C', 'D', 'E', 'E',
+            'E', 'D', 'B', 'F', 'G', 'G', 'I', 'H', 'H', 'H', 'I', 'I', 'G', 'F'
+    };
+    std::array<const alg::ds::tree::Node<char>*, 27> result;
+
+    auto iter = alg::ds::tree::traversal::euler_tour(tree, result.begin());
+
+    for (std::size_t i = 0; i < 27; ++i) {
+        ASSERT_EQ(expected[i], result[i]->element());
+    }
+
+    ASSERT_EQ(result.end(), iter);
 }
 
 TEST_F(TreeTraversal, EulerTourOnlyRoot) {
-    ASSERT_EQ("AAA", alg::ds::tree::traversal::euler_tour(tree_only_root));
+    std::array<char, 3> expected = {'A', 'A', 'A'};
+    std::array<const alg::ds::tree::Node<char>*, 3> result;
+
+    auto iter = alg::ds::tree::traversal::euler_tour(
+            tree_only_root, result.begin());
+
+    for (std::size_t i = 0; i < 3; ++i) {
+        ASSERT_EQ(expected[i], result[i]->element());
+    }
+
+    ASSERT_EQ(result.end(), iter);
 }
 
 }

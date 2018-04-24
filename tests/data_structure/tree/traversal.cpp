@@ -4,7 +4,6 @@
 
 #include <gtest/gtest.h>
 
-#include "alg/data_structure/tree/binary_search_tree.h"
 #include "alg/data_structure/tree/binary_tree.h"
 #include "alg/data_structure/tree/traversal/euler_tour.h"
 #include "alg/data_structure/tree/traversal/inorder.h"
@@ -15,12 +14,12 @@ namespace algtest {
 
 class TreeTraversal : public ::testing::Test {
 protected:
-    alg::ds::tree::BinarySearchTree<char>* tree;
-    alg::ds::tree::BinarySearchTree<char>* tree_only_root;
+    alg::ds::tree::BinaryTree<char>* tree;
+    alg::ds::tree::BinaryTree<char>* tree_only_root;
     alg::ds::tree::Node<char>* node[9];
 
     virtual void SetUp() {
-        tree = new alg::ds::tree::BinarySearchTree<char>();
+        tree = new alg::ds::tree::BinaryTree<char>(nullptr);
 
         for (int i = 0; i < 9; ++i) {
             node[i] = new alg::ds::tree::Node<char>('A' + i,
@@ -51,7 +50,7 @@ protected:
             }
         }
 
-        tree_only_root = new alg::ds::tree::BinarySearchTree<char>();
+        tree_only_root = new alg::ds::tree::BinaryTree<char>(nullptr);
 
         tree_only_root->set_root(new alg::ds::tree::Node<char>('A',
                 tree_only_root->nil(), tree_only_root->nil(),

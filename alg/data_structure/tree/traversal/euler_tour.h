@@ -12,7 +12,7 @@ namespace tree {
 namespace traversal {
 
 template <class T>
-void euler_visit(Node<T>* v, std::string &out) {
+void euler_visit(const Node<T>* v, std::string &out) {
     std::ostringstream buf;
 
     buf << v->element();
@@ -20,7 +20,7 @@ void euler_visit(Node<T>* v, std::string &out) {
 }
 
 template <class T>
-void euler_tour(BinaryTree<T>* tree, Node<T>* v, std::string &out) {
+void euler_tour(const BinaryTree<T>* tree, const Node<T>* v, std::string &out) {
     if (v == tree->nil()) {
         return;
     }
@@ -33,7 +33,7 @@ void euler_tour(BinaryTree<T>* tree, Node<T>* v, std::string &out) {
 }
 
 template <class T>
-std::string euler_tour(BinaryTree<T>* tree) {
+std::string euler_tour(const BinaryTree<T>* tree) {
     std::string out = "";
 
     euler_tour(tree, tree->root(), out);

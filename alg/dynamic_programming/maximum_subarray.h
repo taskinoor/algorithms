@@ -21,13 +21,13 @@ T max_subarray(T* a, std::size_t n) {
 
     suffix_sum[0] = std::max(zero, a[0]);
 
-    for (int i = 1; i < n; ++i) {
+    for (std::size_t i = 1; i < n; ++i) {
         suffix_sum[i] = std::max(zero, suffix_sum[i - 1] + a[i]);
     }
 
     T max_sum = suffix_sum[0];
 
-    for (int i = 1; i < n; ++i) {
+    for (std::size_t i = 1; i < n; ++i) {
         max_sum = std::max(max_sum, suffix_sum[i]);
     }
 

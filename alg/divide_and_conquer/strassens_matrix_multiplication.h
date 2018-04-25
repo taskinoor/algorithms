@@ -26,8 +26,8 @@ numeric::Matrix<T> strassens_matrix_multiply(const numeric::Matrix<T>& A,
         numeric::Matrix<T> S[10];
         numeric::Matrix<T> P[7];
 
-        for (int i = 0; i < 2; ++i) {
-            for (int j = 0; j < 2; ++j) {
+        for (std::size_t i = 0; i < 2; ++i) {
+            for (std::size_t j = 0; j < 2; ++j) {
                 PA[i][j] = A.submatrix(i * p, j * p, p, p);
                 PB[i][j] = B.submatrix(i * p, j * p, p, p);
             }
@@ -57,8 +57,8 @@ numeric::Matrix<T> strassens_matrix_multiply(const numeric::Matrix<T>& A,
         PC[1][0] = P[2] + P[3];
         PC[1][1] = P[4] + P[0] - P[2] - P[6];
 
-        for (int i = 0; i < 2; ++i) {
-            for (int j = 0; j < 2; ++j) {
+        for (std::size_t i = 0; i < 2; ++i) {
+            for (std::size_t j = 0; j < 2; ++j) {
                 C.copy(PC[i][j], i * p, j * p, 0, 0, p, p);
             }
         }

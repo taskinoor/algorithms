@@ -18,7 +18,7 @@ template <class T>
 MaxSubarrayResult<T> max_crossing_subarray(T* a, int low, int mid, int high) {
     T left_max = std::numeric_limits<T>::lowest();
     int left_index = -1;
-    T sum = 0;
+    T sum = T();
 
     for (int i = mid; i >= low; --i) {
         sum += a[i];
@@ -31,7 +31,7 @@ MaxSubarrayResult<T> max_crossing_subarray(T* a, int low, int mid, int high) {
 
     T right_max = std::numeric_limits<T>::lowest();
     int right_index = -1;
-    sum = 0;
+    sum = T();
 
     for (int i = mid + 1; i <= high; ++i) {
         sum += a[i];

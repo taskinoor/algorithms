@@ -13,16 +13,15 @@ namespace dp {
 template <class T>
 T max_subarray(T* a, std::size_t n) {
     if (!n) {
-        return 0;
+        return T();
     }
 
     ds::ExtendableArray<T> suffix_sum(n);
-    T zero = 0;
 
-    suffix_sum[0] = std::max(zero, a[0]);
+    suffix_sum[0] = std::max(T(), a[0]);
 
     for (std::size_t i = 1; i < n; ++i) {
-        suffix_sum[i] = std::max(zero, suffix_sum[i - 1] + a[i]);
+        suffix_sum[i] = std::max(T(), suffix_sum[i - 1] + a[i]);
     }
 
     T max_sum = suffix_sum[0];

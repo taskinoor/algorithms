@@ -8,9 +8,7 @@ The [references section](https://github.com/taskinoor/algorithms/blob/master/REF
 
 Unit tests are present for each data structure and algorithm. Main codes are inside `alg` directory (and inside `alg` namespace), unit test codes are inside `tests` directory (and inside `algtest` namespace). There is a single `makefile` inside `tests` which can build all at once.
 
-[Google Test Framework](https://github.com/google/googletest) is used as unit testing framework. All codes are compiled using `g++ 4.8.4` on `Ubuntu 14.04` with warnings on. `valgrind 3.10.1` is used to check for memory related issues. The whole development environment can be found in [this Vagrant box](https://github.com/taskinoor/dev-box).
-
-List of data structures and algorithms implemented so far:
+**List of data structures and algorithms:**
 
 * Data Structure
 	* Deque
@@ -46,10 +44,24 @@ List of data structures and algorithms implemented so far:
 	* Range Queries (on BST)
 * Divide and Conquer
 	* Maximum Subarray
-	* Strassen’s Matrix Multiplication
+	* Strassen's Matrix Multiplication
 * Dynamic Programming
 	* Maximum Subarray
 * Numeric
 	* Matrix (Basic Operations)
 * Puzzle
 	* Josephus problem (1. Using Queue, 2. Using Order Statistic Tree)
+
+
+**Development environments:**
+* Ubuntu 16.04.2 (WSL)
+* GCC 7.3.0
+* Valgrind 3.13.0
+
+**Running all tests:**
+```
+$ cd algorithms/tests/
+$ make
+$ ./runner.out --gtest_shuffle
+$ valgrind ./runner.out --gtest_shuffle
+```

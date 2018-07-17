@@ -20,8 +20,8 @@ public:
 
 private:
     T* buffer;
-    int front;
-    int rear;
+    std::size_t front;
+    std::size_t rear;
     std::size_t size;
 };
 
@@ -62,7 +62,7 @@ T Queue<T>::dequeue() {
 
 template <class T>
 std::size_t Queue<T>::count() {
-    return (rear - front + size) % size;
+    return (size + rear - front) % size;
 }
 
 }

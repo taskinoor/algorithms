@@ -12,7 +12,7 @@ template <class T>
 class Queue {
 public:
     explicit Queue(std::size_t n);
-    virtual ~Queue();
+    ~Queue();
 
     void enqueue(T element);
     T dequeue();
@@ -20,6 +20,7 @@ public:
 
 private:
     T* buffer;
+
     std::size_t front;
     std::size_t rear;
     std::size_t size;

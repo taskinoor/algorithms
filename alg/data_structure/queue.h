@@ -19,19 +19,15 @@ public:
     std::size_t count();
 
 private:
-    T* buffer;
-
-    std::size_t front;
-    std::size_t rear;
+    std::size_t front{0};
+    std::size_t rear{0};
     std::size_t size;
+
+    T* buffer;
 };
 
 template <class T>
-Queue<T>::Queue(std::size_t n) {
-    size = n + 1;
-    buffer = new T[size];
-    front = 0;
-    rear = 0;
+Queue<T>::Queue(std::size_t n) : size{n + 1}, buffer{new T[size]} {
 }
 
 template <class T>

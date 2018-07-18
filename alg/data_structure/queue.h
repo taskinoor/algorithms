@@ -16,7 +16,7 @@ public:
 
     void enqueue(T element);
     T dequeue();
-    std::size_t count();
+    std::size_t count() const;
 
 private:
     std::size_t front{0};
@@ -58,7 +58,7 @@ T Queue<T>::dequeue() {
 }
 
 template <class T>
-std::size_t Queue<T>::count() {
+std::size_t Queue<T>::count() const {
     return (size + rear - front) % size;
 }
 

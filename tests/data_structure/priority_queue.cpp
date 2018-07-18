@@ -27,13 +27,13 @@ TEST(PriorityQueue, MaxQueue) {
     ASSERT_EQ(0, queue.count());
 
     queue.insert("7", 7);
-    queue.insert("-1", -1);
+    queue.insert("0", 0);
     queue.insert("5", 5);
 
     ASSERT_EQ(3, queue.count());
     ASSERT_EQ("7", queue.pop());
     ASSERT_EQ("5", queue.pop());
-    ASSERT_EQ("-1", queue.pop());
+    ASSERT_EQ("0", queue.pop());
     ASSERT_EQ(0, queue.count());
 
     ASSERT_THROW(queue.top(), alg::except::BufferEmpty);
@@ -56,11 +56,11 @@ TEST(PriorityQueue, MinQueue) {
     ASSERT_EQ(0, queue.count());
 
     queue.insert("7", 7);
-    queue.insert("-1", -1);
+    queue.insert("0", 0);
     queue.insert("5", 5);
 
     ASSERT_EQ(3, queue.count());
-    ASSERT_EQ("-1", queue.pop());
+    ASSERT_EQ("0", queue.pop());
     ASSERT_EQ("5", queue.pop());
     ASSERT_EQ("7", queue.pop());
     ASSERT_EQ(0, queue.count());
@@ -75,7 +75,7 @@ TEST(PriorityQueue, MaxQueueLargeDataSet) {
     alg::ds::PriorityQueue<int> alg_queue(alg::ds::PriorityQueueType::MAX);
 
     for (int i = 1; i <= total; ++i) {
-        int data = alg::randomizer::uniform_int(-100000, 100000);
+        int data = alg::randomizer::uniform_int(0, 1000000);
 
         std_queue.push(data);
         alg_queue.insert(data, data);
@@ -107,7 +107,7 @@ TEST(PriorityQueue, MinQueueLargeDataSet) {
     alg::ds::PriorityQueue<int> alg_queue(alg::ds::PriorityQueueType::MIN);
 
     for (int i = 1; i <= total; ++i) {
-        int data = alg::randomizer::uniform_int(-100000, 100000);
+        int data = alg::randomizer::uniform_int(0, 1000000);
 
         std_queue.push(data);
         alg_queue.insert(data, data);

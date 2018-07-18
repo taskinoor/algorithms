@@ -2,6 +2,7 @@
 #define ALG_DS_PRIORITY_QUEUE_H_
 
 #include <cstddef>
+#include <cstdint>
 
 #include <algorithm>
 #include <limits>
@@ -26,8 +27,8 @@ public:
     T top();
     T pop();
 
-    void insert(const T& element, int priority);
-    void update_priority(std::size_t index, int new_priority);
+    void insert(const T& element, std::uint32_t priority);
+    void update_priority(std::size_t index, std::uint32_t new_priority);
 
     std::size_t count() const;
 
@@ -35,9 +36,9 @@ private:
     class PQData {
     public:
         T element;
-        int priority;
+        std::uint32_t priority;
 
-        PQData(const T& element, int priority) :
+        PQData(const T& element, std::uint32_t priority) :
             element{element}, priority{priority} {}
 
         bool operator<(const PQData& that) {
@@ -53,8 +54,8 @@ private:
     ExtendableArray<PQData> buffer;
     std::size_t count_;
 
-    void increase_priority(std::size_t index, int new_priority);
-    void decrease_priority(std::size_t index, int new_priority);
+    void increase_priority(std::size_t index, std::uint32_t new_priority);
+    void decrease_priority(std::size_t index, std::uint32_t new_priority);
 };
 
 template <class T>
@@ -96,9 +97,10 @@ T PriorityQueue<T>::pop() {
 }
 
 template <class T>
-void PriorityQueue<T>::insert(const T& element, int priority) {
-    int default_priotiry = (type == PriorityQueueType::MAX) ?
-            std::numeric_limits<int>::min() : std::numeric_limits<int>::max();
+void PriorityQueue<T>::insert(const T& element, std::uint32_t priority) {
+	std::uint32_t default_priotiry = (type == PriorityQueueType::MAX) ?
+            std::numeric_limits<std::uint32_t>::min() :
+            std::numeric_limits<std::uint32_t>::max();
 
     PQData data(element, default_priotiry);
     ++count_;
@@ -113,7 +115,9 @@ void PriorityQueue<T>::insert(const T& element, int priority) {
 }
 
 template <class T>
-void PriorityQueue<T>::update_priority(std::size_t index, int new_priority) {
+void PriorityQueue<T>::update_priority(std::size_t index,
+		std::uint32_t new_priority) {
+
     if (type == PriorityQueueType::MIN) {
         decrease_priority(index, new_priority);
     } else {
@@ -122,7 +126,9 @@ void PriorityQueue<T>::update_priority(std::size_t index, int new_priority) {
 }
 
 template <class T>
-void PriorityQueue<T>::increase_priority(std::size_t index, int new_priority) {
+void PriorityQueue<T>::increase_priority(std::size_t index,
+		std::uint32_t new_priority) {
+
     if (new_priority <= buffer[index].priority) {
         return;
     }
@@ -142,7 +148,9 @@ void PriorityQueue<T>::increase_priority(std::size_t index, int new_priority) {
 }
 
 template <class T>
-void PriorityQueue<T>::decrease_priority(std::size_t index, int new_priority) {
+void PriorityQueue<T>::decrease_priority(std::size_t index,
+		std::uint32_t new_priority) {
+
     if (new_priority >= buffer[index].priority) {
         return;
     }

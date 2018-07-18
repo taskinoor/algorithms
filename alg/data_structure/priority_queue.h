@@ -27,7 +27,7 @@ public:
     T pop();
 
     void insert(const T& element, int priority);
-    void update_priority(int index, int new_priority);
+    void update_priority(std::size_t index, int new_priority);
 
     std::size_t count() const;
 
@@ -53,8 +53,8 @@ private:
     ExtendableArray<PQData> buffer;
     std::size_t count_;
 
-    void increase_priority(int index, int new_priority);
-    void decrease_priority(int index, int new_priority);
+    void increase_priority(std::size_t index, int new_priority);
+    void decrease_priority(std::size_t index, int new_priority);
 };
 
 template <class T>
@@ -113,7 +113,7 @@ void PriorityQueue<T>::insert(const T& element, int priority) {
 }
 
 template <class T>
-void PriorityQueue<T>::update_priority(int index, int new_priority) {
+void PriorityQueue<T>::update_priority(std::size_t index, int new_priority) {
     if (type == PriorityQueueType::MIN) {
         decrease_priority(index, new_priority);
     } else {
@@ -122,7 +122,7 @@ void PriorityQueue<T>::update_priority(int index, int new_priority) {
 }
 
 template <class T>
-void PriorityQueue<T>::increase_priority(int index, int new_priority) {
+void PriorityQueue<T>::increase_priority(std::size_t index, int new_priority) {
     if (new_priority <= buffer[index].priority) {
         return;
     }
@@ -142,7 +142,7 @@ void PriorityQueue<T>::increase_priority(int index, int new_priority) {
 }
 
 template <class T>
-void PriorityQueue<T>::decrease_priority(int index, int new_priority) {
+void PriorityQueue<T>::decrease_priority(std::size_t index, int new_priority) {
     if (new_priority >= buffer[index].priority) {
         return;
     }

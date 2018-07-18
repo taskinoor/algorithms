@@ -37,7 +37,6 @@ private:
         T element;
         int priority;
 
-        PQData() : element{T()}, priority{0} {}
         PQData(const T& element, int priority) :
             element{element}, priority{priority} {}
 

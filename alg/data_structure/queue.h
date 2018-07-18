@@ -14,7 +14,7 @@ public:
     explicit Queue(std::size_t n);
     ~Queue();
 
-    void enqueue(T element);
+    void enqueue(const T& element);
     T dequeue();
     std::size_t count() const;
 
@@ -36,7 +36,7 @@ Queue<T>::~Queue() {
 }
 
 template <class T>
-void Queue<T>::enqueue(T element) {
+void Queue<T>::enqueue(const T& element) {
     if ((rear + 1) % size == front) {
         throw except::BufferFull();
     }

@@ -1,6 +1,6 @@
 all: runner.out
 
-CC := g++ -std=c++11
+CC := g++ -std=c++11 -O2
 
 CFLAGS := \
 	-MMD \

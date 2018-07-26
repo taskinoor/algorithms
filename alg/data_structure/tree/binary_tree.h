@@ -84,13 +84,11 @@ private:
 };
 
 template <class T>
-Node<T>::Node(const T& element, Node<T>* parent, Node<T>* left, Node<T>* right) {
-    element_ = element;
-
-    this->parent = parent;
-    this->left = left;
-    this->right = right;
-}
+Node<T>::Node(const T& element, Node<T>* parent, Node<T>* left, Node<T>* right) :
+        parent{parent},
+        left{left},
+        right{right},
+        element_{element} {}
 
 template <class T>
 T& Node<T>::element() {

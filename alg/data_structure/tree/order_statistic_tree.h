@@ -22,7 +22,7 @@ public:
     std::size_t count() const;
 
 private:
-    std::size_t count_;
+    std::size_t count_{1};
 
     friend class OrderStatisticTree<T>;
 };
@@ -47,10 +47,7 @@ private:
 
 template <class T>
 OSTNode<T>::OSTNode(const T& element, Node<T>* parent, Node<T>* left,
-        Node<T>* right) : Node<T>(element, parent, left, right) {
-
-    count_ = 1;
-}
+        Node<T>* right) : Node<T>(element, parent, left, right) {}
 
 template <class T>
 std::size_t OSTNode<T>::count() const {

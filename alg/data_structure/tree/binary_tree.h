@@ -20,7 +20,7 @@ public:
     explicit Node(const T& element = T(), Node<T>* parent = nullptr,
             Node<T>* left = nullptr, Node<T>* right = nullptr);
 
-    virtual ~Node() {}
+    virtual ~Node() = default;
 
     T& element();
     const T& element() const;

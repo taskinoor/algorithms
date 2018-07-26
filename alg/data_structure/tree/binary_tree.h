@@ -74,7 +74,7 @@ public:
     void set_nil(Node<T>* nil_);
 
 protected:
-    Node<T>* nil_;
+    Node<T>* nil_{nullptr};
 
 private:
     Node<T>* root_;
@@ -130,10 +130,7 @@ std::string Node<T>::to_string(Node<T>* nil) const {
 }
 
 template <class T>
-BinaryTree<T>::BinaryTree(Node<T>* root) {
-   root_ = root;
-   nil_ = nullptr;
-}
+BinaryTree<T>::BinaryTree(Node<T>* root) : root_{root} {}
 
 template <class T>
 BinaryTree<T>::~BinaryTree() {

@@ -46,10 +46,9 @@ private:
 
 template <class T>
 RBNode<T>::RBNode(RBColor color, const T& element, Node<T>* parent,
-        Node<T>* left, Node<T>* right) : Node<T>(element, parent, left, right) {
-
-    color_ = color;
-}
+        Node<T>* left, Node<T>* right) :
+        Node<T>(element, parent, left, right),
+        color_{color} {}
 
 template <class T>
 RBColor RBNode<T>::color() const {

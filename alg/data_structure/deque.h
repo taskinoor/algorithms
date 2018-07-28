@@ -15,8 +15,8 @@ public:
     Deque();
     ~Deque();
 
-    void push_back(T element);
-    void push_front(T element);
+    void push_back(const T& element);
+    void push_front(const T& element);
 
     T pop_back();
     T pop_front();
@@ -46,13 +46,13 @@ Deque<T>::~Deque() {
 }
 
 template <class T>
-void Deque<T>::push_back(T element) {
+void Deque<T>::push_back(const T& element) {
     list->insert_last(element);
     ++count_;
 }
 
 template <class T>
-void Deque<T>::push_front(T element) {
+void Deque<T>::push_front(const T& element) {
     list->insert_first(element);
     ++count_;
 }

@@ -13,7 +13,7 @@ template <class T>
 class Deque {
 public:
     Deque();
-    virtual ~Deque();
+    ~Deque();
 
     void push_back(T element);
     void push_front(T element);

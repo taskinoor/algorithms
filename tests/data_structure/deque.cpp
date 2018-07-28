@@ -40,14 +40,20 @@ TEST_F(Deque, Operations) {
     }
 
     for (int i = 0; i < 15; ++i) {
-        ASSERT_EQ(i, deq.pop_front());
+        ASSERT_EQ(i, deq.front());
+
+        deq.pop_front();
+
         ASSERT_EQ(20 - (i + 1), deq.count());
         ASSERT_EQ(i + 1, deq.front());
         ASSERT_EQ(19, deq.back());
     }
 
     for (int i = 0; i < 5; ++i) {
-        ASSERT_EQ(19 - i, deq.pop_back());
+        ASSERT_EQ(19 - i, deq.back());
+
+        deq.pop_back();
+
         ASSERT_EQ(5 - (i + 1), deq.count());
 
         if (i < 4) {

@@ -18,8 +18,8 @@ public:
     void push_back(const T& element);
     void push_front(const T& element);
 
-    T pop_back();
-    T pop_front();
+    void pop_back();
+    void pop_front();
 
     T back();
     T front();
@@ -80,25 +80,15 @@ list::Node<T>* Deque<T>::front_node() {
 }
 
 template <class T>
-T Deque<T>::pop_back() {
-    list::Node<T>* node = back_node();
-    T element = node->element();
-
-    list->remove(node);
+void Deque<T>::pop_back() {
+    list->remove(back_node());
     --count_;
-
-    return element;
 }
 
 template <class T>
-T Deque<T>::pop_front() {
-    list::Node<T>* node = front_node();
-    T element = node->element();
-
-    list->remove(node);
+void Deque<T>::pop_front() {
+    list->remove(front_node());
     --count_;
-
-    return element;
 }
 
 template <class T>

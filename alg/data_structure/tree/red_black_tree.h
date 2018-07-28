@@ -75,7 +75,11 @@ void RedBlackTree<T>::rotate(Node<T>* x, bool left) {
         return;
     }
 
-    left ? this->set_right(x, this->left(y)) : this->set_left(x, this->right(y));
+    if (left) {
+        this->set_right(x, this->left(y));
+    } else {
+        this->set_left(x, this->right(y));
+    }
 
     if (p == this->nil_) {
         this->set_root(y);
@@ -100,16 +104,17 @@ void RedBlackTree<T>::insert(T element) {
 template <class T>
 void RedBlackTree<T>::insert_fixup(RBNode<T>* node) {
     while (true) {
-        RBNode<T>* parent = (RBNode<T>*)this->parent(node);
+        RBNode<T>* parent = static_cast<RBNode<T>*>(this->parent(node));
 
         if (parent->color_ == RBColor::BLACK) {
             break;
         }
 
-        RBNode<T>* grandparent = (RBNode<T>*)this->parent(parent);
+        RBNode<T>* grandparent = static_cast<RBNode<T>*>(this->parent(parent));
         bool left = this->left(grandparent) == parent;
-        RBNode<T>* uncle = left ? (RBNode<T>*)this->right(grandparent) :
-                (RBNode<T>*)this->left(grandparent);
+
+        RBNode<T>* uncle = static_cast<RBNode<T>*>(
+                left ? this->right(grandparent) : this->left(grandparent));
 
         if (uncle->color_ == RBColor::RED) {
             parent->color_ = RBColor::BLACK;
@@ -124,7 +129,8 @@ void RedBlackTree<T>::insert_fixup(RBNode<T>* node) {
             if (rotation_needed) {
                 node = parent;
                 rotate(node, left);
-                parent = (RBNode<T>*)this->parent(node);
+
+                parent = static_cast<RBNode<T>*>(this->parent(node));
             }
 
             parent->color_ = RBColor::BLACK;
@@ -133,24 +139,27 @@ void RedBlackTree<T>::insert_fixup(RBNode<T>* node) {
         }
     }
 
-    ((RBNode<T>*)this->root())->color_ = RBColor::BLACK;
+    static_cast<RBNode<T>*>(this->root())->color_ = RBColor::BLACK;
 }
 
 template <class T>
 void RedBlackTree<T>::remove(Node<T>* z) {
     RBNode<T>* x = nullptr;
-    RBNode<T>* y = (RBNode<T>*)z;
+    RBNode<T>* y = static_cast<RBNode<T>*>(z);
     RBColor y_color = y->color_;
 
     if (this->left(z) == this->nil_) {
-        x = (RBNode<T>*)this->right(z);
+        x = static_cast<RBNode<T>*>(this->right(z));
+
         this->transplant(z, x);
     } else if (this->right(z) == this->nil_) {
-        x = (RBNode<T>*)this->left(z);
+        x = static_cast<RBNode<T>*>(this->left(z));
+
         this->transplant(z, x);
     } else {
-        y = (RBNode<T>*)this->min(this->right(z));
-        x = (RBNode<T>*)this->right(y);
+        y = static_cast<RBNode<T>*>(this->min(this->right(z)));
+        x = static_cast<RBNode<T>*>(this->right(y));
+
         y_color = y->color_;
 
         if (this->parent(y) == z) {
@@ -162,7 +171,8 @@ void RedBlackTree<T>::remove(Node<T>* z) {
 
         this->transplant(z, y);
         this->set_left(y, this->left(z));
-        y->color_ = ((RBNode<T>*)z)->color_;
+
+        y->color_ = static_cast<RBNode<T>*>(z)->color_;
     }
 
     if (y_color == RBColor::BLACK) {
@@ -175,21 +185,23 @@ void RedBlackTree<T>::remove(Node<T>* z) {
 template <class T>
 void RedBlackTree<T>::remove_fixup(RBNode<T>* x) {
     while (x != this->root() && x->color_ == RBColor::BLACK) {
-        RBNode<T>* p = (RBNode<T>*)this->parent(x);
+        RBNode<T>* p = static_cast<RBNode<T>*>(this->parent(x));
         bool left = this->left(p) == x;
 
-        RBNode<T>* w = left ? (RBNode<T>*)this->right(p) :
-                (RBNode<T>*)this->left(p);
+        RBNode<T>* w = static_cast<RBNode<T>*>(
+                left ? this->right(p) : this->left(p));
 
         if (w->color_ == RBColor::RED) {
             w->color_ = RBColor::BLACK;
             p->color_ = RBColor::RED;
+
             rotate(p, left);
-            w = left ? (RBNode<T>*)this->right(p) : (RBNode<T>*)this->left(p);
+
+            w = static_cast<RBNode<T>*>(left ? this->right(p) : this->left(p));
         }
 
-        RBNode<T>* w_left = (RBNode<T>*)this->left(w);
-        RBNode<T>* w_right = (RBNode<T>*)this->right(w);
+        RBNode<T>* w_left = static_cast<RBNode<T>*>(this->left(w));
+        RBNode<T>* w_right = static_cast<RBNode<T>*>(this->right(w));
 
         if (w_left->color_ == RBColor::BLACK &&
                 w_right->color_ == RBColor::BLACK) {
@@ -201,27 +213,35 @@ void RedBlackTree<T>::remove_fixup(RBNode<T>* x) {
                     : w_left->color_ == RBColor::BLACK;
 
             if (rotation_needed) {
-                left ? w_left->color_ =
-                        RBColor::BLACK : w_right->color_ = RBColor::BLACK;
+                if (left) {
+                    w_left->color_ = RBColor::BLACK;
+                } else {
+                    w_right->color_ = RBColor::BLACK;
+                }
+
                 w->color_ = RBColor::RED;
 
                 rotate(w, !left);
 
-                w = left ? (RBNode<T>*)this->right(p) :
-                        (RBNode<T>*)this->left(p);
+                w = static_cast<RBNode<T>*>(
+                        left ? this->right(p) : this->left(p));
 
-                w_left = (RBNode<T>*)this->left(w);
-                w_right = (RBNode<T>*)this->right(w);
+                w_left = static_cast<RBNode<T>*>(this->left(w));
+                w_right = static_cast<RBNode<T>*>(this->right(w));
             }
 
             w->color_ = p->color_;
             p->color_ = RBColor::BLACK;
-            left ? w_right->color_ =
-                    RBColor::BLACK : w_left->color_ = RBColor::BLACK;
+
+            if (left) {
+                w_right->color_ = RBColor::BLACK;
+            } else {
+                w_left->color_ = RBColor::BLACK;
+            }
 
             rotate(p, left);
 
-            x = (RBNode<T>*)this->root();
+            x = static_cast<RBNode<T>*>(this->root());
         }
     }
 

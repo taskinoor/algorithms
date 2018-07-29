@@ -13,7 +13,6 @@ template <class T>
 class Deque {
 public:
     Deque();
-    ~Deque();
 
     void push_back(const T& element);
     void push_front(const T& element);
@@ -27,7 +26,7 @@ public:
     std::size_t count();
 
 private:
-    list::LinkedList<T>* list;
+    list::LinkedList<T> list;
     std::size_t count_;
 
     list::Node<T>* back_node();
@@ -36,30 +35,24 @@ private:
 
 template <class T>
 Deque<T>::Deque() {
-    list = new list::LinkedList<T>();
     count_ = 0;
 }
 
 template <class T>
-Deque<T>::~Deque() {
-    delete list;
-}
-
-template <class T>
 void Deque<T>::push_back(const T& element) {
-    list->insert_last(element);
+    list.insert_last(element);
     ++count_;
 }
 
 template <class T>
 void Deque<T>::push_front(const T& element) {
-    list->insert_first(element);
+    list.insert_first(element);
     ++count_;
 }
 
 template <class T>
 list::Node<T>* Deque<T>::back_node() {
-    list::Node<T>* node = list->last();
+    list::Node<T>* node = list.last();
 
     if (!node) {
         throw except::BufferEmpty();
@@ -70,7 +63,7 @@ list::Node<T>* Deque<T>::back_node() {
 
 template <class T>
 list::Node<T>* Deque<T>::front_node() {
-    list::Node<T>* node = list->first();
+    list::Node<T>* node = list.first();
 
     if (!node) {
         throw except::BufferEmpty();
@@ -81,13 +74,13 @@ list::Node<T>* Deque<T>::front_node() {
 
 template <class T>
 void Deque<T>::pop_back() {
-    list->remove(back_node());
+    list.remove(back_node());
     --count_;
 }
 
 template <class T>
 void Deque<T>::pop_front() {
-    list->remove(front_node());
+    list.remove(front_node());
     --count_;
 }
 

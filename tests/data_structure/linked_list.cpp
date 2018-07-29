@@ -1,4 +1,5 @@
 #include <array>
+#include <type_traits>
 
 #include <gtest/gtest.h>
 
@@ -16,6 +17,18 @@ TEST(ListNode, Element) {
     alg::ds::list::Node<int> node(2);
 
     ASSERT_EQ(2, node.element());
+
+    node.element() += 11;
+
+    ASSERT_EQ(13, node.element());
+}
+
+TEST(ListNode, ElementConstCorrectness) {
+    alg::ds::list::Node<int> node;
+    const alg::ds::list::Node<int> const_node;
+
+    static_assert(std::is_same<decltype(node.element()), int&>::value, "");
+    static_assert(std::is_same<decltype(const_node.element()), const int&>::value, "");
 }
 
 TEST(LinkedList, EmptyList) {

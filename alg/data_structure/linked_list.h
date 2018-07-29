@@ -15,7 +15,8 @@ class Node {
 public:
     explicit Node(const T& element = T());
 
-    T element();
+    T& element();
+    const T& element() const;
 
 private:
     Node<T>* next{nullptr};
@@ -89,7 +90,12 @@ template <class T>
 Node<T>::Node(const T& element) : element_{element} {}
 
 template <class T>
-T Node<T>::element() {
+T& Node<T>::element() {
+    return element_;
+}
+
+template <class T>
+const T& Node<T>::element() const {
     return element_;
 }
 

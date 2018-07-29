@@ -31,7 +31,7 @@ template <class T>
 class LinkedList {
 public:
     LinkedList();
-    virtual ~LinkedList();
+    ~LinkedList();
 
     Node<T>* first();
     Node<T>* last();

@@ -100,10 +100,7 @@ const T& Node<T>::element() const {
 }
 
 template <class T>
-LinkedList<T>::LinkedList() {
-    head = new Node<T>;
-    tail = new Node<T>;
-
+LinkedList<T>::LinkedList() : head{new Node<T>}, tail{new Node<T>} {
     head->next = tail;
     tail->prev = head;
 }

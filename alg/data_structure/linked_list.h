@@ -18,8 +18,9 @@ public:
     T element();
 
 private:
-    Node<T>* next;
-    Node<T>* prev;
+    Node<T>* next{nullptr};
+    Node<T>* prev{nullptr};
+
     T element_;
 
     friend class LinkedList<T>;
@@ -85,11 +86,7 @@ public:
 };
 
 template <class T>
-Node<T>::Node(T element) {
-    prev = nullptr;
-    next = nullptr;
-    element_ = element;
-}
+Node<T>::Node(T element) : element_{element} {}
 
 template <class T>
 T Node<T>::element() {

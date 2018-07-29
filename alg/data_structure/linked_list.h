@@ -13,7 +13,7 @@ template <class T> class Iterator;
 template <class T>
 class Node {
 public:
-    explicit Node(T element = T());
+    explicit Node(const T& element = T());
 
     T element();
 
@@ -86,7 +86,7 @@ public:
 };
 
 template <class T>
-Node<T>::Node(T element) : element_{element} {}
+Node<T>::Node(const T& element) : element_{element} {}
 
 template <class T>
 T Node<T>::element() {

@@ -37,7 +37,7 @@ public:
     void add(std::size_t index, const T& element);
     void append(const T& element);
 
-    T remove(std::size_t index);
+    void remove(std::size_t index);
 
     T& operator[](std::size_t index);
     const T& operator[](std::size_t index) const;
@@ -174,12 +174,10 @@ void ExtendableArray<T>::append(const T& element) {
 }
 
 template <class T>
-T ExtendableArray<T>::remove(std::size_t index) {
+void ExtendableArray<T>::remove(std::size_t index) {
     if (index >= count_) {
         throw std::out_of_range("");
     }
-
-    T element = buffer[index];
 
     for (std::size_t i = index + 1; i < count_; ++i) {
         buffer[i - 1] = buffer[i];
@@ -188,8 +186,6 @@ T ExtendableArray<T>::remove(std::size_t index) {
     std::allocator_traits<allocator_type>::destroy(alloc, &buffer[count_ - 1]);
 
     --count_;
-
-    return element;
 }
 
 template <class T>

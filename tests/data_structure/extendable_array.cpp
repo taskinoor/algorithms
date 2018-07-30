@@ -60,9 +60,13 @@ TEST(ExtendableArray, Operations) {
         ASSERT_EQ(expected[i], array[i]);
     }
 
-    ASSERT_EQ(19, array.remove(0));
-    ASSERT_EQ(7, array.remove(3));
-    ASSERT_EQ(23, array.remove(4));
+    array.remove(0);
+    ASSERT_EQ(7, array[3]);
+
+    array.remove(3);
+    ASSERT_EQ(23, array[4]);
+
+    array.remove(4);
 
     ASSERT_EQ(4, array.count());
 

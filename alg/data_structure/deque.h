@@ -12,8 +12,6 @@ namespace ds {
 template <class T>
 class Deque {
 public:
-    Deque();
-
     void push_back(const T& element);
     void push_front(const T& element);
 
@@ -27,16 +25,11 @@ public:
 
 private:
     list::LinkedList<T> list;
-    std::size_t count_;
+    std::size_t count_{0};
 
     list::Node<T>* back_node();
     list::Node<T>* front_node();
 };
-
-template <class T>
-Deque<T>::Deque() {
-    count_ = 0;
-}
 
 template <class T>
 void Deque<T>::push_back(const T& element) {

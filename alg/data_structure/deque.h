@@ -23,7 +23,7 @@ public:
     T back();
     T front();
 
-    std::size_t count();
+    std::size_t count() const;
 
 private:
     list::LinkedList<T> list;
@@ -95,7 +95,7 @@ T Deque<T>::front() {
 }
 
 template <class T>
-std::size_t Deque<T>::count() {
+std::size_t Deque<T>::count() const {
     return count_;
 }
 

@@ -41,12 +41,12 @@ private:
         PQData(const T& element, std::uint32_t priority) :
             element{element}, priority{priority} {}
 
-        bool operator<(const PQData& that) {
-            return priority < that.priority;
+        bool operator<(const PQData& rhs) const {
+            return priority < rhs.priority;
         }
 
-        bool operator>(const PQData& that) {
-            return priority > that.priority;
+        bool operator>(const PQData& rhs) const {
+            return priority > rhs.priority;
         }
     };
 

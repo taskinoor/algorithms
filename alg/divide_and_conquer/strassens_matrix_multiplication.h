@@ -3,6 +3,9 @@
 
 #include <cstddef>
 
+#include <stdexcept>
+#include <utility>
+
 #include "alg/numeric/matrix.h"
 
 namespace alg {
@@ -12,8 +15,23 @@ template <class T>
 numeric::Matrix<T> strassens_matrix_multiply(const numeric::Matrix<T>& A,
         const numeric::Matrix<T>& B) {
 
-    std::size_t n = A.dimension().first;
+    std::pair<std::size_t, std::size_t> da = A.dimension();
+    std::pair<std::size_t, std::size_t> db = B.dimension();
+
+    if ((da.first != da.second) || (db.first != db.second)) {
+        throw std::invalid_argument("Require square matrix");
+    }
+
+    if (da != db) {
+        throw std::invalid_argument("Require same dimensions");
+    }
+
+    std::size_t n = da.first;
     std::size_t p = n / 2;
+
+    if (n & (n - 1)) {
+        throw std::invalid_argument("Require dimensions to be power of 2");
+    }
 
     numeric::Matrix<T> C(n, n);
 

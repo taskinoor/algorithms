@@ -1,5 +1,7 @@
 #include <cstddef>
 
+#include <set>
+#include <stdexcept>
 #include <utility>
 
 #include <gtest/gtest.h>
@@ -54,6 +56,37 @@ TEST(StrassensMatrix, Multiplication) {
     for (std::size_t i = 0; i < n; ++i) {
         for (std::size_t j = 0; j < n; ++j) {
             ASSERT_EQ(expected[i][j], C[i][j]);
+        }
+    }
+}
+
+TEST(StrassensMatrix, ValidateEqualDimension) {
+    alg::numeric::Matrix<int> A(4, 4);
+    alg::numeric::Matrix<int> B(8, 8);
+
+    ASSERT_THROW(alg::dnc::strassens_matrix_multiply(A, B), std::invalid_argument);
+}
+
+TEST(StrassensMatrix, ValidateSquareMatrix) {
+    alg::numeric::Matrix<int> A(4, 8);
+    alg::numeric::Matrix<int> B(2, 4);
+
+    ASSERT_THROW(alg::dnc::strassens_matrix_multiply(A, B), std::invalid_argument);
+    ASSERT_THROW(alg::dnc::strassens_matrix_multiply(B, A), std::invalid_argument);
+}
+
+TEST(StrassensMatrix, ValidatePowerOfTwo) {
+    using alg::dnc::strassens_matrix_multiply;
+
+    std::set<std::size_t> powers = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512};
+
+    for (std::size_t i = 1; i <= 512; ++i) {
+        alg::numeric::Matrix<int> A(i, i);
+
+        if (powers.find(i) == powers.end()) {
+            ASSERT_THROW(strassens_matrix_multiply(A, A), std::invalid_argument);
+        } else {
+            ASSERT_NO_THROW(strassens_matrix_multiply(A, A));
         }
     }
 }

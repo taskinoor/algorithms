@@ -37,7 +37,8 @@ TEST(Stack, PushPop) {
     }
 
     for (int i = 0; i < n; ++i) {
-        ASSERT_EQ(data[n - 1 - i], s.pop());
+        ASSERT_EQ(data[n - 1 - i], s.top());
+        s.pop();
     }
 }
 
@@ -122,14 +123,17 @@ TEST(Stack, CopyConstructor) {
     ASSERT_EQ(data.size(), st.count());
     ASSERT_EQ(data.size() / 2 + 1, st_copied.count());
 
-    ASSERT_EQ("foo", st_copied.pop());
+    ASSERT_EQ("foo", st_copied.top());
+    st_copied.pop();
 
     for (int i = data.size() - 1; i >= 0; --i) {
-        ASSERT_EQ(data[i], st.pop());
+        ASSERT_EQ(data[i], st.top());
+        st.pop();
     }
 
     for (int i = data.size() / 2 - 1; i >= 0; --i) {
-        ASSERT_EQ(data[i], st_copied.pop());
+        ASSERT_EQ(data[i], st_copied.top());
+        st_copied.pop();
     }
 
     ASSERT_EQ(0, st.count());
@@ -154,14 +158,15 @@ TEST(Stack, MoveConstructor) {
     ASSERT_EQ(0, st.count());
 
     for (int i = data.size() - 1; i >= 0; --i) {
-        ASSERT_EQ(data[i], st_moved.pop());
+        ASSERT_EQ(data[i], st_moved.top());
+        st_moved.pop();
     }
 
     st.push("foo");
 
     ASSERT_EQ("foo", st.top());
     ASSERT_EQ(1, st.count());
-    ASSERT_EQ("foo", st.pop());
+    ASSERT_EQ("foo", st.top());
 }
 
 TEST(Stack, SelfCopyAssignment) {
@@ -175,7 +180,8 @@ TEST(Stack, SelfCopyAssignment) {
     st = st;
 
     for (int i = data.size() - 1; i >= 0; --i) {
-        ASSERT_EQ(data[i], st.pop());
+        ASSERT_EQ(data[i], st.top());
+        st.pop();
     }
 
     st.push("foo");
@@ -206,7 +212,10 @@ void assert_stack_copy_assignment(const std::array<T,NL>& lhs_data,
     ASSERT_EQ(rhs_st.count(), lhs_st.count());
 
     while (rhs_st.count()) {
-        ASSERT_EQ(rhs_st.pop(), lhs_st.pop());
+        ASSERT_EQ(rhs_st.top(), lhs_st.top());
+
+        lhs_st.pop();
+        rhs_st.pop();
     }
 }
 
@@ -240,7 +249,8 @@ TEST(Stack, MoveAssignment) {
     ASSERT_EQ(0, rhs.count());
 
     for (std::size_t i = data.size() - 1; i >= data.size() / 2; --i) {
-        ASSERT_EQ(data[i], lhs.pop());
+        ASSERT_EQ(data[i], lhs.top());
+        lhs.pop();
     }
 
     ASSERT_EQ(data.size() / 2, lhs.count());
@@ -249,7 +259,7 @@ TEST(Stack, MoveAssignment) {
 
     ASSERT_EQ("foo", rhs.top());
     ASSERT_EQ(1, rhs.count());
-    ASSERT_EQ("foo", rhs.pop());
+    ASSERT_EQ("foo", rhs.top());
 }
 
 TEST(Stack, LargeRandomDataSet) {
@@ -279,9 +289,10 @@ TEST(Stack, LargeRandomDataSet) {
     ASSERT_EQ(std_stack.size(), alg_stack.count());
 
     while (std_stack.size()) {
-        ASSERT_EQ(std_stack.top().data(), alg_stack.pop().data());
+        ASSERT_EQ(std_stack.top().data(), alg_stack.top().data());
 
         std_stack.pop();
+        alg_stack.pop();
     }
 
     ASSERT_EQ(0, alg_stack.count());

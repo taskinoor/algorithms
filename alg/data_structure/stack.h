@@ -24,7 +24,7 @@ public:
     ~Stack();
 
     void push(const T& element);
-    T pop();
+    void pop();
 
     T& top();
     const T& top() const;
@@ -89,16 +89,12 @@ void Stack<T>::push(const T& element) {
 }
 
 template <class T>
-T Stack<T>::pop() {
+void Stack<T>::pop() {
     if (!top_) {
         throw except::BufferEmpty();
     }
 
-    T element = buffer[--top_];
-
-    std::allocator_traits<allocator_type>::destroy(alloc, &buffer[top_]);
-
-    return element;
+    std::allocator_traits<allocator_type>::destroy(alloc, &buffer[--top_]);
 }
 
 template <class T>

@@ -1,6 +1,7 @@
 #include <array>
 #include <stack>
 #include <string>
+#include <type_traits>
 #include <utility>
 
 #include <gtest/gtest.h>
@@ -49,6 +50,24 @@ TEST(Stack, Top) {
 
     ASSERT_EQ(2, s.top());
     ASSERT_EQ(2, s.top());
+}
+
+TEST(Stack, TopReference) {
+    alg::ds::Stack<int> s(1);
+
+    s.push(2);
+
+    s.top() += 11;
+
+    ASSERT_EQ(13, s.top());
+}
+
+TEST(Stack, TopConstCorrectness) {
+    alg::ds::Stack<int> st(1);
+    const alg::ds::Stack<int> cst(1);
+
+    static_assert(std::is_same<decltype(st.top()), int&>::value, "");
+    static_assert(std::is_same<decltype(cst.top()), const int&>::value, "");
 }
 
 TEST(Stack, Count) {

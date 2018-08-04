@@ -24,9 +24,10 @@ public:
     ~Stack();
 
     void push(const T& element);
-
     T pop();
-    T top() const;
+
+    T& top();
+    const T& top() const;
 
     std::size_t count() const;
 
@@ -101,7 +102,12 @@ T Stack<T>::pop() {
 }
 
 template <class T>
-T Stack<T>::top() const {
+T& Stack<T>::top() {
+    return const_cast<T&>(static_cast<const Stack<T>*>(this)->top());
+}
+
+template <class T>
+const T& Stack<T>::top() const {
     if (!top_) {
         throw except::BufferEmpty();
     }

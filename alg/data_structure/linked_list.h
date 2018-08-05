@@ -39,21 +39,21 @@ public:
     Node<T>* last();
     const Node<T>* last() const;
 
-    Node<T>* after(Node<T>* p);
-    const Node<T>* after(Node<T>* p) const;
+    Node<T>* after(const Node<T>* p);
+    const Node<T>* after(const Node<T>* p) const;
 
-    Node<T>* before(Node<T>* p);
-    const Node<T>* before(Node<T>* p) const;
+    Node<T>* before(const Node<T>* p);
+    const Node<T>* before(const Node<T>* p) const;
 
-    void insert_after(Node<T>* p, T element);
-    void insert_before(Node<T>* p, T element);
-    void insert_first(T element);
-    void insert_last(T element);
+    void insert_after(Node<T>* p, const T& element);
+    void insert_before(Node<T>* p, const T& element);
+    void insert_first(const T& element);
+    void insert_last(const T& element);
 
-    Node<T>* search(T element);
-    const Node<T>* search(T element) const;
+    Node<T>* search(const T& element);
+    const Node<T>* search(const T& element) const;
 
-    void remove(Node<T>* p);
+    void remove(const Node<T>* p);
 
     Iterator<T>* create_iterator(bool forward = true);
     void destroy_iterator(Iterator<T>* iter);
@@ -149,13 +149,13 @@ const Node<T>* LinkedList<T>::last() const {
 }
 
 template <class T>
-Node<T>* LinkedList<T>::after(Node<T>* p) {
+Node<T>* LinkedList<T>::after(const Node<T>* p) {
     return const_cast<Node<T>*>(
             static_cast<const LinkedList<T>*>(this)->after(p));
 }
 
 template <class T>
-const Node<T>* LinkedList<T>::after(Node<T>* p) const {
+const Node<T>* LinkedList<T>::after(const Node<T>* p) const {
     if (p->next == tail) {
         return nullptr;
     }
@@ -164,13 +164,13 @@ const Node<T>* LinkedList<T>::after(Node<T>* p) const {
 }
 
 template <class T>
-Node<T>* LinkedList<T>::before(Node<T>* p) {
+Node<T>* LinkedList<T>::before(const Node<T>* p) {
     return const_cast<Node<T>*>(
             static_cast<const LinkedList<T>*>(this)->before(p));
 }
 
 template <class T>
-const Node<T>* LinkedList<T>::before(Node<T>* p) const {
+const Node<T>* LinkedList<T>::before(const Node<T>* p) const {
     if (p->prev == head) {
         return nullptr;
     }
@@ -179,7 +179,7 @@ const Node<T>* LinkedList<T>::before(Node<T>* p) const {
 }
 
 template <class T>
-void LinkedList<T>::insert_after(Node<T>* p, T element) {
+void LinkedList<T>::insert_after(Node<T>* p, const T& element) {
     Node<T>* node = new Node<T>(element);
 
     node->next = p->next;
@@ -189,7 +189,7 @@ void LinkedList<T>::insert_after(Node<T>* p, T element) {
 }
 
 template <class T>
-void LinkedList<T>::insert_before(Node<T>* p, T element) {
+void LinkedList<T>::insert_before(Node<T>* p, const T& element) {
     Node<T>* node = new Node<T>(element);
 
     node->next = p;
@@ -199,23 +199,23 @@ void LinkedList<T>::insert_before(Node<T>* p, T element) {
 }
 
 template <class T>
-void LinkedList<T>::insert_first(T element) {
+void LinkedList<T>::insert_first(const T& element) {
     insert_after(head, element);
 }
 
 template <class T>
-void LinkedList<T>::insert_last(T element) {
+void LinkedList<T>::insert_last(const T& element) {
     insert_before(tail, element);
 }
 
 template <class T>
-Node<T>* LinkedList<T>::search(T element) {
+Node<T>* LinkedList<T>::search(const T& element) {
     return const_cast<Node<T>*>(
             static_cast<const LinkedList<T>*>(this)->search(element));
 }
 
 template <class T>
-const Node<T>* LinkedList<T>::search(T element) const {
+const Node<T>* LinkedList<T>::search(const T& element) const {
     Node<T>* current = head->next;
 
     while (current != tail) {
@@ -229,7 +229,7 @@ const Node<T>* LinkedList<T>::search(T element) const {
 }
 
 template <class T>
-void LinkedList<T>::remove(Node<T>* p) {
+void LinkedList<T>::remove(const Node<T>* p) {
     p->prev->next = p->next;
     p->next->prev = p->prev;
 

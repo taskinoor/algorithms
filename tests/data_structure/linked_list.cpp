@@ -136,6 +136,25 @@ TEST(LinkedList, Remove) {
     list.destroy_iterator(iter_backward);
 }
 
+TEST(LinkedList, ConstCorrectness) {
+    using alg::ds::list::LinkedList;
+    using alg::ds::list::Node;
+
+    using std::is_same;
+
+    LinkedList<int> lst;
+    const LinkedList<int> clst;
+
+    static_assert(is_same<decltype(lst.first()), Node<int>*>::value, "");
+    static_assert(is_same<decltype(clst.first()), const Node<int>*>::value, "");
+
+    static_assert(is_same<decltype(lst.last()), Node<int>*>::value, "");
+    static_assert(is_same<decltype(clst.last()), const Node<int>*>::value, "");
+
+    static_assert(is_same<decltype(lst.search(0)), Node<int>*>::value, "");
+    static_assert(is_same<decltype(clst.search(0)), const Node<int>*>::value, "");
+}
+
 TEST(ListIterator, InsertFirst) {
     alg::ds::list::LinkedList<int> list;
     std::array<int, 7> data = {2, 3, 5, 7, 11, 13, 17};

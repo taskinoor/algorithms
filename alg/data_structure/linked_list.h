@@ -34,9 +34,16 @@ public:
     ~LinkedList();
 
     Node<T>* first();
+    const Node<T>* first() const;
+
     Node<T>* last();
+    const Node<T>* last() const;
+
     Node<T>* after(Node<T>* p);
+    const Node<T>* after(Node<T>* p) const;
+
     Node<T>* before(Node<T>* p);
+    const Node<T>* before(Node<T>* p) const;
 
     void insert_after(Node<T>* p, T element);
     void insert_before(Node<T>* p, T element);
@@ -44,6 +51,8 @@ public:
     void insert_last(T element);
 
     Node<T>* search(T element);
+    const Node<T>* search(T element) const;
+
     void remove(Node<T>* p);
 
     Iterator<T>* create_iterator(bool forward = true);
@@ -121,16 +130,32 @@ LinkedList<T>::~LinkedList() {
 
 template <class T>
 Node<T>* LinkedList<T>::first() {
+    return const_cast<Node<T>*>(static_cast<const LinkedList<T>*>(this)->first());
+}
+
+template <class T>
+const Node<T>* LinkedList<T>::first() const {
     return after(head);
 }
 
 template <class T>
 Node<T>* LinkedList<T>::last() {
+    return const_cast<Node<T>*>(static_cast<const LinkedList<T>*>(this)->last());
+}
+
+template <class T>
+const Node<T>* LinkedList<T>::last() const {
     return before(tail);
 }
 
 template <class T>
 Node<T>* LinkedList<T>::after(Node<T>* p) {
+    return const_cast<Node<T>*>(
+            static_cast<const LinkedList<T>*>(this)->after(p));
+}
+
+template <class T>
+const Node<T>* LinkedList<T>::after(Node<T>* p) const {
     if (p->next == tail) {
         return nullptr;
     }
@@ -140,6 +165,12 @@ Node<T>* LinkedList<T>::after(Node<T>* p) {
 
 template <class T>
 Node<T>* LinkedList<T>::before(Node<T>* p) {
+    return const_cast<Node<T>*>(
+            static_cast<const LinkedList<T>*>(this)->before(p));
+}
+
+template <class T>
+const Node<T>* LinkedList<T>::before(Node<T>* p) const {
     if (p->prev == head) {
         return nullptr;
     }
@@ -179,6 +210,12 @@ void LinkedList<T>::insert_last(T element) {
 
 template <class T>
 Node<T>* LinkedList<T>::search(T element) {
+    return const_cast<Node<T>*>(
+            static_cast<const LinkedList<T>*>(this)->search(element));
+}
+
+template <class T>
+const Node<T>* LinkedList<T>::search(T element) const {
     Node<T>* current = head->next;
 
     while (current != tail) {

@@ -1,3 +1,5 @@
+#include <type_traits>
+
 #include <gtest/gtest.h>
 
 #include "alg/common/exception.h"
@@ -66,6 +68,37 @@ TEST_F(Deque, Operations) {
     }
 
     assert_empty(deq);
+}
+
+TEST_F(Deque, BackReference) {
+    alg::ds::Deque<int> deq;
+
+    deq.push_back(2);
+
+    deq.back() += 11;
+
+    ASSERT_EQ(13, deq.back());
+}
+
+TEST_F(Deque, FrontReference) {
+    alg::ds::Deque<int> deq;
+
+    deq.push_front(2);
+
+    deq.front() += 11;
+
+    ASSERT_EQ(13, deq.front());
+}
+
+TEST_F(Deque, ConstOverloads) {
+    alg::ds::Deque<int> deq;
+    const alg::ds::Deque<int> cdeq;
+
+    static_assert(std::is_same<decltype(deq.back()), int&>::value, "");
+    static_assert(std::is_same<decltype(cdeq.back()), const int&>::value, "");
+
+    static_assert(std::is_same<decltype(deq.front()), int&>::value, "");
+    static_assert(std::is_same<decltype(cdeq.front()), const int&>::value, "");
 }
 
 }

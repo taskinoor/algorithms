@@ -18,8 +18,11 @@ public:
     void pop_back();
     void pop_front();
 
-    T back();
-    T front();
+    T& back();
+    const T& back() const;
+
+    T& front();
+    const T& front() const;
 
     std::size_t count() const;
 
@@ -28,7 +31,10 @@ private:
     std::size_t count_{0};
 
     list::Node<T>* back_node();
+    const list::Node<T>* back_node() const;
+
     list::Node<T>* front_node();
+    const list::Node<T>* front_node() const;
 };
 
 template <class T>
@@ -45,7 +51,13 @@ void Deque<T>::push_front(const T& element) {
 
 template <class T>
 list::Node<T>* Deque<T>::back_node() {
-    list::Node<T>* node = list.last();
+    return const_cast<list::Node<T>*>(
+            static_cast<const Deque<T>*>(this)->back_node());
+}
+
+template <class T>
+const list::Node<T>* Deque<T>::back_node() const {
+    const list::Node<T>* node = list.last();
 
     if (!node) {
         throw except::BufferEmpty();
@@ -56,7 +68,13 @@ list::Node<T>* Deque<T>::back_node() {
 
 template <class T>
 list::Node<T>* Deque<T>::front_node() {
-    list::Node<T>* node = list.first();
+    return const_cast<list::Node<T>*>(
+            static_cast<const Deque<T>*>(this)->front_node());
+}
+
+template <class T>
+const list::Node<T>* Deque<T>::front_node() const {
+    const list::Node<T>* node = list.first();
 
     if (!node) {
         throw except::BufferEmpty();
@@ -78,12 +96,22 @@ void Deque<T>::pop_front() {
 }
 
 template <class T>
-T Deque<T>::back() {
+T& Deque<T>::back() {
+    return const_cast<T&>(static_cast<const Deque<T>*>(this)->back());
+}
+
+template <class T>
+const T& Deque<T>::back() const {
     return back_node()->element();
 }
 
 template <class T>
-T Deque<T>::front() {
+T& Deque<T>::front() {
+    return const_cast<T&>(static_cast<const Deque<T>*>(this)->front());
+}
+
+template <class T>
+const T& Deque<T>::front() const {
     return front_node()->element();
 }
 
